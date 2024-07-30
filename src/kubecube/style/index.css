@@ -1,0 +1,73 @@
+.kube-textwrap {
+    width: 100%;
+    display: inline-block;
+    white-space: normal;
+    word-wrap: break-word;
+}
+.kube-texthidden {
+    width: 100%;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.kube-clear::after{
+    content: ' ';
+    display: table;
+    clear: both;
+}
+.kubeworkz-tab {
+    position: relative;
+}
+.kubeworkz-tab[active]{
+    overflow: hidden;
+}
+
+.kubeworkz-tab__container--is-active {
+    overflow: hidden;
+}
+.kubeworkz-tab-x-transition-enter-active, .kubeworkz-tab-x-transition-leave-active, .kubeworkz-tab-x-reverse-transition-enter-active, .kubeworkz-tab-x-reverse-transition-leave-active, .kubeworkz-tab-y-transition-enter-active, .kubeworkz-tab-y-transition-leave-active, .kubeworkz-tab-y-reverse-transition-enter-active, .kubeworkz-tab-y-reverse-transition-leave-active {
+    transition: .3s cubic-bezier(0.25, 0.8, 0.5, 1);
+}
+.kubeworkz-tab-x-transition-leave, .kubeworkz-tab-x-transition-leave-to, .kubeworkz-tab-x-reverse-transition-leave, .kubeworkz-tab-x-reverse-transition-leave-to, .kubeworkz-tab-y-transition-leave, .kubeworkz-tab-y-transition-leave-to, .kubeworkz-tab-y-reverse-transition-leave, .kubeworkz-tab-y-reverse-transition-leave-to {
+    position: absolute !important;
+    top: 0;
+    width: 100%;
+}
+.kubeworkz-tab-x-transition-enter {
+    transform: translateX(100%);
+}
+.kubeworkz-tab-x-transition-leave-to {
+    transform: translateX(-100%);
+}
+.kubeworkz-tab-x-reverse-transition-enter {
+    transform: translateX(-100%);
+}
+.kubeworkz-tab-x-reverse-transition-leave-to {
+    transform: translateX(100%);
+}
+.kubeworkz-tab-y-transition-enter {
+    transform: translateY(100%);
+}
+.kubeworkz-tab-y-transition-leave-to {
+    transform: translateY(-100%);
+}
+.kubeworkz-tab-y-reverse-transition-enter {
+    transform: translateY(-100%);
+}
+.kubeworkz-tab-y-reverse-transition-leave-to {
+    transform: translateY(100%);
+}
+.kube-float-layout{
+    position: relative;
+    max-width: 100%;
+}
+.kube-float-layout::after{
+    content: ' ';
+    display: table;
+    clear: both;
+}
+.kube-float-layout > * {
+    float: left;
+}
