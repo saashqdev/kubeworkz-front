@@ -1,7 +1,7 @@
-# 图表
+# Chart
 
-## 示例
-### 基本形式
+## Example
+### Basic form
 
 ``` vue
 <template>
@@ -18,21 +18,21 @@ export default {
                 endTime,
             },
             metric: {
-                title: '数据盘读写延时',
+                title: 'Data disk read and write latency',
                 unit: 'ms/op',
                 metrics: [
-                    { key: 'number', name: '数据盘读取延时' },
-                    { key: 'num', name: '数据盘写入延时' },
+                    { key: 'number', name: 'Data disk read delay' },
+                    { key: 'num', name: 'Data disk write delay' },
                 ],
                 preprocessor(options, chart) {
                     return Promise.resolve([
-                        { timestamp: new Date('2018-08-09').getTime(), number: 150, num: 1200 },
-                        { timestamp: new Date('2018-08-10').getTime(), number: 300, num: 1200 },
-                        { timestamp: new Date('2018-08-11').getTime(), number: 28, num: 1000 },
-                        { timestamp: new Date('2018-08-12').getTime(), number: 200, num: 2000 },
-                        { timestamp: new Date('2018-08-13').getTime(), number: 74, num: 740 },
-                        { timestamp: new Date('2018-08-14').getTime(), number: 532, num: 2000 },
-                        { timestamp: new Date('2018-08-15').getTime(), number: 420, num: 5000 },
+                        { timestamp: new Date('2023-08-09').getTime(), number: 150, num: 1200 },
+                        { timestamp: new Date('2023-08-10').getTime(), number: 300, num: 1200 },
+                        { timestamp: new Date('2023-08-11').getTime(), number: 28, num: 1000 },
+                        { timestamp: new Date('2023-08-12').getTime(), number: 200, num: 2000 },
+                        { timestamp: new Date('2023-08-13').getTime(), number: 74, num: 740 },
+                        { timestamp: new Date('2023-08-14').getTime(), number: 532, num: 2000 },
+                        { timestamp: new Date('2023-08-15').getTime(), number: 420, num: 5000 },
                     ]);
                 },
             },
@@ -44,7 +44,7 @@ export default {
 };
 </script>
 ```
-### 无弹窗
+### No pop-ups
 ``` vue
 <template>
 <u-monitor-chart-panel :no-model="true" style="margin-top:20px;" ref="chartPanel" :optionbar-options="{startTime: options.startTime, endTime: options.endTime,optionbarModules:['time'], noInterval: true}" :options="options" :key="metric.title" :metrics="metric.metrics" :title="metric.title" :unit="metric.unit" :preprocessor="metric.preprocessor"></u-monitor-chart-panel>
@@ -59,21 +59,21 @@ export default {
                 endTime,
             },
             metric: {
-                title: '数据盘读写延时',
+                title: 'Data disk read and write latency',
                 unit: 'ms/op',
                 metrics: [
-                    { key: 'number', name: '数据盘读取延时' },
-                    { key: 'num', name: '数据盘写入延时' },
+                    { key: 'number', name: 'Data disk read delay' },
+                    { key: 'num', name: 'Data disk write delay' },
                 ],
                 preprocessor(options, chart) {
                     return Promise.resolve([
-                        { timestamp: new Date('2018-08-09').getTime(), number: 150, num: 1200 },
-                        { timestamp: new Date('2018-08-10').getTime(), number: 300, num: 1200 },
-                        { timestamp: new Date('2018-08-11').getTime(), number: 28, num: 1000 },
-                        { timestamp: new Date('2018-08-12').getTime(), number: 200, num: 2000 },
-                        { timestamp: new Date('2018-08-13').getTime(), number: 74, num: 740 },
-                        { timestamp: new Date('2018-08-14').getTime(), number: 532, num: 2000 },
-                        { timestamp: new Date('2018-08-15').getTime(), number: 420, num: 5000 },
+                        { timestamp: new Date('2023-08-09').getTime(), number: 150, num: 1200 },
+                        { timestamp: new Date('2023-08-10').getTime(), number: 300, num: 1200 },
+                        { timestamp: new Date('2023-08-11').getTime(), number: 28, num: 1000 },
+                        { timestamp: new Date('2023-08-12').getTime(), number: 200, num: 2000 },
+                        { timestamp: new Date('2023-08-13').getTime(), number: 74, num: 740 },
+                        { timestamp: new Date('2023-08-14').getTime(), number: 532, num: 2000 },
+                        { timestamp: new Date('2023-08-15').getTime(), number: 420, num: 5000 },
                     ]);
                 },
             },
@@ -85,7 +85,7 @@ export default {
 };
 </script>
 ```
-### 无刷新
+### No refresh
 ``` vue
 <template>
 <u-monitor-chart-panel :no-refresh="true" style="margin-top:20px;" :optionbar-options="{startTime: options.startTime, endTime: options.endTime,optionbarModules:['time'], noInterval: true}" ref="chartPanel" :options="options" :key="metric.title" :metrics="metric.metrics" :title="metric.title" :unit="metric.unit" :preprocessor="metric.preprocessor"></u-monitor-chart-panel>
@@ -100,21 +100,21 @@ export default {
                 endTime,
             },
             metric: {
-                title: '数据盘读写延时',
+                title: 'Data disk read and write latency',
                 unit: 'ms/op',
                 metrics: [
-                    { key: 'number', name: '数据盘读取延时' },
-                    { key: 'num', name: '数据盘写入延时' },
+                    { key: 'number', name: 'Data disk read delay' },
+                    { key: 'num', name: 'Data disk write delay' },
                 ],
                 preprocessor(options, chart) {
                     return Promise.resolve([
-                        { timestamp: new Date('2018-08-09').getTime(), number: 150, num: 1200 },
-                        { timestamp: new Date('2018-08-10').getTime(), number: 300, num: 1200 },
-                        { timestamp: new Date('2018-08-11').getTime(), number: 28, num: 1000 },
-                        { timestamp: new Date('2018-08-12').getTime(), number: 200, num: 2000 },
-                        { timestamp: new Date('2018-08-13').getTime(), number: 74, num: 740 },
-                        { timestamp: new Date('2018-08-14').getTime(), number: 532, num: 2000 },
-                        { timestamp: new Date('2018-08-15').getTime(), number: 420, num: 5000 },
+                        { timestamp: new Date('2023-08-09').getTime(), number: 150, num: 1200 },
+                        { timestamp: new Date('2023-08-10').getTime(), number: 300, num: 1200 },
+                        { timestamp: new Date('2023-08-11').getTime(), number: 28, num: 1000 },
+                        { timestamp: new Date('2023-08-12').getTime(), number: 200, num: 2000 },
+                        { timestamp: new Date('2023-08-13').getTime(), number: 74, num: 740 },
+                        { timestamp: new Date('2023-08-14').getTime(), number: 532, num: 2000 },
+                        { timestamp: new Date('2023-08-15').getTime(), number: 420, num: 5000 },
                     ]);
                 },
             },
@@ -126,7 +126,7 @@ export default {
 };
 </script>
 ```
-### 刷新事件
+### Refresh event
 ``` vue
 <template>
 <u-monitor-chart-panel style="margin-top:20px;" ref="chartPanel" :optionbar-options="{startTime: options.startTime, endTime: options.endTime,optionbarModules:['time'], noInterval: true}" :options="options" :key="metric.title" :metrics="metric.metrics" :title="metric.title" :unit="metric.unit" @refresh="onRefresh" :preprocessor="metric.preprocessor"></u-monitor-chart-panel>
@@ -141,21 +141,21 @@ export default {
                 endTime,
             },
             metric: {
-                title: '数据盘读写延时',
+                title: 'Data disk read and write latency',
                 unit: 'ms/op',
                 metrics: [
-                    { key: 'number', name: '数据盘读取延时' },
-                    { key: 'num', name: '数据盘写入延时' },
+                    { key: 'number', name: 'Data disk read delay' },
+                    { key: 'num', name: 'Data disk write delay' },
                 ],
                 preprocessor(options, chart) {
                     return Promise.resolve([
-                        { timestamp: new Date('2018-08-09').getTime(), number: 150, num: 1200 },
-                        { timestamp: new Date('2018-08-10').getTime(), number: 300, num: 1200 },
-                        { timestamp: new Date('2018-08-11').getTime(), number: 28, num: 1000 },
-                        { timestamp: new Date('2018-08-12').getTime(), number: 200, num: 2000 },
-                        { timestamp: new Date('2018-08-13').getTime(), number: 74, num: 740 },
-                        { timestamp: new Date('2018-08-14').getTime(), number: 532, num: 2000 },
-                        { timestamp: new Date('2018-08-15').getTime(), number: 420, num: 5000 },
+                        { timestamp: new Date('2023-08-09').getTime(), number: 150, num: 1200 },
+                        { timestamp: new Date('2023-08-10').getTime(), number: 300, num: 1200 },
+                        { timestamp: new Date('2023-08-11').getTime(), number: 28, num: 1000 },
+                        { timestamp: new Date('2023-08-12').getTime(), number: 200, num: 2000 },
+                        { timestamp: new Date('2023-08-13').getTime(), number: 74, num: 740 },
+                        { timestamp: new Date('2023-08-14').getTime(), number: 532, num: 2000 },
+                        { timestamp: new Date('2023-08-15').getTime(), number: 420, num: 5000 },
                     ]);
                 },
             },
@@ -173,7 +173,7 @@ export default {
 </script>
 ```
 
-### 自定义数据间距
+### Custom data spacing
 ``` vue
 <template>
 <u-monitor-chart-panel style="margin-top:20px;" :x-axis="metric.xAxis" :optionbar-options="{startTime: options.startTime, endTime: options.endTime,optionbarModules:['time'], noInterval: true}" :y-axis="metric.yAxis" ref="chartPanel" :options="options" :key="metric.title" :metrics="metric.metrics" :title="metric.title" :unit="metric.unit" :preprocessor="metric.preprocessor"></u-monitor-chart-panel>
@@ -188,11 +188,11 @@ export default {
                 endTime,
             },
             metric: {
-                title: '数据盘读写延时',
+                title: 'Data disk read and write latency',
                 unit: 'ms/op',
                 metrics: [
-                    { key: 'number', name: '数据盘读取延时' },
-                    { key: 'num', name: '数据盘写入延时' },
+                    { key: 'number', name: 'Data disk read delay' },
+                    { key: 'num', name: 'Data disk write delay' },
                 ],
                 xAxis: {
                     key: 'timestr',
@@ -205,13 +205,13 @@ export default {
                 },
                 preprocessor(options, chart) {
                     return Promise.resolve([
-                        { timestamp: new Date('2018-08-09').getTime(), number: 150, num: 1200 },
-                        { timestamp: new Date('2018-08-10').getTime(), number: 300, num: 1200 },
-                        { timestamp: new Date('2018-08-11').getTime(), number: 28, num: 1000 },
-                        { timestamp: new Date('2018-08-12').getTime(), number: 200, num: 2000 },
-                        { timestamp: new Date('2018-08-13').getTime(), number: 74, num: 740 },
-                        { timestamp: new Date('2018-08-14').getTime(), number: 532, num: 2000 },
-                        { timestamp: new Date('2018-08-15').getTime(), number: 420, num: 5000 },
+                        { timestamp: new Date('2023-08-09').getTime(), number: 150, num: 1200 },
+                        { timestamp: new Date('2023-08-10').getTime(), number: 300, num: 1200 },
+                        { timestamp: new Date('2023-08-11').getTime(), number: 28, num: 1000 },
+                        { timestamp: new Date('2023-08-12').getTime(), number: 200, num: 2000 },
+                        { timestamp: new Date('2023-08-13').getTime(), number: 74, num: 740 },
+                        { timestamp: new Date('2023-08-14').getTime(), number: 532, num: 2000 },
+                        { timestamp: new Date('2023-08-15').getTime(), number: 420, num: 5000 },
                     ]);
                 },
             },
@@ -240,11 +240,11 @@ export default {
                 endTime,
             },
             metric: {
-                title: '数据盘读写延时',
+                title: 'Data disk read and write latency',
                 unit: 'ms/op',
                 metrics: [
-                    { key: 'number', name: '数据盘读取延时' },
-                    { key: 'num', name: '数据盘写入延时' },
+                    { key: 'number', name: 'Data disk read delay' },
+                    { key: 'num', name: 'Data disk write delay' },
                 ],
                 xAxis: {
                     key: 'timestr',
@@ -257,13 +257,13 @@ export default {
                 },
                 preprocessor(options, chart) {
                     return Promise.resolve([
-                        { timestamp: new Date('2018-08-09').getTime(), number: 150, num: 1200 },
-                        { timestamp: new Date('2018-08-10').getTime(), number: 300, num: 1200 },
-                        { timestamp: new Date('2018-08-11').getTime(), number: 28, num: 1000 },
-                        { timestamp: new Date('2018-08-12').getTime(), number: 200, num: 2000 },
-                        { timestamp: new Date('2018-08-13').getTime(), number: 74, num: 740 },
-                        { timestamp: new Date('2018-08-14').getTime(), number: 532, num: 2000 },
-                        { timestamp: new Date('2018-08-15').getTime(), number: 420, num: 5000 },
+                        { timestamp: new Date('2023-08-09').getTime(), number: 150, num: 1200 },
+                        { timestamp: new Date('2023-08-10').getTime(), number: 300, num: 1200 },
+                        { timestamp: new Date('2023-08-11').getTime(), number: 28, num: 1000 },
+                        { timestamp: new Date('2023-08-12').getTime(), number: 200, num: 2000 },
+                        { timestamp: new Date('2023-08-13').getTime(), number: 74, num: 740 },
+                        { timestamp: new Date('2023-08-14').getTime(), number: 532, num: 2000 },
+                        { timestamp: new Date('2023-08-15').getTime(), number: 420, num: 5000 },
                     ]);
                 },
                 processor(result, modal) {
@@ -279,7 +279,7 @@ export default {
 };
 </script>
 ```
-### 增加图表信息
+### Add chart information
 ``` vue
 <template>
 <u-monitor-chart-panel style="margin-top:20px;" :optionbar-options="{startTime: options.startTime, endTime: options.endTime,optionbarModules:['time'], noInterval: true}" :x-axis="metric.xAxis" :y-axis="metric.yAxis" ref="chartPanel" :options="options" :key="metric.title" :metrics="metric.metrics" :title="metric.title" :unit="metric.unit" :preprocessor="metric.preprocessor" :processor="metric.processor" :content-style ="{top:'115px'}">
@@ -288,8 +288,8 @@ export default {
             <span>{{ metric.title }} </span>
         </div>
         <div :class="$style.line">
-            <span :class="$style.text" style="width: 50%;">总计 10 次</span>
-            <span :class="$style.text" style="width: 50%;">频率 10 次/分</span>
+            <span :class="$style.text" style="width: 50%;">10 times in total</span>
+            <span :class="$style.text" style="width: 50%;">Frequency 10 times/min</span>
         </div>
     </template>
 </u-monitor-chart-panel>
@@ -305,11 +305,11 @@ export default {
                 endTime,
             },
             metric: {
-                title: '数据盘读写延时',
+                title: 'Data disk read and write latency',
                 unit: 'ms/op',
                 metrics: [
-                    { key: 'number', name: '数据盘读取延时' },
-                    { key: 'num', name: '数据盘写入延时' },
+                    { key: 'number', name: 'Data disk read delay' },
+                    { key: 'num', name: 'Data disk write delay' },
                 ],
                 xAxis: {
                     key: 'timestr',
@@ -322,13 +322,13 @@ export default {
                 },
                 preprocessor(options, chart) {
                     return Promise.resolve([
-                        { timestamp: new Date('2018-08-09').getTime(), number: 150, num: 1200 },
-                        { timestamp: new Date('2018-08-10').getTime(), number: 300, num: 1200 },
-                        { timestamp: new Date('2018-08-11').getTime(), number: 28, num: 1000 },
-                        { timestamp: new Date('2018-08-12').getTime(), number: 200, num: 2000 },
-                        { timestamp: new Date('2018-08-13').getTime(), number: 74, num: 740 },
-                        { timestamp: new Date('2018-08-14').getTime(), number: 532, num: 2000 },
-                        { timestamp: new Date('2018-08-15').getTime(), number: 420, num: 5000 },
+                        { timestamp: new Date('2023-08-09').getTime(), number: 150, num: 1200 },
+                        { timestamp: new Date('2023-08-10').getTime(), number: 300, num: 1200 },
+                        { timestamp: new Date('2023-08-11').getTime(), number: 28, num: 1000 },
+                        { timestamp: new Date('2023-08-12').getTime(), number: 200, num: 2000 },
+                        { timestamp: new Date('2023-08-13').getTime(), number: 74, num: 740 },
+                        { timestamp: new Date('2023-08-14').getTime(), number: 532, num: 2000 },
+                        { timestamp: new Date('2023-08-15').getTime(), number: 420, num: 5000 },
                     ]);
                 },
                 processor(result, modal) {
@@ -363,29 +363,29 @@ export default {
 
 | Prop/Attr | Type | Default | Description |
 | --------- | ---- | ------- | ----------- |
-| dimensions | Array |  | 维度信息，图表请求源数据透传到图表请求处理 |
-| filters | Object |  | 维度信息，图表请求源数据透传到图表请求处理 |
-| options | Object |  | 维度信息，图表请求源数据透传到图表请求处理 |
-| metrics | Object |  | 维度信息，图表请求源数据透传到图表请求处理 |
-| optionbarOptions | Object |  | 弹窗条件输入栏参数 |
-| modalConfig | Object |  | 图表弹窗传参 |
-| unit | String |  | 数据单位 |
-| title | String |  | 图表标题 |
-| titleAlign | String | 'left' | 图表标题的对齐方式，默认是居中，值有:left,center,right |
-| contentStyle | Object | | 图表内容样式 |
-| xAxis | Object | { key: 'timestr', count: 6, }| 图表x轴数据展示方式 |
-| yAxis | Object | { min: 0,name: '',count: 6, }| 图表y轴数据展示方式 |
-| preprocessor | Function |  | 图表请求数据前处理 |
-| processor | Function |  | 图表请求数据后处理 |
-| noModel | Boolean |  | 隐藏弹窗 |
-| noRefresh | Boolean |  | 隐藏刷新 |
-| noModalHeader | Boolean |  | 隐藏弹窗表头 |
-| templateData | Object |  | 图表模板数据注入 |
-| modalTemplateData | Object |  | 图表弹窗模板数据注入 |
+| dimensions | Array |  | Dimension information, chart request source data are transparently transmitted to chart request processing |
+| filters | Object |  | Dimension information, chart request source data are transparently transmitted to chart request processing |
+| options | Object |  | Dimension information, chart request source data are transparently transmitted to chart request processing |
+| metrics | Object |  | Dimension information, chart request source data are transparently transmitted to chart request processing |
+| optionbarOptions | Object |  | Pop-up window condition input field parameters |
+| modalConfig | Object |  | Chart pop-up window parameter transfer |
+| unit | String |  | Data unit |
+| title | String |  | Chart title |
+| titleAlign | String | 'left' | The alignment of the chart title, the default is centered, the values ​​are: left, center, right |
+| contentStyle | Object | | Chart content style |
+| xAxis | Object | { key: 'timestr', count: 6, }| Chart x-axis data display method |
+| yAxis | Object | { min: 0,name: '',count: 6, }| Chart y-axis data display method |
+| preprocessor | Function |  | Chart request data pre-processing |
+| processor | Function |  | Chart request data post-processing |
+| noModel | Boolean |  | Hide pop-up window |
+| noRefresh | Boolean |  | Hide refresh |
+| noModalHeader | Boolean |  | Hide pop-up header |
+| templateData | Object |  | Chart template data injection |
+| modalTemplateData | Object |  | Chart pop-up template data injection |
 
 ## Slots
 
 | Slot  | Description |
 | --------- | ---- |
-| titleTemplate | 自定义标题内容 |
-| captionTemplate | 自定义caption内容 |
+| titleTemplate | Custom title content |
+| captionTemplate | Customize caption content |

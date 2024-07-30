@@ -9,8 +9,8 @@
                 {{link.info.errorRatio | integer }}% errors
             </tspan>
         </text>
-        <!-- 调用链上的内容展示逻辑 -->
-        <!-- 优化：只展示responseTime和requestCount -->
+        <!-- Content display logic on the call chain -->
+        <!-- Optimization: only display responseTime and requestCount -->
         <text :class="$style.text" v-if="isSnap&&!noData" text-anchor="middle" :transform="translate">
             <tspan x="0" dy="-12">{{link.info.numberOfCalls}} calls, {{link.info.averageResponseTime | dayStr(' ms', ' s', 0, true, {'s': 2})}}</tspan>
         </text>

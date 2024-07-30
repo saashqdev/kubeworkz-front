@@ -33,7 +33,7 @@
 .zoomIcon::after {
     icon-font: url('../assets/svg/chart-zoom.svg');
 }
-/*------------------ 安全服务页面 ----------------------*/
+/*------------------ Security service page ----------------------*/
 .btn-security {
     top: 5px;
     right: 0;

@@ -3,7 +3,7 @@
     <text data-tag="effect" fill="#666" :class="$style.text" y="9" text-anchor="middle">{{node.backendName}}</text>
     <text class="topoGraph_details" text-anchor="middle" x="2" y="38">
         <tspan class="topoGraph_type" y="16">&nbsp;</tspan>
-        <!-- node.id的数据是调用链需要 -->
+        <!-- The data of node.id is required by the call chain -->
         <template v-if="node.name.length > 32">
             <tspan x="0" dy="20" fill="#999">{{node.name.slice(0, 32)}}</tspan>
             <tspan x="0" dy="20" fill="#999">{{node.name.slice(32)}}</tspan>

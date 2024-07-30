@@ -1,7 +1,7 @@
 # Well
 
-## 示例
-### 基本形式
+## Example
+### Basic form
 
 ``` html
 <u-well>

@@ -41,7 +41,7 @@ module.exports = function customCommand(api) {
     api.modifyCreateDevServer(() => {
         const vueService = require('./lib/vue-cli-service');
 
-        // 开发模式先清除 public 文件
+        // In development mode, clear public files first
         const publicPath = path.resolve(api.root, 'public');
         if (fs.existsSync(publicPath)) {
             fs.removeSync(publicPath);
@@ -60,8 +60,8 @@ module.exports = function customCommand(api) {
                 if (globalVueConfig && globalVueConfig.devServer) {
                     port = globalVueConfig.devServer.port;
                 }
-                api.logger.info('[Proxy URL]', '代理的开发地址可能如下：');
-                api.logger.info('[Proxy URL]', `http://dev.console.qa-ci.service.163.org:${port}`);
+                api.logger.info('[Proxy URL]', 'The agent\'s development address may be as follows:');
+                api.logger.info('[Proxy URL]', `http://dev.console.qa-ci.service.kubeworkz.io:${port}`);
             });
         };
     });
@@ -81,7 +81,7 @@ module.exports = function customCommand(api) {
 
             return vueService(argv).then(() => {
                 if (!api.context.subModule) {
-                // 输出当前 git 版本信息
+                // Output current git version information
                     let outputDir;
                     const webpackConfig = api.getState('webpackConfig');
                     if (webpackConfig) {
@@ -90,10 +90,10 @@ module.exports = function customCommand(api) {
                     if (!outputDir && globalVueConfig) {
                         outputDir = globalVueConfig.outputDir;
                     }
-                    api.logger.info('[Build]', '主应用构建完成！');
+                    api.logger.info('[Build]', 'The main application was built!');
 
                 }
-                api.logger.info('[Build]', '构建完成！');
+                api.logger.info('[Build]', 'The build is complete!');
 
             });
         };

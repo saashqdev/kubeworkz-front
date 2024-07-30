@@ -3,13 +3,13 @@ const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 module.exports = function(api, opts) {
     const __DEV__ = api.mode === 'development';
-    const root = api.root; // 主容器根目录
+    const root = api.root; // Main container root directory
 
-    // 修改通用 webpack 配置, 此修改会对所有模块进行使用.
+    // Modify the general webpack configuration, this modification will be used by all modules.
     api.modifyChainWebpackConfig(webpackChainConfig => {
     //     add(webpackChainConfig, 'dll', Object.assign({}, opts, { root }));
         add(webpackChainConfig, 'ui', Object.assign({}, opts, { root }));
-        // 锁死路径
+        // locked path
         console.log(require.resolve('vue'))
         console.log(require.resolve('@joskii/jchart'))
         webpackChainConfig.resolve.alias
@@ -31,7 +31,7 @@ module.exports = function(api, opts) {
             .use('vue-loader')
             .loader('vue-loader')
             .tap(options => {
-                options.compilerOptions.preserveWhitespace = false; // 兼容之前版本
+                options.compilerOptions.preserveWhitespace = false; // Compatible with previous versions
                 return options;
             });
         webpackChainConfig.plugin('monaco-webpack-plugin').use(MonacoWebpackPlugin, [{
@@ -45,7 +45,7 @@ module.exports = function(api, opts) {
                 favicon: path.resolve(__dirname, '../src/kubeworkz/component/global/icon/logo.png'),
             }]));
         // webpackChainConfig.plugin('bundle-analyzer').use(BundleAnalyzerPlugin);
-        return webpackChainConfig; // 一定要返回
+        return webpackChainConfig; // Must return
     });
 };
 function add(config, fnName, options) {

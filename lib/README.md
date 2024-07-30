@@ -1,3 +1,3 @@
-# 注意
+# Notice
 
-请使用别名 `@necfe/cloud-ui-internal` 引用 `cloud-ui-internal` 中的文件
+Please use the alias `@necfe/cloud-ui-internal` to reference files in `cloud-ui-internal`
