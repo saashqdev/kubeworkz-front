@@ -1,18 +1,18 @@
-# 面包屑导航
+# Breadcrumbs
 
-## 示例
-### 基本形式
+## Example
+### Basic form
 
 ``` html
-<u-log-time strogageName="nlsTime"></u-log-time>
+<u-log-time storageName="nlsTime"></u-log-time>
 ```
-### 限制最小日期
+### Limit minimum date
 ``` html
-<u-log-time strogageName="nlsTime" :min="new Date('2018-10-11 18:26:22').getTime()"></u-log-time>
+<u-log-time storageName="nlsTime" :min="new Date('2024-10-11 18:26:22').getTime()"></u-log-time>
 ```
-### 限制最大日期
+### Limit maximum date
 ``` html
-<u-log-time strogageName="nlsTime" :max="new Date('2018-10-11 18:26:22').getTime()"></u-log-time>
+<u-log-time storageName="nlsTime" :max="new Date('2024-10-11 18:26:22').getTime()"></u-log-time>
 ```
 
 # API
@@ -20,6 +20,6 @@
 
 | Prop/Attr | Type | Default | Description |
 | --------- | ---- | ------- | ----------- |
-| strogageName | String |  | LocalStrogage存储的名称 |
-| min | Number |  |  限制最小值，时间戳 |
-| max | Number |  |  限制最大值，时间戳 |
+| storageName | String |  | The name of LocalStorage storage |
+| min | Number |  |  Limit minimum value, timestamp |
+| max | Number |  |  Limit maximum value, timestamp |

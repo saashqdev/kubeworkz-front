@@ -1,26 +1,26 @@
 # Well
 
-## 示例
-### 基本形式
+## Example
+### Basic form
 
 ``` vue
 <template>
-     <u-icon-input style="width:300px" @reset="resetSearch" close @keypress.enter="startSearch" :value="keyWord" v-model="keyWord" placeholder="输入搜索关键词">
+     <u-icon-input style="width:300px" @reset="resetSearch" close @keypress.enter="startSearch" :value="keyWord" v-model="keyWord" placeholder="Enter search keywords">
     </u-icon-input>
 </template>
 <script>
 export default {
     data() {
         return {
-            keyWord: '测试',
+            keyWord: 'test',
         };
     },
     methods: {
         resetSearch($event) {
-            // close点击重置搜索内容
+            // closeClick to reset search content
         },
         startSearch() {
-            // 开始搜索
+            // Start search
         },
     },
 };
@@ -31,9 +31,9 @@ export default {
 ### Attrs/Props
 | Attr/Prop | Type | Default | Description |
 | --------- | ---- | ------- | ----------- |
-| icon | String | `'search'` | icon种类，仅内置search |
-| .... | Other | 同u-input | 同u-input  |
+| icon | String | `'search'` | icon type, only built-in search |
+| .... | Other | ui-input | ui-input  |
 
 
-### Events（参见使用的ui库中的u-input）
+### Events（See ui-input in the ui library used）
 
