@@ -49,12 +49,12 @@ export default {
         value: String,
         size: { type: String, default: 'auto' },
         maxlength: { type: String, default: '128' },
-        placeholder: { type: String, default: '请输入密码' },
+        placeholder: { type: String, default: 'Please enter password' },
         disabled: { type: Boolean, default: false },
     },
     data() {
         return {
-            show: false, // 是否隐藏密码
+            show: false, // Whether to hide password
             currentValue: this.value,
         };
     },

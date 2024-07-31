@@ -13,7 +13,7 @@ export default {
         search(value) {
             this.formSort.filterby = 'name';
             this.formSort.filtervalue = value;
-            // 重置
+            // reset
             this.page = 1;
             this.form && (this.form.offset = 0);
 

@@ -2,10 +2,10 @@ const STAGE2START_WIDTH = 120 + 75 - 20; // 175
 const START2SERVER_WIDTH = 150;
 const SERVER2BRANCH_WIDTH = 75 + 60 + 30; // 165
 const BRANCH2BRANCH_WIDTH = 120 + 10; // 140
-const GTXSId = 'gtxs-server'; // 为分布式事务服务分配的模拟id，前后端约定一致
+const GTXSId = 'gtxs-server'; // The simulation ID assigned to the distributed transaction service, the front-end and back-end conventions are consistent
 const EVENTTYPE = {
-    CommitGlobalTx: '提交事务',
-    RollbackGlobalTx: '回滚事务',
+    CommitGlobalTx: 'Commit transaction',
+    RollbackGlobalTx: 'Rollback transaction',
 };
 
 export default {
@@ -41,7 +41,7 @@ export default {
             },
             pointWidths: [STAGE2START_WIDTH, START2SERVER_WIDTH, SERVER2BRANCH_WIDTH].concat(Children.map(() => BRANCH2BRANCH_WIDTH)),
             branchNames,
-            fail: this.info.Status === 5 || this.info.Status === 8 || this.info.Status === 9, // confirm || cancel 失败 || 初始化超时
+            fail: this.info.Status === 5 || this.info.Status === 8 || this.info.Status === 9, // confirm || cancel failed || initialization timeout
         };
     },
     computed: {
@@ -65,9 +65,9 @@ export default {
                 return acc;
             }, 0);
         },
-        // phase 阶段
+        // phase stage
         formatEvent(event, phase = 1) {
-            // 是否是通过取 InstanceName 作为展示
+            // Whether it is displayed by taking InstanceName
             const { ParentId, BranchId, FromXid, ToXid, InstanceName, DisplayContent, Status } = event;
             const isInstanceName = !!BranchId;
             const startIndex = this.getIndex(isInstanceName ? ParentId : FromXid);
@@ -99,7 +99,7 @@ export default {
             });
 
             const list = [
-                { events: onePhaseEvents, stageText: '开启事务' },
+                { events: onePhaseEvents, stageText: 'Open transaction' },
                 { events: twoPhaseEvents, stageText: '' },
             ];
 

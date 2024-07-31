@@ -1,9 +1,9 @@
 /* @import 'proto-ui.vusion/src/u-input.vue/module.css'; */
-/* 暂时没办法import其他文件 */
+/* There is currently no way to import other files */
 .root {
     display: inline-block;
     position: relative;
-    max-width: 100%; /* 防止表格等小的地方超出区域 */
+    max-width: 100%; /* Prevent small places such as tables from exceeding the area */
     width: $width-base;
     height: $height-base;
     background: white;
@@ -132,7 +132,7 @@
 .input[size$="full"][close] { padding-right: 30px; }
 .root[size^="full"] { height: 100%; }
 
-/* 错误信息相关样式 */
+/* Error message related styles */
 .message {
     position: absolute;
     left: 100%;

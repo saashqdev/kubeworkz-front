@@ -4,7 +4,7 @@
             <slot></slot>
         </table>
         <p v-if="dynamic">
-            <u-form-table-add-button :disabled="disabled" @click="addNewTr()">添加{{ description }}</u-form-table-add-button>
+            <u-form-table-add-button :disabled="disabled" @click="addNewTr()">Add to{{ description }}</u-form-table-add-button>
         </p>
     </div>
 </template>

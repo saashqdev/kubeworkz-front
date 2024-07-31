@@ -1,7 +1,7 @@
 import { Input } from 'cloud-ui.vusion';
 import Validator from '@micro-app/common/utils/validator';
 
-// 具有单独validate功能的u-input组件
+// u-input component with separate validate function
 export default {
     name: 'u-validate-input',
     mixins: [Input],
@@ -17,9 +17,9 @@ export default {
         };
     },
     created() {
-        // name是必填的属性了
+        // name is a required attribute
         if (!this.name)
-            throw new Error('请指定input的name属性');
+            throw new Error('Please specify the name attribute of input');
 
         this.validator = new Validator({
             key: this.name,
@@ -40,8 +40,8 @@ export default {
             this.$emit('blur', e);
         },
         onCompositionEnd(e) {
-            // 中文输入的时候，会先触发onInput事件，再触发此事件，导致不能捕捉到中文输入
-            // 因此需要特殊处理，此时compositionInputing值为true
+            // When inputting Chinese, the onInput event will be triggered first, and then this event will be triggered, resulting in the inability to capture Chinese input.
+            // Therefore, special processing is required. At this time, the compositionInputing value is true.
             this.compositionInputing = false;
             this.currentValue = e.target.value;
             this.$emit('input', this.currentValue);
@@ -50,8 +50,8 @@ export default {
         },
         validate(value) {
             value = value || this.currentValue;
-            // todo：支持多项的validate
-            // errors为对应字段的哪条rule报错
+            // todo: supports multiple validates
+            // errors indicates which rule of the corresponding field reports an error do: supports multiple validates
             this.validator.validate(value, (errors, fields) => {
                 this.currentColor = errors ? 'error' : '';
                 this.currentMessage = errors && errors[0].message;

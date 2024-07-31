@@ -1,32 +1,32 @@
 <template>
 	<u-linear-layout direction="vertical">
-        <!-- 这里通过一个random，可以保证内部的所有组件都是数据独立的 -->
+        <!-- Here, through a random, all internal components can be guaranteed to be data independent. -->
         <div :class="$style.root" :mini="index !== current" v-for="(item, index) in sortList" :key="randoms[index]" :size="size">
-            <!-- 最小化显示节点 -->
+            <!-- Minimize display node -->
             <div v-show="index !== current" :class="$style.mini" @click="open(index)">
-                <!-- 容器名称 -->
+                <!-- Container name -->
                 <span :class="$style.rootName" :title="item.miniText">{{ item.miniText || '-' }}</span>
                 <div :class="$style.textWrap">
-                    <!-- 错误提示 -->
+                    <!-- Error message -->
                     <span :class="$style.tip" v-show="item.errTips">{{ item.errTips }}</span>
-                    <!-- 展开操作 -->
-                    <u-link @click="open(index)">展开</u-link>
+                    <!-- Expand operation -->
+                    <u-link @click="open(index)">Expand</u-link>
                 </div>
             </div>
             <div v-show="index == current">
                 <div :class="$style.operate">
                     <u-linear-layout>
                         <slot name="operate" :item="item"></slot>
-                        <u-link :disabled="disabledDelete" @click="deleteItem(index)">删除</u-link>
-                        <u-link @click="close">收起</u-link>
+                        <u-link :disabled="disabledDelete" @click="deleteItem(index)">Delete</u-link>
+                        <u-link @click="close">Close</u-link>
                     </u-linear-layout>
                 </div>
 
                 <slot :item="item" :index="index" :random="randoms[index]"></slot>
             </div>
         </div>
-        <!-- 存在没有初始项的情况，需要设置宽度 -->
-        <u-form-table-add-button :class="$style.addButton" v-if="needAdd" :size="size" :is-container="true" :disabled="disabledAdd" @click="add">{{ addBtnInfo.text }}{{ disabledAdd ? `（最多添加${addBtnInfo.max}个）` : '' }}</u-form-table-add-button>
+        <!-- There is a situation where there is no initial item and the width needs to be set. -->
+        <u-form-table-add-button :class="$style.addButton" v-if="needAdd" :size="size" :is-container="true" :disabled="disabledAdd" @click="add">{{ addBtnInfo.text }}{{ disabledAdd ? `(Add up to ${addBtnInfo.max} indivual)` : '' }}</u-form-table-add-button>
     </u-linear-layout>
 </template>
 <style module>
@@ -109,13 +109,13 @@ export default {
         getDefaultItem: Function,
         getErrorTip: Function,
         needAdd: { type: Boolean, default: true },
-        needInit: { type: Boolean, default: true }, // 初始为空时，是否增加一些空项
-        canDelete: { type: Boolean, default: true }, // 是否能够支持正常的删除逻辑
+        needInit: { type: Boolean, default: true }, // When initially empty, whether to add some empty items
+        canDelete: { type: Boolean, default: true }, // Whether it can support normal deletion logic
         size: String,
     },
     data() {
         return {
-            current: 0, // -1 表示全部最小化
+            current: 0, // -1 Indicates all minimized
             sortList: [],
             isAdd: false,
             randoms: [],
@@ -123,7 +123,7 @@ export default {
     },
     computed: {
         disabledDelete() {
-            // 没有初始化的情况，可以全删除(disabledDelete => false)
+            // If there is no initialization, you can delete it entirely. (disabledDelete => false)
             return this.needInit ? (this.canDelete ? this.sortList.length < 2 : true) : false;
         },
         disabledAdd() {
@@ -136,8 +136,8 @@ export default {
             this.parseData();
         },
         current(value) {
-            // 展开具体某项时，可能有些额外操作.
-            // 例如，需要对整体进行一次validate(新加项时，不能validate)
+            // When expanding a specific item, there may be some additional operations.
+            // For example, it is necessary to validate the whole thing (when adding a new item, it cannot be validated)
             value >= 0 && this.$emit('open', {
                 index: value,
                 isAdd: this.isAdd,
@@ -159,7 +159,7 @@ export default {
                 this.randoms.push(this.getRandomNum());
                 return item;
             });
-            // 当列表为空时，添加第一项
+            // When the list is empty, add the first item
             if (!this.sortList.length && this.needInit) {
                 this.add();
             }

@@ -35,5 +35,5 @@
       }
     </style>
   </defs>
-  <path id="返回.svg" class="cls-1" d="M200,105V83h30v22H200Zm29-21H201v20h28V84Zm-12,4.343,0.707,0.707L212.757,94l4.95,4.95L217,99.657l-4.95-4.95L211.343,94l0.707-.707Z" transform="translate(-199 -78)"/>
+  <path id="return.svg" class="cls-1" d="M200,105V83h30v22H200Zm29-21H201v20h28V84Zm-12,4.343,0.707,0.707L212.757,94l4.95,4.95L217,99.657l-4.95-4.95L211.343,94l0.707-.707Z" transform="translate(-199 -78)"/>
 </svg>

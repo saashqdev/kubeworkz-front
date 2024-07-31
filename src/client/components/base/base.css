@@ -17,11 +17,11 @@ body{
 }
 
 .g-sidebar {
-    /* sidebar的宽度 + 5px(滚动条的宽度) + 1px */
+    /* The width of the sidebar + 5px (the width of the scroll bar) + 1px */
     width: 186px;
     height: 100%;
 }
-/* 一级菜单和二级菜单的sidebar的长度固定，兼容有无滚动条 */
+/* The length of the sidebar of the first-level menu and the second-level menu is fixed and is compatible with or without scroll bars. */
 .g-sidebar > ul > li, .g-sidebar .m-sidebar-group > div > li {
     width: 180px;
 }
@@ -43,7 +43,7 @@ body{
 }
 
 ::-webkit-scrollbar {
-    /* width: 控制纵向滚动条的宽度，height: 控制横向滚动条的宽度 */
+    /* width: controls the width of the vertical scroll bar, height: controls the width of the horizontal scroll bar */
     width: 5px;
     height: 5px;
 }
@@ -56,7 +56,7 @@ body{
     border-radius:5px;
 }
 
-/* u-chips单项的样式 */
+/* u-chips single item style */
 .u-chip {
     position: relative;
     box-sizing: border-box;
@@ -88,7 +88,7 @@ body{
 .g-withTable thead > tr {
     background-color: transparent;
 }
-/* 设置二级菜单的头部的颜色 */
+/* Set the color of the header of the secondary menu */
 .m-sidebar-group > div { color: #4c4e58; }
-/* 设置二级菜单的左侧的偏移量 */
+/* Set the offset color on the left side of the secondary menu */
 .m-sidebar-group > div > li { padding-left: 47px; }

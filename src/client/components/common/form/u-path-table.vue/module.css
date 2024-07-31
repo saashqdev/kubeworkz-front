@@ -6,7 +6,7 @@ $button-height: 36px;
 $brand-height: 36px;
 $stage-text-height: 24px;
 $background-color: #f4f5f9;
-/* 分割线 */
+/* Dividing line */
 $dividing-line-color: white; 
 
 
@@ -51,7 +51,7 @@ $dividing-line-color: white;
 .row + .row {
     border-top: 2px solid $dividing-line-color;
 }
-/* 参与方 */
+/* participants */
 .wrap[part] {
     position: relative;
     text-align: left;
@@ -86,11 +86,11 @@ $dividing-line-color: white;
     border: 5px solid $success-color;
     border-radius: 5px;
 }
-/* 结束事务需要标红的情形 */
+/* Situations that need to be marked red when ending a transaction */
 .axis[fail]:after {
     border-color: $error-color;
 }
-/* 虚线图 */
+/* dashed line graph */
 .axis[dashed]:before {
     left: 50%;
     border-left-style: dashed;
@@ -99,7 +99,7 @@ $dividing-line-color: white;
     display: none;
 }
 
-/* stage 文案 */
+/* stage copywriting */
 .stageText {
     padding-left: 10px;
     height: $stage-text-height;
@@ -128,7 +128,7 @@ $dividing-line-color: white;
     background: $background-color;
 }
 
-/* 事件连线 */
+/* event connection */
 .eventsWrap {
     position: relative;
     z-index: 1;

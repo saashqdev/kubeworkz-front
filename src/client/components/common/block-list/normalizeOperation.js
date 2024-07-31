@@ -6,7 +6,7 @@ function merge(op1, op2) {
 
 /**
  *
- * @param {*} op  //  { type: 'create', text: '创建制品库', click() => {}, to: ... }
+ * @param {*} op  //  { type: 'create', text: 'Create product library', click() => {}, to: ... }
  */
 function create(op) {
     const res = {
@@ -21,7 +21,7 @@ function create(op) {
 /**
  *
  * @param {*} op    { type: 'fresh' }
- * @param {*} vm    u-block-list组件
+ * @param {*} vm    u-block-list component
  */
 function refresh(op, vm) {
     const res = {

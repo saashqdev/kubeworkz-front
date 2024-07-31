@@ -7,10 +7,10 @@ export default {
     props: {
         disabled: Boolean,
         topAlign: { type: Boolean, default: true }, // vertical-align: top;
-        ignore: { type: Boolean, default: false }, // 是否忽略对应行的逻辑检查
-        canBeEmpty: { type: Boolean, default: true }, // 是否允许空数组
-        isEmpty: { type: Function }, // 判读是否是无效数组项的方法
-        global: { type: Boolean, default: true }, // 是否向u-form抛出事件
+        ignore: { type: Boolean, default: false }, // Whether to ignore the logical check of the corresponding line
+        canBeEmpty: { type: Boolean, default: true }, // Whether to allow empty arrays
+        isEmpty: { type: Function }, // How to judge whether it is an invalid array item
+        global: { type: Boolean, default: true }, // Whether to throw events to u-form
     },
     mixins: [uFromItems],
     created() {
@@ -59,7 +59,7 @@ export default {
                     return Promise.resolve();
                 }
 
-                // 对于单行多个输入框，使用this.name会重复，validator.validate()方法会报错
+                // For multiple input boxes in a single line, using this.name will be repeated, and the validator.validate() method will report an error.
                 // const name = this.name || 'field';
                 const name = fieldVM.$attrs.name || 'field';
                 const validator = new Validator({
@@ -67,8 +67,8 @@ export default {
                 });
 
                 return new Promise((resolve, reject) => {
-                    // 这里的index为 u-inputs-** 相关组件当中，当前validate项的索引
-                    // 在rules的声明中，通过（rule, value, callback, source, options）中的options.index, 可以获取到
+                    // The index here is the index of the current validate item among u-inputs-** related components.
+                    // In the declaration of rules, it can be obtained through options.index in (rule, value, callback, source, options)
                     validator.validate({ [name]: fieldVM.value }, { firstFields: true, index: this.currentIndex }, (errors, fields) => {
                         if (errors) {
                             !silent && (fieldVM.currentColor = 'error');
@@ -90,9 +90,9 @@ export default {
                 if (!silent) {
                     this.currentMessage = errors.length && errors[0].message;
                 }
-                // 给u-form-table发送的validate信息可以精确定位到是u-form下哪个子组件有问题
+                // The validate information sent to u-form-table can accurately locate which sub-component under u-form has a problem.
                 this.dispatch('u-form-table', 'validate-item-tr', !errors);
-                // 给u-form发送的validate信息可以使valid在u-form统一做
+                // The validate information sent to u-form can enable the validation to be done uniformly in u-form.
                 this.global && this.dispatch('u-form', 'validate-item-vm', !errors);
             });
         },

@@ -30,11 +30,11 @@
 import normalizeOperation from './normalizeOperation';
 
 export default {
-    // 通过 base/mixins/u-block-list.js 引入组件
+    // pass base/mixins/u-block-list.js Introduce components
     // config: {
-    //     breads: ['制品库'],
+    //     breads: ['Product library'],
     //     operations: [
-    //         { type: 'create', text: '创建制品库', click: () => {
+    //         { type: 'create', text: 'Create product library', click: () => {
     //             this.$refs.create.open();
     //         } },
     //         { type: 'refresh' },

@@ -87,7 +87,7 @@ export default {
                     return Promise.resolve();
                 }
 
-                // 对于单行多个输入框，使用this.name会重复，validator.validate()方法会报错
+                // For multiple input boxes in a single line, using this.name will be repeated, and the validator.validate() method will report an error.
                 // const name = this.name || 'field';
                 const name = fieldVM.$attrs.name || 'field';
                 const validator = new Validator({
