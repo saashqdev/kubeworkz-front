@@ -12,12 +12,12 @@
                         <u-text style="width: 310px" wrap="ellipsis">{{ model.name }}</u-text>
                     </div>
                     <div :class="$style.tags" @click.stop>
-                        <u-suggest size="small" style="width: 310px;line-height: 1.8em; height: auto;" empty-text="无匹配标签" v-model="tagName" :data="tagNames"></u-suggest>
+                        <u-suggest size="small" style="width: 310px;line-height: 1.8em; height: auto;" empty-text="No matching tags" v-model="tagName" :data="tagNames"></u-suggest>
                     </div>
                 </div>
             </u-linear-layout>
             <div :class="$style.optionBox">
-                <u-link>选择</u-link>
+                <u-link>Choose</u-link>
             </div>
         </div>
     </div>

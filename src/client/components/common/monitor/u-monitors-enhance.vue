@@ -6,17 +6,17 @@
                         <div v-if="!scope.modal" style="text-align: left;">
                             <span >{{ chartOptions[index].title }} </span>
                             <div v-if="item.hasDevice" :class="$style.select">
-                                <!-- 这里 options.device 是对应接口请求中的磁盘名称 -->
+                                <!-- Here options.device is the disk name in the corresponding interface request -->
                                 <u-select size="mini small" v-if="devices.length" key="listDevice" v-model="item.options.device" :data="devices" @select="onSelect($event, index, key = 'device')"></u-select>
                                 <u-select size="mini small" v-else key="noneDevice" :data="emptyDevices" disabled></u-select>
                             </div>
                             <div v-else-if="item.hasInterface" :class="$style.select">
-                                <!-- 这里 options.interface 是对应接口请求中的网卡名称 -->
+                                <!-- Here options.interface is the network card name in the corresponding interface request -->
                                 <u-select size="mini small" v-if="interfaces.length" key="listInterface" v-model="item.options.interface" :data="interfaces" @select="onSelect($event, index, key = 'interface')"></u-select>
                                 <u-select size="mini small" v-else key="noneInterface" :data="emptyInterfaces" disabled></u-select>
                             </div>
                         </div>
-                        <!-- 展示工作负载的资源配置相关的信息 -->
+                        <!-- Display information related to the resource configuration of the workload -->
                         <u-linear-layout v-if="item.extraInfos" style="text-align: center;margin-top: -10px;">
                             <span v-for="(item, index) in item.extraInfos" :key="index">{{ item.key }}:<span>{{ item.value }}</span> {{ item.suffix }}</span>
                         </u-linear-layout>
@@ -49,42 +49,42 @@ import Vue from 'vue';
 import service from  '@micro-app/common/services/ncs';
 import { getStep, getQueryOptions, sizeProcessor } from './filters';
 import { POD_CHART_OPTIONS } from './chartOptions';
-// 废弃：功能移动到@micro-app/ncs/components/global/u-monitors-ncs
+// Deprecated: Functionality moved to @micro-app/ncs/components/global/u-monitors-ncs
 export default {
     name: 'u-monitors-enhance',
     props: {
         defaultChartOptions: { type: Array, default: () => POD_CHART_OPTIONS },
-        queryOptionsList: { type: Array, default: () => ([]) }, // 多个chart的请求参数列表
+        queryOptionsList: { type: Array, default: () => ([]) }, // Request parameter list for multiple charts
         startTime: [String, Number],
         endTime: [String, Number],
-        devices: { type: Array, default: () => ([]) }, // 磁盘列表
+        devices: { type: Array, default: () => ([]) }, // disk list
         interfaces: { type: Array, default: () => ([]) },
         // loading: { type: Boolean, default: false }, 
     },
     data() {
         return {
-            chartOptions: [], // 所有chart的参数（一个chart的所有参数）的列表
-            xAxis: { // x 轴展示相关的参数
+            chartOptions: [], // List of all chart parameters (all parameters of a chart)
+            xAxis: { // x Axis displays related parameters
                 key: 'timestr',
                 count: 3,
             },
             currentDefaultChartOptions: this.defaultChartOptions,
             currentQueryOptionsList: this.queryOptionsList,
-            // 监控图上的磁盘选择相关参数
-            // deviceName: '', // 多个监控图的deviceName选择是独立的，此 deviceName 是给监控图初始化用的
+            // Disk selection related parameters on the monitoring chart
+            // deviceName: '', // The deviceName selection of multiple monitoring charts is independent. This deviceName is used for initializing the monitoring chart.
             // devices: [],
-            emptyDevices: [{ text: '暂无磁盘' }],
-            // 监控图上的网卡选择相关参数
+            emptyDevices: [{ text: 'No disk yet' }],
+            // Network card selection related parameters on the monitoring map
             // interfaceName: '',
             // interfaces: [],
-            emptyInterfaces: [{ text: '暂无网卡' }],
-            // 时间选择空间相关数据，所有组件一般统一，如果需要自定制，后续提供props参数传递
+            emptyInterfaces: [{ text: 'No network card yet' }],
+            // Time selection space related data, all components are generally unified, if you need to customize it, props parameter transfer will be provided later.
             periodList: [
-                { name: '近6小时', value: 360*60*1000 },
-                { name: '近1天', value: 1440*60*1000 },
-                { name: '近7天', value: 10080*60*1000 },
+                { name: 'nearly 6 hours', value: 360*60*1000 },
+                { name: 'last 1 day', value: 1440*60*1000 },
+                { name: 'last 7 days', value: 10080*60*1000 },
             ],
-            loading: false, // todo: 暂时没用
+            loading: false, // todo: Not useful for now
         };
     },
     created() {
@@ -96,20 +96,20 @@ export default {
         });
     },
     methods: {
-        // 外界的参数【主要是异步】获取到之后，手动调用此函数执行初始化操作
+        // After obtaining the external parameters [mainly asynchronous], manually call this function to perform the initialization operation.
         init() {
             this.loading = false;
             this.watchDevices();
             this.chartOptions = this.currentDefaultChartOptions.map((item, index) => this.getChartOptions(this.currentDefaultChartOptions[index], this.currentQueryOptionsList[index]));
             this.$nextTick(() => this.$refresh());
         },
-        // devices 更新时，同步更新每个chart中的 device 为列表第一项
+        // When devices are updated, device in each chart is updated synchronously to be the first item in the list.
         watchDevices() {
             if(this.devices.length) {
                 this.currentDefaultChartOptions.forEach((item) => item.hasDevice && (item.key = this.devices[0].value));
                 this.currentQueryOptionsList.forEach((item, index) => this.currentDefaultChartOptions[index].hasDevice && (item.device = this.devices[0].value));
             } else {
-                // 不同步currentDefaultChartOptions && currentQueryOptionsList
+                // Out of syc - currentDefaultChartOptions && currentQueryOptionsList
                 this.chartOptions.forEach((item) => {
                     Vue.set(item.options, 'device', undefined);
                 });
@@ -124,19 +124,19 @@ export default {
             !this.loading && next({ start: this.formatTime(startTime), end: this.formatTime(endTime), step });
         },
         onSelect(event, index, key = 'device') {
-            // 同步currentDefaultChartOptions && currentQueryOptionsList
+            // Synchronize - currentDefaultChartOptions && currentQueryOptionsList
             this.currentDefaultChartOptions[index].key = event.value;
             this.currentQueryOptionsList[index].device = event.value;
-            // 更新 chartOptions
+            // Update chartOptions
             Vue.set(this.chartOptions, index, this.getChartOptions(this.currentDefaultChartOptions[index], this.currentQueryOptionsList[index]));
-            // 刷新对应的图表
+            // Refresh the corresponding chart
             this.$nextTick(() => {
                 this.$refs[`chartPanel${index}`] && this.$refs[`chartPanel${index}`][0].refresh();
             });
         },
         /**
-         * 让所有chart || 具体某个chart 刷新，暴露给外部
-         * @param {number} index - chart的索引(不传或传的值不合法，则认为刷新全部)
+         * Let all charts || refresh a specific chart and expose it to the outside
+         * @param {number} index - The index of the chart (if it is not passed or the value passed is illegal, it will be considered to refresh all)
          */
         $refresh(index) {
             index = parseInt(index);
@@ -149,7 +149,7 @@ export default {
                 const chart = this.$refs[`chartPanel${i}`];
 
                 if (chart && chart.length) {
-                    // 对应有device或interface的监控图表，如果没有对应的device或interface，直接显示空态
+                    // Monitoring charts corresponding to devices or interfaces. If there is no corresponding device or interface, an empty state will be displayed directly.
                     if((item.hasDevice && !item.options.device) || (item.hasInterface && !item.options.interface))
                         chart[0].refresh([]);
                     else
@@ -158,23 +158,23 @@ export default {
             });
         },
         /**
-         * 获取单个chart的options
-         * @param {object} options - chart(渲染)相关的参数
-         * @param {object} queryOptions - chart相关请求需要的参数【 不传 step，start，end，name 】
+         * Get options for a single chart
+         * @param {object} options - Chart (rendering) related parameters
+         * @param {object} queryOptions - Parameters required for chart-related requests [do not pass step, start, end, name]
          * @returns {object}
          */
         getChartOptions(options, queryOptions) {
             const yAxis = { min: 0, name: '', count: 3 };
-            // 以 % 为单位的监控图标，设置y轴 max 为 100，count 为 5
+            // Monitoring icon in %, set y-axis max to 100, count to 5
             options.unit === '%' && Object.assign(yAxis, { max: 100, count: 5 });
             options = Object.assign({ 
                 yAxis,
-                // 如果options有指定processor，会直接覆盖默认的
-                // 给unit以B开头（B, B/s等）的chart，添加默认的sizeProcessor
+                // If options specify a processor, it will directly override the default one.
+                // Add a default sizeProcessor to charts whose unit starts with B (B, B/s, etc.)
                 processor: options.unit && options.unit.startsWith('B') ? sizeProcessor : undefined,
             }, options);
-            // keys的每项【key】是一个对象，有属性 value，text。如果每项都是字符串，则认为value === text
-            // key属性为字符串(即指定对应的value属性），text默认为options.title
+            // Each item [key] of keys is an object with attributes value and text. If each item is a string, value === text
+            // The key attribute is a string (that is, specify the corresponding value attribute), and the text defaults to options.title
             const metrics = options.keys
                 ? options.keys.map((item) => typeof item === 'string' ? { name: item, key: item } : { name: item.text, key: item.value })
                 : [{ name: options.title, key: options.key }];
@@ -183,7 +183,7 @@ export default {
                     name: options.name,
                     filter_label: options.keys ? 'type' : '',
                 }, queryOptions), this.startTime, this.endTime),
-                // 监控维度信息（对应每一条数据）
+                // Monitor dimension information (corresponding to each piece of data)
                 metrics,
                 ...options,
             };

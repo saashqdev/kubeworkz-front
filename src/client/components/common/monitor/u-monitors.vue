@@ -14,7 +14,7 @@
                                 <u-select size="mini small" v-else :key="noneInterface" :data="emptyInterfaces" disabled></u-select>
                             </div>
                         </div>
-                        <!-- 展示工作负载的资源配置相关的信息 -->
+                        <!-- Display information related to the resource configuration of the workload -->
                         <u-linear-layout v-if="item.extraInfos" style="text-align: center;margin-top: -10px;">
                             <span v-for="(item, index) in item.extraInfos" :key="index">{{ item.key }}:<span>{{ item.value }}</span> {{ item.suffix }}</span>
                         </u-linear-layout>
@@ -46,12 +46,12 @@
 import service from  '@micro-app/common/services/ncs';
 import { getStep } from './filters';
 import { POD_CHART_OPTIONS } from './chartOptions';
-// 废弃：功能移动到@micro-app/ncs/components/global/u-monitors-ncs
+// Deprecated: Function moved to @micro-app/ncs/components/global/u-monitors-ncs
 export default {
     name: 'u-monitors',
     props: {
         defaultChartOptions: { type: Array, default: () => POD_CHART_OPTIONS },
-        // 都是必填的参数
+        // All are required parameters
         clusterName: String,
         nsName: String,
         podName: String,
@@ -62,36 +62,36 @@ export default {
     },
     data() {
         return {
-            chartOptions: [], // 所有chart的参数（一个chart的所有参数）的列表
-            xAxis: { // x 轴展示相关的参数
+            chartOptions: [], // List of all chart parameters (all parameters of a chart)
+            xAxis: { // x Axis displays related parameters
                 key: 'timestr',
                 count: 3,
             },
-            // 监控图上的磁盘选择相关参数
-            deviceName: '', // 多个监控图的deviceName选择是独立的，此 deviceName 是给监控图初始化用的
+            // Disk selection related parameters on the monitoring chart
+            deviceName: '', // The deviceName selection of multiple monitoring charts is independent. This deviceName is used for initializing the monitoring chart.
             devices: [],
-            emptyDevices: [{ text: '暂无磁盘' }],
-            // 监控图上的网卡选择相关参数
+            emptyDevices: [{ text: 'No disk yet' }],
+            // Network card selection related parameters on the monitoring map
             interfaceName: '',
             interfaces: [],
-            emptyInterfaces: [{ text: '暂无网卡' }],
-            // 时间选择空间相关数据，所有组件一般统一，如果需要自定制，后续提供props参数传递
+            emptyInterfaces: [{ text: 'No network card yet' }],
+            // Time selection space related data, all components are generally unified, if you need to customize it, props parameter transfer will be provided later.
             periodList: [
-                { name: '近6小时', value: 360*60*1000 },
-                { name: '近1天', value: 1440*60*1000 },
-                { name: '近7天', value: 10080*60*1000 },
+                { name: 'nearly 6 hours', value: 360*60*1000 },
+                { name: 'last 1 day', value: 1440*60*1000 },
+                { name: 'last 7 days', value: 10080*60*1000 },
             ],
             loading: false,
         };
     },
     created() {
-        // 下列的情形是四个参数同时传入组件内部
+        // The following situation is when four parameters are passed into the component at the same time
         if (this.clusterName && this.nsName && this.podName && this.containerName)
             this.loadInfo();
 
-        // 下列的watch是针对于这四个参数不能同时传入组件内部的情形
+        // The following watch is for the situation where these four parameters cannot be passed into the component at the same time.
         this.$watch(() => [this.clusterName, this.nsName, this.podName, this.containerName], (data) => {
-            // 当四个参数都存在的时候才行
+            // Only when all four parameters exist
             if (data.every((item) => item))
                 this.loadInfo();
         });
@@ -122,8 +122,8 @@ export default {
             });
         },
         /**
-         * 让所有chart || 具体某个chart 刷新，暴露给外部
-         * @param {number} index - chart的索引(不传或传的值不合法，则认为刷新全部)
+         * Let all charts || refresh a specific chart and expose it to the outside
+         * @param {number} index - The index of the chart (if it is not passed or the value passed is illegal, it will be considered to refresh all)
          */
         $refresh(index) {
             index = parseInt(index);
@@ -136,7 +136,7 @@ export default {
                 const chart = this.$refs[`chartPanel${i}`];
 
                 if (chart && chart.length) {
-                    // 对应有device或interface的监控图表，如果没有对应的deviceName或interfaceName，直接显示空态
+                    // Monitoring charts corresponding to devices or interfaces. If there is no corresponding deviceName or interfaceName, an empty state will be displayed directly.
                     if ((item.hasDevice && !item.deviceName) || (item.hasInterface && !item.interfaceName))
                         chart[0].refresh([]);
                     else
@@ -202,16 +202,16 @@ export default {
                 return {
                     options: Object.assign({
                         step: getStep(this.startTime, this.endTime),
-                        // 固定30分钟
+                        // Fixed for 30 minutes
                         start: this.formatTime(this.startTime),
                         end: this.formatTime(this.endTime),
-                        name: item.name, // 监控项
-                        dimension: item.hasInterface ? 'pod' : 'container', // 维度
+                        name: item.name, // Monitoring items
+                        dimension: item.hasInterface ? 'pod' : 'container', // Dimensions
                         cluster: this.clusterName,
                         namespace: this.nsName,
                         pod_name: this.podName,
                     }, extraOption, item.options),
-                    // 监控维度信息（对应每一条数据）
+                    // Monitor dimension information (corresponding to each piece of data)
                     metrics: item.keys || [{
                         name: item.title,
                         key: metricKey,
@@ -219,7 +219,7 @@ export default {
                     processor: item.processor,
                     unit: item.unit,
                     title: item.title,
-                    name: item.name, // 监控项
+                    name: item.name, // Monitoring items
                     hasDevice: item.hasDevice,
                     deviceName,
                     hasInterface: item.hasInterface,

@@ -39,14 +39,14 @@ export default {
         },
         okTitle: {
             type: String,
-            default: '立即提交',
+            default: 'Submit',
         },
         title: {
             type: String,
         },
         cancelTitle: {
             type: String,
-            default: '取消',
+            default: 'Cancel',
         },
         visible: {
             type: Boolean,
