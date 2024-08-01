@@ -8,9 +8,9 @@
         </div>
         <u-popup v-if="showMoreButton" :trigger="trigger" :placement="placement">
             <slot name="more">
-                <u-link style="padding-left: 5px; vertical-align: middle;">更多</u-link>
+                <u-link style="padding-left: 5px; vertical-align: middle;">More</u-link>
             </slot>
-            <div slot="title"><span style="margin-right: 32px;"><slot name="title">{{ title }}</slot></span> <span :class="$style.titleNum"><slot name="count"><template v-if="length">{{ length }} 个</template></slot></span></div>
+            <div slot="title"><span style="margin-right: 32px;"><slot name="title">{{ title }}</slot></span> <span :class="$style.titleNum"><slot name="count"><template v-if="length">{{ length }} individual</template></slot></span></div>
             <div slot="content">
                 <div :class="$style.popupBox">
                     <slot>
@@ -24,8 +24,8 @@
 
 <script>
 /**
- * @description 列表中某一项可能有多个unit展示的情况，超过额定项需要隐藏，hover展示所有项
- *              数组中每项为一个对象（对象有一个text字段展示） || 字符串
+ * @description An item in the list may be displayed in multiple units. If more items exceed the limit, they need to be hidden. Hover displays all items.
+ *              Each item in the array is an object (the object has a text field to display) || String
  */
 export default {
     name: 'u-table-cell-mores',
@@ -33,7 +33,7 @@ export default {
         title: String,
         max: { type: Number, default: 1 },
         list: { type: Array, default: () => [] },
-        isChip: { type: Boolean, default: false }, // 是否为u-chips组件的单元的样式
+        isChip: { type: Boolean, default: false }, // Whether it is the style of the unit of u-chips component
         placement: {
             type: String,
             default: 'right',
@@ -50,7 +50,7 @@ export default {
         briefList() {
             return this.list.slice(0, this.max < 0 ? 0 : this.max);
         },
-        // 数组中的每项是否字符串
+        // Whether each item in the array is a string
         isString() {
             return typeof this.list[0] === 'string';
         },

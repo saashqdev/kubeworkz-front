@@ -21,7 +21,7 @@
             ></textarea>
             <span :mutil="!!info.tags.length" :class="[$style.textareaShadow]" ref="shadow" >
                 {{(current.value || '') + 'zw'}}
-                <!-- zw用于占位 -->
+                <!-- zw is used for placeholder -->
             </span>
         </div>
 
@@ -84,11 +84,11 @@ export default {
             const currentStepIsInput = function () {
                 return !stepData || stepData.type === 'input';
             };
-            // 子集
+            // Subset
             const isSub = function () {
                 return show.indexOf(inputShow) !== -1;
             };
-            // 真子集
+            // Mako collection
             const isTrueSub = function () {
                 return isSub() && show !== inputShow;
             };
@@ -104,7 +104,7 @@ export default {
                 this.getCheck();
             };
             // debugger;
-            // 当前没有输入值
+            // There is currently no value entered
             if (!inputShow) {
                 resetCurrent();
             } else {
@@ -121,17 +121,17 @@ export default {
         },
         checkInput($event) {
             this.stopPropagation($event);
-            // 该方法先于 clearInput 触发
+            // This method is triggered before clearInput
             this.getCheck();
             const current = this.current;
-            const show = current.show(); // 当前输入框应该显示的展示值
+            const show = current.show(); // The display value that the current input box should display
             const inputShow = $event && $event.target ? ($event.target.value || '') : (current.value || '');
             current.value = inputShow;
-            // 如果用户选择了查询类型，并且当前步骤的输入值类型不是 input
+            // If the user selects the query type and the input value type of the current step is not input
             if (this.stepData && this.stepData.type !== 'input') {
-                // 当前输入框的值不是应该显示值的子集
+                // The value of the current input box is not a subset of the values ​​that should be displayed
                 if (show.indexOf(inputShow) === -1) {
-                    // 由于当前是不允许输入的，所以恢复默认值
+                    // Since input is currently not allowed, the default value is restored.
                     current.value = this.$refs.defalutValue.value = show;
                 }
             } else {
@@ -149,14 +149,14 @@ export default {
             const current = Object.assign({}, currentOrigin);
             current.values = [].concat(currentOrigin.values);
             const typeIndex = this.typeIndex;
-            // 如果输入完整
+            // If the input is complete
             if (this.isComplete(current)) {
                 Object.assign(this.current, {
                     edit: false,
                     selecting: false,
                     values: current.values,
                 });
-                // 这里会触发 blur，所以提供一个属性进行后续判断
+                // Blur will be triggered here, so provide an attribute for subsequent judgment.
                 this.isCompleteTmp = true;
                 if (!isBlur) {
                     this.$emit('tagdone');
@@ -173,17 +173,17 @@ export default {
                     }
                 }
                 return;
-                // 用键盘上下选中了类型，并且是按的enter键
+                // Use the keyboard to select the type up and down, and press the enter key.
             } else if (_.isNumber(typeIndex) && !isBlur) {
                 this.typeIndex = undefined;
-                // 值类型选择器
+                // value type selector
                 this.stepDataSelectFunc({
                     value: this.stepSelected,
                 });
                 this.stepSelected = undefined;
                 this.updateTag(false);
                 return;
-            // 其他失焦情况
+            // Other out-of-focus situations
             } else if (isBlur) {
                 if (this.selectTagType) {
                     this.updateStatus(true);

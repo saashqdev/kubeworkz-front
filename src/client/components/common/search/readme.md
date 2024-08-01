@@ -1,6 +1,6 @@
 const tagTypes = [
     {
-        label: '名称',
+        label: 'Name',
         type: 'name',
         check() {
             return this.values.length === 1 && this.values[0];
@@ -13,10 +13,10 @@ const tagTypes = [
         show() {
             return `${this.label ? this.label + ':' : ''}${this.values.join()}`;
         },
-        limit: 10, // 该条件最多可输入10条
+        limit: 10, // Up to 10 conditions can be entered
     },
     {
-        label: '私有网 IP',
+        label: 'Private network IP',
         type: 'privateIP',
         check() {
             const values = this.values;
@@ -55,13 +55,13 @@ const tagTypes = [
                                 type: s1,
                                 label: s1,
                                 unique: true,
-                                type2: [], // 自定义属性，可以辅助判断等
+                                type2: [], // Custom attributes can assist judgment, etc.
                             },
                             {
                                 type: s2,
                                 label: s2,
                                 unique: true,
-                                type2: [], // 自定义属性，可以辅助判断等
+                                type2: [], // Custom attributes can assist judgment, etc.
                             },
                         ];
                     });

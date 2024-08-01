@@ -216,7 +216,7 @@ export default {
             if (active) {
                 fixTags = tags;
             } else {
-                // 缓存数据
+                // cache data
                 const cacheLineIndex = this.info.cacheLineIndex;
                 if (cacheLineIndex && !this.dirty) {
                     this.dirty = true;
@@ -240,7 +240,7 @@ export default {
                     return str.replace('px', '') - 0;
                 };
                 const maxStyle = window.getComputedStyle(this.$refs.textareaWrap);
-                let width = rmpx(maxStyle.paddingLeft) + rmpx(maxStyle.paddingRight) + 42; // padding 留白 以及省略号的宽度
+                let width = rmpx(maxStyle.paddingLeft) + rmpx(maxStyle.paddingRight) + 42; // padding, white space and the width of the ellipsis
                 const maxWidth = parseInt(rmpx(maxStyle.width));
                 fixTags.some((item, index) => {
                     const tagEle = this.$refs['tag' + index];

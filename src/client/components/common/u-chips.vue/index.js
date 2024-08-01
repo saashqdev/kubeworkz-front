@@ -14,7 +14,7 @@ export default {
             default: true,
         },
         value: Array,
-        modifyValue: String, // 保持出错记录需要传递该值
+        modifyValue: String, // Keeping error records requires passing this value
         modifyValueIndex: Number,
         canBeEmpty: { type: Boolean, default: false },
     },
@@ -54,7 +54,7 @@ export default {
         },
     },
     computed: {
-        // textarea每行的字数
+        // Number of words per line of textarea
         width() {
             const length = this.item.length;
             const width = length * 8.5 + 60;
@@ -68,14 +68,14 @@ export default {
             return (row > 6 ? 6 : row) * 26;
         },
         maxHeight() {
-            // 输入框的宽度
+            // The width of the input box
             const maxRows = (this.list.length / 4 > 6) ? 6 : (this.list.length / 4);
             return maxRows * 36;
         },
     },
     created() {
         window.addEventListener('keydown', this.onDocKeydown, false);
-        // 是否需要保持错误信息
+        // Do I need to keep error messages?
         if (this.modifyValue !== undefined) {
             this.modifyItem = this.modifyValue;
             this.current = +this.modifyValueIndex;
@@ -88,21 +88,21 @@ export default {
     },
     methods: {
         /**
-         * 进行验证的逻辑,validate是不关注当前事件是blur或input的
-         * @param {string} value - 当前检测值
-         * @param {string} [type='input'] - 事件种类
-         * @return 错误信息，没有错误返回空字符
+         * The logic for verification, validate does not pay attention to whether the current event is blur or input
+         * @param {string} value - Current detection value
+         * @param {string} [type='input'] - Event type
+         * @return Error message, no error returns null character
          */
         validate(value, type = 'input', list) {
             list = list || this.list;
-            // 空值或已经有错误信息不检测
+            // Empty values ​​or error messages are not detected
             if (!value && value !== '0' || this.errMessage) {
                 this.emitValidate(value);
                 return;
             }
-            // 未通过检查的某项
+            // something that failed inspection
             const errRule = this.rules.find((rule) => {
-                // result为true表示通过了该条验证逻辑
+                // If the result is true, it means that the verification logic has been passed.
                 let result = false;
                 if (!type.includes(rule.trigger))
                     return false;
@@ -124,7 +124,7 @@ export default {
             if (current < 0)
                 return;
 
-            // tab 键
+            // tab key
             if (event.which === 9) {
                 event.preventDefault();
                 if (modifying)
@@ -135,8 +135,8 @@ export default {
                     this.onFocus(current + 1);
             }
 
-            // enter键
-            // 这里没有进行current的判断，是因为函数一开始就判断了
+            // enter key
+            // There is no current judgment here because the function judges it at the beginning.
             if (event.which === 13) {
                 this.modifying = true;
                 this.modifyItem = list[current];
@@ -145,22 +145,22 @@ export default {
                     this.getCpModifyInput().focus();
                 });
             }
-            // 键盘右键
+            // Right click on keyboard
             if (event.which === 39) {
-                // 生成项失焦，编辑输入框focus
+                // The generated item is out of focus, and the edit input box is focused.
                 if (current === list.length - 1) {
                     current = -1;
                     this.$refs.cpInput.focus();
-                    // 向右切换生成项的聚焦
+                    // Toggles focus of generated items to the right
                 } else
                     this.onFocus(current + 1);
             }
-            // 键盘左键
+            // keyboard left button
             if (event.which === 37) {
-                // 左边界，不再往左移动生成项聚焦
+                // Left border, no longer moves left to generate item focus
                 if (current === 0)
                     return;
-                // 向左切换生成项的聚焦
+                // Toggles focus of the generated item to the left
                 this.onFocus(current - 1);
             }
             // backspace(win) == deleteItem(mac)
@@ -171,7 +171,7 @@ export default {
             }
         },
         /**
-         * 编辑框失焦
+         * Edit box is out of focus
          */
         onModifyBlur(event) {
             this.generate(this.modifyItem, true);
@@ -180,7 +180,7 @@ export default {
                 this.$refs.cpInput.focus();
         },
         /**
-         * 整个大的框聚焦
+         * Focus on the entire large frame
          */
         onFieldClick(event) {
             event.stopPropagation();
@@ -190,8 +190,8 @@ export default {
                 this.$refs.cpInput.focus();
         },
         /**
-         * 创建输入框的focus事件回调
-         * @param {object} event - 包装事件对象
+         * Create a focus event callback for the input box
+         * @param {object} event - wrapper event object
          */
         onInputFocus(event) {
             this.current = -1;
@@ -199,8 +199,8 @@ export default {
             this.focus = true;
         },
         /**
-         * 创建输入框的blur事件回调
-         * @param {object} event - 包装事件对象
+         * Create a blur event callback for the input box
+         * @param {object} event - wrapper event object
          */
         onInputBlur(event) {
             this.generate(this.item);
@@ -210,8 +210,8 @@ export default {
             //     this.$refs.cpInput && this.$refs.cpInput.focus();
         },
         /**
-         * 编辑框的键盘事件
-         * @param {object} event - 事件的包装对象
+         * Edit box keyboard events
+         * @param {object} event - Event wrapper object
          */
         onKeydown(event) {
             event.stopPropagation();
@@ -219,24 +219,24 @@ export default {
 
             this.errMessage = '';
 
-            // enter键
-            // 当只有一行的时候，静止默认enter键的默认操作
+            // enter key
+            // When there is only one line, the default operation of the enter key is disabled.
             if (event.which === 13 && this.height === 26)
                 event.preventDefault();
 
-            // tab 键
-            // 当input内容为空，恢复tab的默认操作
+            // tab key
+            // When the input content is empty, restore the default operation of tab
             if (event.which === 9 && item !== '') {
                 event.preventDefault();
                 this.generate(item);
                 this.$refs.cpInput.focus();
             }
-            // 空格键 生成项
+            // Spacebar Generate item
             if (event.which === 32 || event.which === 188) {
-                // 生成项(满足相关要求)
+                // Generate items (meet relevant requirements)
                 if (this.$refs.cpInput === document.activeElement && item) {
                     this.generate(item);
-                    // 通过空格||逗号正常生成项之后，会残留字符。重置
+                    // After normal generation of items through spaces || commas, characters will remain. reset
                     if (!this.errMessage) {
                         setTimeout(() => {
                             this.item = '';
@@ -244,17 +244,17 @@ export default {
                     }
                 }
             }
-            // 左键 || backspace 切换focus项
-            // 当前输入框内无内容，则focus最新的生成项
-            // item == false && item !== '0'，说明item为空字符串或空格组成的字符串
+            // Left click || backspace switches focus item
+            // If there is no content in the current input box, focus on the latest generated item.
+            // item == false && item !== '0'，Description item is an empty string or a string composed of spaces.
             if ((event.which === 37 || event.which === 8) && item === '' && item !== '0') {
                 this.item = '';
                 this.onFocus(list.length - 1);
             }
         },
         /**
-         * 修改输入框的键盘输入
-         * @param {object} event - 包装事件对象
+         * Modify the keyboard input of the input box
+         * @param {object} event - wrapper event object
          */
         onModifyKeydown(event) {
             event.stopPropagation();
@@ -262,14 +262,14 @@ export default {
 
             this.errMessage = '';
 
-            // enter键
-            // 禁止默认enter键的默认操作
+            // enter key
+            // Disable the default operation of the default enter key
             if (event.which === 13)
                 event.preventDefault();
 
-            // 空格键  生成项
+            // Spacebar Generate item
             if (event.which === 32 || event.which === 188) {
-                // 生成项(满足相关要求)
+                // Generate items (meet relevant requirements)
                 if (this.getCpModifyInput() === document.activeElement && modifyItem) {
                     this.getCpModifyInput().blur();
                     if (!this.errMessage)
@@ -277,8 +277,8 @@ export default {
                 }
             }
 
-            // tab 键
-            // 当input内容为空，恢复tab的默认操作
+            // tab key
+            // When the input content is empty, restore the default operation of tab
             if (event.which === 9 && modifyItem !== '') {
                 event.preventDefault();
                 this.generate(modifyItem, true);
@@ -294,27 +294,27 @@ export default {
             }
         },
         /**
-         * 聚焦某个生成项
-         * @param {number} index - 生成项的索引
-         * @param {object} event - 包装的event对象
+         * Focus on a generated item
+         * @param {number} index - Generate the index of the item
+         * @param {object} event - wrapped event object
          */
         onFocus(index, $event) {
             $event && $event.stopPropagation();
             this.modifying = false;
             this.$refs.cpInput.blur();
             this.current = index;
-            // 这里是因为注册在document上的keydown事件，需要手动 $update
+            // This is because the keydown event registered on the document requires manual $update.
         },
         /**
-         * 双击生成项，变为编辑状态
-         * @param {number} index - 生成项的索引
-         * @param {object} event - 包装的event对象
+         * Double-click the generated item to enter the editing state
+         * @param {number} index - Generate the index of the item
+         * @param {object} event - wrapped event object
          */
         onDBLClick(index, event) {
             this.modifyItem = this.list[index];
             this.current = index;
             this.modifying = true;
-            // 在list当中去除当前的编辑项
+            // Remove the current edit item from the list
             this.list.splice(index, 1);
             this.$emit('input', this.list);
             this.$nextTick(() => {
@@ -322,12 +322,12 @@ export default {
             });
         },
         /**
-         * 生成项（包括一次生成多个项）
-         * @param {string} item - 生成项的内容
-         * @param {boolean} [isModify=false] - 是否是编辑已生成项
+         * Generate items (including generating multiple items at once) items
+         * @param {string} item - The content of the generated item
+         * @param {boolean} [isModify=false] - Whether to edit a generated item
          */
         generate(item, isModify = false) {
-            // item == false，说明item为空字符串或空格组成的字符串
+            // item == false，Description item is an empty string or a string composed of spaces.
             if (item === '' && item !== '0') {
                 if (isModify)
                     this.modifyItem = '';
@@ -340,9 +340,9 @@ export default {
 
             const hasSpace = !this.noSpace && item.indexOf(' ') !== -1;
             const hasComma = ~item.indexOf(',');
-            // 单次生成多个项的数组
-            // arrIndex是数组中出错的项的索引
-            // str为生成项之外的错误部分的字符
+            // Generate an array of multiple items at a time
+            // arrIndex is the index of the errored item in the array
+            // str is the character of the error part outside the generated item
             let itemArr = [], arrIndex = 0;
             if (hasSpace && hasComma)
                 item = item.replace(/,/g, ' ');
@@ -355,11 +355,11 @@ export default {
                 if (this.errMessage)
                     return false;
                 else {
-                    // 编辑生成项
+                    // Edit generated items
                     if (isModify) {
-                        // 只有正确输入的情况下，才需要先删除之前的项
+                        // Only if the input is correct, you need to delete the previous item first.
                         this.list.splice(this.current, 0, itm);
-                    // 创建新生成项
+                    // Create new build item
                     } else
                         this.list.push(itm);
                     this.$emit('input', this.list);
@@ -373,8 +373,8 @@ export default {
             isModify ? (this.modifyItem = str) : (this.item = str);
         },
         /**
-         * 删除某项
-         * @param {number} index - 某项的索引
+         * Delete an item
+         * @param {number} index - index of an item
          */
         deleteItem(index) {
             this.list.splice(index, 1);
@@ -384,13 +384,13 @@ export default {
             this.emptyValidate();
         },
         /**
-         * 外部调用看数据是否合法
+         * External call to see if the data is legal
          */
         $checkValidity() {
-            // 没有已创建项的更改
-            // 没有错误信息
-            // 创建输入框没有内容
-            // 有正确输入项
+            // No changes to created items
+            // no error message
+            // Create input box has no content
+            // There are correct entries
             return !this.modifying && !this.errMessage && !this.item && (this.canBeEmpty ? true : this.list.length);
         },
         getCpModifyInput() {

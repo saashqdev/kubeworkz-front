@@ -63,7 +63,7 @@ export default {
         },
         colorCode(item, isHead = true) {
             const { type, content: { head, tail, hidden }, leftPos, rightPos } = item
-            const isSame = !type //没有变化的部分
+            const isSame = !type // No changes
             const space = "    ";
             return (isHead ? head : tail).map((citem, cindex) => {
                 let posMark = '';

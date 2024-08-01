@@ -4,17 +4,17 @@
         <li :class="[$style.listViewItemFirst, $style.listViewItem]" 
             v-if="type==='default'" 
             @mousedown.stop.prevent="stop($event)">
-            选择搜索标签类型
+            Select search tag type
         </li>
         <li :class="[$style.listViewItemEmpty, $style.listViewItem]"
             @mousedown.stop.prevent="stop($event)" 
             v-else-if="!tagTypes">
-            数据加载中
+            Loading
         </li>
         <li :class="[$style.listViewItemEmpty, $style.listViewItem]"
             @mousedown.stop.prevent="stop($event)" 
             v-else-if="!(tagTypes && (tagTypes.length || Object.keys(tagTypes).length))">
-            暂无数据
+            No data
         </li>
         <li v-for="(tagType, key) in tagTypes" :key="key" v-autoScroll="tagType.selecting"
             :class="[ $style.listViewItem]" :selected="tagType.selecting" :disabled="isSelected(tagType)&&tagType.unique"

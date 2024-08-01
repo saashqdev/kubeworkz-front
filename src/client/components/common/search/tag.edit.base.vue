@@ -64,7 +64,7 @@ export default {
     },
     methods: {
         focusCampo(inputField) {
-            // 光标移到最右
+            // Move the cursor to the right
             if (inputField && inputField.value && inputField.value.length !== 0) {
                 if (inputField.createTextRange) {
                     const FieldRange = inputField.createTextRange();
@@ -93,7 +93,7 @@ export default {
             current.isEmpty = true;
             current.value = current.show();
             const stepData = this.stepData;
-            // 可以将用户选择的值过滤掉，不出现在下次的结果中，但注意不要改变原值
+            // The value selected by the user can be filtered out so that it does not appear in the next result, but be careful not to change the original value.
             if (stepData.uniqueFilter) {
                 if (!stepData._values) {
                     stepData._values = stepData.values;
@@ -161,17 +161,17 @@ export default {
             this.info.defaultInputShow = status;
         },
         checkInput($event) {
-            // 该方法先于 clearInput 触发
+            // This method is triggered before clearInput
             this.getCheck();
             const current = this.current;
-            const show = current.show(); // 当前输入框应该显示的展示值
+            const show = current.show(); // The display value that the current input box should display
             const inputShow = $event && $event.target ? ($event.target.value || '') : (current.value || '');
             current.value = inputShow;
-            // 如果用户选择了查询类型，并且当前步骤的输入值类型不是 input
+            // If the user selects the query type and the input value type of the current step is not input
             if (this.stepData && this.stepData.type !== 'input') {
-                // 当前输入框的值不是应该显示值的子集
+                // The value of the current input box is not a subset of the values ​​that should be displayed
                 if (show.indexOf(inputShow) === -1) {
-                    // 由于当前是不允许输入的，所以恢复默认值
+                    // Since input is currently not allowed, the default value is restored.
                     current.value = this.$refs.defalutValue.value = show;
                 }
             }
@@ -179,14 +179,14 @@ export default {
         },
         isComplete(current) {
             current.value = (current.value || '').replace(current.show(), '').trim().replace(/[\r\n]/, '');
-            // 输入文字，则赋予默认类型
+            // Enter text and assign the default type
             if (!current.type && current.value) {
                 const defaultTag = this.tagTypes[this.info.defaultTypeIndex];
                 Object.assign(current, defaultTag, {
                     show: defaultTag.show,
                 });
             }
-            // 有类型
+            // There is a type
             if (current.type) {
                 if (current.value && current.values.length < current.datas.length) {
                     current.values.push(current.value);
@@ -241,7 +241,7 @@ export default {
                 }
                 return typeIndex;
             };
-            let i = 0; // 计数器
+            let i = 0; // counter
             typeIndex = getNext(typeIndex);
             while (isDisabeld(typeIndex)) {
                 if (i === lastIndex + 1) {
@@ -266,7 +266,7 @@ export default {
                 this.stepSelected = undefined;
             }
         },
-        // 清除用键盘选中的类型
+        // Clear a type selected with the keyboard
         clearSelectingTagType() {
             const tagTypes = this.tagTypes;
             tagTypes.forEach((item) => {

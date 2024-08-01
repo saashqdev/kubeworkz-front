@@ -24,7 +24,7 @@
                                 <i-line-awesome name="arrow-up" :class="$style.icon"></i-line-awesome>
                             </u-link>
                         </div>
-                        <div :class="$style.hiddenText">隐藏了{{ line.content.hidden.length }}行</div>
+                        <div :class="$style.hiddenText">Hidden{{ line.content.hidden.length }}OK</div>
                     </div>
                     <div v-for="head in colorCode(line, false, columnIndex)" :class="$style[classMap(line.type)]">
                         <pre :class="$style.pre" :type="line.type">{{ head.posMark }}</pre>

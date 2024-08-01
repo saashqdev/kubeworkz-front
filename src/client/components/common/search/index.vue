@@ -26,7 +26,7 @@
     
 </template>
 <script>
-// 详情查看 readme.md
+// See readme.md for details
 import searchTagBox from './tag.box.vue';
 import Util from './util';
 export default {
@@ -34,7 +34,7 @@ export default {
     props: {
         placeholder: {
             type: String,
-            default: '多个搜索条件用回车分隔',
+            default: 'Multiple search conditions are separated by carriage return',
         },
         tagTypes: Object,
         limit: {
