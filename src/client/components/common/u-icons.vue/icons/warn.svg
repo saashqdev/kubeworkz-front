@@ -35,5 +35,5 @@
       }
     </style>
   </defs>
-  <path id="报错.svg" class="cls-1" d="M908,1775a8,8,0,1,1,8-8A8,8,0,0,1,908,1775Zm0-15a7,7,0,1,0,7,7A7,7,0,0,0,908,1760Zm-1,10h2v2h-2v-2Zm0-8h2v7h-2v-7Z" transform="translate(-900 -1759)"/>
+  <path id="Report-an-error.svg" class="cls-1" d="M908,1775a8,8,0,1,1,8-8A8,8,0,0,1,908,1775Zm0-15a7,7,0,1,0,7,7A7,7,0,0,0,908,1760Zm-1,10h2v2h-2v-2Zm0-8h2v7h-2v-7Z" transform="translate(-900 -1759)"/>
 </svg>

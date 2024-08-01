@@ -42,7 +42,7 @@ function handleMetricDataResult(results, sTime, eTime) {
     const haveTime = endTime - startTime;
     const needTime = eTime - sTime;
     if (needTime - haveTime > periodTime) {
-        // 如果数据未请求到足够的时间，向前补空位
+        // If the data is not requested for enough time, fill in the gaps forward.
         let difference = needTime - haveTime;
         const fillTime = [];
         while (difference > 0) {
@@ -60,7 +60,7 @@ function handleMetricDataResult(results, sTime, eTime) {
     }
     return times.map((time) => data[time]);
 }
-// 旧的获取apm monitor接口, 已废弃
+// The old interface for obtaining apm monitor has been abandoned.
 export function getApmMonitor(data) {
     const {
         filters,
@@ -155,7 +155,7 @@ export function getApmService(data) {
 }
 
 export function getNcsMonitor({ options, metrics }) {
-    // todo: 多个请求的方式还需调整
+    // todo: The method of multiple requests still needs to be adjusted
     // return Promise.all(options.map((item) => ncsMonitorService.loadRange(item))).then((results) => {
     //     if(results.length === 1) {
     //         return _.get(results[0], 'data.samples', []);
@@ -163,7 +163,7 @@ export function getNcsMonitor({ options, metrics }) {
     //         const tmp = Array.from({ length: results[0].data.samples.length}).fill({});
     //         results.forEach((result, index) => {
     //             result.data.samples.forEach((item, subIndex) => {
-    //                 // todo: 这里的 1 的获取方式要改
+    //                 // todo: The method of obtaining 1 here needs to be changed.
     //                 tmp[subIndex][metrics[index].key] = item['1'];
     //             })
     //         });

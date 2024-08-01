@@ -35,5 +35,5 @@
       }
     </style>
   </defs>
-  <path id="圆角矩形_1" data-name="圆角矩形 1" class="cls-1" d="M6,20V17.583L1,18V2L6,2.833V0L20,2V18ZM6,5.375L3,5V16l3-.375V5.375ZM18,4L8,3V17l10-1V4ZM13,8a1,1,0,0,1,1,1v2a1,1,0,0,1-2,0V9A1,1,0,0,1,13,8Z"/>
+  <path id="Rounded rectangle_1" data-name="Rounded rectangle 1" class="cls-1" d="M6,20V17.583L1,18V2L6,2.833V0L20,2V18ZM6,5.375L3,5V16l3-.375V5.375ZM18,4L8,3V17l10-1V4ZM13,8a1,1,0,0,1,1,1v2a1,1,0,0,1-2,0V9A1,1,0,0,1,13,8Z"/>
 </svg>

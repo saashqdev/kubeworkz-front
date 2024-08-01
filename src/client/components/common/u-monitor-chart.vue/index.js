@@ -48,7 +48,7 @@ export default {
                     });
                 default:
                     return Promise.reject().then(() => {
-                        console.error('当前的图表引用没有指定service，要使用本图表处理数据，请先本地化自定义defaultProcessor');
+                        console.error('The current chart reference does not specify a service. To use this chart to process data, please localize and customize the defaultProcessor first.');
                     });
             }
         },

@@ -158,9 +158,9 @@
 .root[name="external-link-alt-solid"]::before{icon-font: url(./icons/ncs/external-link-alt-solid.svg)}
 .root[name="minus-solid"]::before{icon-font: url(./icons/ncs/minus-solid.svg)}
 .root[name="cloud-shell"]::before{icon-font: url(./icons/ncs/cloud-shell.svg)}
-/* todo: 名称可能还会修改 */
+/* todo: The name may be changed */
 .root[name="nodePool"]::before{icon-font: url(./icons/ncs/nodePool.svg)}
-/*左侧固定导航栏*/
+/*Fixed navigation bar on the left*/
 .root[name="sideoverview"]::before{icon-font: url(./icons/sidenav/overview.svg)}
 .root[name="nsf"]{width:18px;}
 .root[name="nsf"]::before{icon-font: url(./icons/sidenav/nsf.svg)}

@@ -10,7 +10,7 @@
                 <span :class="$style.close" @click.stop="close(index)"></span>
             </div>
             <input ref="input" :class="$style.input" :size="size" :placeholder="showPlaceholder" v-model="query" @click.stop="inputClick" @input="onInput" @keydown.delete="inputDelete"  @compositionstart="compositionInputing = true"
-            @compositionend="compositionInputing = false" :style="inputStyle" maxlength="58" maxlengthMessage="已达到输入上限" @blur="all = true;"></input>
+            @compositionend="compositionInputing = false" :style="inputStyle" maxlength="58" maxlengthMessage="Input limit reached" @blur="all = true;"></input>
         </template>
         <template v-else>
             <span :class="$style.tiptext" v-if="!selFlag">{{ $t('selectText') }}</span>
@@ -30,7 +30,7 @@
                     {{item[field]}}
                 </li>
             </ul>
-            <div :class="$style.none" v-else>无可选值</div>
+            <div :class="$style.none" v-else>No optional value</div>
         </div>
         <div v-if="!all" :class="$style.body" slot="popper" :size="size" :style="{width: size ? '':width+'px'}">
             <ul :class="$style.listview" v-if="newData.length>0" ref="listView">
@@ -38,10 +38,10 @@
                     {{item[field]}}
                 </li>
             </ul>
-            <div :class="$style.none" v-else>无可选值</div>
+            <div :class="$style.none" v-else>No optional value</div>
         </div>
     </template>
     <div v-else slot="popper" :size="size">
-        <u-text color="disabled">只能选择一个</u-text>
+        <u-text color="disabled">Can only choose one</u-text>
     </div>
 </u-popper>

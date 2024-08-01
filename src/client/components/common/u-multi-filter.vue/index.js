@@ -117,7 +117,7 @@ const MultiFilter = {
                 return false;
             });
             if (!hovered) {
-                // 如果没有处于hover状态的元素 判断是否有处于selected的元素，有的话 shfit的selectedIndex就是他的索引
+                // If there is no element in the hover state, determine whether there is an element in the selected state. If so, the selectedIndex of shfit is its index.
                 this.optionsData.some((item, index) => {
                     if (item.selected) {
                         selectedIndex = index;
@@ -154,7 +154,7 @@ const MultiFilter = {
         },
         onToggle($event) {
             this.open = $event.open;
-            // 需要在popper层关闭之后重置OptionsData 确保下次进来的数据是全部数据
+            // OptionsData needs to be reset after the popper layer is closed to ensure that the data coming in next time is all data.
             if (!$event.open) {
                 this.optionsData = this.initOptionsData(this.currentValue);
                 this.query = '';
@@ -167,10 +167,10 @@ const MultiFilter = {
             this.query = obj[index].text + '=';
             this.all = false;
             /**
-             * @event select 选中列表项时触发
-             * @property {object} sender 事件发送对象
-             * @property {object} selected 选中后的列表对象
-             * @property {String} value 选中后的列表对象的值
+             * @event select Fires when a list item is selected
+             * @property {object} sender Event sending object
+             * @property {object} selected Selected list object
+             * @property {String} value The value of the selected list object
              */
             this.$emit('sel', {
                 value: obj[index].text,
@@ -183,7 +183,7 @@ const MultiFilter = {
             this.query = this.query + obj[index].text;
             this.all = true;
             if (this.query) {
-                // 这种模式允许创建options中没有的条目
+                // This mode allows creating entries not found in options
                 const createFlag = this.checkCreate();
                 if (!createFlag && !this.currentValue.includes(this.query)) {
                     this.currentValue.push(this.query);
@@ -228,7 +228,7 @@ const MultiFilter = {
         },
         close(index) {
             this.currentValue.splice(index, 1);
-            // 新增模式下删除也需要处理下options中的数据
+            // Deleting in new mode also requires processing the data in options.
             this.$nextTick(() => this.$refs.popper.update());
             this.$emit('close', {
                 index,
@@ -272,11 +272,11 @@ const MultiFilter = {
         toggle(open) {
             this.$refs.popper && this.$refs.popper.toggle(open);
         },
-        // enter 按键操作处于hover状态的选中 处于selected状态 取消选中
+        // The enter key operation is in the hover state. It is in the selected state. Unselected.
         enterSelected() {
             this.all = true;
             if (this.query && this.pattern === 'create') {
-                // 这种模式允许创建options中没有的条目
+                // This mode allows creating entries not found in options
                 const createFlag = this.checkCreate();
                 if (!createFlag && !this.currentValue.includes(this.query)) {
                     if (this.query.indexOf('=') > -1) {
@@ -295,7 +295,7 @@ const MultiFilter = {
             });
         },
         ensureSelectedInView(natural) {
-            // 确保有滚动条的情况下 选择项是视野内
+            // Make sure that when there is a scroll bar, the selection is within the field of view
             let selectedIndex;
             const hovered = this.optionsData.some((item, index) => {
                 if (item.hovered) { selectedIndex = index; }
