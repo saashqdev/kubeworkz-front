@@ -38,15 +38,15 @@ export default {
             rules: {
                 key: [
                     { type: 'string', trigger: 'input', message: '', validator: (rule, value, callback) => this.sortList.some((item) => item.name && value && !item.value) ? callback(new Error()) : callback() },
-                    { type: 'string', trigger: 'blur', message: 'Value 不能为空', validator: (rule, value, callback) => this.sortList.some((item) => item.name && value && !item.value) ? callback(new Error()) : callback() },
+                    { type: 'string', trigger: 'blur', message: 'Value cannot be empty', validator: (rule, value, callback) => this.sortList.some((item) => item.name && value && !item.value) ? callback(new Error()) : callback() },
                     { type: 'string', trigger: 'input', message: '', validator: (rule, value, callback) => this.sortList.some((item) => !item.name && !value && item.value) ? callback(new Error()) : callback() },
-                    { type: 'string', trigger: 'blur', message: 'Name 不能为空', validator: (rule, value, callback) => this.sortList.some((item) => !item.name && !value && item.value) ? callback(new Error()) : callback() },
+                    { type: 'string', trigger: 'blur', message: 'Name cannot be empty', validator: (rule, value, callback) => this.sortList.some((item) => !item.name && !value && item.value) ? callback(new Error()) : callback() },
                 ],
                 value: [
                     { type: 'string', trigger: 'input', message: '', validator: (rule, value, callback) => this.sortList.some((item) => !item.value && !value && item.name) ? callback(new Error()) : callback() },
-                    { type: 'string', trigger: 'blur', message: 'Value 不能为空', validator: (rule, value, callback) => this.sortList.some((item) => !item.value && !value && item.name) ? callback(new Error()) : callback() },
+                    { type: 'string', trigger: 'blur', message: 'Value cannot be empty', validator: (rule, value, callback) => this.sortList.some((item) => !item.value && !value && item.name) ? callback(new Error()) : callback() },
                     { type: 'string', trigger: 'input', message: '', validator: (rule, value, callback) => this.sortList.some((item) => item.value && value && !item.name) ? callback(new Error()) : callback() },
-                    { type: 'string', trigger: 'blur', message: 'Name 不能为空', validator: (rule, value, callback) => this.sortList.some((item) => item.value && value && !item.name) ? callback(new Error()) : callback() },
+                    { type: 'string', trigger: 'blur', message: 'Name cannot be empty', validator: (rule, value, callback) => this.sortList.some((item) => item.value && value && !item.name) ? callback(new Error()) : callback() },
                 ],
             },
         };
@@ -58,7 +58,7 @@ export default {
                 value: '',
             };
         },
-        // 使Object的selectorList传入调整为Array
+        // Make the Object's selectorList passed in adjust to Array
         normalize(list) {
             if (!Object.keys(list).length)
                 return [];

@@ -2,7 +2,7 @@
     <div :class="$style.root">
         <div :class="show? [$style.left, $style.left_show] : [$style.left, $style.left_hide]">
             <slot v-if="show" name="left-content"></slot>
-            <u-tooltip :content="show ? '收起列表' : '展开列表'" placement="right">
+            <u-tooltip :content="show ? 'Collapse list' : 'Expand list'" placement="right">
                 <i @click="show=!show" :class="show ? [$style.icon, $style.icon_left] : [$style.icon, $style.icon_right]"></i>
             </u-tooltip>
         </div>

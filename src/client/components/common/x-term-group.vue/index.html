@@ -5,7 +5,7 @@
                 <u-tab v-for="(itemVM, index) in itemVMs" :key="index" :value="itemVM" :title="itemVM.title"></u-tab>
             </u-tabs>
             <u-linear-layout gap="none" :class="$style.buttonWrap">
-                <!-- todo: pod的term暂不开启缩小 -->
+                <!-- todo: The term reduction of pod is not enabled for the time being -->
                 <span v-if="blank" @click.stop="minimized = true"><u-icons name="minus-solid"></u-icons></span>
                 <span v-if="blank">
                     <u-link target="_blank" :to="to" @click="$emit('blank')">

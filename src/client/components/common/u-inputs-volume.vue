@@ -2,14 +2,14 @@
     <u-form-table ref="formTable" :dynamic="dynamic" @add="add" @change="onChange" @validate="valid = $event.valid">
         <thead>
             <tr>
-                <th width="180px">挂载目录</th>
-                <th width="110px">类型</th>
-                <th width="250px">参数</th>
+                <th width="180px">Mount directory</th>
+                <th width="110px">Type</th>
+                <th width="250px">Parameter</th>
             </tr>
         </thead>
         <tbody>
             <tr is="u-form-table-tr" v-for="(item, index) in sortList" :key="index" :rules="rules" @remove="remove(index)" :can-be-empty="canBeEmpty" :is-empty="isEmpty.bind(this)">
-                <td><u-input size="huge" name="mountPath" v-model="item.mountPath" @change="changeName($event, index)" :disabled="disabled" placeholder="字母、数字、中划线、下划线、英文句号或“/“组成，以“/“开头且以“/“结尾"></u-input></td>
+                <td><u-input size="huge" name="mountPath" v-model="item.mountPath" @change="changeName($event, index)" :disabled="disabled" placeholder='Composed of letters, numbers, dashes, underlines, periods or "/", starting with "/" and ending with "/"'></u-input></td>
                 <td><u-select v-model="item.type" :data="types" size="huge normal" :disabled="disabled" @select="onSelectType($event, index)"></u-select></td>
                 <td v-if="item.type === 'hostPath'">
                     <u-linear-layout gap="small">
@@ -51,7 +51,7 @@ const TYPES = [
     { text: 'EmptyDir', value: 'emptyDir' },
     { text: 'Secret', value: 'secret' },
     { text: 'ConfigMap', value: 'configMap' },
-    { text: '存储模板', value: 'volumeClaimTemplate' },
+    { text: 'Store template', value: 'volumeClaimTemplate' },
 ];
 const PATH_TYPES = ['DirectoryOrCreate', 'FileOrCreate'];
 
@@ -77,7 +77,7 @@ export default {
         configMapNames() {
             return this.configMaps.map((item) => ({ text: item.name, value: item.name }));
         },
-        // 取列表中的第一项，作为用户切换type时的默认值
+        // Take the first item in the list as the default value when the user switches types
         pvcName() {
             return ((this.pvcNames || [])[0] || {}).value;
         },
@@ -118,7 +118,7 @@ export default {
             if (value && value.length) {
                 this.currentEmptyDirs = this.getEmptyDirList(value);
                 this.sortList.forEach((item) => {
-                    // 修改后的emptyDirs如果不包含了现有挂载数据卷中，类型为emptyDir的项。则将其重置
+                    // If the modified emptyDirs does not contain an item of type emptyDir in the existing mounted data volume. then reset it
                     if (item.type === 'emptyDir' && !value.some((emptyDir) => emptyDir.name === item.name))
                         item.name = '';
                 });
@@ -134,29 +134,29 @@ export default {
     data() {
         return {
             dynamic: !this.disabled,
-            emptySecretNames: [{ text: '暂无 Secret' }],
-            emptyConfigMapNames: [{ text: '暂无 ConfigMap' }],
-            emptyPVCNames: [{ text: '暂无 PVC' }],
+            emptySecretNames: [{ text: 'No Secret yet' }],
+            emptyConfigMapNames: [{ text: 'No ConfigMap yet' }],
+            emptyPVCNames: [{ text: 'No PVC yet' }],
             pathTypes: PATH_TYPES.map((item) => ({ text: item, value: item })),
             currentEmptyDirs: this.getEmptyDirList(this.emptyDirs),
             readOnlyList: [
-                { text: '读写', value: false },
-                { text: '只读', value: true },
+                { text: 'Read and write', value: false },
+                { text: 'Read only', value: true },
             ],
             rules: {
                 mountPath: [
-                    { type: 'string', pattern: /^\//, trigger: 'input+blur', message: '以“/”开头' },
-                    { type: 'string', pattern: /^\/[\w\-\.\/]*$/, trigger: 'input+blur', message: '字母、数字、中划线、下划线、英文句号或“/”组成' },
-                    { type: 'string', message: '不得包含连续的"/"', trigger: 'input+blur', validator: (rule, value, callback) => (value.indexOf('//') === -1) ? callback() : callback(new Error()) },
-                    { type: 'string', trigger: 'input+blur', message: '该挂载目录已存在', validator: (rule, value, callback) => {
+                    { type: 'string', pattern: /^\//, trigger: 'input+blur', message: 'To ... beginning' },
+                    { type: 'string', pattern: /^\/[\w\-\.\/]*$/, trigger: 'input+blur', message: 'Composed of letters, numbers, dashes, underlines, English periods or "/"' },
+                    { type: 'string', message: 'Must not contain consecutive "/"', trigger: 'input+blur', validator: (rule, value, callback) => (value.indexOf('//') === -1) ? callback() : callback(new Error()) },
+                    { type: 'string', trigger: 'input+blur', message: 'The mount directory already exists', validator: (rule, value, callback) => {
                         const mountPathList = this.sortList.map((item) => this.getMountPath(item.mountPath));
                         (mountPathList.filter((item) => item === this.getMountPath(value)).length > 1) ? callback(new Error()) : callback();
                     } },
                 ],
                 hostPath: [
-                    { type: 'string', pattern: /^\//, trigger: 'input+blur', message: '以“/”开头' },
-                    { type: 'string', pattern: /^\/[\w\-\.\/]*$/, trigger: 'input+blur', message: '字母、数字、中划线、下划线、英文句号或“/”组成' },
-                    { type: 'string', message: '不得包含连续的"/"', trigger: 'input+blur', validator: (rule, value, callback) => (value.indexOf('//') === -1) ? callback() : callback(new Error()) },
+                    { type: 'string', pattern: /^\//, trigger: 'input+blur', message: 'To ... beginning' },
+                    { type: 'string', pattern: /^\/[\w\-\.\/]*$/, trigger: 'input+blur', message: 'Composed of letters, numbers, dashes, underlines, English periods or "/"' },
+                    { type: 'string', message: 'Must not contain consecutive "/"', trigger: 'input+blur', validator: (rule, value, callback) => (value.indexOf('//') === -1) ? callback() : callback(new Error()) },
                 ],
             },
         };
@@ -168,7 +168,7 @@ export default {
                 name: this.showVolumeClaimTemplates ? '' : this.pvcName,
                 type: this.showVolumeClaimTemplates ? 'hostPath' : 'pvc',
                 pathType: this.showVolumeClaimTemplates ? 'DirectoryOrCreate' : '',
-                readOnly: false, // 默认读写
+                readOnly: false, // Default read and write
             };
         },
         normalize(list) {
@@ -178,7 +178,7 @@ export default {
                     return {
                         type,
                         mountPath,
-                        name: hostPath.path, // hostpath的name是path
+                        name: hostPath.path, // The name of hostpath is path
                         pathType: hostPath.type,
                         volumeName: item.volumeName,
                     };
@@ -219,7 +219,7 @@ export default {
                         return { mountPath, type, name };
                 });
         },
-        // 给name赋值为对应type下的值
+        // Assign name to the value under the corresponding type
         onSelectType(event, index) {
             const type = event.value || 'hostPath';
             this.sortList[index].name = type === 'hostPath' ? '' : this[type + 'Name'];
@@ -229,7 +229,7 @@ export default {
             return path.endsWith('/') ? path.slice(0, -1) : path;
         },
         getEmptyDirList(list = []) {
-            return [{ text: '请选择', value: '' }].concat(list);
+            return [{ text: 'Please choose', value: '' }].concat(list);
         },
         changeName(event, index) {
             this.sortList[index].name = this.sortList[index].type === 'hostPath' ? '' : this.sortList[index].name || this[this.sortList[index].type + 'Name'];

@@ -3,17 +3,17 @@
         <thead>
             <tr>
                 <th width="169px">Key</th>
-                <th width="110px">Value 类型</th>
+                <th width="110px">Value type</th>
                 <th width="261px">Value</th>
             </tr>
         </thead>
         <tbody>
-            <!-- 暂时只支持type为‘值’的 -->
+            <!-- Currently only supports type 'value' -->
             <tr is="u-form-table-tr" v-for="item in sortExtraList" :key="item.name" disabled ignore>
                 <td><u-input disabled size="huge" :value="item.name"></u-input></td>
                 <td><u-select disabled size="huge" :value="item.type" :data="types"></u-select></td>
-                <!-- 系统添加的 env 键值对，目前仅支持：string、field、resource -->
-                <td v-show="item.type === 'string'"><u-input disabled size="huge" :value="item.value" placeholder="0-2048个 ASCII 字符组成"></u-input></td>
+                <!-- The env key-value pairs added by the system currently only support: string, field, resource -->
+                <td v-show="item.type === 'string'"><u-input disabled size="huge" :value="item.value" placeholder="0-2048 ASCII characters"></u-input></td>
                 <td v-show="item.type === 'field'"><u-select-with-empty disabled :data="fields" v-model="item.fieldPath" size="huge full"></u-select-with-empty></td>
                 <td v-show="item.type === 'resource'">
                     <u-linear-layout gap="small">
@@ -24,23 +24,23 @@
             </tr>
 
             <tr is="u-form-table-tr" v-for="(item, index) in sortList" :key="index" :rules="rules" @remove="remove(index)" :can-be-empty="canBeEmpty" :is-empty="isEmpty.bind(this)">
-                <td><u-input size="huge" ref="input" name="name" v-model="item.name" placeholder="1-64位字母、数字或下划线组成，以字母开头" title="1-64位字母、数字或下划线组成，以字母开头"></u-input></td>
+                <td><u-input size="huge" ref="input" name="name" v-model="item.name" placeholder="Composed of 1-64 letters, numbers or underscores, starting with a letter" title="Composed of 1-64 letters, numbers or underscores, starting with a letter"></u-input></td>
                 <td><u-select size="huge" v-model="item.type" :data="types"></u-select></td>
-                <td v-show="item.type === 'string'"><u-input size="huge full" name="value" v-model="item.value" placeholder="0-2048个 ASCII 字符组成" title="0-2048个 ASCII 字符组成"></u-input></td>
+                <td v-show="item.type === 'string'"><u-input size="huge full" name="value" v-model="item.value" placeholder="0-2048 ASCII characters" title="0-2048 ASCII characters"></u-input></td>
                 <td v-show="item.type === 'secret'">
                     <u-linear-layout gap="small">
                         <u-select v-if="secretNames.length" key="listName" size="huge small" v-model="item.secretName" :data="secretNames" @select="onSelectSecretName($event, index)"></u-select>
-                        <u-select v-else key="noneName" size="huge small" :data="[{ text: '暂无 secret' }]" disabled></u-select>
+                        <u-select v-else key="noneName" size="huge small" :data="[{ text: 'No secret yet' }]" disabled></u-select>
                         <u-select v-if="item.secretKeys.length" key="listKey" size="huge small" v-model="item.secretKey" :data="item.secretKeys"></u-select>
-                        <u-select v-else size="huge small" key="noneKey" :data="[{ text: '暂无 secret key'}]" disabled></u-select>
+                        <u-select v-else size="huge small" key="noneKey" :data="[{ text: 'No secret key yet'}]" disabled></u-select>
                     </u-linear-layout>
                 </td>
                 <td v-show="item.type === 'configMap'">
                     <u-linear-layout gap="small">
                         <u-select v-if="configMapNames.length" key="listConfigMapName" size="huge small" v-model="item.configMapName" :data="configMapNames" @select="onSelectConfigMapName($event, index)"></u-select>
-                        <u-select v-else key="noneConfigMapName" size="huge small" :data="[{ text: '暂无 configMap'}]" disabled></u-select>
+                        <u-select v-else key="noneConfigMapName" size="huge small" :data="[{ text: 'No configMap yet'}]" disabled></u-select>
                         <u-select v-if="item.configMapKeys.length" key="listConfigMapKey" size="huge small" v-model="item.configMapKey" :data="item.configMapKeys"></u-select>
-                        <u-select v-else size="huge small" key="noneConfigMapKey" :data="[{ text: '暂无 configMap key'}]" disabled></u-select>
+                        <u-select v-else size="huge small" key="noneConfigMapKey" :data="[{ text: 'No configMap key yet'}]" disabled></u-select>
                     </u-linear-layout>
                 </td>
                 <td v-show="item.type === 'field'">
@@ -78,7 +78,7 @@ const RESOURCE_DATA = [
     'limits.memory',
     'limits.cpu',
 ];
-// enhance: valueFrom 属性
+// enhance: valueFrom attribute
 export default {
     name: 'u-inputs-env',
     mixins: [Inputs],
@@ -96,22 +96,22 @@ export default {
             resources: RESOURCE_DATA,
             rules: {
                 name: [
-                    { type: 'string', pattern: /^[a-zA-Z][a-zA-Z0-9_]{0,63}$/, trigger: 'input+blur', message: 'Key 由1-64位字母、数字、或下划线组成，以字母开头' },
-                    { type: 'string', trigger: 'input+blur', message: '不能使用系统保留环境变量', validator: (rule, value, callback) => {
+                    { type: 'string', pattern: /^[a-zA-Z][a-zA-Z0-9_]{0,63}$/, trigger: 'input+blur', message: 'Key consists of 1-64 letters, numbers, or underscores, starting with a letter' },
+                    { type: 'string', trigger: 'input+blur', message: 'Cannot use system reserved environment variables', validator: (rule, value, callback) => {
                         return value.startsWith('SKIFF_') ? callback(new Error()) : callback();
                     } },
                     { type: 'string', trigger: 'input', message: '', validator: (rule, value, callback) => this.sortList.some((item) => {
                         const isError = item.type === 'string' ? !!(item.name === value && !value && item.value) : !!(item.name === value && !value && item.secretKey && item.secretName);
                         return !!isError;
                     }) ? callback(new Error()) : callback() },
-                    { type: 'string', trigger: 'blur', message: 'Key 不能为空', validator: (rule, value, callback) => this.sortList.some((item) => {
+                    { type: 'string', trigger: 'blur', message: 'Key cannot be empty', validator: (rule, value, callback) => this.sortList.some((item) => {
                         const isError = item.type === 'string' ? (item.name === value && !value && item.value) : (item.name === value && !value && item.secretKey && item.secretName);
                         return !!isError;
                     }) ? callback(new Error()) : callback() },
                 ],
                 value: [
                     // eslint-disable-next-line
-                    { type: 'string', pattern: /^[\u0000-\u007F]{0,2048}$/, trigger: 'input+blur', message: 'value 由0-2048个 ASCII 字符组成' },
+                    { type: 'string', pattern: /^[\u0000-\u007F]{0,2048}$/, trigger: 'input+blur', message: 'Value must consist of 0-2048 ASCII characters' },
                 ],
             },
         };
@@ -132,7 +132,7 @@ export default {
         types() {
             if (!this.type) {
                 return [
-                    { value: 'string', text: '值' },
+                    { value: 'string', text: 'Value' },
                     { value: 'secret', text: 'Secret' },
                     { value: 'configMap', text: 'ConfigMap' },
                     { value: 'field', text: 'Field' },
@@ -145,7 +145,7 @@ export default {
     },
     watch: {
         containerNames(value) {
-            // 因为container name 时刻可以变更.如果变更后的container name 列表没有当前项，则重置其值
+            // Because the container name can be changed at any time. If the changed container name list does not have a current item, its value will be reset.
             this.sortList.forEach((item) => {
                 if (value && item.containerName && !value.includes(item.containerName))
                     item.containerName = '';
@@ -177,7 +177,7 @@ export default {
         },
     },
     created() {
-        // 不能在data()函数内调用 this.normalize，因为此时types还没有初始化。如果 extraList 内有 valueFrom 的对应数据，就会报错
+        // This.normalize cannot be called within the data() function because the type has not been initialized at this time. If there is corresponding data of valueFrom in extraList, an error will be reported.
         this.sortExtraList = this.normalize(this.extraList);
     },
     methods: {
@@ -286,7 +286,7 @@ export default {
         },
         $getData(list) {
             const tmp = this.getLegalList(list || this.sortList).concat(this.sortExtraList);
-            // 类型为 resource 时，必须要选择对应的 containerName
+            // When the type is resource, the corresponding containerName must be selected.
             return tmp.filter((item) => item.name && (item.type === 'resource' ? item.containerName : true))
                 .map((item) => {
                     return item.type === 'string' ?

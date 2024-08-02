@@ -17,7 +17,7 @@
 </template>
 <style module>
 .root[class] {
-    /* 下拉框的z-index太大，为1065,u-modal的z-index原本为1000 */
+    /* The z-index of the drop-down box is too large, 1065, and the z-index of u-modal is originally 1000. */
     z-index: 1111;
 }
 .status {vertical-align: middle; display: inline-block;}
@@ -85,19 +85,19 @@ export default {
     data() {
         return {
             type: 'warning',
-            title: '提示',
+            title: 'Hint',
             content: '',
             subContent: '',
             subContentHtml: '',
             isCancelPrimary: true,
-            showCancel: true, // 默认展示取消按钮
+            showCancel: true, // Show cancel button by default
             ok: null,
             cancel: null,
             clickWrap: this.submit,
             submitting: false,
             errMsg: '',
-            okText: '确定',
-            cancelText: '取消',
+            okText: 'OK',
+            cancelText: 'Cancel',
             message: '',
         };
     },
@@ -121,7 +121,7 @@ export default {
             this.show = true;
             Object.assign(this, options);
         },
-        // 覆盖 mixins - modal 中的close
+        // Override mixins - close in modal
         close() {
             this.cancel && this.cancel();
             this.show = false;
@@ -137,7 +137,7 @@ export default {
                 this.show = false;
                 return data;
             }, (err) => {
-                // todo： 错误提示文案展示
+                // todo： Error message copy display
                 this.submitting = false;
                 if (Array.isArray(err)) {
                     this.errMsg = (err.filter((item) => item.msg)[0] || {}).msg;

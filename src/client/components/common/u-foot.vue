@@ -1,7 +1,7 @@
 <template>
     <div :class="$style.root">
         <div :class="$style.footer" v-if="brandName === 'netease'">
-            <p>网易公司版权所有 © 1997-{{ year }} | 增值电信业务经营许可证 B1.B2-20090185 | ICP备 粤B2-20090191</p>
+            <p>All rights reserved by Kubeworkz © 2020-{{ year }} | Terms and Conditions | Privacy Policy</p>
         </div>
     </div>
 </template>

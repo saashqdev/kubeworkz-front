@@ -8,7 +8,7 @@ export default {
     //     trigger: { type: String, default: 'hover' },
     //     to: [Object, String],
     //     href: String,
-    //     text: { type: String, default: '操作' },
+    //     text: { type: String, default: 'Operate' },
     //     disabled: { type: Boolean, default: false },
     // },
     // data() {

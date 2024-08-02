@@ -16,8 +16,8 @@ export default {
     props: {
         message: String,
         placement: String,
-        text: { type: String, default: '复制' },
-        successText: { type: String, default: '已复制' },
+        text: { type: String, default: 'Copy' },
+        successText: { type: String, default: 'Copied' },
         disabled: { type: Boolean, default: false },
     },
     data() {

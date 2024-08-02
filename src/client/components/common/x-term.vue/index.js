@@ -13,7 +13,7 @@ export default {
     parentName: 'x-term-group',
     mixins: [ Emitter ],
     props: {
-        value: null, // 这里里后端返回的一个 id 作为唯一标示
+        value: null, // Here, an id returned by the backend is used as the unique identifier.
         options: Object,
         selected: false,
         title: { type: String, default: '-' },
@@ -25,7 +25,7 @@ export default {
     },
     data() {
         return {
-            hasMounted: false, // 生命周期是否到了mounted
+            hasMounted: false, // Whether the life cycle has been mounted
             parentVM: undefined,
             term: null,
             socket: null,
@@ -45,7 +45,7 @@ export default {
         },
     },
     watch: {
-        // todo: 支持多个tab
+        // todo: support multiple tabs
         // selected(value) {
         //     if(value && this.value && this.hasMounted && !this.term) {
         //         this.timeId && clearTimeout(this.timeId);
@@ -58,7 +58,7 @@ export default {
                 this.timeId = setTimeout(() => this.init());
             }
         },
-        // 是否最大化
+        // Whether to maximize
         isMax(value) {
             this.term && this.term.fit();
         },
@@ -78,7 +78,7 @@ export default {
     methods: {
         // sockjs
         init() {
-            // 这里通过$refs的方式获取dom节点有问题
+            // There is a problem here in obtaining the dom node through $refs.
             const target = document.getElementById('terminal-' + this.value);
             this.term = new Terminal(Object.assign({}, this.defaultOptions, this.options));
             // for debug
@@ -101,12 +101,12 @@ export default {
         runRealTerm() {
             this.socket.send(JSON.stringify({'Op': 'bind', 'SessionID': this.value}));
             this.term._initialized = true;
-            // 触发一次resize事件，这样能够给后端的pty一个初始尺寸
+            // Trigger a resize event to give the backend pty an initial size
             this.onTermResize(this.term.cols, this.term.rows);
         },
         // type: close || error
         runFakeTerm(type) {
-            // 针对 socket 连接之后马上就关闭了
+            // The socket is closed immediately after being connected.
             if (this.term._initialized) {
                 this.socket && this.socket.close();    
                 // this.term.write('Login...');
@@ -155,13 +155,13 @@ export default {
             }
         },
         onTermResize(columns, rows) {
-            // 只有开启了socket连接(readyState === 1)，否则socket.send会报错
+            // Only the socket connection is enabled (readyState === 1), otherwise socket.send will report an error
             this.socket && this.socket.readyState === 1 && this.socket.send(JSON.stringify({'Op': 'resize', 'Cols': columns, 'Rows': rows}));
         },
         onTermInput(str) {
             this.socket.send(JSON.stringify({'Op': 'stdin', 'Data': str}));
         },
-        // 更新term样式的一些方法
+        // Some methods to update term style
         setPadding(num) {
             this.term.element.style.padding = parseInt(num, 10).toString() + 'px';
             this.term.fit();

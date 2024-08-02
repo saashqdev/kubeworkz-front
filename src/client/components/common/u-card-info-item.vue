@@ -90,7 +90,7 @@ export default {
     },
     data() {
         return {
-            width: '', // 当前宽度百分比
+            width: '', // Current width percentage
             currentValue: this.value || '-',
             currentText: this.text || '-',
             currentUnit: this.unit,

@@ -25,8 +25,8 @@ export default {
         return {
             sortList: this.initList(this.list),
             addBtnInfo: {
-                text: '添加规则',
-                disabledAdd: false, // 即不限制数量
+                text: 'Add rule',
+                disabledAdd: false, // i.e. no limit on quantity
             },
         };
     },
@@ -46,7 +46,7 @@ export default {
         this.validate = throttle(this.validate, 500);
     },
     methods: {
-        /** * u-multi-add.vue需要的一些函数 ***/
+        /** * Some functions needed by u-multi-add.vue ***/
         getDefaultItem() {
             return {
                 type: this.type,
@@ -55,18 +55,18 @@ export default {
             };
         },
         miniFormater(item, index) {
-            return '规则' + (index + 1);
+            return 'Rule' + (index + 1);
         },
         getErrorTip() {
             return '';
         },
-        // 只有在列表收起、展开，新增删除才会验证
+        // Only when the list is collapsed, expanded, added or deleted will it be verified.
         changeInputList(event) {
             this.sortList = event.list;
             this.validate();
         },
-        /** * u-multi-add.vue需要的一些函数 ***/
-        // list为对象
+        /** * Some functions needed by u-multi-add.vue ***/
+        // list is an object
         initList(list = {}) {
             const tmp = this.type === 'nodeAffinity'
                 ? (list.requiredDuringSchedulingIgnoredDuringExecution || {}).nodeSelectorTerms
@@ -81,7 +81,7 @@ export default {
             });
         },
         getOperators() {
-            // Exists || DoesNotExist 后面不接values
+            // Exists || DoesNotExist is not followed by values
             const operators = ['In', 'NotIn', 'Exists', 'DoesNotExist', 'Gt', 'Lt'];
             return this.type === 'nodeAffinity' ? operators : operators.slice(0, -2);
         },
@@ -89,15 +89,15 @@ export default {
             item.valid = event.valid;
             this.validate();
         },
-        // 整体的验证
+        // overall verification
         validate(event, item) {
-            // sortList可为空
+            // sortList can be empty
             const valid = !this.sortList.length || this.sortList.some((item) => item.valid);
             this.$emit('validate', { valid });
         },
         $getData() {
-            // u-config-affinity组件中，基本只有u-inputs-affinity-rule组件需要传值，所以合法值的筛选就没有必要调用$getData方法
-            // 只有空项rules的sortList项需要筛选掉
+            // Among the u-config-affinity components, basically only the u-inputs-affinity-rule component needs to pass values, so there is no need to call the $getData method to filter legal values.
+            // Only the sortList items with empty rules need to be filtered out
             const expressions = this.sortList.filter((item) => item.rules.some((item) => item.key)).map((item) => ({
                 matchExpressions: item.rules.map((item) => ({
                     key: item.key,

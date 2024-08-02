@@ -10,8 +10,8 @@
             <div v-for="sub in currentSub" :key="sub.value" @click="$emit('selectStep', sub.value)" :class="sub.value === step.value ? [$style.dot, $style.dot_active] : $style.dot"></div>
         </u-linear-layout>
         <u-linear-layout justify="space-between">
-            <u-link v-if="step.value > 1" @click="$emit('stepLess')">上一步</u-link>
-            <u-link @click="setNext()">{{ step.value > stepList.length - 1 ? '结束教程' : '下一步' }}</u-link>
+            <u-link v-if="step.value > 1" @click="$emit('stepLess')">Previous</u-link>
+            <u-link @click="setNext()">{{ step.value > stepList.length - 1 ? 'End tutorial' : 'Next step' }}</u-link>
         </u-linear-layout>
     </div>
 </div>

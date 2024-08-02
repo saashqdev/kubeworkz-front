@@ -7,11 +7,11 @@ export default {
         // value: null,
         // readonly: { type: Boolean, default: false },
         // disabled: { type: Boolean, default: false },
-        blank: { type: Boolean, default: false }, // 点击扩大是否新开页面
+        blank: { type: Boolean, default: false }, // Click to expand whether to open a new page
         to: [Object, String],
         show: false,
         isFullScreen: Boolean,
-        maximized: { type: Boolean, default: false }, // 如果是从父组件传入为true，则后续的dbclock不允许改变currentMaximized的值
+        maximized: { type: Boolean, default: false }, // If it is passed in from the parent component and is true, subsequent dbclock is not allowed to change the value of currentMaximized.
     },
     data() {
         return {
@@ -56,7 +56,7 @@ export default {
             const index = this.itemVMs.indexOf(itemVM);
             this.itemVMs.splice(index, 1);
 
-            // 这里emit的名称为close会导致浏览器崩溃。。。
+            // The name of emit here is close, which will cause the browser to crash. . .
             cancel = false;
             this.$emit('closeItem', {
                 value: itemVM && itemVM.value,
@@ -76,17 +76,17 @@ export default {
         },
         closeAll() {
             this.$confirm({
-                title: '提示',
-                // content: '关闭后将断开所有与服务器的连接',
-                content: '是否断开与服务器的连接？',
+                title: 'Hint',
+                // content: 'Closing will disconnect all connections to the server',
+                content: 'Disconnect from the server?',
                 ok: () => Promise.resolve(this.$emit('closeAll')),
             });
         },
-        // 已经正常断开链接，只能关闭弹窗
+        // The link has been disconnected normally and the pop-up window can only be closed.
         exit() {
             this.$confirm({
-                title: '提示',
-                content: '连接已断开',
+                title: 'Hint',
+                content: 'The line is disconnected',
                 showCancel: false,
                 isCancelPrimary: false,
                 ok: () => Promise.resolve(this.$emit('exit')),

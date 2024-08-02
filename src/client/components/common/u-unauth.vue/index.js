@@ -1,12 +1,12 @@
 import config from '@micro-app/common/utils/config';
 export default {
     name: 'u-unauth',
-    docTitle: '无权限',
+    docTitle: 'No permission',
     data() {
         return {
             config,
             headLoaded: true,
-            PlatformPermission: {}, // 平台权限
+            PlatformPermission: {}, // Platform permissions
             domains: '',
         };
     },

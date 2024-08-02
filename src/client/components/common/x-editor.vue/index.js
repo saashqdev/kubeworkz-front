@@ -13,7 +13,7 @@ export default {
         theme: { type: String, default: 'textmate' },
         disabled: { type: Boolean, default: false },
         formatter: { type: Function },
-        options: Object, // ace支持的所有定制参数，见：https://github.com/ajaxorg/ace/wiki/Configuring-Ace
+        options: Object, // For all custom parameters supported by ace, see: https://github.com/ajaxorg/ace/wiki/Configuring-Ace
     },
     data() {
         return {
@@ -72,7 +72,7 @@ export default {
         });
     },
     methods: {
-        // 切换 x-editor 的disabled状态
+        // Switch the disabled state of x-editor
         setDisable(isDisable = true) {
             this.editor.setOptions({
                 readOnly: isDisable,

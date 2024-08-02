@@ -1,7 +1,7 @@
 <template>
     <div :class="$style.card">
         <div :class="$style.head">
-            <u-checkbox :disabled="data.length===0" v-model="allChecked">全选</u-checkbox>
+            <u-checkbox :disabled="data.length===0" v-model="allChecked">Select all</u-checkbox>
         </div>
         <div :class="$style.body">
             <u-checkboxes v-if="data.length > 0" v-model="checkedList">
@@ -72,7 +72,7 @@ export default {
         },
         placeholder: {
             type: String,
-            default: '暂无可选项',
+            default: 'No options available yet',
         },
         size: {
             type: String,

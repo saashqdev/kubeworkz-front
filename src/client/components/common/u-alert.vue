@@ -1,6 +1,6 @@
 
 <template>
-    <u-modal :visible.sync="show" @close="close" @ok="onOk" @cancel="onCancel" title="提示">
+    <u-modal :visible.sync="show" @close="close" @ok="onOk" @cancel="onCancel" title="Hint">
         <p :class="$style.content">
             <u-status-icon :class="$style.status" :name="type"></u-status-icon>{{content}}
         </p>
@@ -39,7 +39,7 @@ export default {
             modalVisible: false,
             ok: ()=> {},
             cancel: () => {},
-            title: '提示',
+            title: 'Hint',
             content: '',
             type: 'warning',
             description: '',

@@ -6,7 +6,7 @@ export default {
     extends: Radio,
     data() {
         return {
-            activeType: -1, // -1 降序，1 升序
+            activeType: -1, // -1 for descending order, 1 for ascending order
             prevSelected: false,
         };
     },

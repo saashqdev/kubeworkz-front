@@ -3,7 +3,7 @@
         <div v-show="false"><slot></slot></div>
         <u-linear-layout gap="small">
             <template v-for="(itemVM, index) in outsideVMs">
-                <!-- color数据是给第一个按钮默认加上primary的样式，当然通过u-detail-operate-item可以覆盖这个 -->
+                <!-- The color data adds the primary style to the first button by default. Of course, this can be overridden through u-detail-operate-item. -->
                 <u-create-element tag="u-button" :key="itemVM._uid"
                     v-bind="itemVM.$attrs" v-on="itemVM.$listeners" :color="itemVM.$attrs.color || (!index && isFirstPrimary && 'primary')"
                     :data="itemVM.$vnode.data" :children="itemVM.$slots.default">

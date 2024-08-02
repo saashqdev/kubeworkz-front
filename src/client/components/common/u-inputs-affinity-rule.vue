@@ -8,12 +8,12 @@
             </tr>
         </thead>
         <tbody>
-            <!-- 组件内部的valid检测不抛给全局，因为使用时有开关。如果后续使用有更多的场景，则将global参数暴露 -->
+            <!-- The valid detection inside the component is not thrown to the whole world because there is a switch when using it. If there are more scenarios for subsequent use, the global parameters will be exposed -->
             <tr is="u-form-table-tr" v-for="(item, index) in sortList" :key="index" :rules="rules" @remove="remove(index)" :global="false" :can-be-empty="canBeEmpty" :is-empty="isEmpty.bind(this)">
                 <td><u-input size="huge" name="key" v-model="item.key"></u-input></td>
                 <td><u-select v-model="item.operator" size="huge" :data="sortOperators" @select="onSelect($event, item)"></u-select></td>
                 <td v-if="item.hasValue"><u-input key="value" size="huge" name="values" v-model="item.values" :placeholder="item.operator | getPlaceholder"></u-input></td>
-                <td v-else><u-input key="none" disabled size="huge" value="无需填写values"></u-input></td>
+                <td v-else><u-input key="none" disabled size="huge" value="No need to fill in values"></u-input></td>
             </tr>
         </tbody>
     </u-form-table>
@@ -27,7 +27,7 @@ export default {
     mixins: [ Inputs ],
     filters: {
         getPlaceholder(operator) {
-            return ['In', 'NotIn'].includes(operator) ? '可输入多个值，用空格分割' : '请输入整数数值';
+            return ['In', 'NotIn'].includes(operator) ? 'Multiple values ​​can be entered, separated by spaces.' : 'Please enter an integer value';
         },
     },
     props: {
@@ -48,7 +48,7 @@ export default {
                         this.hasSame = !!instance;
                         instance && instance === value ? callback(new Error()) : callback();
                     }},
-                    { type: 'string', trigger: 'blur', message: '该 key 已存在', validator: (rule, value, callback) => {
+                    { type: 'string', trigger: 'blur', message: 'The key already exists', validator: (rule, value, callback) => {
                         const instance = this.sortList.filter(((item) => item.key)).map((item) => item.key).sort().find((item, index, arr) => item === arr[index + 1]);
                         this.hasSame = !!instance;
                         instance && instance === value ? callback(new Error()) : callback();
@@ -93,7 +93,7 @@ export default {
         },
         isEmpty() {
             const { key, hasValue, values } = (this.sortList[0] || {});
-            // operator 为 Exists', 'DoesNotExist'，可以不需要values
+            // The operator is Exists', 'DoesNotExist', and values ​​are not required
             return this.sortList.length === 1 && (hasValue ? !(key && values) : !key);
         },
         $getData() {

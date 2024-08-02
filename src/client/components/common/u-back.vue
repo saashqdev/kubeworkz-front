@@ -8,7 +8,7 @@
     export default {
         name: 'u-back',
         props: {
-            title: { type: String, default: '详情' },
+            title: { type: String, default: 'Details' },
             to: { type: [String, Object], default: '' },
         },
     };

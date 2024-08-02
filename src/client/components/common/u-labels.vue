@@ -3,10 +3,10 @@
         <span v-if="!lists.length">-</span>
         <template v-else>
             <span v-for="(list, i) in curLists" :title="list" :key="i" :class="$style.tags">{{ list }}</span>
-            <span v-if="showCollapse" :class="$style.more" @click="onClickMore">更多</span>
+            <span v-if="showCollapse" :class="$style.more" @click="onClickMore">More</span>
         </template>
 
-        <u-modal :visible.sync="viewMore" title="查看更多" size="huge">
+        <u-modal :visible.sync="viewMore" title="See more" size="huge">
             <div v-for="(item, index) in lists" :key="index" class="u-chip" :title="item">{{item}}</div>
             <div slot="foot"></div>
         </u-modal>
@@ -53,7 +53,7 @@ export default {
     name: 'u-labels',
     props: {
         lists: Array,
-        noCollapse: { type: Boolean, default: false }, // 默认使用折叠，展示查看更多
+        noCollapse: { type: Boolean, default: false }, // Use folding by default, show more
     },
     data() {
         return {

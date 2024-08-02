@@ -3,7 +3,7 @@
         <u-input :size="size" :disabled="disabled" v-model="currentValue" :placeholder="placeholder" :class="$style.input" @keyup.enter="search" @reset="search($event, '')" close>
             <u-icons :class="$style.search" name="search"></u-icons>
         </u-input>
-        <u-button color="primary" @click="search" :disabled="disabled">搜索</u-button>
+        <u-button color="primary" @click="search" :disabled="disabled">Search</u-button>
     </u-linear-layout>
 </template>
 
@@ -11,8 +11,8 @@
 export default {
     name: 'u-input-search',
     props: {
-        name: { type: String, default: '名称' }, // 搜索主体的名称
-        width: { type: String, default: 'large' }, // input输入框的长度
+        name: { type: String, default: 'name' }, // The name of the search subject
+        width: { type: String, default: 'large' }, // The length of the input input box
         disabled: { type: Boolean, default: false },
         alignRight: false,
         value: String,
@@ -27,7 +27,7 @@ export default {
             return 'large ' + this.width;
         },
         placeholder() {
-            return `请输入${this.name}搜索`;
+            return `Please enter ${this.name} search`;
         },
     },
     watch: {
@@ -39,7 +39,7 @@ export default {
         },
     },
     methods: {
-        // reset事件抛出后，只能改变input组件内部的值，需要调用$nextTick才能够同步到父组件内的值
+        // After the reset event is thrown, only the value inside the input component can be changed. You need to call $nextTick to synchronize the value in the parent component.
         // reset() {
         // },
         search(event, str) {

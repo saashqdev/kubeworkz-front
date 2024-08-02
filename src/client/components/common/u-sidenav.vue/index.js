@@ -2,15 +2,15 @@ import config from '@micro-app/common/utils/config';
 import cookie from '@micro-app/common/utils/handleCookie';
 import permissionService from '@micro-app/common/services/platform';
 const MENU_MAP = {
-    sideoverview: { text: '总览', value: 'sideoverview', remark: '' },
-    'platform.gaojing': { text: '告警服务', value: 'gaojing', remark: '', permissionKey: 'alarm' },
-    'platformManage.outerAuth': { text: '外部认证', value: 'outerAuth', remark: '', permissionKey: 'authentication' },
+    sideoverview: { text: 'Overview', value: 'sideoverview', remark: '' },
+    'platform.gaojing': { text: 'Alarm service', value: 'gaojing', remark: '', permissionKey: 'alarm' },
+    'platformManage.outerAuth': { text: 'External authorization', value: 'outerAuth', remark: '', permissionKey: 'authentication' },
 };
 export default {
     name: 'u-sidenav',
     data() {
         const activeModule = config.activeModule;
-        let domains = { // 兼容性代码，后期可不再维护（统一在 node 层维护配置）
+        let domains = { // Compatibility code can no longer be maintained in the future (the configuration is maintained at the node layer)
             ncs: '',
             nsf: '',
             cicd: '',
@@ -22,20 +22,20 @@ export default {
             paas: '',
             logseer: '',
         };
-        let codeTitleMap = config.curModule.reduce((obj, key) => { // 兼容性代码，后期可不再维护（统一在 node 层维护配置）
-            obj[key] = (key !== 'gportal' ? key.toUpperCase() : 'API 网关');
+        let codeTitleMap = config.curModule.reduce((obj, key) => { // Compatibility code can no longer be maintained in the future (the configuration is maintained at the node layer)
+            obj[key] = (key !== 'gportal' ? key.toUpperCase() : 'API gateway');
             return obj;
         }, {});
-        let codeRemarkMap = { // 兼容性代码，后期可不再维护（统一在 node 层维护配置）
-            nsf: '（微服务）',
-            ncs: '（容器云）',
-            paas: '（中间件）',
+        let codeRemarkMap = { // Compatibility code can no longer be maintained in the future (the configuration is maintained at the node layer)
+            nsf: '(Microservices)',
+            ncs: '(Container Cloud)',
+            paas: '(Middleware)',
             cicd: '（Codepipeline）',
-            apm: '（应用监控）',
-            gtxs: '（分布式事务）',
+            apm: '(Application Monitoring)',
+            gtxs: '(Distributed Transactions)',
             gportal: '（API Gateway）',
-            goapi: '（接口测试）',
-            logseer: '（日志服务）',
+            goapi: '(Interface Test)',
+            logseer: '(Log Service)',
         };
 
         if (activeModule) {
@@ -99,7 +99,7 @@ export default {
         sideoverviewHref() {
             return window.location.protocol + '//' + cookie.readCookie('qz_platform.domain').replace(/(?=\/)|$/, this.port) + '#/' + this.query;
         },
-        // 以下为兼容配置
+        // The following are compatible configurations
         ncsHref() {
             return window.location.protocol + '//' + this.domains.ncs.replace(/(?=\/)|$/, this.port) + '#/' + this.query;
         },
@@ -124,7 +124,7 @@ export default {
         logseerHref() {
             return window.location.protocol + '//' + this.domains.logseer.replace(/(?=\/)|$/, this.port) + '#/' + this.query;
         },
-        // 以上为兼容配置
+        // The above are compatible configurations
         ...(config.activeModule ? Object.keys(config.activeModule).reduce((obj, key) => {
             if (key === 'goapi') {
                 return obj;
@@ -154,7 +154,7 @@ export default {
                 const PlatformPermission = res;
                 return permissionService.DescribeUIPermissions({
                     PermissionScopeId: projectId || tenantId || 1,
-                    ServiceModule: 'branchview', // 分行视图 or 一级导航
+                    ServiceModule: 'branchview', // Branch view or first-level navigation
                     AccountId: accountId,
                 }).then(({ Permissions }) => {
                     if (Permissions && Array.isArray(Permissions)) {
@@ -171,7 +171,7 @@ export default {
                         this.PlatformPermission = PlatformPermission;
                     }
                     this.handleConfig();
-                }).catch(() => { // 一般不会出现
+                }).catch(() => { // Usually does not appear
                     this.PlatformPermission = PlatformPermission;
                     this.handleConfig();
                 });
@@ -194,13 +194,13 @@ export default {
                     this.navList.push(MENU_MAP['platformManage.outerAuth']);
                 }
 
-                // 增加权限控制
-                this.navList = this.navList.filter(item => { // 隐藏
+                // Add permission control
+                this.navList = this.navList.filter(item => { // hide
                     if (!PlatformPermission.hasBranchView) {
                         return true;
                     }
                     const value = item.permissionKey || item.value;
-                    if (value === 'sideoverview') { // 总览 or 分行总览
+                    if (value === 'sideoverview') { // Overview or Branch Overview
                         return PlatformPermission.branchview_ccbOverview || PlatformPermission.branchview_overview;
                     }
                     return PlatformPermission[`branchview_${value}`];
