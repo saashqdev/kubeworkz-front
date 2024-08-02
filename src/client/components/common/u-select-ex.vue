@@ -58,7 +58,7 @@ export default {
         },
         onChange({ value, oldValue }) {
             this.current = value;
-            // 失去焦点后, 刷新列表
+            // After losing focus, refresh the list
             if (!value) {
                 clearTimeout(this.iTimer);
                 this.iTimer = setTimeout(() => {

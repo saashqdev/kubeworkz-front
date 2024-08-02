@@ -18,12 +18,12 @@
 }
 </style>
 <script>
-// 通过hover上去展示tooltip给出解释的简单组件。
+// Hover up to show the simple components explained by the tooltip.
 
 export default {
     name: "u-note",
     props: {
-        // tooltip展示的方位
+        // The orientation of the tooltip display
         placement: { type: String, default: 'right' },
         size: { type: String, default: 'normal' },
     },

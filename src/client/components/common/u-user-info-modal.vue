@@ -1,23 +1,23 @@
 <template>
-    <u-modal @close="close" title="个人信息" ok-button="" cancel-button="" :visible.sync="show" size="huge">
+    <u-modal @close="close" title="Personal information" ok-button="" cancel-button="" :visible.sync="show" size="huge">
         <u-form gap="large" :rules="rules" @validate="formValid = $event.valid">
-            <u-form-item name="accountId" label="帐号" required>
+            <u-form-item name="accountId" label="Account number" required>
                 {{ model.AccountId }}
             </u-form-item>
-            <u-form-item name="name" label="用户昵称" placement="bottom">
-                <u-input size="large huge" v-model="model.UserName" maxlength="64" maxlength-message="不得超过64个字符"></u-input>
+            <u-form-item name="name" label="User's Nickname" placement="bottom">
+                <u-input size="large huge" v-model="model.UserName" maxlength="64" maxlength-message="Must not exceed 64 characters"></u-input>
             </u-form-item>
-            <u-form-item name="phone" label="手机" placement="bottom">
+            <u-form-item name="phone" label="Cell phone" placement="bottom">
                 <u-input size="large huge" v-model="model.Phone" maxlength="11"></u-input>
             </u-form-item>
-            <u-form-item name="email" label="邮箱" placement="bottom">
+            <u-form-item name="email" label="EMail" placement="bottom">
                 <u-input size="large huge" v-model="model.Email"></u-input>
             </u-form-item>
             <u-submit-button :click="submit.bind(this)" place="middle">
                 <template slot-scope="scope">
                     <u-linear-layout>
-                        <u-button color="primary" @click="scope.submit" :disabled="!formValid || scope.submitting" :icon="scope.submitting ? 'loading' : ''">确定</u-button>
-                        <u-button @click="close">取消</u-button>
+                        <u-button color="primary" @click="scope.submit" :disabled="!formValid || scope.submitting" :icon="scope.submitting ? 'loading' : ''">OK</u-button>
+                        <u-button @click="close">Cancel</u-button>
                     </u-linear-layout>
                 </template>
             </u-submit-button>
@@ -43,10 +43,10 @@ export default {
             },
             rules: {
                 phone: [
-                    { type: 'string', pattern: /.{11,}/, trigger: 'input+blur', message: '请输入11位手机号' },
+                    { type: 'string', pattern: /.{10,}/, trigger: 'input+blur', message: 'Please enter your 10-digit mobile phone number' },
                 ],
                 email: [
-                    { type: 'string', pattern: /[.a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+/, trigger: 'input+blur', message: '请输入正确的邮箱格式' },
+                    { type: 'string', pattern: /[.a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+/, trigger: 'input+blur', message: 'Please enter the correct email format' },
                 ],
             },
             formValid: false,

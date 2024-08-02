@@ -12,8 +12,8 @@ export default {
         data: Array,
         value: [String, Number],
         size: { type: String, default: 'normal' },
-        needDefault: { type: Boolean, default: false }, // 是否有数据时需要空态值
-        emptyData: { type: Array, default: () => ([{ text: '暂无数据' }]) },
+        needDefault: { type: Boolean, default: false }, // Whether a null value is required when there is data
+        emptyData: { type: Array, default: () => ([{ text: 'No data' }]) },
         disabled: { type: Boolean, default: false },
     },
     watch: {
@@ -36,7 +36,7 @@ export default {
             if (value && value.length)
                 tmp = typeof (value[0]) === 'object' ? value : value.map((item) => ({ text: item, value: item }));
 
-            this.needDefault && tmp.length && (tmp = [{ text: '请选择', value: '' }].concat(tmp));
+            this.needDefault && tmp.length && (tmp = [{ text: 'Please choose', value: '' }].concat(tmp));
             return tmp;
         },
     },

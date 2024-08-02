@@ -1,5 +1,5 @@
 <template>
-    <u-modal :visible.sync="modalVisible" :title="'欢迎使用 ' + modalData.title.toUpperCase()" size="huge" @close="startUse">
+    <u-modal :visible.sync="modalVisible" :title="'Welcome ' + modalData.title.toUpperCase()" size="huge" @close="startUse">
         <div slot="body" :class="$style.body">
             <div :class="$style.logo">
                 <u-icons :name="modalData.icon || modalData.title" :class="$style.logo_icon"></u-icons>
@@ -7,14 +7,14 @@
             <div :class="$style.content">
                 <div :class="$style.title">{{ modalData.title.toUpperCase() }}</div>
                 <u-text :class="$style.text">{{ modalData.bref }}</u-text>
-                <div :class="$style.sub_title">产品亮点：</div>
+                <div :class="$style.sub_title">Product Highlights:</div>
                 <u-text v-for="(item, index) in modalData.Highlights" :key="index" :class="$style.text" display="block">{{ `${index + 1}、${item}` }}</u-text>
             </div>
         </div>
         <div slot="foot" :class="$style.foot">
             <u-linear-layout>
-                <u-button color="primary" @click="startTutorial">使用教程</u-button>
-                <u-button @click="startUse">开始体验</u-button>
+                <u-button color="primary" @click="startTutorial">Tutorial</u-button>
+                <u-button @click="startUse">Start experiencing</u-button>
             </u-linear-layout>
         </div>
     </u-modal>

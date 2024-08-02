@@ -8,8 +8,8 @@
         :value="size"
         @select="setPageSize"
       />
-      <span :class="$style.pages">条/页</span>
-      <span :class="$style.items">共{{ count }}项</span>
+      <span :class="$style.pages">Article / Page</span>
+      <span :class="$style.items">Common {{ count }} item</span>
       <u-pagination
         :class="$style.page"
         :total="total"

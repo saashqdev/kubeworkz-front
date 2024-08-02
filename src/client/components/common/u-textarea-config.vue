@@ -10,13 +10,13 @@ export default {
     name: 'u-textarea-config',
     props: {
         disabled: { type: Boolean, default: false },
-        values: { type: [ Array, String ], default: '' }, // 可能是处理后的数组，也可能是输入的内容的字符串
+        values: { type: [ Array, String ], default: '' }, // It may be a processed array or a string of input content.
         max: { type: Number, default: 1024 },
         errMessage: String,
         placeholder: String,
     },
     data() {
-        // 关闭打开之后，会重新走一遍这里，watch对应的values数据无法触发，所以这里必须要初始化一次，和watch的回调相同
+        // After closing and opening, you will go through this again. The values ​​data corresponding to the watch cannot be triggered, so it must be initialized here, which is the same as the callback of the watch.
         return {
             value: this.initValue(this.values),
         };

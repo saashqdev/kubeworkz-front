@@ -1,8 +1,8 @@
 <template>
     <div :class="$style.root" :style="cssProps">
-        <!-- disabled是u-popper的属性，不会在最外层标签添加disabled的data，需要换一个 -->
+        <!-- disabled is an attribute of u-popper. It will not add disabled data to the outermost tag. You need to change it. -->
         <u-popper :class="$style.account" :open.sync="open" trigger="hover" :z-dis="disabled" :disabled="disabled" append-to="reference" :follow-cursor="false" @before-toggle="onBeforeToggle">
-            <!-- 这里只能用template标签，不能用其他类似div的 -->
+            <!-- Only template tags can be used here, and other similar divs cannot be used. -->
             <template v-if="list && list.length > 0 || $slots.popper">
                 <div>
                     <slot name="title">
@@ -13,7 +13,7 @@
                 </div>
                 <div slot="popper" :class="$style.popper" :style="popperStyle">
                     <template v-if="searchable">
-                        <u-input :class="$style.search" v-model="searchText" placeholder="请输入关键字搜索" @keyup.enter="onSearchEntry"></u-input>
+                        <u-input :class="$style.search" v-model="searchText" placeholder="Please enter keyword search" @keyup.enter="onSearchEntry"></u-input>
                     </template>
                     <ul>
                         <slot name="popper">
@@ -27,7 +27,7 @@
             <template v-else>
                 <div>
                     <div :class="$style.label">{{ label }}</div>
-                    <span :class="$style.value" disabled>无{{ label }}</span>
+                    <span :class="$style.value" disabled>None {{ label }}</span>
                     <i :class="$style.icon_down"></i>
                 </div>
             </template>
@@ -39,10 +39,10 @@
 export default {
     name: 'u-popper-select',
     props: {
-        label: { type: String, default: '项目' },
+        label: { type: String, default: 'Project' },
         list: { type: Array, default: () => ([]) },
         disabled: { type: Boolean, default: false },
-        value: [ String, Number ], // 一般为id
+        value: [ String, Number ], // Usually id
         popperStyle: { type: Object, default: () => { {} } },
         searchable: Boolean,
         from: { type: String, default: '' },

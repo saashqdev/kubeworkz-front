@@ -1,6 +1,6 @@
 <template>
     <div :class="$style.root">
-        如需新的{{ name }}，可<u-link :to="to" :href="href" target="_blank" :class="$style.link" :disabled="disabled">创建{{ name }}</u-link>
+        If you need new {{ name }}，you can <u-link :to="to" :href="href" target="_blank" :class="$style.link" :disabled="disabled">create a {{ name }}</u-link>
         <u-refresh @click="$emit('refresh')" :loading="loading" :disabled="disabled"></u-refresh>
     </div>
 </template>
