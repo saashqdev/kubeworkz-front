@@ -36,7 +36,7 @@
           <template slot-scope="scope">
             <u-linear-layout>
               <u-button @click="close">
-                取消
+                Cancel
               </u-button>
               <u-button
                 color="primary"
@@ -44,15 +44,15 @@
                 :icon="scope.submitting ? 'loading' : ''"
                 @click="scope.submit"
               >
-                确定
+                OK
               </u-button>
             </u-linear-layout>
           </template>
         </u-submit-button>
       </div> -->
       <div v-if="!readOnly" slot="footer">
-        <el-button @click="close">取 消</el-button>
-        <el-button :disabled="!!yamlErrorTip" type="primary" @click="submit" :loading="commitLoading">确 定</el-button>
+        <el-button @click="close">Cancel</el-button>
+        <el-button :disabled="!!yamlErrorTip" type="primary" @click="submit" :loading="commitLoading">OK</el-button>
       </div>
     </el-dialog>
     <div v-if="fullScreen" :class="$style.fullScreenEditor">
@@ -107,16 +107,16 @@ export default {
             this.validateTimeoutId = window.setTimeout(() => {
                 this.yamlContent = value;
                 try {
-                // 重置
+                // reset
                     this.yamlErrorTip = '';
                     yamljs.parse(value);
                 } catch (err) {
-                    // 二次校验
+                    // Second verification
                     try {
                         YAML.parse(value);
                     } catch (e) {
                         const { parsedLine, snippet } = err;
-                        this.yamlErrorTip = `第${parsedLine}行解析错误："${snippet}"`;
+                        this.yamlErrorTip = `No ${parsedLine} Line parsing error: "${snippet}"`;
                     }
                 }
             }, 300);
@@ -143,7 +143,7 @@ export default {
             content = YAML.parse(content);
             // } catch (err) {
             //     const { parsedLine, snippet } = err;
-            //     throw new Error(`第${parsedLine}行解析错误："${snippet}"`);
+            //     throw new Error(`No ${parsedLine} Line parsing error: "${snippet}"`);
             // }
             try {
                 await this.onSubmit(content);

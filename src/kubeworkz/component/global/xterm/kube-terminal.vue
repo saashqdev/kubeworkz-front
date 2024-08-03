@@ -146,8 +146,8 @@ export default {
 
             } catch (err) {
                 this.$confirm({
-                    title: '提示',
-                    content: '无法建立与服务器端的连接',
+                    title: 'Hint',
+                    content: 'Unable to establish connection to server side',
                     showCancel: false,
                     isCancelPrimary: false,
                     ok: () => { this.show = false; return Promise.resolve(); },
@@ -163,8 +163,8 @@ export default {
         },
         closeAll() {
             this.$confirm({
-                title: '提示',
-                content: '关闭将断开所有服务器连接',
+                title: 'Hint',
+                content: 'Shutdown will disconnect all servers',
                 ok: () => { this.show = false; return Promise.resolve(); },
             });
         },

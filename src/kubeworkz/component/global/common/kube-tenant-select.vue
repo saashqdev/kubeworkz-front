@@ -14,7 +14,7 @@
     <u-select
       v-else
       v-bind="$attrs"
-      value="暂无租户"
+      value="No tenants yet"
       disabled
     />
   </kube-valve>

@@ -14,7 +14,7 @@
     <u-select
       v-else
       v-bind="$attrs"
-      value="暂无角色"
+      value="No role yet"
       disabled
     />
   </kube-valve>
@@ -63,7 +63,7 @@ export default {
     methods: {
         async getRoles() {
 
-            await this.$nextTick(); // 避免 model modelValue 后改变，导致后续数据取值出错
+            await this.$nextTick(); // Avoid model modelValue changes later, resulting in errors in subsequent data values.
             const response = await userService.getUserRole(this.params);
             console.log(response);
             const { clusterRoles, roles } = response;

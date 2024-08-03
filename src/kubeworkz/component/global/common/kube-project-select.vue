@@ -14,7 +14,7 @@
     <u-select
       v-else
       v-bind="$attrs"
-      value="暂无项目"
+      value="No projects yet"
       disabled
     />
   </kube-valve>
@@ -87,7 +87,7 @@ export default {
                 };
             });
             if ((this.isPlatform || this.isTenant) && !this.noEmpty) {
-                projects.unshift({ text: '不指定', value: '' });
+                projects.unshift({ text: 'Not specify', value: '' });
             }
             this.list = projects;
 

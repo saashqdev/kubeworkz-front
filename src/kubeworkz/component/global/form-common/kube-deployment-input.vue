@@ -14,14 +14,14 @@
       layout="block"
       :required="required"
       :show-discription="true"
-      description="关联工作负载后，系统会自动在服务的标签选择器中增加该工作负载的标签"
+      description="After a workload is associated, the system will automatically add the label of the workload in the service's label selector."
     >
       <u-radios v-model="mode">
         <u-radio label="simple">
-          简单
+          Simple
         </u-radio>
         <u-radio label="hard">
-          高级
+          Advanced
         </u-radio>
       </u-radios>
 
@@ -45,7 +45,7 @@
               v-model="workloadName"
               disabled
               size="large"
-              :data="[{text: '暂无工作负载'}]"
+              :data="[{text: 'No workload yet'}]"
             />
           </template>
         </x-request>

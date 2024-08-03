@@ -1,13 +1,13 @@
 <template>
-  <u-modal :visible.sync="showErrorModal" :style="{zIndex: 9999}" mask-close title="错误提示" okButton="" cancelButton="" size="large">
+  <u-modal :visible.sync="showErrorModal" :style="{zIndex: 9999}" mask-close title="Error message" okButton="" cancelButton="" size="large">
       <u-form v-if="errorMsg" gap="small" label-size="auto">
-        <u-form-item label="原因:" layout="block" label-size="small">
+        <u-form-item label="Reason:" layout="block" label-size="small">
           <u-text :class="$style.textFile" color="error">{{errorMsg.reason || 'error'}}</u-text>
         </u-form-item>
-        <u-form-item v-if="errorMsg.field" label="字段:" layout="block" label-size="small">
+        <u-form-item v-if="errorMsg.field" label="Fields:" layout="block" label-size="small">
           <u-text :class="$style.textFile" color="error">{{errorMsg.field}}</u-text>
         </u-form-item>
-        <u-form-item v-if="errorMsg.message" label="详情:" layout="block" label-size="small">
+        <u-form-item v-if="errorMsg.message" label="Details:" layout="block" label-size="small">
           <u-text :class="$style.textFile" color="error" v-html="errorMsg.message"/>
         </u-form-item>
       </u-form>

@@ -5,7 +5,7 @@
       key="list"
       v-model="model"
       filterable
-      placeholder="选择空间"
+      placeholder="Select space"
       :class="$style.suggestBox"
       :popper-class="$style.suggestPopper"
       @change="beforeChange"
@@ -22,7 +22,7 @@
       v-else
       value=""
       disabled
-      placeholder="暂无空间"
+      placeholder="No space yet"
       :class="$style.suggestBox"
     />
     <!-- <u-sidebar-suggest
@@ -32,7 +32,7 @@
       :data="items"
       :value.sync="model"
       size="huge normal"
-      placeholder="选择集群"
+      placeholder="Select cluster"
       @before-select="beforeChange"
       @select="change"
     />
@@ -41,7 +41,7 @@
       key="none"
       disabled
       size="huge normal"
-      placeholder="暂无空间"
+      placeholder="No space yet"
     /> -->
   </div>
 </template>

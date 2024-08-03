@@ -1,7 +1,7 @@
 <template>
   <u-linear-layout>
     <u-text v-if="!noTitle">
-      集群
+      Cluster
     </u-text>
     <u-select
       v-if="items.length"
@@ -10,7 +10,7 @@
       :data="items"
       :value.sync="model"
       size="large"
-      placeholder="选择集群"
+      placeholder="Select cluster"
       @select="change"
       @before-select="onBeforeSelect"
     />
@@ -19,7 +19,7 @@
       key="none"
       disabled
       size="large"
-      placeholder="暂无集群"
+      placeholder="No cluster yet"
     />
   </u-linear-layout>
 </template>

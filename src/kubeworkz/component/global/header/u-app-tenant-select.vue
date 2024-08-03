@@ -1,6 +1,6 @@
 <template>
   <u-popper-select
-    label="租户"
+    label="Tenant"
     :list="items"
     :value.sync="model"
     :disabled="items.length === 0"

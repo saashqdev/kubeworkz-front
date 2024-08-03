@@ -1,6 +1,6 @@
 <template>
   <u-popper-select
-    label="项目"
+    label="Project"
     :list="items"
     :value.sync="model"
     :disabled="items.length === 0"

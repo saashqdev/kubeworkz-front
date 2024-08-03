@@ -61,10 +61,3 @@ export default {
   "cancel": "CANCEL"
 }
 </i18n>
-
-<i18n locale="zhHans">
-{
-  "confirm": "确定",
-  "cancel": "取消"
-}
-</i18n>

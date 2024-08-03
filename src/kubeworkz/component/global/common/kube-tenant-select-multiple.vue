@@ -25,7 +25,7 @@
     <el-input
       v-else
       v-bind="$attrs"
-      placeholder="暂无租户"
+      placeholder="No tenants yet"
       disabled
     />
   </kube-valve>

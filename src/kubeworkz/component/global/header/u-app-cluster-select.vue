@@ -4,7 +4,7 @@
       v-if="items.length"
       v-model="model"
       filterable
-      placeholder="选择集群"
+      placeholder="Select cluster"
       :class="$style.suggestBox"
       :popper-class="$style.suggestPopper"
       @change="onBeforeSelect"
@@ -21,7 +21,7 @@
       v-else
       value=""
       disabled
-      placeholder="暂无集群"
+      placeholder="No cluster yet"
       :class="$style.suggestBox"
     />
     <!-- <u-sidebar-suggest
@@ -31,7 +31,7 @@
       :data="items"
       :value.sync="model"
       size="huge normal"
-      placeholder="选择集群"
+      placeholder="Select cluster"
       @before-select="onBeforeSelect"
       @select="change"
     />
@@ -40,7 +40,7 @@
       key="none"
       disabled
       size="huge normal"
-      placeholder="暂无集群"
+      placeholder="No cluster yet"
     /> -->
   </div>
 </template>
@@ -111,7 +111,7 @@ export default {
                     text: i.annotations && i.annotations['cluster.kubeworkz.io/cn-name'] || i.clusterName,
                     value: i.clusterName,
                     ...i,
-                    disabled: i.status !== 'normal', // 异常的禁用
+                    disabled: i.status !== 'normal', // Unusual disabling
                 }));
                 this.clusterList = this.items.slice();
                 setValueIfListNotPresent({
@@ -167,9 +167,3 @@ export default {
 }
 </i18n>
 
-<i18n locale="zhHans">
-{
-  "Cluster": "集群",
-  "Namespace": "空间"
-}
-</i18n>

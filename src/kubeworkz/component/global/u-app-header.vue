@@ -26,7 +26,7 @@
             :class="$style.headerButton"
             @click="() => isInPlatform ? toControl() : toPlatform()"
           >
-            切换到{{ isInPlatform ? '控制台' : '运维管理' }}
+            Switch to {{ isInPlatform ? 'Console' : 'Operation and maintenance management' }}
           </u-button>
         </div>
         <div>
@@ -40,13 +40,13 @@
             </template>
             <div slot="popper">
               <!-- <li @click="showAddUserInfo = true">
-                    <i-line-awesome name="user" style="font-size: 16px; vertical-align: -3px; margin-right: 8px;"></i-line-awesome>个人信息
+                    <i-line-awesome name="user" style="font-size: 16px; vertical-align: -3px; margin-right: 8px;"></i-line-awesome>personal information
                 </li> -->
               <li @click="toUser">
                 <i-line-awesome
                   name="key"
                   style="font-size: 16px; vertical-align: -3px; margin-right: 8px;"
-                />密钥管理
+                />Key management
               </li>
               <li
                 id="logout"
@@ -56,7 +56,7 @@
                 <i-line-awesome
                   name="sign-out"
                   style="font-size: 16px; vertical-align: -3px; margin-right: 5px; margin-left: -1px;"
-                /> 安全退出
+                /> Retreat safely
               </li>
             </div>
           </u-popper-select>

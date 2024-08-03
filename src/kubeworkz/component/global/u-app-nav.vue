@@ -3,17 +3,17 @@
     <div class="g-sidebar">
       <u-sidebar collapsible>
         <u-sidebar-header
-          label="控制台"
+          label="Console"
         />
         <div style="margin-bottom: 12px;">
           <div :class="$style.subTitle">
-            集群
+            Cluster
           </div>
           <div :class="$style.subTitle">
             <u-app-cluster-select />
           </div>
           <div :class="$style.subTitle">
-            空间
+            Space
           </div>
           <div :class="$style.subTitle">
             <u-app-namespace-select />
@@ -25,26 +25,26 @@
           expanded
           class="m-sidebar-group"
         >
-          <span slot="title"><u-icons name="dashboard" />总览</span>
+          <span slot="title"><u-icons name="dashboard" />Overview</span>
           <u-sidebar-item
             :to="{ path: '/control/dashboard' }"
           >
-            资源监控
+            Resource monitoring
           </u-sidebar-item>
           <!-- <u-sidebar-item :to="{ path:`/panel/index` }">
-            仪表盘
+            Dashboard
           </u-sidebar-item> -->
         </u-sidebar-group>
         <u-sidebar-divider />
         <div style="margin-left: 3px;">
           <div :class="$style.subTitleblock">
-            应用中心
+            Application Center
           </div>
         </div>
         <u-sidebar-group
           class="m-sidebar-group"
         >
-          <span slot="title"><u-icons name="workload" />工作负载</span>
+          <span slot="title"><u-icons name="workload" />Workload</span>
           <u-sidebar-item
             :to="{ path: '/control/deployments' }"
           >
@@ -77,7 +77,7 @@
           </u-sidebar-item>
         </u-sidebar-group>
         <u-sidebar-group class="m-sidebar-group">
-          <span slot="title"><u-icons name="serverFinder" />服务与发现</span>
+          <span slot="title"><u-icons name="serverFinder" />Service and discovery</span>
           <u-sidebar-item :to="{ path: '/control/services' }">
             Services
           </u-sidebar-item>
@@ -89,10 +89,10 @@
           </u-sidebar-item> -->
         </u-sidebar-group>
         <u-sidebar-item :to="{ path: '/control/persistentvolumeclaims' }">
-          <u-icons name="volume" />存储
+          <u-icons name="volume" />Storage
         </u-sidebar-item>
         <u-sidebar-group class="m-sidebar-group">
-          <span slot="title"><u-icons name="config" />配置</span>
+          <span slot="title"><u-icons name="config" />Configuration</span>
           <u-sidebar-item
             :to="{ path: '/control/secrets' }"
           >
@@ -105,55 +105,55 @@
           </u-sidebar-item>
         </u-sidebar-group>
         <u-sidebar-item @click="() => $yamlDialog.open()">
-          <u-icons name="yaml" />YAML 编排
+          <u-icons name="yaml" />YAML Orchestration
         </u-sidebar-item>
         <u-sidebar-item :to="{ path: '/control/crd' }">
-          <u-icons name="yaml" />自定义资源 CRD
+          <u-icons name="yaml" />Custom Resource CRD
         </u-sidebar-item>
         <u-sidebar-item @click="openCloudShell">
           <u-icons name="cloud-shell" />Cloud Shell
         </u-sidebar-item>
         <u-sidebar-item :to="{ path: '/control/bootstrap' }">
-          <u-icons name="alarmRule" />常用工具
+          <u-icons name="alarmRule" />Common Tool
         </u-sidebar-item>
 
         <u-sidebar-divider />
         <div style="margin-left: 3px;">
           <div :class="$style.subTitleblock">
-            运维中心
+            Operation and Maintenance Center
           </div>
         </div>
         <u-sidebar-group v-if="logseerFeatures" class="m-sidebar-group">
-          <span slot="title"><u-icons name="config" />日志</span>
+          <span slot="title"><u-icons name="config" />Logs</span>
           <u-sidebar-item
             :to="{ path: '/control/logconfigs' }"
           >
-            日志任务管理
+            Log Task Management
           </u-sidebar-item>
           <u-sidebar-item
             :to="{ path: '/control/lens/normal' }"
             @click="toLog"
           >
-            日志查询
+            Log Query
           </u-sidebar-item>
         </u-sidebar-group>
 
         <u-sidebar-group class="m-sidebar-group">
-          <span slot="title"><u-icons name="config" />告警</span>
+          <span slot="title"><u-icons name="config" />Alerts</span>
           <u-sidebar-item
             :to="{ path: '/control/PrometheusRule' }"
           >
-            告警规则
+            Alert Rules
           </u-sidebar-item>
           <u-sidebar-item
             :to="{ path: '/control/AlertmanagerConfig' }"
           >
-            告警策略组
+            Alert Policy Group
           </u-sidebar-item>
           <!-- <u-sidebar-item
             :to="{ path: '/control/lens/alarmhistory' }"
           >
-            告警历史
+            Alert History
           </u-sidebar-item> -->
         </u-sidebar-group>
       </u-sidebar>
@@ -176,11 +176,11 @@ export default {
         cluster: sync('scope/cluster'),
         logseerFeatures: get('feature/features@logseer'),
         query: get('query'),
-        // dashbo{ title: 'specialTerms.Dashboard', to: this.makeRoute("/dashboard"), icon: 'mdi-view-dashboard' },
+        // dashboard{ title: 'specialTerms.Dashboard', to: this.makeRoute("/dashboard"), icon: 'mdi-view-dashboard' },
         workloads() {
             return [
 
-                // 有 cluster 的必须用makeRoute
+                // If you have a cluster, you must use makeRoute
                 // { title: 'specialTerms.User', to: { path: "/user" }, icon: 'mdi-account-details' },
                 { title: 'Deployments', to: this.makeRoute('/deployments') },
                 { title: 'Statefullsets', to: this.makeRoute('/statefullsets') },
