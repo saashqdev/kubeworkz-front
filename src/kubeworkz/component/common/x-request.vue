@@ -34,7 +34,7 @@ export default {
             default: 'div',
         },
         poll: [ Boolean, Object ],
-        // waterfall 必传
+        // waterfall must pass
         paramResolver: Function,
     },
     data() {

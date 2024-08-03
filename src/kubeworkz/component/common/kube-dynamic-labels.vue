@@ -87,7 +87,7 @@
         :class="$style.listview"
       >
         <div :class="$style.listitem">
-          无可选值
+          No optional value
         </div>
       </div>
     </div>

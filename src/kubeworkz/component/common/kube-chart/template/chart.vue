@@ -167,8 +167,8 @@ export default {
                     tooltip: {
                         appendToBody: true,
                         trigger: 'axis',
-                        axisPointer: { // 坐标轴指示器，坐标轴触发有效
-                            type: 'line', // 默认为直线，可选为：'line' | 'shadow'
+                        axisPointer: { // Axis indicator, axis trigger is valid
+                            type: 'line', // Default is straight line, optional: 'line' | 'shadow'
                         },
                     },
                     grid: {
@@ -198,8 +198,8 @@ export default {
                 //     tooltip: {
                 //         appendToBody: true,
                 //         trigger: 'axis',
-                //         axisPointer: { // 坐标轴指示器，坐标轴触发有效
-                //             type: 'line', // 默认为直线，可选为：'line' | 'shadow'
+                //         axisPointer: { // Axis indicator, axis trigger is valid
+                //             type: 'line', // Default is straight line, optional: 'line' | 'shadow'
                 //         },
                 //     },
                 //     grid: {

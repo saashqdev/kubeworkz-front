@@ -11,14 +11,14 @@ import _ from 'lodash';
 
 
 /**
- * 处理工作负载的状态
- * @param {Object} workload - 工作负载
- * @param {Boolean} stateful - 是否有状态
+ * Processing workload status
+ * @param {Object} workload - Workload
+ * @param {Boolean} stateful - Is there a status
  */
 const getStatus = (workload, stateful = false) => {
     const { RequestK8sSuccess, podInfo, status } = workload;
 
-    // 新增：status.replicas为空，展示 warning
+    // New: status.replicas is empty, display warning
     if(RequestK8sSuccess !== 'True' || podInfo.warnings.length || (status && !status.replicas)) 
         return 'warning';
     else if(podInfo.pending)
@@ -29,9 +29,9 @@ const getStatus = (workload, stateful = false) => {
 };
 
 /**
-     * 从镜像的imagePath中取出版本号
+     * Get the version number from the image's imagePath
      * @param  {String} _path imagePath
-     * @return {String}       版本号
+     * @return {String}       version number
      */
 const getTagFromImagePath = (path) => {
     path = path || '';
@@ -45,22 +45,22 @@ const getTagFromImagePath = (path) => {
 };
 const getRepoDesc = (info) => {
     if (!info || (info && !Object.keys(info).length))
-        return '没有选择镜像';
+        return 'No mirror selected';
     return info.userName + '/' + info.repoName + ':' + this.getTagFromImagePath(info.selectedPath);
 };
 
 const getDefaultContainer = (stateful) => {
     const container = {
-        Name: '', // 容器名
-        Image: '', // 镜像URL
-        LogDirs: [], // 日志路径数组
-        Args: [], // Docker CMD命令。
-        Command: [], // Docker EntryPoint命令.
-        Envs: [], // 环境变量数组
+        Name: '', // Container name
+        Image: '', // Mirror URL
+        LogDirs: [], // Log path array
+        Args: [], // Docker CMD command
+        Command: [], // Docker EntryPoint command
+        Envs: [], // Environment variable array
         ResourceRequirements: {},
-        SecurityContext: { // SecurityContext (安全选项)
-            Privilege: false, // 默认权限或root权限
-            Capabilities: [], // 容器权限
+        SecurityContext: { // SecurityContext (security options)
+            Privilege: false, // Default permissions or root permissions
+            Capabilities: [], // Container permissions
         },
     };
 
@@ -75,7 +75,7 @@ const getDefaultContainer = (stateful) => {
 
 const getCPU = ((cpu = '') => cpu.includes('m') ? (cpu.split('m')[0] / 1000) : (cpu ? +cpu : 0.1));
 const getMemory = (memory = '') => {
-    // 默认值
+    // default value
     if(!memory) return 128;
     const MAP = ['Mi', 'Gi', 'Ti'];
     const value = memory.split('i')[0].slice(0, -1);
@@ -83,9 +83,9 @@ const getMemory = (memory = '') => {
     return index !== -1 ? (value * Math.pow(1024, index)) : value;
 };
 /**
- * 将k8s经过转化后的数值字符串转化为数值
- * 后缀字符和数字的对应关系： 【10^-3 m】 【10^3 k】 【10^6 M】【10^9 G】
- * @param {String} num - k8s经过转化后的数值字符串
+ * Convert the k8s converted numerical string into a numerical value
+ * Correspondence between suffix characters and numbers: [10^-3 m] [10^3 k] [10^6 M] [10^9 G]
+ * @param {String} num - k8s converted numerical string
  * @returns {Number}
  */
 const formatNumber = (num = '') => {
@@ -104,11 +104,11 @@ const formatNumber = (num = '') => {
     return multiple * value;
 };
 
-// 现在后端返回的工作负载（Deployment || statefulSet）实例数据结构太过复杂，需要处理下
+// The workload (Deployment || statefulSet) instance data structure returned by the backend is now too complex and needs to be processed.
 /**
- * @param {object} model - 后端返回的工作负载实例模型
- * @param {boolean} simple - 是否简单模式
- * @param {string} type - 工作负载类型(Deployment || StatefulSet)[暂时没用到]
+ * @param {object} model - Workload instance model returned by the backend
+ * @param {boolean} simple - Is it simple mode?
+ * @param {string} type - Workload type (Deployment || StatefulSet) [not used yet]
  */
 const normalizeWorkload = (model = {}, simple = false) => {
     const { metadata, RequestK8sSuccess, pods: podInfo, status, spec } = model;
@@ -122,10 +122,10 @@ const normalizeWorkload = (model = {}, simple = false) => {
         'template.spec.restartPolicy', 'template.spec.imagePullSecrets','template.spec.affinity',
     ]);
 
-    // 自定义字段
-    podInfo && (podInfo.message = RequestK8sSuccess !== 'True' ? '无法获取状态' : (podInfo.warnings && podInfo.warnings.length && podInfo.warnings[0].message));
+    // Custom fields
+    podInfo && (podInfo.message = RequestK8sSuccess !== 'True' ? 'Unable to get status' : (podInfo.warnings && podInfo.warnings.length && podInfo.warnings[0].message));
 
-    // 简单模式返回
+    // Simple mode return
     if(simple) {
         return {
             name,
@@ -139,9 +139,9 @@ const normalizeWorkload = (model = {}, simple = false) => {
         };
     }
 
-    // 后续有对内部的字段进行调整
+    // Internal fields will be adjusted later.
     const tmpContainers = _.cloneDeep(containers);
-    // 筛掉系统默认标签
+    // Filter out system default tags
     const customLabels = {};
     const systemLabels = {};
     Object.keys(labels).forEach((item) => {
@@ -155,11 +155,11 @@ const normalizeWorkload = (model = {}, simple = false) => {
         let [ cpu, memory, limitCPU ] = _.at(item.resources || {}, [ 'requests.cpu', 'requests.memory', 'limits.cpu' ]);
         const gpu = ((item.resources || {}).limits || {})['nvidia.com/gpu'];
         cpu = getCPU(cpu);
-        // 为对应的requests的cpu、memory(对应为小数格式，不带’m‘或’Mi'单位)
-        // 重写对应的resource
+        // It is the CPU and memory of the corresponding requests (corresponding to decimal format, without 'm' or 'Mi' unit)
+        // Rewrite the corresponding resource
         item.resources = {
             cpu,
-            gpu: formatNumber(gpu) || 0, // 非必然返回的字段
+            gpu: formatNumber(gpu) || 0, // Fields that are not necessarily returned
             memory: getMemory(memory),
             multiple: Math.round(getCPU(limitCPU) / cpu) || 1,
         };
@@ -208,7 +208,7 @@ const normalizeWorkload = (model = {}, simple = false) => {
         RequestK8sSuccess,
         labels: workloadLabels,
         
-        serviceName, // statefulSet专用
+        serviceName, // dedicated to statefulSet
         volumeClaimTemplates: (volumeClaimTemplates || []).map((item) => ({
             name: item.metadata.name,
             mode: item.spec.accessModes[0],
@@ -246,7 +246,7 @@ const normalizePod = (model = {}) => {
         cpuUsage += getCPU(cpu);
         memoryUsage += getMemory(memory);
     });
-    // container.status为自定义字段，running || terminated || waiting，默认取waiting
+    // container.status is a custom field, running || terminated || waiting, the default is waiting.
     containers.forEach((item) => item.status = Object.keys(item.state)[0] || 'waiting');
     return Object.assign({}, {
         name, 
@@ -257,7 +257,7 @@ const normalizePod = (model = {}) => {
         phase, 
         podIP,
         containers,
-        // 多个容器的cpu相加，由于是小数,会出现小数位过多的情况
+        // When the CPUs of multiple containers are added together, there will be too many decimal places since they are decimals.
         cpuUsageText: (cpuUsage.toString().split('.')[1].length > 3 ? cpuUsage.toFixed(3) : cpuUsage) + ' Cores',
         memoryUsageText: memoryUsage + ' MiB',
         fullModel: model,
@@ -268,10 +268,10 @@ const normalizeService = (model = {}) => {
     const item = model.item || {};
     const { name, creationTimestamp, namespace, labels, annotations } = item.metadata || {};
     const { ports, selector, clusterIP, type } = item.spec || {};
-    // 自定义
+    // customize
     const host = name + '.' + namespace;
     let template = (annotations || {}).template || '';
-    // 如果annotations没有template字段声明，需要额外的逻辑初始化
+    // If annotations are not declared in a template field, additional logic initialization is required.
     if(!template) {
         if(type === 'NodePort')
             template = 'nodePort';
@@ -294,8 +294,8 @@ const normalizeService = (model = {}) => {
         ports,
         clusterIP,
         template,
-        selector: selector || {}, // 存在selector为undefined的合法情形，做兼容
-        extendInfo: (model.extendInfo && model.extendInfo.ips) ? model.extendInfo : { ips: []}, // 兼容extendInfo的接口返回
+        selector: selector || {}, // There are legal situations where the selector is undefined, so it is compatible.
+        extendInfo: (model.extendInfo && model.extendInfo.ips) ? model.extendInfo : { ips: []}, // The interface compatible with extendInfo returns
         fullModel: item,
     });
 };
@@ -361,7 +361,7 @@ const normalizeConfigMap = (model = {}) => {
 };
 
 const sizeProcessor = function(result) {
-    // this为monitor-chart
+    // this is monitor-chart
     const keys = this.metrics.map((item) => item.key);
     const max = Math.max.apply(null, _.flatten( result.map((item) => keys.map((key) => item[key])) ));
     const { unit } = filters.num(isNaN(+max) ? 0 : max);
@@ -375,9 +375,9 @@ const sizeProcessor = function(result) {
 };
 
 const getStep = (startTime, endTime) => {
-    // 是否以秒为最小单位（一搬为毫秒）
+    // Whether to use seconds as the minimum unit (one move is milliseconds)
     const isSecond = (endTime + '').length < 12;
-    // period为min为单位
+    // period is min as unit
     let period = (endTime - startTime) / 60;
     !isSecond && (period = Math.floor(period / 1000));
     // 6h、24h、7d、30d
@@ -389,10 +389,10 @@ const getStep = (startTime, endTime) => {
 };
 
 const getDashBoardTabs = (uiAuth) => [
-    uiAuth.viewClusterMonitor ? { title: '资源', name: 'dashboard.index.resource' } : null,
-    uiAuth.viewTenantMonitor ? { title: '租户', name: 'dashboard.index.tenant' } : null,
-    uiAuth.viewProjectMonitor ? { title: '项目', name: 'dashboard.index.project' } : null,
-    uiAuth.viewIngressMonitor ? { title: '负载均衡', name: 'dashboard.index.ingress' } : null,
+    uiAuth.viewClusterMonitor ? { title: 'Resource', name: 'dashboard.index.resource' } : null,
+    uiAuth.viewTenantMonitor ? { title: 'Tenant', name: 'dashboard.index.tenant' } : null,
+    uiAuth.viewProjectMonitor ? { title: 'Project', name: 'dashboard.index.project' } : null,
+    uiAuth.viewIngressMonitor ? { title: 'Load balancing', name: 'dashboard.index.ingress' } : null,
 ].filter(Boolean);
 
 const normalizeTag = (tag) => {
@@ -414,7 +414,7 @@ const normalizeTag = (tag) => {
         author: author.replace(/"/g, ''),
         createTime: created,
         scanInfo: Object.assign({}, tmp, {
-            hasScan: !!tag.scan_overview, // 是否扫描过
+            hasScan: !!tag.scan_overview, // Have you scanned
             total,
             id: job_id,
             status: scan_status,
@@ -428,7 +428,7 @@ const normalizeTag = (tag) => {
 
 const getReleaseStatusText = (status) => {
     status = status ? status.toLowerCase() : 'unknown';
-    return RELEASE_STATUS_MAP[status] || '未知状态';
+    return RELEASE_STATUS_MAP[status] || 'unknown status';
 };
 
 const normalizePDB = (model = {}) => {
@@ -451,7 +451,7 @@ const normalizePDB = (model = {}) => {
     };
 };
 
-// 处理后端处理过的workload返回(用于设置页面的数据处理<部分参数不需要>)
+// Returns the workload processed by the backend (used to set the data processing of the page <some parameters are not required>)
 const formatExternalWorkload = (model = {}) => {
     const { metadata, status, spec } = model;
     const { name, namespace, labels: workloadLabels } = (metadata || {});
@@ -463,9 +463,9 @@ const formatExternalWorkload = (model = {}) => {
         'template.spec.restartPolicy', 'template.spec.imagePullSecrets','template.spec.affinity',
     ]);
 
-    // 后续有对内部的字段进行调整
+    // Internal fields will be adjusted later.
     const tmpContainers = _.cloneDeep(containers);
-    // 筛掉系统默认标签
+    // Filter out system default tags
     const customLabels = {};
     const systemLabels = {};
     Object.keys(labels).forEach((item) => {
@@ -479,16 +479,16 @@ const formatExternalWorkload = (model = {}) => {
         let [ cpu, memory, limitCPU ] = _.at(item.resources || {}, [ 'requests.cpu', 'requests.memory', 'limits.cpu' ]);
         const gpu = ((item.resources || {}).limits || {})['nvidia.com/gpu'];
         cpu = getCPU(cpu);
-        // 为对应的requests的cpu、memory(对应为小数格式，不带’m‘或’Mi'单位)
-        // 重写对应的resource
+        // It is the CPU and memory of the corresponding requests (corresponding to decimal format, without 'm' or 'Mi' unit)
+        // Rewrite the corresponding resource
         item.resources = {
             cpu,
-            gpu: formatNumber(gpu) || 0, // 非必然返回的字段
+            gpu: formatNumber(gpu) || 0, // Fields that are not necessarily returned
             memory: getMemory(memory),
             multiple: Math.round(getCPU(limitCPU) / cpu) || 1,
         };
 
-        // 筛掉系统默认标签(cicd服务需要)
+        // Filter out system default labels (required for cicd service)
         item.customEnvs = [];
         item.systemEnvs = [];
         item.env && item.env.forEach((subItem) => subItem.name.startsWith('SKIFF_') ? item.systemEnvs.push(subItem) : item.customEnvs.push(subItem));
@@ -506,7 +506,7 @@ const formatExternalWorkload = (model = {}) => {
         hostNetwork,
         labels: workloadLabels,
         
-        serviceName, // statefulSet专用
+        serviceName, // dedicated to statefulSet
         volumeClaimTemplates: (volumeClaimTemplates || []).map((item) => ({
             name: item.metadata.name,
             mode: item.spec.accessModes[0],
@@ -529,7 +529,7 @@ const formatExternalWorkload = (model = {}) => {
     });
 };
 
-// 获取 nodes 的 cpu、memory、gpu 的数据之和
+// Get the sum of the cpu, memory, and gpu data of nodes
 const getNodeInfo = (list = []) => {
     list = Array.isArray(list) ? list : [];
     return list.reduce((acc, item) => {
@@ -540,14 +540,14 @@ const getNodeInfo = (list = []) => {
     }, { cpu: 0, memory: 0, gpu: 0 });
 };
 /**
- * @description 返回符合u-transfer组件要求的数据结构信息(保留后端原有的capacityCpu等字段信息)
+ * @description Return data structure information that meets the requirements of the u-transfer component (retain the original capacityCpu and other field information of the backend)
  * 
- * @param {Array} list - 节点列表
- * @param {Boolean} disabled - 是否disabled节点的移动
+ * @param {Array} list - node list
+ * @param {Boolean} disabled - Whether to disable node movement
  */
 const formatNodes = (list = [], disabled = false) => {
     return list.map((item) => Object.assign(item, {
-        text: item.name + `（C:${item.capacityCpu} M:${item.capacityMemory} G:${item.capacityGpu}）`, 
+        text: item.name + `(C:${item.capacityCpu} M:${item.capacityMemory} G:${item.capacityGpu})`, 
         value: item.name,
         disabled,
     }));    

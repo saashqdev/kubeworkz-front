@@ -24,7 +24,7 @@ export default {
         return Math.round(+kiString.replace('Ki', '') / 1024 / 1024);
     },
     getNodeType(labels) {
-        // 共享的标签需要打三个：system/tenantid: netease.share, system/status: assigned, system/namespace: netease.share
+        // Three shared labels need to be marked: system/tenantid: netease.share, system/status: assigned, system/namespace: netease.share
         const type = labels['system/tenant'] === 'netease.share' ? labels['system/tenant'] : labels['system/status'];
         return NODE_TYPE_MAP[type] || '-';
     },
@@ -39,7 +39,7 @@ export default {
     },
     checkSchedulable(spec) {
         const { unschedulable } = spec;
-        return unschedulable ? '不可调度' : '可调度';
+        return unschedulable ? 'Unschedulable' : 'Scheduling';
     },
     isNodeAssigned(node) {
         return node.metadata.labels['system/status'] === 'assigned';
@@ -59,8 +59,8 @@ export default {
     },
     num(value) {
         const tmp = unit.size(value, 'B');
-        // 保留两位小数
-        // 返回对象：unit和num
+        // Keep to two decimal places
+        // Return objects: unit and num
         return {
             num: tmp.num[0] ? tmp.num[0].toFixed(2) : 0,
             unit: tmp.unit[0],

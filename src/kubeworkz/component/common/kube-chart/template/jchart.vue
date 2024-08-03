@@ -201,7 +201,7 @@ export default {
                     });
                 });
                 largest.sort((a, b) => (a < b ? -1 : 1));
-                // 补数据点
+                // Complement data points
                 const min = largest[0];
                 const max = largest[largest.length - 1 ];
                 if (params.start < min - step) {

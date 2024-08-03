@@ -15,18 +15,18 @@
           :class="$style.rootName"
           :title="titleKey && value[titleKey]"
         >
-          {{ (titleKey && value[titleKey]) || `配置 - ${index}` }}
+          {{ (titleKey && value[titleKey]) || `Configuration - ${index}` }}
         </span>
         <div :class="$style.textWrap">
-          <!-- 错误提示 -->
+          <!-- Error message -->
           <span
             v-if="invalid"
             :class="$style.tip"
           >
             {{ getTip(errors) }}</span>
-          <!-- 展开操作 -->
+          <!-- Expand operation -->
           <u-link @click.stop="open">
-            展开
+            Expand
           </u-link>
         </div>
       </div>
@@ -37,10 +37,10 @@
               :disabled="disabled"
               @click="remove"
             >
-              删除
+              Delete
             </u-link>
             <u-link @click="close">
-              收起
+              Close
             </u-link>
           </u-linear-layout>
         </div>

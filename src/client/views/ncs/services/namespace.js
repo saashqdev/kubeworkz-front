@@ -21,7 +21,7 @@ const apis = {
         method: 'put',
         path: '/extends/clusters/{clusterId}/namespace',
     },
-    // 原生删除空间
+    // Native delete space
     delete: {
         method: 'delete',
         path: '/clusters/{clusterId}/namespaces/{nsName}',
@@ -30,14 +30,14 @@ const apis = {
         method: 'delete',
         path: '/extends/clusters/{clusterId}/namespace/{nsName}',
     },
-    // 一个项目同时关联多个空间
+    // A project is associated with multiple spaces at the same time
     link: {
         method: 'post',
         path: '/extends/project/namespaces',
     },
 };
 
-// /ncs/proxy 为前端代理接口需要带的前缀
+// /ncs/proxy is the prefix required for the front-end proxy interface
 const service = new Service(apis, '/ncs/proxy/api/v1/ncs');
 
 export default service;

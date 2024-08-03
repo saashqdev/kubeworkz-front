@@ -7,7 +7,7 @@
     <div :class="$style.timechip">
       <u-linear-layout gap="small">
         <span :class="$style.chip">{{ startTime | formatLocaleTime }}</span>
-        <u-text>至</u-text>
+        <u-text>to</u-text>
         <span :class="$style.chip">{{ endTime | formatLocaleTime }}</span>
       </u-linear-layout>
     </div>

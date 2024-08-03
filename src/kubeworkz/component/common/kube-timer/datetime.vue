@@ -7,7 +7,7 @@
         direction="vertical"
       >
         <u-link @click="mode=!mode">
-          切换
+          Switch
         </u-link>
         <u-linear-layout
           v-if="mode"
@@ -16,7 +16,7 @@
           gap="small"
           direction="vertical"
         >
-          <u-text>时间：</u-text>
+          <u-text>Time:</u-text>
           <u-time-picker
             :time="currentStartTime"
             @change="changeTime('startTime', $event.time)"
@@ -54,7 +54,7 @@
       color="primary"
       @click="changeDate"
     >
-      确定
+      OK
     </u-button>
   </div>
 </template>
@@ -64,11 +64,11 @@ import calendar from './calendar.vue';
 const hour = 60 * 1000 * 60;
 const day = 24 * hour;
 const DEFAULT_SHORTCUTS = [
-    { text: '近1小时', value: hour },
-    { text: '近6小时', value: hour * 6 },
-    { text: '近1天', value: day },
-    { text: '近7天', value: day * 7 },
-    { text: '近30天', value: day * 30 },
+    { text: 'nearly 1 hour', value: hour },
+    { text: 'nearly 6 hours', value: hour * 6 },
+    { text: 'last 1 day', value: day },
+    { text: 'last 7 days', value: day * 7 },
+    { text: 'last 30 days', value: day * 30 },
 ];
 function format(value, type) {
     if (!value) { return; }

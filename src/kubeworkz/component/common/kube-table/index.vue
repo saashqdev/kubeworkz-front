@@ -51,7 +51,7 @@
               :colspan="columns.length"
               style="text-align:center"
             >
-              加载中...
+              Loading...
             </td>
           </tr>
         </tbody>
@@ -73,7 +73,7 @@
         <tbody
           v-else-if="items.length"
         >
-          <!-- 滚动条宽度问题 -->
+          <!-- Scroll bar width problem -->
           <!-- <colgroup v-if="maxHeight">
           <col
             v-for="column in columns"

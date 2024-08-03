@@ -83,9 +83,9 @@ export default {
         periodList: {
             type: Array,
             default: () => ([
-                { name: '近6小时', value: 360 * 60 * 1000 },
-                { name: '近1天', value: 1440 * 60 * 1000 },
-                { name: '近7天', value: 10080 * 60 * 1000 },
+                { name: 'nearly 6 hours', value: 360 * 60 * 1000 },
+                { name: 'last 1 day', value: 1440 * 60 * 1000 },
+                { name: 'last 7 days', value: 10080 * 60 * 1000 },
             ]),
         },
     },

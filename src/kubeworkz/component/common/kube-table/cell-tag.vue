@@ -20,7 +20,7 @@
           <el-link
             type="primary"
             style="padding-left: 5px; vertical-align: text-top; font-size:inherit;"
-          >更多</el-link>
+          >More</el-link>
         </span>
 
         <div slot="content">
@@ -38,10 +38,10 @@
             type="primary"
             style="padding-left: 5px; vertical-align: text-top; font-size:inherit;"
             @click="viewMore = true"
-          >更多</el-link>
+          >More</el-link>
         </span>
         <el-dialog
-          title="查看更多"
+          title="See more"
           :visible.sync="viewMore"
           width="800px"
           :close-on-click-modal="false"
@@ -72,7 +72,7 @@ export default {
             type: Function,
             default: item => item.text,
         },
-        isChip: { type: Boolean, default: false }, // 是否为u-chips组件的单元的样式
+        isChip: { type: Boolean, default: false }, // Whether it is the style of the unit of u-chips component
     },
     data() {
         return {
@@ -86,7 +86,7 @@ export default {
         briefList() {
             return this.list.slice(0, this.max);
         },
-        // 数组中的每项是否字符串
+        // Whether each item in the array is a string
         isString() {
             return typeof this.list[0] === 'string';
         },

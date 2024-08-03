@@ -19,7 +19,7 @@
             v-if="extractBasicErrors(errors, [getErrorKey(t.key)])"
             :class="$style.tabwarning"
           >!</span>
-          {{ titleKey ? t.value[titleKey] : ` 配置${index+1}` }}
+          {{ titleKey ? t.value[titleKey] : ` Configuration ${index+1}` }}
           <span
             v-if="disabled"
             :class="$style.occupation"

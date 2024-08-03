@@ -5,7 +5,7 @@
         v-model="checkedAll"
         :disabled="data.length===0"
       >
-        全选
+        Select all
       </u-checkbox>
     </div>
     <div :class="$style.body">

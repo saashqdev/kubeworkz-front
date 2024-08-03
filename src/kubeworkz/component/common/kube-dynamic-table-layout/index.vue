@@ -21,7 +21,7 @@
       :disabled="disabled"
       @click="add"
     >
-      添加
+      Add to
     </u-button>
   </div>
 </template>

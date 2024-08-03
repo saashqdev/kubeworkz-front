@@ -1,4 +1,4 @@
-// 处理自定制的storageClass
+// Handling custom storageClass
 export const formatStorageClass = (model = {}) => {
     return {
         // todo

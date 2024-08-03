@@ -17,7 +17,7 @@ const apis = {
         path: '/clusters/{clusterId}/namespaces/{namespace}/persistentvolumeclaims/{name}',
         method: 'get',
     },
-    // 废弃
+    // abandoned
     // getStorageClassList: {
     //     path: '/extends/clusters/{clusterId}/storage/storageclasses',
     //     method: 'get',

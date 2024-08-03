@@ -16,7 +16,7 @@ const apis = {
         method: 'get',
         path: '/clusters/{clusterId}/namespaces/{namespace}/secrets',
         process: (result) =>
-            // 不暴露kubernetes.io/service-account-token这种类型的secret
+            // Do not expose secrets of this type kubernetes.io/service-account-token
              (result.items || [])
                 .filter((item) => item.type !== 'kubernetes.io/service-account-token')
                 .map((item) => normalizeSecret(item))
@@ -26,7 +26,7 @@ const apis = {
         method: 'get',
         path: '/extends/clusters/{clusterId}/namespaces/{namespace}/secrets',
         process: (result) => {
-            // 不暴露kubernetes.io/service-account-token这种类型的secret
+            // Do not expose secrets of this type kubernetes.io/service-account-token
             const list = (result.secrets || [])
                 .filter((item) => item.type !== 'kubernetes.io/service-account-token')
                 .map((item) => normalizeSecret(item));
@@ -45,7 +45,7 @@ const apis = {
         path: '/clusters/{clusterId}/namespaces/{namespace}/secrets/{name}',
     },
 };
-// /ncs/proxy 为前端代理接口需要带的前缀
+// /ncs/proxy is the prefix required for the front-end proxy interface
 const service = new Service(apis, '/ncs/proxy/api/v1/ncs');
 
 export default service;

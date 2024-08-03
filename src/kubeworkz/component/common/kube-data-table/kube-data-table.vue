@@ -12,7 +12,7 @@
       max-height="500px"
     >
       <template #noData>
-        暂无数据
+        No data
       </template>
     </kube-table>
   </div>
@@ -133,7 +133,7 @@ export default {
 
                     data.forEach(d => {
                         if (d.metric) {
-                            // 表格键值为子集关系
+                            // Table key value is a subset relationship
                             const curMetric = Object.values(d.metric);
                             let key = curMetric.sort().join('-');
                             let finded;
@@ -155,7 +155,7 @@ export default {
                                     [METRIC_KEY]: curMetric,
                                 };
                                 Object.keys(d.metric).forEach(k => {
-                                    // 避免遗漏 column
+                                    // Avoid missing columns
                                     if (!columns.find(c => c.name === k)) {
                                         columns.unshift({
                                             title: k, name: k,

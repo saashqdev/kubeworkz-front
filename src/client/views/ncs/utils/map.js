@@ -1,10 +1,10 @@
-// cpu的相关转换map
+// cpu related conversion map
 const SPEC_MAP = ['small', 'medium', 'large', 'xlarge', '2xlarge', '4xlarge'];
 
 const TYPE_MAP = [
-    { text: 'GPU 计算型 gnpc1', value: 'gnpc1' },
-    { text: 'GPU 计算型 gnpc3', value: 'gnpc3' },
-    { text: 'GPU 图形加速 gnpc4', value: 'gnpc4' },
+    { text: 'GPU computing type gnpc1', value: 'gnpc1' },
+    { text: 'GPU computing type gnpc3', value: 'gnpc3' },
+    { text: 'GPU graphics acceleration gnpc4', value: 'gnpc4' },
 ];
 
 const REPO_MAP = {
@@ -21,16 +21,16 @@ const REPO_MAP = {
 
 const WORKLOAD_STATUS_MAP = {
     running: {
-        text: '运行中',
+        text: 'Running',
     },
     pending: {
-        text: '处理中',
+        text: 'Processing',
     },
     abnormal: {
-        text: '警告',
+        text: 'Warn',
     },
     arrear: {
-        text: '已停服',
+        text: 'Service stopped',
     },
     loading: {
         text: '',
@@ -38,11 +38,11 @@ const WORKLOAD_STATUS_MAP = {
 };
 const POD_STATUS_MAP = {
     texts: {
-        Pending: '等待中',
-        Running: '运行中',
-        Succeeded: '成功终止',
-        Failed: '失败终止',
-        Unknow: '异常',
+        Pending: 'Waiting',
+        Running: 'Running',
+        Succeeded: 'Terminated successfully',
+        Failed: 'Failed termination',
+        Unknow: 'Abnormal',
     },
     icons: {
         Pending: 'fix',
@@ -54,11 +54,11 @@ const POD_STATUS_MAP = {
 };
 const CONTAINER_STATUS_MAP = {
     texts: {
-        Restarting: '重启中',
-        Running: '运行中',
-        RestartFail: '重启失败',
-        Waiting: '创建中',
-        Terminated: '终止',
+        Restarting: 'Restarting',
+        Running: 'Running',
+        RestartFail: 'Restart failed',
+        Waiting: 'Creating',
+        Terminated: 'Termination',
     },
     icons: {
         Restarting: 'fix',
@@ -68,59 +68,59 @@ const CONTAINER_STATUS_MAP = {
         Terminated: 'stop',
     },
 };
-// 可以执行相关操作的状态集
+// A set of states in which relevant actions can be performed
 const OPERATE_MAP = {
-    // running态所有操作都可以执行
+    // All operations in running state can be performed
     pending: ['!bind'],
     abnormal: ['!bind'],
     arrear: ['delete', 'unbind'],
-    // loading态所有操作都不能执行
+    // All operations in the loading state cannot be executed
     // setting: ['running', 'Running', 'Abnormal'],
     // delete: ['CreateFail', 'Running', 'Abnormal'],
-    // // 更多操作里面的
+    // // More operations inside
     // resize: ['Running', 'Abnormal'],
     // updateMirror: ['CreateFail', 'Running', 'Abnormal'],
     // changeSpec: ['Running', 'Abnormal'],
     // redeploy: ['Running', 'Abnormal'],
-    // 绑定/解绑公网ip
+    // Bind/unbind public IP
     // bind: ['Running'],
     // unbind: ['Creating', 'CreateFail', 'Running', 'Updating', 'Abnormal'],
 };
 
 const OPERATES = ['setting', 'delete', 'resize', 'updateMirror', 'changeSpec', 'redeploy', 'bind', 'unbind'];
-// 默认的labels
+// Default labels
 const DEFAULT_LABELS = ['name', 'zone', 'pod-template-hash'];
 
 const CLUSTER_STATUS_MAP = {
-    health: '正常',
-    unhealth: '异常',
+    health: 'normal',
+    unhealth: 'abnormal',
 };
 
 const NODE_TYPE_MAP = {
-    'netease.share': '共享',
-    assigned: '独占',
-    unassigned: '独占',
+    'netease.share': 'shared',
+    assigned: 'Exclusive',
+    unassigned: 'Exclusive',
 };
 
 const NODE_STATUS_MAP = {
-    unschedulable: '维护中',
-    normal: '正常',
-    abnormal: '异常',
+    unschedulable: 'In maintenance',
+    normal: 'normal',
+    abnormal: 'abnormal',
 };
 
 const USER_ROLE_MAP = {
-    1: '管理员',
-    2: '开发者',
-    3: '访客',
+    1: 'Administrator',
+    2: 'Developer',
+    3: 'Visitor',
 };
 
 const TENANT_ID = '1';
 const PROJECT_ID = 'p1';
 
 const PVC_MODE_MAP = {
-    ReadWriteOnce: '独占读写',
-    ReadOnlyMany: '只读共享',
-    ReadWriteMany: '共享读写',
+    ReadWriteOnce: 'exclusive read and write',
+    ReadOnlyMany: 'read-only sharing',
+    ReadWriteMany: 'shared reading and writing',
 };
 
 const CEPH_TYPE_MAP = {
@@ -129,9 +129,9 @@ const CEPH_TYPE_MAP = {
 };
 
 const RECLAIM_POLICY_MAP = {
-    Delete: '立即释放',
-    // 暂不开放
-    // Retain: '保留',
+    Delete: 'release immediately',
+    // Not open yet
+    // Retain: 'reserve',
 };
 
 const WORKLOAD_TEXT_MAP = {
@@ -140,9 +140,9 @@ const WORKLOAD_TEXT_MAP = {
 };
 
 const POLICY_TRIGGER_MAP = {
-    Manual: '手工',
-    Scheduled: '定时',
-    Immediate: '即刻',
+    Manual: 'manual',
+    Scheduled: 'timing',
+    Immediate: 'immediately',
 };
 
 const SEVERITY_MAP = {
@@ -154,25 +154,25 @@ const SEVERITY_MAP = {
 };
 
 const SEVERITY_TEXT_MAP = {
-    5: '严重',
-    4: '中等',
-    3: '较低',
-    2: '未知',
-    1: '未知'
+    5: 'serious',
+    4: 'medium',
+    3: 'lower',
+    2: 'unknown',
+    1: 'unknown'
 };
 
 const MIDDLE_STATUS_LIST = [ 'pending', 'running' ];
 
 const RELEASE_STATUS_MAP = {
-    unknown: '未知状态',
-    deployed: '已部署',
-    deleted: '已删除',
-    superseded: '已废弃',
-    failed: '部署失败',
-    deleting: '删除中',
-    'pending_install': '部署中',
-    'pending_upgrade': '更新中',
-    'pending_rollback': '回滚中'
+    unknown: 'unknown status',
+    deployed: 'deployed',
+    deleted: 'deleted',
+    superseded: 'deprecated',
+    failed: 'deployment failed and abandoned',
+    deleting: 'deleting',
+    'pending_install': 'deploying',
+    'pending_upgrade': 'updating',
+    'pending_rollback': 'rolling back'
 };
 
 export {

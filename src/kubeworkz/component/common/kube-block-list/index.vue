@@ -13,9 +13,9 @@
         <slot name="breif" />
       </span>
       <div :class="$style.textWrap">
-        <!-- 展开操作 -->
+        <!-- Expand operation -->
         <u-link @click="open">
-          展开
+          Expand
         </u-link>
       </div>
     </div>
@@ -23,7 +23,7 @@
       <div :class="$style.operate">
         <u-linear-layout>
           <u-link @click="close">
-            收起
+            Close
           </u-link>
         </u-linear-layout>
       </div>

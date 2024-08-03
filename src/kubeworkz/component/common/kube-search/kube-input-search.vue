@@ -22,7 +22,7 @@
       :disabled="disabled"
       @click="search"
     >
-      搜索
+      Search
     </u-button>
   </u-linear-layout>
 </template>

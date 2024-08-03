@@ -13,7 +13,7 @@ const apis = {
         method: 'get',
         path: '/query_range',
     },
-    // 和load是同一个接口 ，但是会返回完整信息
+    // It is the same interface as load, but will return complete information
     loadAllInfo: {
         method: 'get',
         path: '/query',
@@ -24,7 +24,7 @@ const apis = {
 
 };
 
-// /ncs/proxy 为前端代理接口需要带的前缀
+// /ncs/proxy is the prefix required for the front-end proxy interface
 const service = new Service(apis, '/ncs/proxy/api/v1/ncs/extends/monitor');
 
 export default service;

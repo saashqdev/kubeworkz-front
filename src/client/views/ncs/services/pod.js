@@ -33,7 +33,7 @@ const apis = {
         method: 'delete',
         path: '/extends/clusters/{clusterId}/namespaces/{namespace}/workloads/pods/{pod}',
     },
-    // namespace下的pod列表，支持排序
+    // The pod list under namespace supports sorting
     loadExternalPods: {
         method: 'get',
         path: '/extends/clusters/{clusterId}/namespaces/{namespace}/pods',
