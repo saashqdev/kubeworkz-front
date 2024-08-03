@@ -1,7 +1,7 @@
 <template>
     <span :class="$style.root" v-if="!hidden">
         <u-select-ex ref="selectRef" :value="value" @input="onInput" :disabled="disabled" :placeholder="placeholder" :suggest="suggest" :size="size" v-on="$listeners" :data="listData" :data-source="dataSource"><slot></slot></u-select-ex>
-        <div :class="$style.refresh" v-if="refresh"><slot name="refresh">手动刷新</slot> <span @click="handleRefresh"><u-icon :class="$style.icon" :loading="loading" name="refresh"></u-icon></span></div>
+        <div :class="$style.refresh" v-if="refresh"><slot name="refresh">Manual refresh</slot> <span @click="handleRefresh"><u-icon :class="$style.icon" :loading="loading" name="refresh"></u-icon></span></div>
     </span>
 </template>
 
@@ -17,7 +17,7 @@ export default {
         refresh: Boolean,
         placeholder: {
             type: String,
-            default: '请选择',
+            default: 'Please choose',
         },
         suggest: Boolean,
         disabled: Boolean,
@@ -37,7 +37,7 @@ export default {
             if (this.all && typeof this.all === 'string') {
                 return this.all;
             }
-            return '全部';
+            return 'All';
         },
     },
     created() {
@@ -54,10 +54,10 @@ export default {
                 this.onInput('0');
             }
 
-            return this.loadList(pattern).then(({ list, map }) => // 排序
-                ({ list: list.sort((a, b) => { // 排序
+            return this.loadList(pattern).then(({ list, map }) => // Sort
+                ({ list: list.sort((a, b) => { // Sort
                     try {
-                        return a.text.localeCompare(b.text, 'zh-CN');
+                        return a.text.localeCompare(b.text, 'en-US');
                     } catch (error) {
                         try {
                             return a.text.localeCompare(b.text);
@@ -82,14 +82,14 @@ export default {
 
                     return { list: listData, map: dataMap };
                 } else {
-                    throw Error('调用异常');
+                    throw Error('Call exception');
                 }
             }).then(({ list, map }) => {
                 this.dataMap = map;
                 this.$set(this, 'listData', list);
                 this.$emit('success', list, map);
             }).catch((err) => {
-                this.$toast && this.$toast.show(err.Message || err.message || '获取失败!');
+                this.$toast && this.$toast.show(err.Message || err.message || 'Failed to obtain data!');
             });
         },
         handleRefresh() {
@@ -121,7 +121,7 @@ export default {
             }
         },
         loadList() {
-            // 外部继承
+            // external inheritance
             return Promise.resolve([]);
         },
     },

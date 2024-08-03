@@ -6,7 +6,7 @@ export default {
     tenantMgr: ['/permission/tenantManage/**'],
     projectMgr: ['/permission/projectManage/**'],
     opsMgr: ['/permission/platformManage/**'],
-    // userMgr: ['/permission/userManage/**', '!/permission/userManage/right/feature'], // ! 排除法 🌰 栗子
+    // userMgr: ['/permission/userManage/**', '!/permission/userManage/right/feature'], // ! Elimination method
     userMgr: ['/permission/userManage/**'],
     actionTrail: ['/permission/auditManage/**'],
 };

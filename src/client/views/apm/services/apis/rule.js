@@ -2,14 +2,14 @@ import { prefixV1, prefix } from '../base.js';
 
 export default {
     /**
-     * 获取错误规则列表
+     * Get a list of error rules
      */
     errorRules: {
         path: prefixV1 + '/errorRules',
         method: 'get',
     },
     /**
-     * 创建错误规则
+     * Create an error rule
      */
     createRules: {
         path: prefixV1 + '/{type}Rules', // exceptionRules,httpStatusCodeRules,logRules
@@ -17,7 +17,7 @@ export default {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     },
     /**
-     * 修改错误规则
+     * Modify error rules
      */
     modifyRules: {
         path: prefixV1 + '/{type}Rules/{ruleId}',
@@ -25,7 +25,7 @@ export default {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     },
     /**
-     * 删除错误规则
+     * Delete error rule
      */
     deleteRules: {
         path: prefixV1 + '/{type}Rules/{ruleId}',

@@ -4,7 +4,7 @@ const config = {
             this._customizationConfig = window.MicroApp.get('customization');
             if (this._customizationConfig) {
                 Object.keys(this._customizationConfig).forEach((key) => {
-                    if (/Switch$/g.test(key)) { // 开关统一规整
+                    if (/Switch$/g.test(key)) { // Uniform and organized switches
                         this[key] = this._customizationConfig[key] === 'open';
                     } else {
                         this[key] = this._customizationConfig[key];

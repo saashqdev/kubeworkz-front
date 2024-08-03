@@ -71,7 +71,7 @@ const ERROR_CODE = {
     JSON_ERROR: 10,
 };
 
-// 暂不添加Cache
+// Do not add Cache yet
 const caches = {};
 const getCacheKey = (url, options) => url + '-' + options.method + '-'
     + JSON.stringify(options.data).replace(/["{}:]/g, '');
@@ -101,18 +101,18 @@ export const headers = () => {
 };
 
 /**
- * 创建一个fetch请求
- * @param   {string}    url 请求url
- * @param   {Object}    options 请求参数
- * @param   {string}    options.method 请求方法
- * @param   {any}       options.data 请求数据，会根据dataType做相应的处理
- * @param   {string}    options.dataType 请求数据类型，可选 html|json|xml|form
- * @param   {Object}    options.headers 可设置请求头
- * @param   {boolean|string}    options.cache 是否使用缓存.
- *                      当该参数为非空字符串时，清空缓存(clearCache)时若传入该字符串则只清空该字符串对应的缓存。
+ * Create a fetch request
+ * @param   {string}    url Request url
+ * @param   {Object}    options Request parameters
+ * @param   {string}    options.method Request method
+ * @param   {any}       options.data Requesting data will be processed accordingly according to dataType
+ * @param   {string}    options.dataType Request data type, optional html|json|xml|form
+ * @param   {Object}    options.headers Configurable request headers
+ * @param   {boolean|string}    options.cache Whether to use cache.
+ *                      When this parameter is a non-empty string, if the string is passed in when clearing the cache (clearCache), only the cache corresponding to the string will be cleared.
  */
 request.fetch = (url, options = {}) => {
-    // Toast检查，如果vusion的toast已就绪，使用vusion的toast
+    // Toast check, if vusion's toast is ready, use vusion's toast
     if (Toast.unmounted && Vue.prototype.$toast !== undefined) {
         Toast = Vue.prototype.$toast;
         Toast.single = true;
@@ -129,7 +129,7 @@ request.fetch = (url, options = {}) => {
     if (options.data) {
         const dataType = DATA_TYPES[options.dataType] || DATA_TYPES.json;
         options.headers['Content-Type'] = dataType.type + ';charset=UTF-8';
-        // 文件上传请求时，因为不知道那个boundary的定义方式，不设置Content-type
+        // When making a file upload request, Content-type is not set because we don’t know how the boundary is defined.
         options.dataType === 'formData' && delete options.headers['Content-Type'];
         if (options.method === 'GET') { requestURL += '?' + serialize(options.data); } else { options.body = dataType.serialize(options.data); }
     }
@@ -149,7 +149,7 @@ request.fetch = (url, options = {}) => {
                 console.log(res);
             } else if (res.status === 401) {
                 return res.json().then(data => ({ code: 401, data }));
-            } else if (res.status === 406) { // 未登录跳转到登录页面
+            } else if (res.status === 406) { // If you are not logged in, jump to the login page.
                 window.location.href = customConfig.yun163loginUrl ? customConfig.yun163loginUrl : `/public/login.html#/?redirect=${encodeURIComponent(window.location.href)}`;
             } else if (res.status === 403) { 
                 return res.json();
@@ -157,7 +157,7 @@ request.fetch = (url, options = {}) => {
                 return res.json().then(text => text || {}); 
             } else {
                 if (res.status === 502 || res.status === 504) { 
-                    Toast.error('组件异常'); 
+                    Toast.error('Component exception'); 
                 }
                 console.log("Looks like the response wasn't perfect, got status", res.status);
                 if (options.type === 'json') {
@@ -184,25 +184,25 @@ request.fetch = (url, options = {}) => {
             }
         })
         .catch(error => {
-            // code为以下的，将所有的错误信息抛出
+            // If the code is the following, all error messages will be thrown
             const errCodes = [ 400, 403, 404, 405, 409, 410, 422, 429 ];
-            // reason 兼容自定义接口错误信息
-            const message = error.message || error.Message || error.reason; // 兼容 OpenAPI 格式
+            // reason is compatible with custom interface error messages
+            const message = error.message || error.Message || error.reason; // Compatible with OpenAPI format
             if (error.code === 401) {
                 const msg = message || error.data.message || error.data.Message || error.data.reason;
-                Toast.error(msg || '您没有权限');
+                Toast.error(msg || 'You don\'t have permission');
                 return false;
             } else if (options.noAlert) {
                 throw error;
             } else if (errCodes.includes(error.code)) {
                 message && Toast.error(message);
             } else if (error.code === 406) {
-                // 未登录跳转到登录页面
+                // If you are not logged in, jump to the login page.
                 window.location.href = customConfig.yun163loginUrl ? customConfig.yun163loginUrl : `/public/login.html#/?redirect=${encodeURIComponent(window.location.href)}`;
             } else {
                 const data = error || {};
                 if (message === ERROR_CODE.REQUEST_ERROR || /^5/.test(error.code)) {
-                    Toast.error('网络或浏览器出现问题，请稍后再试');
+                    Toast.error('There was a problem with the network or browser, please try again later.');
                 }
                 throw error;
             }
@@ -214,10 +214,10 @@ request.fetch = (url, options = {}) => {
 
 [ 'get', 'put', 'post', 'head', 'delete' ].forEach(method => {
     /**
-     * fetch 快捷方式
-     * @param   {string}    url 请求url
-     * @param   {any}       data 请求数据，会根据dataType做相应的处理
-     * @param   {string}    dataType 请求数据类型，可选 html|json|xml|form
+     * Fetch shortcut
+     * @param   {string}    url Request url
+     * @param   {any}       data Requesting data will be processed accordingly according to dataType
+     * @param   {string}    dataType Request data type, optional html|json|xml|form
      * @example
      *   base.get('/api/v1/posts', { id: 21 })
      *      .then(function (result) {
@@ -242,11 +242,11 @@ request.fetch = (url, options = {}) => {
 export default request;
 
 /**
- * 建对象数据导成文件
- * @param {object} options - 请求参数
- * @param {string} options.name - 文件名称
- * @param {string} options.body - 文件内容
- * @description 后续如果有需要，可以建文件类型（type）暴露出去
+ * Create object data and export it to a file
+ * @param {object} options - Request parameters
+ * @param {string} options.name - File name
+ * @param {string} options.body - Document content
+ * @description If necessary later, you can create a file type (type) and expose it.
  */
 export const downloadFile = options => {
     const a = document.createElement('a');

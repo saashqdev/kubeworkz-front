@@ -1,7 +1,7 @@
 import dateFormat from '@micro-app/common/base/date.js';
 
 const filter = {
-    // 日期精确到当天最早时间并转换为时间戳
+    // The date is accurate to the earliest time of the day and converted to a timestamp
     getFirstTime(time) {
         if (!time)
             return '';
@@ -10,7 +10,7 @@ const filter = {
         time = date.getTime();
         return time;
     },
-    // 日期精确到当天最晚时间并转换为时间戳
+    // The date is accurate to the latest time of the day and converted to a timestamp
     getLastTime(time) {
         if (!time)
             return '';
@@ -20,7 +20,7 @@ const filter = {
         time = date.getTime();
         return time;
     },
-    // 日期转换为时间戳，10位
+    // Convert date to timestamp, 10 digits
     getTimeStampTen(time) {
         if (!time)
             return '';
@@ -30,7 +30,7 @@ const filter = {
         time = Math.round(date.getTime() / 1000);
         return time;
     },
-    // 日期转换为时间戳
+    // Convert date to timestamp
     getTimeStamp(time) {
         if (!time)
             return '';
@@ -40,7 +40,7 @@ const filter = {
         time = date.getTime();
         return time;
     },
-    // 获取一个星期之前的时间
+    // Get the time one week ago
     getOneWeekBefore(time) {
         const myDate = new Date(time.toString().length === 13 ? (parseInt(time) - 7 * 24 * 60 * 60 * 1000) : (parseInt(time * 1000) - 7 * 24 * 60 * 60 * 1000));
         const year = myDate.getFullYear();
@@ -48,7 +48,7 @@ const filter = {
         const date = this.get2Length(myDate.getDate());
         return year + '-' + month + '-' + date;
     },
-    // 时间戳转换成日期，精确到天
+    // Convert timestamp to date, accurate to day
     timeToDay(time) {
         const myDate = new Date(time.toString().length === 13 ? parseInt(time) : parseInt(time * 1000));
         const year = myDate.getFullYear();
@@ -56,21 +56,21 @@ const filter = {
         const date = (myDate.getDate()) < 10 ? '0' + (myDate.getDate()) : (myDate.getDate());
         return year + '-' + month + '-' + date;
     },
-    // 时间戳差换算成年月日、时分秒
+    // Timestamp difference converted into years, months, days, hours, minutes and seconds
     timeDistance(time) {
         let min, hour, day, month, year;
         if (time < (1000 * 60))
-            return Math.floor(time / 1000) + '秒';
+            return Math.floor(time / 1000) + 'seconds';
         else if ((min = time / (1000 * 60)) < 60)
-            return Math.floor(min) + '分' + Math.floor((time % 60000) / 1000) + '秒';
+            return Math.floor(min) + 'minutes' + Math.floor((time % 60000) / 1000) + 'seconds';
         else if ((hour = min / 60) < 24)
-            return Math.floor(hour) + '小时' + Math.floor(min % 60) + '分';
+            return Math.floor(hour) + 'hours' + Math.floor(min % 60) + 'minutes';
         else if ((day = hour / 24) < 30)
-            return Math.floor(day) + '天' + Math.floor(hour % 24) + '小时';
+            return Math.floor(day) + 'days' + Math.floor(hour % 24) + 'hours';
         else if ((month = day / 30) < 12)
-            return Math.floor(month) + '月' + Math.floor(month % 30) + '天';
+            return Math.floor(month) + 'months' + Math.floor(month % 30) + 'days';
         else if ((year = month / 12) >= 1)
-            return Math.floor(year) + '年' + Math.floor(month % 12) + '月';
+            return Math.floor(year) + 'years' + Math.floor(month % 12) + 'months';
     },
     get2Length(num) {
         if (num < 10)
@@ -90,7 +90,7 @@ const filter = {
         const time = new Date(date).getTime();
         return dateFormat(time, 'YYYY-MM-DD HH:mm:ss ms');
     },
-    // 获取当前年份
+    // Get the current year
     getYear(time) {
         const myDate = new Date(dateFormat(parseInt(time), 'YYYY-MM-DD'));
         const year = myDate.getFullYear();
@@ -98,57 +98,57 @@ const filter = {
     },
     unitFormat(unit) {
         const map = {
-            second: '秒',
-            minute: '分钟',
-            hour: '时',
-            day: '天',
+            second: 'second',
+            minute: 'minute',
+            hour: 'hour',
+            day: 'day',
         };
         return map[unit];
     },
 
-    // 负载均衡的均衡策略
+    // Load balancing strategy
     balancePolicy(unit) {
         const map = {
-            ROUND_ROBIN: '轮询',
-            WEIGHTED_RESPONSE_TIME: '响应时间加权',
-            RANDOM: '随机',
-            AVAILABILITY_FILTERING: '可用性过滤',
-            BEST_AVAILABLE: '最大可用',
-            SESSION_STICKY: '会话粘连',
+            ROUND_ROBIN: 'Polling',
+            WEIGHTED_RESPONSE_TIME: 'Response time weighting',
+            RANDOM: 'Random',
+            AVAILABILITY_FILTERING: 'Availability filtering',
+            BEST_AVAILABLE: 'Maximum available',
+            SESSION_STICKY: 'Session sticky',
         };
         return map[unit];
     },
 
-    // 路由规则的匹配条件
+    // Matching conditions for routing rules
     routerType(type) {
         const map = {
-            SERVICE_NAME: '服务名',
-            SERVICE_NAME_VERSION: '服务名 + 版本',
-            INSTANCE_NAME: '实例名',
-            INSTANCE_IP: '实例IP',
-            TAG: "标签",
-            SERVICE_NAME_TAG: '服务 + 标签'
+            SERVICE_NAME: 'Service Name',
+            SERVICE_NAME_VERSION: 'Service name + version',
+            INSTANCE_NAME: 'Instance name',
+            INSTANCE_IP: 'Instance IP',
+            TAG: "Label",
+            SERVICE_NAME_TAG: 'Services + Tags'
         };
         return map[type];
     },
     getFullTime(d) {
         return d.getFullYear() + '' + (d.getMonth() + 1) + '' + d.getDate() + '' + d.getHours() + '' + d.getMinutes() + '' + d.getSeconds();
     },
-    // dubbo的降级状态
+    // dubbo's downgraded status
     dubboMocked(type) {
         const map = {
-            FAIL: '已容错',
-            NO: '未降级',
-            FORCE: '已屏蔽',
+            FAIL: 'Fault tolerant',
+            NO: 'Not downgraded',
+            FORCE: 'Blocked',
         };
         return map[type];
     },
-    // dubbo提供者列表的检查
+    // Check of dubbo provider list
     errorLevel(type) {
         const map = {
-            ERROR: '出错',
-            WARN: '警告',
-            OK: '正常',
+            ERROR: 'Error',
+            WARN: 'Warn',
+            OK: 'Normal',
         };
         return map[type];
     },

@@ -1,5 +1,5 @@
 /**
- * vue-router路由劫持
+ * vue-router route hijacking
  * @param {*} router
  */
 export function customRouter(router) {
@@ -28,15 +28,15 @@ export function customRouter(router) {
             return JSON.stringify(value);
     }
     router.defaultConfirm = {
-        title: '提示',
-        content: '确认离开本页吗？',
-        subContent: '离开后本页所编辑的信息将被清空',
+        title: 'Hint',
+        content: 'Are you sure you want to leave this page?',
+        subContent: 'The information edited on this page will be cleared after you leave.',
     };
-    // 同路径是否刷新，需要监听的固定参数，各个模块根据自己的项目的需要覆盖或者增加
+    // Whether the same path is refreshed, fixed parameters that need to be monitored, each module overrides or adds according to the needs of its own project
     router.compareQuerys = ['projectId'];
     router.compareCallBack = () => ({});
-    // 因为在编辑页面需要弹窗确认，改变租户会先后引发两次beforeEach(tenantId和连锁反应的projectId)，会出现两次弹窗
-    // 所以这里设置一个开关needConfirm，默认为true，在编辑页面租户改动时，置为false，在u-head.vue中的tenantId和projectId都改变好后。还原为true.
+    // Because a pop-up window is required for confirmation on the edit page, changing the tenant will trigger beforeEach (tenantId and projectId of the chain reaction) twice, and two pop-up windows will appear.
+    // So here is a switch needConfirm, which defaults to true. When the tenant is changed on the edit page, set it to false. After the tenantId and projectId in u-head.vue are changed. Revert to true.
     router.needConfirm = true;
     let isChecked = false;
     let forceRefresh = false;
@@ -46,7 +46,7 @@ export function customRouter(router) {
         function nextRouter() {
             let refreshPage = false;
             let newParams = to.query;
-            // 不等同路径不做同页面刷新，不等path页面的跳转不视为切换
+            // The same page will not be refreshed if the path is not equal, and the jump to the page if the path is not equal will not be regarded as a switch.
             if (from.path !== to.path || isChecked) {
                 if (from.path !== to.path && isChecked)
                     forceRefresh = false;
@@ -127,7 +127,7 @@ export function customRouter(router) {
         _push.apply(router, [option, onComplete, onAbort]);
     };
     router.refresh = () => {
-        // refresh需要组件复写，外部自行决定需要刷新的部分
+        // Refresh requires component copying, and the external party determines the parts that need to be refreshed.
         window.location.reload();
     };
 }

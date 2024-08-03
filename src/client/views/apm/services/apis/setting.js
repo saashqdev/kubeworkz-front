@@ -1,7 +1,7 @@
 const prefixV2 = '/apm/redirect/api/v2/products/{tenantId}/{productId}';
 export default {
     /**
-     * 慢响应阈值设置(修改)接口
+     * Slow response threshold setting (modification) interface
      */
     setStaticGradingRule: {
         path: prefixV2 + '/staticGradingRule',
@@ -10,14 +10,14 @@ export default {
         dataType: 'form',
     },
     /**
-     * 慢响应阈值读取接口
+     * Slow response threshold reading interface
      */
     getStaticGradingRule: {
         path: prefixV2 + '/staticGradingRule',
         method: 'get',
     },
     /**
-     * 慢SQL阈值设置(修改)接口(修改)接口
+     * Slow SQL threshold setting (modification) interface (modification) interface
      */
     setSlowSqlRule: {
         path: prefixV2 + '/slowSqlRule',
@@ -26,15 +26,15 @@ export default {
         dataType: 'form',
     },
     /**
-     * 慢响应阈值读取接口
+     * Slow response threshold reading interface
      */
     getSlowSqlRule: {
         path: prefixV2 + '/slowSqlRule',
         method: 'get',
     },
     /**
-     * 增加日志信息接口
-     * @param String kibanaEntrypoint  kibana域名或ip
+     * Add log information interface
+     * @param String kibanaEntrypoint  kibana domain name or ip
      * @param String indexPattern   kibana indexPattern
      */
     addKibanaInfo: {
@@ -42,14 +42,14 @@ export default {
         method: 'post',
     },
     /**
-     * 更新日志信息接口
+     * Update log information interface
      */
     updateKibanaInfo: {
         path: prefixV2 + '/updateKibanaInfo',
         method: 'get',
     },
     /**
-     * 查询日志信息接口
+     * Query log information interface
      */
     getKibanaInfo: {
         path: prefixV2 + '/getKibanaInfo',
@@ -72,7 +72,7 @@ export default {
         method: 'post',
     },
     /**
-     * 自定义方法
+     * Custom method
      */
     createCustomMethod: {
         path: prefixV2 + '/createCustomMethod',

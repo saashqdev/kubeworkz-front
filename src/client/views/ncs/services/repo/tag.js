@@ -1,7 +1,7 @@
 import Service from '@micro-app/common/services/service.js';
 import { normalizeTag } from '@micro-app/common/views/ncs/utils';
 const apis = {
-    // 获取镜像列表
+    // Get mirror list
     loads: {
         path: '/{clusterId}/repositories/getRepoTags',
         method: 'get',
@@ -13,7 +13,7 @@ const apis = {
             return normalizeTag(result.tag || {});
         },
     },
-    // 删除镜像
+    // Delete image
     delete: {
         path: '/{clusterId}/repositories/deleteTag',
         method: 'post',

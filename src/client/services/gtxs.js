@@ -3,7 +3,7 @@ import Service from './service.js';
 const Version = '2018-11-19';
 
 const TXService = {
-    // 获取全部组件信息
+    // Get all component information
     loadSummary: {
         method: 'get',
         path: '',
@@ -15,7 +15,7 @@ const TXService = {
     },
 };
 
-// /gtxs/proxy 为前端代理接口需要带的前缀
+// /gtxs/proxy is the prefix required for the front-end proxy interface
 const service = new Service(TXService, '/gtxs/proxy/gtxs');
 
 export default service;

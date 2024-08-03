@@ -1,13 +1,13 @@
-// harborproxy(第三方应用)里的project概念，与轻舟里的project做了映射
+// The project concept in harborproxy (third-party application) is mapped with the project in Fort Erie
 import Service from '@micro-app/common/services/service.js';
 
 const apis = {
-    // 获取仓库列表
+    // Get warehouse list
     loads: {
         path: '/{clusterId}/repositories/getRepositories',
         method: 'post',
     },
-    // 删除仓库
+    // Delete warehouse
     delete: {
         path: '/{clusterId}/repositories/deleteRepository',
         method: 'post',

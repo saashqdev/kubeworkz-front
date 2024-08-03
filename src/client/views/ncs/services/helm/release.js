@@ -1,7 +1,7 @@
 import Service from '@micro-app/common/services/service.js';
 
 const apis = {
-    // 部署
+    // Deploy
     create: {
         method: 'post',
         path: '/clusters/{clusterId}/helm/releases',
@@ -11,7 +11,7 @@ const apis = {
         method: 'put',
         path: '/clusters/{clusterId}/helm/releases/{releaseName}',
     },
-    // 查询所有集群下
+    // Query all clusters
     loads: {
         method: 'get',
         path: '/helm/releases',
@@ -47,7 +47,7 @@ const apis = {
     },
 };
 
-// /ncs/proxy 为前端代理接口需要带的前缀
+// /ncs/proxy is the prefix required for the front-end proxy interface
 const service = new Service(apis, '/ncs/proxy/api/v1/ncs/extends');
 
 export default service;

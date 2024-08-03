@@ -10,7 +10,7 @@ export default {
         method: 'get',
     },
     /**
-     * 获取空间下监控数据概览
+     * Get an overview of monitoring data under space
      */
     overview: {
         path: prefixV1 + '/productOverview/{productName}',
@@ -29,7 +29,7 @@ export default {
         method: 'get',
     },
     /**
-     * 健康记录
+     * Health record
      */
     health: {
         path: prefixV1 + '/health/abnormalDetails',
@@ -40,50 +40,50 @@ export default {
         method: 'get',
     },
     /**
-     * 替换下面的 snapshot 接口， 20181108新增
+     * Replace the snapshot interface below, added in 20181108
      */
     getTraceList: {
         path: productPrefix + '/getTraceList',
         method: 'post',
     },
-    /** 以下为20180531版本新增接口 **/
+    /** The following are the new interfaces in version 20180531 **/
     /**
-     * 快照
+     * Snapshot
      */
     snapshot: {
         path: `${productPrefix}/snapshotList`,
         method: 'post',
     },
     /**
-     * 获取业务请求展示项描述
+     * Get the description of the business request display item
      */
     businessTransactionDescription: {
         path: `${productPrefix}/getBusinessTransactionDescriptionList`,
         method: 'get',
     },
     /**
-     * 业务请求
+     * Business request
      */
     businessTransaction: {
         path: `${productPrefix}/businessTransactionList`,
         method: 'post',
     },
     /**
-     * 所有请求
+     * All requests
      */
     serviceEndpoint: {
         path: `${productPrefix}/serviceEndpointList`,
         method: 'post',
     },
     /**
-     * 所有服务
+     * All services
      */
     services: {
         path: `${productPrefix}/services`,
         method: 'post',
     },
     /**
-     * 所有服务与节点
+     * All services and nodes
      */
     nodes: {
         path: `${productPrefix}/nodes`,
@@ -91,7 +91,7 @@ export default {
         // headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     },
     /**
-     * 获取用户agent
+     * Get user agent
      */
     getAgent: {
         path: `/apm/redirect/api/v1/napm/userGuide/javaAgentConfig`,
@@ -101,7 +101,7 @@ export default {
         path: `${prefixV1Products}/createProduct`,
         method: 'post',
     },
-    // deleteProduct 与 updateProduct 内的 tenantId 传的是从 getProducts 列表里返回的 tenantId
+    // The tenantId in deleteProduct and updateProduct passes the tenantId returned from the getProducts list.
     deleteProduct: {
         path: `/apm/redirect/api/v1/products/{tenantId}/deleteProduct/{productId}`,
         method: 'delete',
@@ -115,7 +115,7 @@ export default {
         method: 'get',
     },
     /**
-     * 数据报表
+     * Data report
      */
     loadsReport: {
         path: `${prefixV1}/{productId}/describeDataReportInfos`,

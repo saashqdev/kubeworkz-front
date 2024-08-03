@@ -1,4 +1,4 @@
-// harborproxy(第三方应用)里的project概念，与轻舟里的project做了映射
+// The project concept in harborproxy (third-party application) is mapped with the project in Fort Erie
 import Service from '@micro-app/common/services/service.js';
 import cookie from '@micro-app/common/utils/handleCookie';
 
@@ -23,7 +23,7 @@ const apis = {
             'x-auth-projectId': cookie.readCookie('projectId'),
         },
     },
-    // 私有模板是否开通
+    // Whether the private template is enabled
     load: {
         method: 'get',
         path: '/chartrepo/project',

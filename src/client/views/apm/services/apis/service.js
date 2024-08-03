@@ -2,35 +2,35 @@ const prefix = '/apm/redirect/api/v1/products/{tenantId}/{productId}';
 const prefixV2 = '/apm/redirect/api/v2/products/{tenantId}/{productId}';
 export default {
     /**
-     * 服务列表接口
+     * Service list interface
      */
     getServices: {
         path: prefix + '/serviceOverview',
         method: 'get',
     },
     /**
-     * 获取服务异常列表
+     * Get service exception list
      */
     getExceptionList: {
         path: prefixV2 + '/exceptionOverview/{serviceName}',
         method: 'get',
     },
     /**
-     * 获取服务异常详情
+     * Get service exception details
      */
     getException: {
         path: prefixV2 + '/getMetricData',
         method: 'post',
     },
     /**
-     * 查询服务 API 监控数据
+     * Query service API monitoring data
      */
     getApiMonitor: {
         path: prefixV2 + '/serviceEndpointList',
         method: 'post',
     },
     /**
-     * 获取容器监控关联 node 信息
+     * Get node information associated with container monitoring
      */
     getNodeInfo: {
         path: prefixV2 + '/nodes',

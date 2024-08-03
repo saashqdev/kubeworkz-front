@@ -1,23 +1,23 @@
-// harborproxy(第三方应用)里的project概念，与轻舟里的project做了映射
+// The project concept in harborproxy (third-party application) is mapped with the project in Fort Erie
 import Service from '@micro-app/common/services/service.js';
 
 const apis = {
-    // 获取项目列表
+    // Get project list
     loads: {
         path: '/{clusterId}/projects/getProjects',
         method: 'post',
     },
-    // 创建私有镜像库
+    // Create a private mirror library
     create: {
         path: '/{clusterId}/projects/createProject',
         method: 'post',
     },
-    // 是否已经创建过私有镜像库
+    // Have you created a private mirror library?
     projectExist: {
         path: '/{clusterId}/projects/projectExists',
         method: 'get',
     },
-    // type - 类型，1公有2私有3全部   common
+    // type - type, 1 public 2 private 3 all common
     loadImages: {
         path: '/{clusterId}/projects/getImageLists',
         method: 'get',
@@ -27,17 +27,17 @@ const apis = {
             harbor: result.harbor || '',
         }),
     },
-    // 判断当前用户是否在当前harbar项目的授权用户【只有授权用户才可以设置密码】
+    // Determine whether the current user is an authorized user of the current Harbar project [Only authorized users can set passwords]
     userExist: {
         path: '/users/userExist',
         method: 'get',
     },
-    // 重设密码
+    // reset Password
     resetPassword: {
         path: '/users/resetPassword',
         method: 'post',
     },
-    // 获取当前用户角色信息
+    // Get current user role information
     loadUserInfo: {
         path: '/users/getRoleInfo',
         method: 'get',

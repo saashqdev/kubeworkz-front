@@ -21,8 +21,8 @@ export const installComponents = (components) => {
 export const Wrapper = (options) => (Object.assign({}, { template: '<div><router-view></router-view></div>' }, options));
 
 /**
- * 获取跳转到平台的url
- * @param {string} path - path可以包括query部分
+ * Get the url that jumps to the platform
+ * @param {string} path - path can include the query part
  */
 export const getPlatformURL = (path) => {
     const indexDomain = cookie.readCookie('qz_platform.domain') + (window.location.port ? ':' + window.location.port : '');

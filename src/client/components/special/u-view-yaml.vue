@@ -27,7 +27,7 @@ export default {
     },
     data() {
         return {
-            title: '查看详情',
+            title: 'Check the details',
             isObject: !(this.list instanceof Array),
             editorOptions: {
                 tabSize: 2,

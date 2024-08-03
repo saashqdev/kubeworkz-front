@@ -13,14 +13,14 @@ const apis = {
         method: 'delete',
         path: '/clusters/{clusterId}/namespaces/{namespace}/openshifsdn/egressnetworkpolicy',
     },
-    // 查询集群是否存在关联的Openshift 网络策略，如果存在，返回具体信息
+    // Query whether the cluster has an associated Openshift network policy, and if so, return specific information.
     check: {
         method: 'get',
         path: '/clusters/{clusterId}/namespaces/{namespace}/openshifsdn/egressnetworkpolicy/checkorget',
     },
 };
 
-// /ncs/proxy 为前端代理接口需要带的前缀
+// /ncs/proxy is the prefix required for the front-end proxy interface
 const service = new Service(apis, '/ncs/proxy/api/v1/ncs/extends');
 
 export default service;

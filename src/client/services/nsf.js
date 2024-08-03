@@ -1,7 +1,7 @@
 import Service from './service.js';
 
 const metaapis = {
-    // 获取全部组件信息
+    // Get all component information
     getAllEnvInfo: {
         method: 'get',
         path: '/api/metadata',

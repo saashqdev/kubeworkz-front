@@ -1,13 +1,13 @@
 import request, { headers as getHeaders } from './request.js';
 import { at } from 'lodash';
 export default class Service {
-    // handle只允许添加 preProcess 和 process.
-    // handle添加的process||preProcess 分为两种：一种全局的，指定对象名为GLOBAL，另外一种是对象名。
-    // 下属属性可分别指定对应的process或preProcess.
-    // 全局有最高的优先级（todo: 调整优先级），
-    // 优先级： 全局 > 通过handle指定的单个对象的属性 > 单个api中指定的属性（process||preProcess）
+    // handle only allows adding preProcess and process.
+    // The process||preProcess added by handle is divided into two types: one is global, specifying the object name as GLOBAL, and the other is the object name.
+    // Subordinate attributes can specify the corresponding process or preProcess respectively.
+    // Global has the highest priority (todo: adjust priority),
+    // Priority: Global > Properties of a single object specified by handle > Properties specified in a single API (process||preProcess)
 
-    // preProcess中关于只能使用最终的格式，即post接口中body相关字段。不能再在外部声明，默认不做二次调整。（todo）
+    // In preProcess, only the final format can be used, that is, the body-related fields in the post interface. It can no longer be declared externally, and no secondary adjustments are made by default. (to do)
     constructor(config, baseUrl = '', handle = {}) {
         const keys = Object.keys(config);
         const { globalPreProcesses, globalProcesses, newHandle } = this.setHandle(handle, true);
@@ -28,7 +28,7 @@ export default class Service {
 
                 preProcesses.length && preProcesses.forEach(func => options = func(options));
 
-                // 第二次做url中的变量替换
+                // Do the variable replacement in the url for the second time
                 urlPath = this._replacePath(path, options, false);
 
                 if (mock) {
@@ -42,9 +42,9 @@ export default class Service {
 
                 if (options.download) { return window.open(baseUrl + urlPath + '?' + this._serialize(query)); }
 
-                // FIXME “...fetch” 这个操作报错? 改为 Object.assgin
+                // FIXME "...fetch" This operation reports an error? Change it to Object.assgin
                 return request[method](baseUrl + urlPath, body || query, dataType || 'json', Object.assign({
-                    headers: Object.assign({}, getHeaders(), options.headers), // 支持在 preProcesses 阶段统一操作 headers
+                    headers: Object.assign({}, getHeaders(), options.headers), // Support unified operation of headers in the preProcesses stage
                     // ...fetch,
                     noAlert: options.noAlert || false,
                 }, fetch)).then(result => {
@@ -54,7 +54,7 @@ export default class Service {
             };
         });
 
-        // 集合 urls
+        // Collection urls
         this.urls = {};
         keys.forEach(key => {
             this.urls[key] = (options = {}) => {
@@ -62,7 +62,7 @@ export default class Service {
                 const { method, path, query, body, fetch, dataType } = options;
                 let urlPath = path;
 
-                // 第二次做url中的变量替换
+                // Do the variable replacement in the url for the second time
                 urlPath = this._replacePath(path, options, false);
 
                 if (query) { urlPath += '?' + this._serialize(query); }
@@ -82,7 +82,7 @@ export default class Service {
         const globalProcesses = [];
         const newHandle = {};
 
-        // 指定的 preProcess || process 统一成数组，方便后续处理
+        // The specified preProcess || process is unified into an array to facilitate subsequent processing.
         const toArray = param => (Array.isArray(param) ? param : [ param ]);
 
         Object.keys(handle).forEach(item => {
@@ -125,9 +125,9 @@ export default class Service {
     /**
      *
      *
-     * @param {*} path 路径（需要替换对应的字段）
-     * @param {*} options 参数
-     * @param {boolean} [isFirst=true] 是否是第一次替换(第二次替换是在preProcess之后替换)
+     * @param {*} path Path (need to replace the corresponding field)
+     * @param {*} options Parameter
+     * @param {boolean} [isFirst=true] Whether it is the first replacement (the second replacement is after preProcess)
      * @return
      * @memberof Service
      */
@@ -137,11 +137,11 @@ export default class Service {
 
             if (isFirst) {
                 value !== undefined && delete options[key];
-                // 如果没有定义对应的变量，则不做处理，第二次变量替换时处理
+                // If the corresponding variable is not defined, no processing will be performed. It will be processed during the second variable replacement.
                 return value === undefined ? match : value;
             }
-            // 此时path如果存在为undefined的变量,报错
-            if (value === undefined) { throw new Error(`请指定path：${path}中${key}对应的字段值`); }
+            // At this time, if there is an undefined variable in path, an error will be reported.
+            if (value === undefined) { throw new Error(`Please specify path: field value corresponding to ${key} in ${path}`); }
             delete options[key];
             return value;
 
@@ -154,13 +154,13 @@ export default class Service {
      * @param {*} [apiOptions={}]
      * @return
      * @memberof Service
-     * @description path的替换也直接做了
+     * @description The replacement of path is also done directly.
      */
     _getOptions(options = {}, apiOptions = {}) {
-        // params表示path当中需要替换的字段汇聚成的对象，如果有部分参数没有被替换，直接被废除，不做他用
+        // params represents an object formed by the fields that need to be replaced in path. If some parameters have not been replaced, they will be directly discarded and will not be used for other purposes.
         const KEYWORDS = [ 'path', 'params', 'headers', 'query', 'body', 'fetch', 'method', 'dataType', 'noAlert', 'mock', 'preProcess', 'process', 'download' ];
         const newOptions = Object.assign({ method: 'get' }, apiOptions, options);
-        // 为body的情况可能有两种,put || post
+        // There may be two situations for body, put || post
         const subKey = newOptions.method === 'get' ? 'query' : 'body';
         !newOptions[subKey] && (newOptions[subKey] = {});
         if (options.query && apiOptions.query) {
@@ -174,7 +174,7 @@ export default class Service {
             delete newOptions.version;
         }
 
-        // 第一次做url中的变量替换
+        // First time doing variable substitution in url
         newOptions.path = this._replacePath(newOptions.path, newOptions);
 
         for (const key in newOptions) {
@@ -184,7 +184,7 @@ export default class Service {
             } else { newOptions[key] = newOptions[key]; }
         }
 
-        // 没有query || body设置[为普通对象时，无属性]，直接删掉
+        // There is no query || body setting [when it is a normal object, no attributes], delete it directly
         if (!Object.keys(newOptions[subKey]).length && !(newOptions[subKey] instanceof FormData)) { delete newOptions[subKey]; }
 
         return newOptions;

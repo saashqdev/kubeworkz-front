@@ -1,5 +1,5 @@
 /**
- * 平台相关接口，具体接口信息可查看 Gportal 地址：http://gportal.cloud.126.net/gateway/interfaces 选择所属服务为 skiff
+ * Platform-related interfaces, specific interface information can be viewed at the Gportal address: http://gportal.cloud.126.net/gateway/interfaces Select the service as skiff
  */
 import Service from './service.js';
 const prefix = '/auth/proxy';
@@ -14,43 +14,43 @@ const uiPermissionsProcess = ({ Permissions = [] }) => {
 };
 
 const apis = {
-    // 全量显示租户或项目列表
+    // Display tenant or project list in full
     listAllScopes: {
         Offset: 0,
         Limit: 1000,
         action: 'DescribePermissionScopes',
     },
-    // 全量显示成员可见租户或项目列表
+    // Fully display the list of tenants or projects visible to members
     listUserAllScopes: {
         Offset: 0,
         Limit: 1000,
         action: 'DescribeUserPermissionScopes',
     },
-    // 获取成员为管理员角色的租户或项目列表
+    // Get a list of tenants or projects whose members have the administrator role
     listAdminUserScopes: {
         action: 'DescribeUserAdminPermissionScopes',
     },
-    // 获取租户或项目下的成员信息
+    // Get member information under a tenant or project
     listScopeMembers: {
         action: 'DescribeScopeMembers',
     },
-    // 获取租户或项目下所有管理员列表
+    // Get a list of all administrators under a tenant or project
     listAdminUsers: {
         action: 'DescribeAdminUsers',
     },
-    // 获取域的信息
+    // Get domain information
     getScopeInfo: {
         action: 'DescribePermissionScope',
     },
-    // 获取成员在租户或项目下的角色信息
+    // Get the member's role information under the tenant or project
     getMemberRole: {
         action: 'DescribeRoles',
     },
-    // 获取单个成员的信息
+    // Get information about a single member
     getUser: {
         action: 'DescribeUserInfo',
     },
-    // 获取前端根据所属租户下拥有的权限来显示不同页面元素的信息
+    // Get the front-end to display information about different page elements based on the permissions owned by the tenant.
     getUIPermissions: {
         action: 'DescribeUIPermissions',
         process: uiPermissionsProcess,
@@ -58,12 +58,12 @@ const apis = {
     DescribeUIPermissions: {
         action: 'DescribeUIPermissions',
     },
-    // 获取顶栏右上角下拉列表可显示的平台权限管理入口信息
+    // Get the platform permission management entrance information that can be displayed in the drop-down list in the upper right corner of the top bar
     getGlobalUIPermissions: {
         action: 'DescribeGlobalUIPermissions',
         process: uiPermissionsProcess,
     },
-    // 获取 cookie 应该被写入的主域名称以及各子模块的域名，若域名返回为空，则该模块不会被部署
+    // Get the main domain name where the cookie should be written and the domain name of each sub-module. If the domain name is returned empty, the module will not be deployed.
     getCookieDomain: {
         action: 'DescribeDomains',
     },
@@ -73,7 +73,7 @@ const apis = {
     matchAccountId: {
         action: 'DescribeAccountIdFuzzyMatch',
     },
-    // 获取环境列表
+    // Get environment list
     getEnvList: {
         action: 'DescribeAllFundamentalEnvInfo',
         Version: '2019-01-03',
@@ -98,7 +98,7 @@ const apis = {
         action: 'UpdateEnvInfo',
         method: 'post',
     },
-    // 获取所有成员列表
+    // Get a list of all members
     listUsers: {
         action: 'DescribeUsers',
     },
@@ -117,7 +117,7 @@ const apis = {
     setUserStatus: {
         action: 'ChangeUserStatus',
     },
-    // 设置、取消超管
+    // Set and cancel super management
     setUserAdmin: {
         action: 'SetSystemAdmin',
     },
@@ -133,50 +133,50 @@ const apis = {
         action: 'DownloadFailUserData',
         download: true,
     },
-    // 删除自定义角色
+    // Delete custom role
     deleteRole: {
         action: 'DeleteRole',
     },
-    // 新增自定义角色
+    // Add custom role
     createDefineRole: {
         action: 'CreateRole',
     },
-    // 修改自定义角色
+    // Modify custom role
     editDefineRole: {
         action: 'UpdateRoleName',
     },
-    // 权限模块
+    // Permission module
     describeModule: {
         action: 'DescribeServiceModules',
     },
-    // 各个模块基础权限
+    // Basic permissions of each module
     describeAllRight: {
         action: 'DescribeAllPermissions',
     },
-    // 更新角色权限
+    // Update role permissions
     updateRoleRight: {
         action: 'UpdateRolePermissions',
         method: 'post',
     },
-    // 修改用户个人信息
+    // Modify user personal information
     updateUserInfo: {
         action: 'UpdateUserByUser',
         method: 'post',
     },
-    // 删除租户或项目
+    // Delete a tenant or project
     deletePermissionScope: {
         action: 'DeletePermissionScope',
         method: 'get',
     },
 
-    // 原env.js
+    // original env.js
     getAllEnvs: {
         action: 'DescribeAllFundamentalEnvInfo',
         Offset: 0,
         Limit: 1000,
         version: '2019-01-03',
     },
-    // 部署环境
+    // Deployment environment
     createDeployEnv: {
         action: 'CreateDeploymentEnvInfo',
         method: 'post',
@@ -205,12 +205,12 @@ const apis = {
         action: 'DescribeDeploymentEnvAddrByEnvId',
         version: '2019-01-03',
     },
-    //查询用户是否第一次进入该模块
+    //Query whether the user enters the module for the first time
     checkVisit: {
         action: 'GetUserAccessStatus',
         version: '2019-07-11',
     },
-    //更新用户进入模块状态
+    //Update user to enter module status
     updateVisitStatus: {
         action: 'UpdateUserAccessStatus',
         version: '2019-07-11'

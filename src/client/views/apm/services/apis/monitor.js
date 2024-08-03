@@ -1,7 +1,7 @@
 import { prefixV1, prefix } from '../base.js';
 const productPrefix = prefix + '/{product}';
 export default {
-    /** 以下为20180531版本新增接口 **/
+    /** The following are the new interfaces in version 20180531 **/
     topo: {
         path: `${productPrefix}/productFlowMap`,
         method: 'post',
@@ -11,14 +11,14 @@ export default {
         method: 'post',
     },
     /**
-     * 所有节点－监测图表描述
+     * All Nodes - Monitoring Chart Description
      */
     chartList: {
         path: `${productPrefix}/getMetricChartDescriptionList`,
         method: 'get',
     },
     /**
-     * 所有节点－监测图表
+     * All Nodes - Monitoring Chart
      */
     metricData: {
         path: `${productPrefix}/getMetricData`,

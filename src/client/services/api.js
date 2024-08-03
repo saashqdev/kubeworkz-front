@@ -2,161 +2,161 @@ const apis = {
     getApiList: {
         action: 'DescribeApiListByLimit',
     },
-    // api状态列表
+    // api status list
     getApiStatus: {
         action: 'DescribeApiDocument',
     },
-    // 所属服务列表
+    // List of services
     getApiServiceList: {
         action: 'DescribeServiceForApi',
     },
-    // 发布API
+    // Publish API
     publishApi: {
         action: 'PublishApi',
         method: 'post',
     },
-    // 通过Excel导入API
+    // Import via Excel API
     importApi: {
         action: 'CreateApiByExcelFile',
         method: 'post',
     },
-    // 批量发布API
+    // Batch publishing API
     batchPublishApi: {
         action: 'PublishMultiApi',
         method: 'post',
     },
-    // 新增API
+    // New API
     createApi: {
         method: 'post',
         action: 'CreateApi',
     },
-    // 修改API
+    // Modify API
     updateApi: {
         method: 'post',
         action: 'UpdateApi',
     },
-    // 删除API
+    // Delete API
     deleteApi: {
         action: 'DeleteApiById',
     },
-    // api详情
+    // api details
     getApiDetail: {
         action: 'DescribeApiById',
     },
-    // 获取API request query
+    // Get API request query
     getApiReqQueryList: {
         action: 'DescribeQueryString',
     },
-    // 获取API query type
+    // Get API query type
     getApiQueryParamType: {
         action: 'DescribeQueryStringParamType',
     },
-    // 获取API request header
+    // Get API request header
     getApiReqHeaderList: {
         action: 'DescribeRequestHeader',
     },
-    // 获取 request header 类型
+    // Get request header type
     getReqHeaderType: {
         action: 'DescribeHeaderParamType',
     },
-    // 获取 request body
+    // Get request body
     getApiReqBody: {
         action: 'DescribeRequestBody',
     },
-    // 获取 request body param
+    // Get request body param
     getBodyParam: {
         action: 'DescribeBodyParam',
     },
-    // 保存 request body
+    // Save request body
     saveApiReqBody: {
         action: 'CreateRequestBody',
         method: 'post',
     },
-    // 获取自定义模型
+    // Get custom model
     getApiModel: {
         action: 'DescribeApiModel',
     },
-    // 保存 request query
+    // Save request query
     saveQueryString: {
         action: 'CreateQueryString',
         method: 'post',
     },
-    // 保存 request header
+    // Save request header
     saveRequestHeader: {
         action: 'CreateRequestHeader',
         method: 'post',
     },
-    // 获取API response header
+    // Get API response header
     getApiResHeaderList: {
         action: 'DescribeResponseHeader',
     },
-    // 获取API response body
+    // Get API response body
     getApiResBodyList: {
         action: 'DescribeResponseBody',
     },
-    // 创建 response header
+    // Create response header
     saveResponseHeader: {
         action: 'CreateResponseHeader',
         method: 'post',
     },
-    // 创建 response body
+    // Create response body
     saveResponseBody: {
         action: 'CreateResponseBody',
         method: 'post',
     },
-    // 获取API response code
+    // Get API response code
     getApiResCode: {
         action: 'DescribeStatusCode',
     },
-    // 创建 response code
+    // Create response code
     saveResponseCode: {
         action: 'CreateStatusCode',
         method: 'post',
     },
-    // 获取API示例
+    // Get API examples
     getApiExample: {
         action: 'DescribeExample',
     },
-    // 更新API示例
+    // Update API examples
     saveApiExample: {
         action: 'CreateApiExample',
         method: 'post',
     },
-    // API修改记录
+    // API modification record
     getApiLog: {
         action: 'DescribeOperationList',
     },
-    // 以json形式上传body
+    // Upload body in json format
     addResBodyByJson: {
         action: 'GenerateBodyByJson',
         method: 'post',
     },
-    // webService类型服务 类列表
+    // webService type service class list
     webServiceClass: {
         action: 'GetWebServiceInterface',
     },
-    // webService类型服务 类列表
+    // webService type service class list
     webServiceMethod: {
         action: 'GetWebServiceMethod',
     },
-    // 获取webService类型参数
+    // Get webService type parameters
     webServiceParam: {
         action: 'DescribeWebserviceParam',
     },
-    // 保存webService类型参数
+    // Save webService type parameters
     saveServiceParam: {
         action: 'CreateWebserviceParam',
         method: 'post',
     },
-    // 获取dubbo信息
+    // Get dubbo information
     getDubboParam: {
         action: 'DescribeDubboParam',
     },
-    // 获取Markdown
+    // Get Markdown
     getMarkdown: {
         action: 'DescribeMarkdownApiById',
     },
-    // 获取API可发布网关
+    // Get API publishable gateway
     getApieGateway: {
         action: 'DescribeGatewayForPublishedApi',
     },

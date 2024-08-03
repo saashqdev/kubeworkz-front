@@ -8,7 +8,7 @@ const resolveTemplate = template => {
         
         return r.reduce((str, part) => {
             if (!part.includes('/') && !obj[part]) {
-                throw new Error(`${template}: ${part} is missiing!`);
+                throw new Error(`${template}: ${part} is missing!`);
             }
             if (obj[part]) str += obj[part];
             else str += part;

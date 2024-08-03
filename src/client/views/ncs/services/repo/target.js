@@ -14,7 +14,7 @@ const apis = {
         method: 'get',
         path: '/{harborId}/targets/list',
     },
-    // 和 loads 接口一样功能，不过通过clusterId获取（用于复制规则设置页面的获取）
+    // The same function as the loads interface, but obtained through the clusterId (used to obtain the copy rule setting page)
     loadsByClusterId: {
         method: 'get',
         path: '/targets/list',

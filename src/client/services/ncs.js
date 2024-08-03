@@ -2,7 +2,7 @@ import Service from './service.js';
 import { normalizeConfigMap, normalizeSecret, normalizeService } from '@micro-app/common/views/ncs/utils';
 
 const harborapis = {
-    // type - 类型，1公有2私有3全部
+    // type - type, 1 public 2 private 3 all
     loadImages: {
         path: '/{clusterId}/projects/getImageLists',
         method: 'get',
@@ -12,7 +12,7 @@ const harborapis = {
             harbor: result.harbor || '',
         }),
     },
-    // 获取镜像列表
+    // Get mirror list
     loadRepoTags: {
         path: '/{clusterId}/repositories/getRepoTags',
         method: 'get',
@@ -23,7 +23,7 @@ const ncsapis = {
         method: 'get',
         path: '/clusters/{clusterId}/namespaces/{namespace}/secrets',
         process: (result) =>
-            // 不暴露kubernetes.io/service-account-token这种类型的secret
+            // Do not expose secrets of this type kubernetes.io/service-account-token
             (result.items || [])
                 .filter((item) => item.type !== 'kubernetes.io/service-account-token')
                 .map((item) => normalizeSecret(item))
@@ -52,7 +52,7 @@ const ncsapis = {
 };
 
 const clusterapis = {
-    // 新增了管控集群，之前调用集群列表的地方大多数不能展示管控集群，所以对该方法的返回做一次筛选
+    // A new management and control cluster has been added. Most of the places where the cluster list was previously called cannot display the management and control cluster, so the return of this method is filtered.
     loadSimple: {
         method: 'get',
         path: '/clusters/prune',

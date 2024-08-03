@@ -29,22 +29,22 @@ export default Object.assign({
             if (!status) return;
             if (status.modules_usage) { // for v2
                 const cloneStatus = JSON.parse(JSON.stringify(status));
-                delete cloneStatus.expired; // 不用
-                delete cloneStatus.usage; // 不用
+                delete cloneStatus.expired; // Not needed
+                delete cloneStatus.usage; // Not needed
                 const modules_usage = status.modules_usage;
-                delete cloneStatus.modules_usage; // 不用
-                if (Object.keys(cloneStatus).some(key => !!cloneStatus[key])) { // 全局异常
-                    Toast.show('License 异常，请联系平台管理员', 1000 * 6);
-                } else { // 模块异常
+                delete cloneStatus.modules_usage; // Not needed
+                if (Object.keys(cloneStatus).some(key => !!cloneStatus[key])) { // global exception
+                    Toast.show('License Abnormal, please contact the platform administrator', 1000 * 6);
+                } else { // Module exception
                     const currentModule = config.getCurrModule();
                     if (currentModule) {
                         if (modules_usage[currentModule.key]) {
-                            Toast.show(`License 异常，请联系平台管理员`, 1000 * 6);
+                            Toast.show(`License Abnormal, please contact the platform administrator`, 1000 * 6);
                         }
                     }
                 }
             } else if (Object.keys(status).some(key => !!status[key])) { // for v1
-                Toast.show('License 异常，请联系平台管理员', 1000 * 6);
+                Toast.show('License Abnormal, please contact the platform administrator', 1000 * 6);
             }
         });
     }

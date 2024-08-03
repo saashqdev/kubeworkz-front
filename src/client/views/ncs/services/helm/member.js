@@ -14,7 +14,7 @@ const apis = {
     },
 };
 
-// /ncs/proxy 为前端代理接口需要带的前缀
+// /ncs/proxy is the prefix required for the front-end proxy interface
 const service = new Service(apis, '/repo/proxy/api/v1/harborproxy');
 
 export default service;

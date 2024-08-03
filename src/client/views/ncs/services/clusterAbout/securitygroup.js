@@ -9,14 +9,14 @@ const apis = {
         method: 'post',
         path: '/clusters/{clusterId}/openshiftsdn/securitygroups/global',
     },
-    // 同时支持安全组的添加、设置和删除操作
+    // It also supports adding, setting and deleting security groups.
     editJoined: {
         method: 'post',
         path: '/clusters/{clusterId}/openshiftsdn/securitygroups/joined',
     },
 };
 
-// /ncs/proxy 为前端代理接口需要带的前缀
+// /ncs/proxy is the prefix required for the front-end proxy interface
 const service = new Service(apis, '/ncs/proxy/api/v1/ncs/extends');
 
 export default service;
