@@ -75,7 +75,7 @@ export function toCephfsK8SObject(model) {
             adminId: g('cephInfo.spec.adminId'),
             adminSecretName: g('cephInfo.spec.adminSecretName'),
             adminSecretNamespace: g('cephInfo.spec.adminSecretNamespace'),
-            claimRoot: `/${g('clusterName')}/${g('name')}`, // 集群名称，避免重复
+            claimRoot: `/${g('clusterName')}/${g('name')}`, // Cluster name to avoid duplication
             monitors: g('cephInfo.spec.monitors'),
         },
         provisioner: 'ceph.com/cephfs',

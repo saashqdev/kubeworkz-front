@@ -2,7 +2,7 @@ import Service from './service';
 
 import { userInterceptor } from './interceptor';
 const userService = Service({
-    baseURL: '/api/v1/cube/',
+    baseURL: '/api/v1/kube/',
     apis: {
         login: {
             url: '/login',
@@ -55,7 +55,7 @@ const userService = Service({
             url: '/authorization/roles',
             method: 'get',
         },
-        getUserIdenties: {
+        getUserIdentities: {
             url: '/authorization/identities',
             method: 'get',
         },

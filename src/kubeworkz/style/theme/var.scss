@@ -1,4 +1,4 @@
-/* 轻舟定制化内容(变量值覆盖) start */
+/* SaasHQ customized content (variable value override) start */
 
 // Brand Color
 $--color-primary: #3377ff !default;
@@ -28,9 +28,9 @@ $--color-text-regular: #666 !default;
 /// fontWeight|1|Font Weight|1
 $--font-weight-primary: 400 !default;
 
-/* 轻舟定制化内容(变量值覆盖) end */
+/* SaasHQ customized content (variable value override) end */
 
-/** 自定义全局变量 start */
+/** Custom global variable start */
 
 $--color-primary-hover-self: #5c98ff !default;
 $--color-primary-disable-self: #9dbbff !default;
@@ -47,14 +47,14 @@ $-color-title-color-self: #333 !default;
 $-color-background-color-self: #ccc !default;
 $-color-background-date-picker-hover-self: #ebf3ff !default;
 
-/** 自定义全局变量 end*/
+/** Custom global variable end */
 
-/* 轻舟定制化内容(变量值覆盖) start */
+/* SaasHQ customized content (variable value override) start */
 
 $--border-color-hover: $--color-primary-hover-self !default;
 $--input-focus-border: #4679fa !default;
 
-/* 轻舟定制化内容(变量值覆盖) end */
+/* SaasHQ customized content (variable value override) end */
 
 // Radio
 $--radio-checked-input-height-self: 7px !default;
@@ -74,7 +74,7 @@ $--pagination-background-li-background-self: $--color-white !default;
 $--pagination-background-li-active-background-self: $--color-primary !default;
 $--pagination-background-li-hover-border-self: $--color-primary-hover-self !default;
 
-/** 自定义全局变量 */
+/** Custom global variables */
 
 /** Botton
 ------------------------*/
@@ -90,7 +90,7 @@ $--button-mini-padding-horizontal: 24px !default;
 
 /* Input
 ------------------------*/
-// todo: $--disabled-color-base和这个颜色一样 ,
+// todo: $--disabled-color-base is the same as this color,
 // $--input-font-color: $--color-text-regular
 // $--input-font-color:#333 !default;
 $--input-height: 36px !default;

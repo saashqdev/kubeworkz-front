@@ -18,9 +18,9 @@ export function needConfirm(pathName) {
 }
 
 const defaultConfirm = {
-    title: '提示',
-    content: '确认离开本页吗？',
-    subContent: '离开后本页所编辑的信息将被清空',
+    title: 'Hint',
+    content: 'Are you sure you want to leave this page?',
+    subContent: 'The information edited on this page will be cleared after you leave.',
 };
 
 export function getLeaveConfirm(route) {

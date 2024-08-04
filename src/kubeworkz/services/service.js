@@ -78,7 +78,7 @@ export default function Service({
                     const status = get(error, 'response.status', 0);
                     const data = get(error, 'response.data', '');
                     if (status === 404) {
-                        notifyFunc.error('网络或浏览器出现问题，请稍后再试');
+                        notifyFunc.error('There was a problem with the network or browser, please try again later.');
                     } else if (status === 401) {
                         removeItem('user');
                         if (!router.currentRoute.meta.noCredential) {
@@ -90,7 +90,7 @@ export default function Service({
                         }
 
                     } else if (status === 403) {
-                        notifyFunc.error('您没有权限！请联系管理员添加！');
+                        notifyFunc.error('You don\'t have permission! Please contact the administrator to add it!');
                         // router.replace('/noauth');
                     } else {
                         // console.log(error)

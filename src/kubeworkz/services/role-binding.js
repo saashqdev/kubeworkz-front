@@ -4,7 +4,7 @@ import { userInterceptor } from './interceptor';
 import store from 'kubeworkz/store';
 // const rbac = 'rbac.authorization.k8s.io';
 const service = Service({
-    baseURL: `/api/v1/cube/proxy/clusters/${store.get('scope/controlClusterList')[0].clusterName}`,
+    baseURL: `/api/v1/kube/proxy/clusters/${store.get('scope/controlClusterList')[0].clusterName}`,
     apis: {
         // getClusterRoleBindings: {
         //     template: '/apis/rbac.authorization.k8s.io/v1/clusterrolebindings',

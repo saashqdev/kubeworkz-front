@@ -90,20 +90,20 @@ const logseerService = Service({
             },
         },
         /**
-        size：number，非必填，默认5，表示查询返回的条数
+        size: number, optional, default 5, indicating the number of items returned by the query
 
-        search_after：timestamp，从哪个时间戳开始返回
+        search_after: timestamp, which timestamp to start returning from
 
-        sort：排序
+        sort: sort
 
-        timestamp：必填，string，可为asc或者desc，按照时间戳排序
-        range：查询范围
+        timestamp: required, string, can be asc or desc, sorted by timestamp
+        range: query range
 
-        timestamp：时间范围
+        timestamp: time range
 
-        gte：number，大于等于某个时间点，unix时间戳，毫秒
-        lte：number，小于等于某个时间点，unix时间戳，毫秒
-        如果为上翻页，为锚日志时间戳到后一天相同时间的时间戳；如果为下翻页，为锚日志时间戳到前一天相同时间的时间戳
+        gte: number, greater than or equal to a certain time point, unix timestamp, milliseconds
+        lte: number, less than or equal to a certain time point, unix timestamp, milliseconds
+        If the page is turned up, the anchor log timestamp is the timestamp of the same time on the next day; if the page is turned down, the anchor log timestamp is the timestamp of the same time on the previous day.
     */
         elasticContext: {
             method: 'post',

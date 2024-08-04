@@ -2,7 +2,7 @@ import Service from './service';
 import { userInterceptor } from './interceptor';
 
 const service = Service({
-    baseURL: 'api/v1/cube/extend',
+    baseURL: 'api/v1/kube/extend',
     apis: {
         getResources: {
             method: 'get',

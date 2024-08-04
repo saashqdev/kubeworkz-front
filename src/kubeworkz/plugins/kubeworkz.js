@@ -47,7 +47,7 @@ import TagList from 'kubeworkz/elComponent/tagList.vue';
 // elComponent
 import elInputSearch from 'kubeworkz/elComponent/inputSearch';
 
-// 指令集
+// Instruction Set
 import directives from 'kubeworkz/directives';
 
 const SKELETON_KEY = 'SKELETON_KEY';
@@ -68,7 +68,7 @@ function addEllipsis(el, length) {
     const nodeElem = `<span>${content.substring(0, length)}...</span>`;
     // el.addEventListener('click', (e))
     const href = document.createElement('a');
-    href.innerText = '展开';
+    href.innerText = 'Expand';
     href.setAttribute('class', 'ellipsis-action');
     href.addEventListener('click', e => {
         e.preventDefault();
@@ -78,7 +78,7 @@ function addEllipsis(el, length) {
     el.innerHTML = nodeElem;
     el.appendChild(href);
 }
-// 引入Element
+// Introduce Element
 import ElementUI from 'element-ui';
 Vue.use(ElementUI, { size: 'medium' });
 Vue.use({
@@ -126,7 +126,7 @@ Vue.use({
         _Vue.filter('formatLocaleTime', function(value) {
             if (!value) return '-';
             const datetime = new Date(value);
-            return new Intl.DateTimeFormat('zh-Hans-CN', { dateStyle: 'medium', timeStyle: 'medium' }).format(datetime);
+            return new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeStyle: 'medium' }).format(datetime);
         });
 
         const MAP_1000 = [ '', 'k', 'M', 'G', 'T', 'P', 'E' ];

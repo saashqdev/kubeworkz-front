@@ -151,7 +151,7 @@
 }
 @include b(radio-button) {
     &:focus:not(.is-focus):not(:active):not(.is-disabled) {
-        /*获得焦点时 样式提醒*/
+        /* Style reminder when getting focus */
         box-shadow: none;
     }
 }

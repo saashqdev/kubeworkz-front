@@ -45,7 +45,7 @@ export class ValveController {
         this.loading = true;
         const ps = [];
         if (fromIndex === this) {
-            // 处理本层刚加入的valve
+            // Process the valve just added to this layer
             this.Valves.forEach(v => {
                 if (v.loading) { ps.push(v.r()); }
             });

@@ -2,7 +2,7 @@
 // import { userInterceptor } from './interceptor';
 
 // const clusterService = axios.create({
-//     baseURL: '/api/v1/cube/clusters',
+//     baseURL: '/api/v1/kube/clusters',
 //     timeout: 10000,
 // });
 // userInterceptor(clusterService);
@@ -21,15 +21,15 @@ const service = Service({
     apis: {
         getInnerDashboards: {
             method: 'get',
-            template: '/cube/proxy/clusters/{cluster}/apis/monitoring.kubeworkz.io/v1/namespaces/kube-public/dashboards/{resource}',
+            template: '/kube/proxy/clusters/{cluster}/apis/monitoring.kubeworkz.io/v1/namespaces/kube-public/dashboards/{resource}',
         },
         getInnerDashboardByQuery: {
             method: 'get',
-            template: '/cube/proxy/clusters/{cluster}/apis/monitoring.kubeworkz.io/v1/namespaces/kubeworkz-monitoring/dashboards',
+            template: '/kube/proxy/clusters/{cluster}/apis/monitoring.kubeworkz.io/v1/namespaces/kubeworkz-monitoring/dashboards',
         },
         // getPodDashboards: {
         //     method: 'get',
-        //     url: '/cube/proxy/clusters/pivot-cluster/apis/monitoring.kubeworkz.io/v1/namespaces/kube-public/dashboards/cube-pod-resource',
+        //     url: '/kube/proxy/clusters/pivot-cluster/apis/monitoring.kubeworkz.io/v1/namespaces/kube-public/dashboards/cube-pod-resource',
         // },
         getVariableLabel: {
             method: 'get',

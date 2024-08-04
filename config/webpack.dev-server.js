@@ -44,7 +44,7 @@ module.exports = function() {
             },
             '/api/v1/audit': {
                 target: 'http://10.219.192.164:30008',
-                pathRewrite: { '^/api/v1/audit': '/api/v1/cube/audit' },
+                pathRewrite: { '^/api/v1/audit': '/api/v1/kube/audit' },
             },
             // 10.219.192.164:30010/api/v1/pivot-cluster/pod/es/es-0/shell/wb-test-nginx
         },

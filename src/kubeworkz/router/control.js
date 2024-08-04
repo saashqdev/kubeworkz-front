@@ -12,8 +12,8 @@ export default {
             name: 'control.dashboard',
             component: () => /* webpackChunkName: "control-workload" */ import('kubeworkz/views/control/monitor/monitor.vue'),
             meta: {
-                breadCrumb: '资源监控',
-                resource: 'cube-resource-namespace',
+                breadCrumb: 'Resource monitoring',
+                resource: 'kube-resource-namespace',
             },
         },
         {
@@ -25,15 +25,15 @@ export default {
                     const type = relative[1];
                     let p;
                     if (type === 'normal') {
-                        p = '搜索';
+                        p = 'search';
                     }
                     if (type === 'stream') {
-                        p = '实时流';
+                        p = 'live streaming';
                     }
                     if (type === 'trace') {
-                        p = '全链路搜索';
+                        p = 'full link search';
                     }
-                    return `日志查询 ${p}模式`;
+                    return `Log query ${p} model`;
                 },
             },
         },
@@ -42,7 +42,7 @@ export default {
             name: 'control.bootstrap',
             component: () => import(/* webpackChunkName: "control-common" */'kubeworkz/views/control/bootstrap/index.vue'),
             meta: {
-                breadCrumb: '常用工具',
+                breadCrumb: 'Common tool',
             },
         },
         {
@@ -51,7 +51,7 @@ export default {
             component: () => import(/* webpackChunkName: "control-crd" */'kubeworkz/views/control/crd/index.vue'),
             redirect: { path: '/control/crd/Cluster' },
             meta: {
-                breadCrumb: '自定义资源',
+                breadCrumb: 'Custom resources',
             },
             children: [
                 {
@@ -60,7 +60,7 @@ export default {
                     component: () => import(/* webpackChunkName: "control-crd" */'kubeworkz/views/control/crd/list.vue'),
                     meta: {
                         breadCrumb(name) {
-                            return `${name === 'Cluster' ? '集群' : '空间'} 级别`;
+                            return `${name === 'Cluster' ? 'cluster' : 'space'} level`;
                         },
                     },
                     children: [
@@ -99,13 +99,13 @@ export default {
                     console.log(name);
                     switch (name) {
                         case 'logconfigs':
-                            return '日志任务管理';
+                            return 'Log task management';
                         case 'persistentvolumeclaims':
                             return 'PersistentVolumeClaims';
                         case 'AlertmanagerConfig':
-                            return '告警策略组';
+                            return 'Alert policy group';
                         case 'PrometheusRule':
-                            return '告警规则';
+                            return 'Alert rules';
                         default:
                             return upperFirst(name);
                     }
@@ -126,7 +126,7 @@ export default {
                     name: 'control.workload.create',
                     component: () => /* webpackChunkName: "control-workload" */ import('../views/control/edit.js'),
                     meta: {
-                        breadCrumb: '创建',
+                        breadCrumb: 'Create',
                         type: 'create',
                     },
                 },
@@ -146,7 +146,7 @@ export default {
                             name: 'control.workload.updateImage',
                             component: () => /* webpackChunkName: "kubeworkz-control" */ import('../views/control/workload/dp/updateImage.vue'),
                             meta: {
-                                breadCrumb: '滚动更新',
+                                breadCrumb: 'Rolling Update',
                             },
                         },
                         {
@@ -154,7 +154,7 @@ export default {
                             name: 'control.workload.edit',
                             component: () => /* webpackChunkName: "control-workload" */ import('../views/control/edit.js'),
                             meta: {
-                                breadCrumb: '编辑',
+                                breadCrumb: 'Edit',
                                 type: 'edit',
                             },
                         },
@@ -163,7 +163,7 @@ export default {
                             name: 'control.workload.info',
                             component: () => /* webpackChunkName: "control-workload" */ import('../views/control/workload/detail/tabs/info.js'),
                             meta: {
-                                breadCrumb: '基本信息',
+                                breadCrumb: 'Basic Information',
                             },
                         },
                         {
@@ -171,7 +171,7 @@ export default {
                             name: 'control.workload.pod',
                             component: () => /* webpackChunkName: "control-workload" */ import('../views/control/workload/detail/tabs/pod.vue'),
                             meta: {
-                                breadCrumb: '副本',
+                                breadCrumb: 'Copy',
                             },
                         },
                         {
@@ -179,7 +179,7 @@ export default {
                             name: 'control.workload.monitor',
                             component: () => /* webpackChunkName: "control-workload" */ import('kubeworkz/views/control/monitor/monitor.vue'),
                             meta: {
-                                breadCrumb: '监控',
+                                breadCrumb: 'Monitor',
                             },
                         },
                         {
@@ -187,7 +187,7 @@ export default {
                             name: 'control.workload.jobs',
                             component: () => /* webpackChunkName: "control-workload" */ import('../views/control/workload/detail/tabs/jobs.vue'),
                             meta: {
-                                breadCrumb: '任务列表',
+                                breadCrumb: 'Task List',
                             },
                         },
                         {
@@ -195,7 +195,7 @@ export default {
                             name: 'control.workload.event',
                             component: () => /* webpackChunkName: "control-workload" */ import('../views/control/workload/detail/tabs/event.vue'),
                             meta: {
-                                breadCrumb: '事件',
+                                breadCrumb: 'Event',
                             },
                         },
                         {
@@ -203,7 +203,7 @@ export default {
                             name: 'control.workload.condition',
                             component: () => /* webpackChunkName: "control-workload" */ import('../views/control/workload/detail/tabs/condition.vue'),
                             meta: {
-                                breadCrumb: 'condition信息',
+                                breadCrumb: 'Condition Information',
                             },
                         },
                         {
@@ -211,7 +211,7 @@ export default {
                             name: 'control.workload.log',
                             component: () => /* webpackChunkName: "control-workload" */ import('../views/control/workload/detail/tabs/log.vue'),
                             meta: {
-                                breadCrumb: '日志',
+                                breadCrumb: 'Log',
                             },
                         },
                         {
@@ -219,7 +219,7 @@ export default {
                             name: 'control.workload.external',
                             component: () => /* webpackChunkName: "control-workload" */ import('kubeworkz/views/control/service/detail/external.vue'),
                             meta: {
-                                breadCrumb: '对外服务端口',
+                                breadCrumb: 'External Service Port',
                             },
                         },
                         {

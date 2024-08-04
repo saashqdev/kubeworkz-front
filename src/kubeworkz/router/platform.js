@@ -13,7 +13,7 @@ export default {
             component: wrapper,
             redirect: { name: 'platform.user' },
             meta: {
-                breadCrumb: '用户管理',
+                breadCrumb: 'User Management',
             },
             children: [
                 {
@@ -21,7 +21,7 @@ export default {
                     name: 'platform.user',
                     component: () => import(/* webpackChunkName: "platform-user" */'kubeworkz/views/platform/user/index.vue'),
                     meta: {
-                        breadCrumb: '用户列表',
+                        breadCrumb: 'User List',
                     },
                 },
 
@@ -32,7 +32,7 @@ export default {
             // redirect: { name: 'platform.user' },
             component: () => import(/* webpackChunkName: "platform-user" */'kubeworkz/views/platform/role/index.vue'),
             meta: {
-                breadCrumb: '角色管理',
+                breadCrumb: 'Role Management',
             },
             children: [
                 {
@@ -43,11 +43,11 @@ export default {
                         breadCrumb(name) {
                             switch (name) {
                                 case 'platform':
-                                    return '平台角色';
+                                    return 'Platform Role';
                                 case 'tenant':
-                                    return '租户角色';
+                                    return 'Tenant Role';
                                 case 'project':
-                                    return '项目角色';
+                                    return 'Project Role';
                                 default:
                                     return '';
                             }
@@ -62,7 +62,7 @@ export default {
             component: () => import(/* webpackChunkName: "platform-tenant" */'kubeworkz/views/platform/tenant/tabs.vue'),
             redirect: { name: 'platform.tenant' },
             meta: {
-                breadCrumb: '租户管理',
+                breadCrumb: 'Tenant Management',
             },
             children: [
                 {
@@ -70,7 +70,7 @@ export default {
                     name: 'platform.tenant',
                     component: () => import(/* webpackChunkName: "platform-tenant" */'kubeworkz/views/platform/tenant/tenant.vue'),
                     meta: {
-                        breadCrumb: '租户列表',
+                        breadCrumb: 'Tenant List',
                     },
                 },
                 {
@@ -78,7 +78,7 @@ export default {
                     name: 'platform.project',
                     component: () => import(/* webpackChunkName: "platform-tenant" */'kubeworkz/views/platform/tenant/project.vue'),
                     meta: {
-                        breadCrumb: '项目列表',
+                        breadCrumb: 'Project List',
                     },
                 },
                 {
@@ -86,7 +86,7 @@ export default {
                     name: 'platform.member',
                     component: () => import(/* webpackChunkName: "platform-tenant" */'kubeworkz/views/platform/tenant/member.vue'),
                     meta: {
-                        breadCrumb: '成员列表',
+                        breadCrumb: 'Member List',
                     },
                 },
             ],
@@ -95,28 +95,28 @@ export default {
             path: 'quota',
             component: () => import(/* webpackChunkName: "platform-quota" */'kubeworkz/views/platform/quota/index.vue'),
             meta: {
-                breadCrumb: '租户配额',
+                breadCrumb: 'Tenant Quota',
             },
         },
         {
             path: 'nsquota',
             component: () => import(/* webpackChunkName: "platform-quota" */'kubeworkz/views/platform/namespace/index.vue'),
             meta: {
-                breadCrumb: '空间管理',
+                breadCrumb: 'Space Management',
             },
         },
         {
             path: 'audit',
             component: () => import(/* webpackChunkName: "platform-audit" */'kubeworkz/views/platform/audit/index.vue'),
             meta: {
-                breadCrumb: '操作审计',
+                breadCrumb: 'Operational Audit',
             },
         },
         {
             path: 'bootstrap',
             component: () => import(/* webpackChunkName: "platform-bootstrap" */ 'kubeworkz/views/platform/bootstrap/quick-boot.vue'),
             meta: {
-                breadCrumb: '快速向导',
+                breadCrumb: 'Quick Guide',
             },
         },
         {
@@ -124,7 +124,7 @@ export default {
             component: wrapper,
             redirect: { name: 'platform.cluster.list' },
             meta: {
-                breadCrumb: '集群管理',
+                breadCrumb: 'Cluster Management',
             },
             children: [
                 {
@@ -132,7 +132,7 @@ export default {
                     name: 'platform.cluster.list',
                     component: () => import(/* webpackChunkName: "platform-cluster" */'kubeworkz/views/platform/cluster/index.vue'),
                     meta: {
-                        breadCrumb: '集群列表',
+                        breadCrumb: 'Cluster List',
                     },
                 },
                 {
@@ -152,7 +152,7 @@ export default {
                             name: 'platform.cluster.detail.info',
                             component: () => import(/* webpackChunkName: "platform-cluster" */'kubeworkz/views/platform/cluster/details/info.vue'),
                             meta: {
-                                breadCrumb: '详情',
+                                breadCrumb: 'Details',
                             },
                         },
                         {
@@ -160,7 +160,7 @@ export default {
                             name: 'platform.cluster.detail.node',
                             component: () => import(/* webpackChunkName: "platform-cluster" */'kubeworkz/views/platform/cluster/details/node.vue'),
                             meta: {
-                                breadCrumb: '节点',
+                                breadCrumb: 'Node',
                             },
                         },
                         {
@@ -168,7 +168,7 @@ export default {
                             name: 'platform.cluster.detail.storageclass',
                             component: () => import(/* webpackChunkName: "platform-cluster" */'kubeworkz/views/platform/cluster/details/storageclass.vue'),
                             meta: {
-                                breadCrumb: '存储类别',
+                                breadCrumb: 'Storage Class',
                             },
                         },
                         {
@@ -176,7 +176,7 @@ export default {
                             name: 'platform.cluster.detail.persistentvolumes',
                             component: () => import(/* webpackChunkName: "platform-cluster" */'kubeworkz/views/platform/cluster/details/persistentvolumes.vue'),
                             meta: {
-                                breadCrumb: '持久存储',
+                                breadCrumb: 'Persistent Storage',
                             },
                         },
                         {
@@ -184,7 +184,7 @@ export default {
                             name: 'platform.cluster.detail.network',
                             component: () => import(/* webpackChunkName: "platform-cluster" */'kubeworkz/views/platform/cluster/details/network/index.vue'),
                             meta: {
-                                breadCrumb: '网络策略',
+                                breadCrumb: 'Network Strategy',
                             },
                             children: [
                                 {
@@ -192,7 +192,7 @@ export default {
                                     name: 'platform.cluster.detail.network.create',
                                     component: () => import(/* webpackChunkName: "platform-cluster" */'kubeworkz/views/platform/cluster/details/network/edit.vue'),
                                     meta: {
-                                        breadCrumb: '创建网络策略',
+                                        breadCrumb: 'Create a Network Policy',
                                         type: 'create',
                                     },
                                 },
@@ -201,7 +201,7 @@ export default {
                                     name: 'platform.cluster.detail.network.edit',
                                     component: () => import(/* webpackChunkName: "platform-cluster" */'kubeworkz/views/platform/cluster/details/network/edit.vue'),
                                     meta: {
-                                        breadCrumb(name, list) { return `修改网络策略: ${list[5]}`; },
+                                        breadCrumb(name, list) { return `Modify Network Policy: ${list[5]}`; },
                                         type: 'edit',
                                     },
                                 },
@@ -212,8 +212,8 @@ export default {
                             name: 'platform.cluster.detail.monitor',
                             component: () => /* webpackChunkName: "platform-cluster" */ import('kubeworkz/views/control/monitor/monitor.vue'),
                             meta: {
-                                breadCrumb: '监控',
-                                resource: 'cube-resource-cluster',
+                                breadCrumb: 'monitor',
+                                resource: 'kube-resource-cluster',
                             },
                         },
                         {
@@ -231,7 +231,7 @@ export default {
                                     name: 'platform.cluster.nodedetail.info',
                                     component: () => /* webpackChunkName: "platform-cluster" */ import('kubeworkz/views/platform/cluster/node/info.vue'),
                                     meta: {
-                                        breadCrumb: '节点详情',
+                                        breadCrumb: 'Node Details',
                                     },
                                 },
                                 {
@@ -239,7 +239,7 @@ export default {
                                     name: 'platform.cluster.nodedetail.pod',
                                     component: () => /* webpackChunkName: "platform-cluster" */ import('kubeworkz/views/platform/cluster/node/pod.vue'),
                                     meta: {
-                                        breadCrumb: '副本',
+                                        breadCrumb: 'Copy',
                                     },
                                 },
                                 {
@@ -247,8 +247,8 @@ export default {
                                     name: 'platform.cluster.nodedetail.monitor',
                                     component: () => /* webpackChunkName: "platform-cluster" */ import('kubeworkz/views/control/monitor/monitor.vue'),
                                     meta: {
-                                        breadCrumb: '监控',
-                                        resource: 'cube-resource-node',
+                                        breadCrumb: 'Monitor',
+                                        resource: 'kube-resource-node',
                                     },
                                 },
                                 {
@@ -256,7 +256,7 @@ export default {
                                     name: 'platform.cluster.nodedetail.event',
                                     component: () => /* webpackChunkName: "platform-cluster" */ import('kubeworkz/views/platform/cluster/node/event.vue'),
                                     meta: {
-                                        breadCrumb: '事件',
+                                        breadCrumb: 'Event',
                                     },
                                 },
                             ],
@@ -271,7 +271,7 @@ export default {
             redirect: { name: 'platform.monitor.list' },
             component: wrapper,
             meta: {
-                breadCrumb: '组件监控',
+                breadCrumb: 'Component Monitoring',
             },
             children: [
                 {
@@ -298,7 +298,7 @@ export default {
             component: wrapper,
             redirect: { name: 'platform.PrometheusRule.list' },
             meta: {
-                breadCrumb: '告警规则',
+                breadCrumb: 'Alert rules',
             },
             children: [
                 {
@@ -321,7 +321,7 @@ export default {
                             name: 'platform.PrometheusRule.create',
                             component: () => /* webpackChunkName: "platform-observable" */ import('kubeworkz/views/platform/observable/prometheus-rule-edit.vue'),
                             meta: {
-                                breadCrumb: '创建',
+                                breadCrumb: 'Create',
                                 type: 'create',
                             },
                         },
@@ -337,7 +337,7 @@ export default {
                                     path: 'edit',
                                     component: () => /* webpackChunkName: "platform-observable" */ import('kubeworkz/views/platform/observable/prometheus-rule-edit.vue'),
                                     meta: {
-                                        breadCrumb: '编辑',
+                                        breadCrumb: 'Edit',
                                         type: 'edit',
                                     },
                                 },
@@ -352,7 +352,7 @@ export default {
             name: 'platform.AlertmanagerConfig',
             component: () => /* webpackChunkName: "platform-observable" */ import('kubeworkz/views/platform/observable/alertmanager-config.vue'),
             meta: {
-                breadCrumb: '全局告警配置',
+                breadCrumb: 'Global Alert Configuration',
             },
         },
     ],

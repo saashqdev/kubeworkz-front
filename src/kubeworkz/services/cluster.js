@@ -2,7 +2,7 @@
 // import { userInterceptor } from './interceptor';
 
 // const clusterService = axios.create({
-//     baseURL: '/api/v1/cube/clusters',
+//     baseURL: '/api/v1/kube/clusters',
 //     timeout: 10000,
 // });
 // userInterceptor(clusterService);
@@ -17,7 +17,7 @@ import Service from './service';
 import { userInterceptor } from './interceptor';
 
 const service = Service({
-    baseURL: '/api/v1/cube/clusters',
+    baseURL: '/api/v1/kube/clusters',
     apis: {
         getClusters: {
             method: 'get',

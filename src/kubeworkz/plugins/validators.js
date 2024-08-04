@@ -10,11 +10,11 @@ import yamljs from 'yamljs';
 export const rules = {
     required: {
         ...required,
-        message: '必填项',
+        message: 'Required fields',
     },
     noEmptyArray: {
         validate: v => v.length > 0,
-        message: '必填项',
+        message: 'Required fields',
     },
     arrayRequired: {
         params: [ 'filterkey' ],
@@ -25,157 +25,157 @@ export const rules = {
                 v => !!v[filterkey];
             return Array.isArray(v) && v.filter(filter).length > 0;
         },
-        message: '必填项',
+        message: 'Required fields',
     },
     Cookie: {
         validate: v => /^[-!#$%&'*+.`|~^\w]*$/.test(v),
-        message: 'cookie字符不合法',
+        message: 'Cookie characters are illegal',
     },
 
     startsWithLowercaseLetter: {
         validate: v => /^[a-z]/.test(v || ''),
-        message: '以小写字母开头',
+        message: 'Start with a lowercase letter',
     },
     startsWithSlash: {
         validate: v => /^\//.test(v || ''),
-        message: '以"/"开头',
+        message: 'Start with slash',
     },
     endsWithSlash: {
         validate: v => /\/$/.test(v || ''),
-        message: '以"/"结尾',
+        message: 'End with "/"',
     },
     startsWithLetter: {
         validate: v => /^[a-zA-Z]/.test(v || ''),
-        message: '以字母开头',
+        message: 'Start with letter',
     },
     startsWithLetterOrNumber: {
         validate: v => /^[a-zA-Z0-9]/.test(v || ''),
-        message: '以字母或数字开头',
+        message: 'Start with a letter or number',
     },
     startsWithLowercaseLetterOrNumber: {
         validate: v => /^[a-z0-9]/.test(v || ''),
-        message: '以小写字母或数字开头',
+        message: 'Start with a lowercase letter or number',
     },
     endsWithLowercaseLetterOrNumber: {
         validate: v => /[a-z0-9]$/.test(v || ''),
-        message: '以小写字母或数字结尾',
+        message: 'End with a lowercase letter or number',
     },
     ConsistofLetterNumberUnderscoresOrDot: {
         validate: v => /^[-a-z0-9.]*$/.test(v || ''),
-        message: '仅包含小写字母、数字和中划线',
+        message: 'Contains only lowercase letters, numbers, and underscores',
     },
     ConsistoLetterNumbersUnderscores: {
         validate: v => /^[a-z0-9-]*$/.test(v || ''),
-        message: '仅包含小写字母、数字和中划线',
+        message: 'Contains only lowercase letters, numbers, and underscores',
     },
     ConsistoLetterNumbersSplitterDot: {
         validate: v => /^[._a-z0-9-]*$/.test(v || ''),
-        message: '仅包含字母、数字、中划线、下划线和点',
+        message: 'Contains only letters, numbers, dashes, underlines, and dots',
     },
     ConsistofLowercaseLetterNumbersSplitter: {
         validate: v => /^[_\-.a-z0-9]*$/.test(v || ''),
-        message: '仅包含小写字母、数字和分隔符',
+        message: 'Contains only lowercase letters, numbers, and separators',
     },
     ConsistofLowercaseLetterNumbersUnderscores: {
         validate: v => /^[a-z0-9_]*$/.test(v || ''),
-        message: '仅包含小写字母、数字和下划线',
+        message: 'Contain only lowercase letters, numbers, and underscores',
     },
     ConsistofLetterNumbersUnderscores: {
         validate: v => /^[a-zA-Z0-9_]*$/.test(v || ''),
-        message: '仅包含字母、数字和下划线',
+        message: 'Contains only letters, numbers and underscores',
     },
     ConsistofPath: {
         validate: v => /^[a-zA-Z0-9-_/.]*$/.test(v || ''),
-        message: '仅包含字母，数字，中划线，下划线，"/"和"."',
+        message: 'Contains only letters, numbers, dashes, underscores, "/" and "."',
     },
     ConsistofGlob: {
         validate: v => isValidGlob(v),
-        message: '输入日志路径或glob表达式',
+        message: 'Enter log path or glob expression',
     },
     ConsistofSubPath: {
         validate: v => /^[a-zA-Z0-9-_.][a-zA-Z0-9-_/.]*$/.test(v || ''),
-        message: '请填入相对路径',
+        message: 'Please fill in the relative path',
     },
     ConsistofNumber: {
         validate: v => /^[0-9]*$/.test(`${v}` || ''),
-        message: '仅包含数字',
+        message: 'Contains only numbers',
     },
     ConsistofFloatNumber: {
         validate: v => /^[\+\-]?\d*\.?\d+(?:[Ee][\+\-]?\d+)?$/.test(`${v}` || ''),
-        message: '数字格式有误',
+        message: 'Number format is wrong',
     },
     ConsistofPercentage: {
         validate: v => /^[0-9]+%$/.test(`${v}` || ''),
-        message: '仅包含百分比',
+        message: 'Contains only percentages',
     },
     ConsistofNumberOrPercentage: {
         validate: v => /^[-+]?[0-9.]+%?$/.test(`${v}` || ''),
-        message: '仅包含百分比或整数',
+        message: 'Contain only percentages or whole numbers',
     },
     ConsistofNormalSymbol: {
         validate: v => /^[\w-.]*$/.test(v || ''),
-        message: "仅包含数字、字母、'-'、 '_' 或'.'组成",
+        message: "Contains only numbers, letters, '-', '_' or '.'",
     },
 
     numberOrPercentage: {
         validate: v => /^\d+%?$/.test(`${v}` || ''),
-        message: '仅包含数字或百分比',
+        message: 'Contain only numbers or percentages',
     },
 
     phone: {
         validate: v => /^1([38][0-9]|14[579]|5[^4]|16[6]|7[1-35-8]|9[189])\d{8}$/.test(v || ''),
-        message: '手机号格式有误',
+        message: 'Mobile phone number format is wrong',
     },
 
     userPassword: {
         validate: v => /(?!^\d+$)(?!^[A-Za-z]+$)(?!^[^A-Za-z0-9]+$)(?!^.*[\u4E00-\u9FA5].*$)^\S{8,20}$/.test(v),
-        message: '密码需包含字母、数字和特殊字符两种及以上组合',
+        message: 'The password must contain two or more combinations of letters, numbers and special characters',
     },
 
     password: {
         validate: v => /^.{5,17}$/.test(v || ''),
-        message: '以字母开头，5-17位',
+        message: 'Begins with a letter, digits 5-17',
     },
 
     email: {
         validate: v => /^[\w.]+@\w+\.[a-z]{2,3}(\.[a-z]{2,3})?$/.test(v || ''),
-        message: '邮箱格式有误',
+        message: 'Email format is wrong',
     },
 
     ConsistofUnicode: {
         // eslint-disable-next-line
         validate: v => /^[\x00-\x7F]*$/.test(v || ''),
-        message: '仅包含 unicode',
+        message: 'Contains only unicode',
     },
 
     K8SLabelValuePatten: {
         validate: v => /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/.test(v || ''),
-        message: 'K8S label 不合法',
+        message: 'K8S label is illegal',
     },
 
     KeyPattern: {
         validate: v => /^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*\/)?([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]$/.test(v),
-        message: 'key 不合法',
+        message: 'key is illegal',
     },
 
     noSystemKey: {
         validate: v => !ignoredKeys.some(item => v.startsWith(item)),
-        message: '不能使用系统标签',
+        message: 'Cannot use system tags',
     },
 
     LabelValuePatten: {
         validate: v => /^(([a-zA-Z0-9][a-zA-Z0-9-_]*\.)*[a-zA-Z0-9]*[a-zA-Z0-9-_]*[[a-zA-Z0-9]+\/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/.test(v || ''),
-        message: '1-63位字母、数字、"-"、"_"或"."组成，以字母或数字开头、结尾',
+        message: 'Composed of 1-63 letters, numbers, "-", "_" or ".", starting and ending with letters or numbers',
     },
 
     cidr: {
         validate: v => /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([1-2][0-9]|3[0-2]|[0-9]))$/.test(v || ''),
-        message: 'CIDR 不合法',
+        message: 'CIDR is illegal',
     },
 
     ip: {
         validate: v => /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(v || ''),
-        message: 'IP 不合法',
+        message: 'IP is illegal',
     },
 
     dependOnPattern: {
@@ -198,7 +198,7 @@ export const rules = {
             }
             return true;
         },
-        message: '已存在相同项',
+        message: 'Identical item already exists',
     },
 
     existence: {
@@ -206,7 +206,7 @@ export const rules = {
         validate: (value, { list }) => {
             return !list.some(l => l === value);
         },
-        message: '已存在相同项',
+        message: 'Identical item already exists',
     },
 
     multipart: {
@@ -237,7 +237,7 @@ export const rules = {
             }
         },
         message: (field, params) => {
-            return `长度不得少于${params.min}位且不大于${params.max}位`;
+            return `The length must not be less than ${params.min} position and not greater than ${params.max}.`;
         },
     },
 
@@ -252,7 +252,7 @@ export const rules = {
             }
         },
         message: (field, params) => {
-            return `应大于${params.min}`;
+            return `Should be greater than ${params.min}`;
         },
     },
 
@@ -267,7 +267,7 @@ export const rules = {
             }
         },
         message: (field, params) => {
-            return `范围在${params.min}-${params.max}之间`;
+            return `The range is between ${params.min}-${params.max}`;
         },
     },
     someRequired: {
@@ -275,7 +275,7 @@ export const rules = {
         validate: (value, { list }) => {
             return list.some(l => l);
         },
-        message: '必须填一个',
+        message: 'Must fill in one',
     },
 
     someValueRequired: {
@@ -283,7 +283,7 @@ export const rules = {
         validate: (value, { list, needed }) => {
             return list.some(l => l === needed);
         },
-        message: '工作负载至少需要设置一个业务容器',
+        message: 'The workload needs to set up at least one business container',
     },
 
     sameAs: {
@@ -292,7 +292,7 @@ export const rules = {
             return value === target;
         },
         message: (field, params) => {
-            return `两次输入的${params.key}不一致`;
+            return `Entered twice ${params.key} inconsistent`;
         },
     },
 
@@ -305,7 +305,7 @@ export const rules = {
                 return false;
             }
         },
-        message: '表达式不合法',
+        message: 'Expression is illegal',
     },
 
     urlpattern: {
@@ -317,7 +317,7 @@ export const rules = {
                 return false;
             }
         },
-        message: 'URL不合法',
+        message: 'URL is illegal',
     },
 
     acceptOne: {
@@ -325,11 +325,11 @@ export const rules = {
         validate: (value, { values }) => {
             return values.filter(v => v).length === 1;
         },
-        message: '仅支持选填其中一个',
+        message: 'Only one optional option is supported',
     },
     duration: {
         validate: value => /^((([0-9]+)y)?(([0-9]+)w)?(([0-9]+)d)?(([0-9]+)h)?(([0-9]+)m)?(([0-9]+)s)?(([0-9]+)ms)?|0)$/.test(value),
-        message: 'duration不合法',
+        message: 'Duration is illegal',
     },
 
     yaml: {
@@ -341,7 +341,7 @@ export const rules = {
                 return false;
             }
         },
-        message: 'yaml 格式错误',
+        message: 'yaml format error',
     },
     validateRemote: {
         params: [ 'service', 'message' ],

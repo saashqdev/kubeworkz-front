@@ -45,7 +45,7 @@ module.exports = function() {
         },
         proxy: {
             // kubeworkz service
-            '/api/v1/cube': {
+            '/api/v1/kube': {
                 target: 'https://10.173.32.42:30443',
                 secure: false,
                 changeOrigin: true,
@@ -81,7 +81,7 @@ module.exports = function() {
             // audit service
             '/api/v1/audit': {
                 target: 'http://10.173.32.42:30008',
-                pathRewrite: { '^/api/v1/audit': '/api/v1/cube/audit' },
+                pathRewrite: { '^/api/v1/audit': '/api/v1/kube/audit' },
             },
             // 10.173.32.42:30010/api/v1/pivot-cluster/pod/es/es-0/shell/wb-test-nginx
         },

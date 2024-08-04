@@ -173,7 +173,7 @@ export default {
             this.roleLoading = true;
             try {
                 await this.loadControlClusterInfo();
-                const roles = await userService.getUserIdenties({
+                const roles = await userService.getUserIdentities({
                     params: {
                         user: this.user.AccountId,
                     },

@@ -10,7 +10,7 @@ export default {
             name: 'metauser.openapi',
             component: () => import(/* webpackChunkName: "user-chunk" */'kubeworkz/views/user/open-api.vue'),
             meta: {
-                breadCrumb: '秘钥管理',
+                breadCrumb: 'Key Management',
             },
         },
 
