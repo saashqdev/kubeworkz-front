@@ -95,7 +95,7 @@ import workloadService from 'kubeworkz/services/k8s-resource';
 import PageMixin from 'kubeworkz/mixins/pagenation';
 import { toPlainObject as toConfigmapPlainObject } from 'kubeworkz/k8s-resources/configmap';
 import { toPlainObject as toSecretPlainObject } from 'kubeworkz/k8s-resources/secret';
-import { SECRET_TYPES } from 'kubeworkz/utils/constance';
+import { SECRET_TYPES } from 'kubeworkz';
 import inputSearch from 'kubeworkz/elComponent/inputSearch/index.vue';
 export default {
     components: {

@@ -88,7 +88,7 @@ import {
 import {
     toPlainObject as toDepPlainObject,
 } from 'kubeworkz/k8s-resources/deployment/index.js';
-import { CONTAINERTYPE } from 'kubeworkz/utils/constance';
+import { CONTAINERTYPE } from 'kubeworkz';
 
 export default {
     filters: {

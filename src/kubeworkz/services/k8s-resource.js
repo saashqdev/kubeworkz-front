@@ -198,32 +198,32 @@ const service = Service({
             template: '/{cluster}/apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}',
         },
 
-        getNeteaseResource: {
+        getKubeworkzResource: {
             method: 'get',
-            template: '/{cluster}/apis/netease.com/v1/namespaces/{namespace}/{resource}',
+            template: '/{cluster}/apis/kubeworkz.com/v1/namespaces/{namespace}/{resource}',
         },
-        getNeteaseResourceInstance: {
+        getKubeworkzResourceInstance: {
             method: 'get',
-            template: '/{cluster}/apis/netease.com/v1/namespaces/{namespace}/{resource}/{name}',
+            template: '/{cluster}/apis/kubeworkz.com/v1/namespaces/{namespace}/{resource}/{name}',
         },
-        createNeteaseResource: {
+        createKubeworkzResource: {
             method: 'post',
-            template: '/{cluster}/apis/netease.com/v1/namespaces/{namespace}/{resource}',
+            template: '/{cluster}/apis/kubeworkz.com/v1/namespaces/{namespace}/{resource}',
         },
-        modifyNeteaseResource: {
+        modifyKubeworkzResource: {
             method: 'put',
-            template: '/{cluster}/apis/netease.com/v1/namespaces/{namespace}/{resource}/{name}',
+            template: '/{cluster}/apis/kubeworkz.com/v1/namespaces/{namespace}/{resource}/{name}',
         },
-        patchNeteaseResourceInstance: {
+        patchKubeworkzResourceInstance: {
             method: 'patch',
-            template: '/{cluster}/apis/netease.com/v1/namespaces/{namespace}/{resource}/{name}',
+            template: '/{cluster}/apis/kubeworkz.com/v1/namespaces/{namespace}/{resource}/{name}',
             headers: {
                 'Content-Type': 'application/strategic-merge-patch+json',
             },
         },
-        deleteNeteaseResource: {
+        deleteKubeworkzResource: {
             method: 'delete',
-            template: '/{cluster}/apis/netease.com/v1/namespaces/{namespace}/{resource}/{name}',
+            template: '/{cluster}/apis/kubeworkz.com/v1/namespaces/{namespace}/{resource}/{name}',
         },
 
         getClusterCRResource: {

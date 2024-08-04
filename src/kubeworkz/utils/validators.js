@@ -5,7 +5,7 @@ export const k8sResourceNameValidator = () => {
     return {
         trigger: [ 'blur', 'change' ],
         validator: (rule, value, callback) => {
-            const message = '1-63位小写字母、数字、或中划线组成，以字母开头，字母或数字结尾';
+            const message = '1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number';
             if (value.length === 0 || value.length > 63) {
                 callback(new Error(message));
             } else if (!/^[a-z]([0-9a-z\-]*[0-9a-z])?$/.test(value)) {
@@ -21,7 +21,7 @@ export const k8sResourceNameEnhanceValidator = () => {
     return {
         trigger: [ 'blur', 'change' ],
         validator: (rule, value, callback) => {
-            const message = '1-253位小写字母、数字、或中划线组成，以字母开头，字母或数字结尾';
+            const message = '1-253 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number';
             if (value.length === 0 || value.length > 253) {
                 callback(new Error(message));
             } else if (!/^[a-z]([0-9a-z\-]*[0-9a-z])?$/.test(value)) {
@@ -40,7 +40,7 @@ export const consistofNumberOrPercentage = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '应为百分比或整数';
+            const message = 'Should be a percentage or an integer';
             if (!/^([0-9]+\.)?[0-9]+%$/.test(value) && !/^[0-9]+$/.test(value)) {
                 callback(new Error(message));
             } else {
@@ -57,7 +57,7 @@ export const consistofNumber = (required, message) => {
             if (!required && !value) {
                 return callback();
             }
-            message = message || '应为整数';
+            message = message || 'Should be an integer';
             if (!/^[0-9]*$/.test(value)) {
                 callback(new Error(message));
             } else {
@@ -74,7 +74,7 @@ export const numberBetween = (min = -Infinity, max = Infinity, required, message
             if (!required && (value !== 0 && !value)) {
                 return callback();
             }
-            message = message || (min === -Infinity ? `应小于等于${max}` : '') || (max === Infinity ? `应大于等于${min}` : '') || `范围在${min}-${max}之间`;
+            message = message || (min === -Infinity ? `Should be less than or equal to ${max}` : '') || (max === Infinity ? `should be greater than or equal to ${min}` : '') || `The range is between ${min}-${max}`;
             if (+(value) > +(max) || +(value) < +(min)) {
                 callback(new Error(message));
             } else {
@@ -91,7 +91,7 @@ export const consistofFloatNumber = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '数字格式有误';
+            const message = 'Number format is wrong';
             if (!/^[\+\-]?\d*\.?\d+(?:[Ee][\+\-]?\d+)?$/.test(value || '')) {
                 callback(new Error(message));
             } else {
@@ -108,7 +108,7 @@ export const startsWithSlash = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '以"/"开头';
+            const message = 'starts with "/"';
             if (!/^\//.test(value || '')) {
                 callback(new Error(message));
             } else {
@@ -125,7 +125,7 @@ export const consistofPath = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '仅包含字母，数字，中划线，下划线，"/"和"."';
+            const message = 'Contains only letters, numbers, dashes, underscores, "/" and "."';
             if (!/^[a-zA-Z0-9-_/.]*$/.test(value || '')) {
                 callback(new Error(message));
             } else {
@@ -142,7 +142,7 @@ export const noRedundance = (list, required) => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '已存在相同项';
+            const message = 'Identical item already exists';
             let t = 0;
             list.forEach(p => {
                 if (p === value) t++;
@@ -162,7 +162,7 @@ export const enhanceNoRedundance = (list, item, required) => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '已存在相同项';
+            const message = 'Identical item already exists';
             let t = 0;
             list.forEach(p => {
                 if (p === item) t++;
@@ -182,7 +182,7 @@ export const consistofSubPath = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '请填入相对路径';
+            const message = 'Please fill in the relative path';
             if (!/^[a-zA-Z0-9-_.][a-zA-Z0-9-_/.]*$/.test(value || '')) {
                 callback(new Error(message));
             } else {
@@ -199,7 +199,7 @@ export const startsWithLetter = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '以字母开头';
+            const message = 'start with letter';
             if (!/^[a-zA-Z]/.test(value || '')) {
                 callback(new Error(message));
             } else {
@@ -216,7 +216,7 @@ export const consistofLetterNumbersUnderscores = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '仅包含字母、数字和下划线';
+            const message = 'Contains only letters, numbers and underscores';
             if (!/^[a-zA-Z0-9_]*$/.test(value || '')) {
                 callback(new Error(message));
             } else {
@@ -233,7 +233,7 @@ export const consistofLetterNumbers = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '仅包含大小写字母、数字';
+            const message = 'Contains only uppercase and lowercase letters and numbers';
             if (!/^[a-zA-Z0-9]*$/.test(value || '')) {
                 callback(new Error(message));
             } else {
@@ -250,7 +250,7 @@ export const lengthBetween = (min = -Infinity, max = Infinity, required) => {
             if (!required && !value) {
                 return callback();
             }
-            const message = `长度不得少于${min}位且不大于${max}位`;
+            const message = `The length must not be less than ${min} bits and no longer than ${max} bits`;
             try {
                 const v = `${value}`.length;
                 if (v >= min && v <= max) {
@@ -271,7 +271,7 @@ export const consistofUnicode = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '仅包含 unicode';
+            const message = 'Contains only unicode';
             if (!/^[\x00-\x7F]*$/.test(value || '')) {
                 callback(new Error(message));
             } else {
@@ -288,7 +288,7 @@ export const someValueRequired = (list, needed, required) => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '工作负载至少需要设置一个业务容器';
+            const message = 'The workload needs to set up at least one business container';
             if (!list.some(l => l === needed)) {
                 return callback(new Error(message));
             }
@@ -304,7 +304,7 @@ export const startsWithLowercaseLetter = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '以小写字母开头';
+            const message = 'Start with a lowercase letter';
             if (!/^[a-z]/.test(value || '')) {
                 callback(new Error(message));
             } else {
@@ -321,7 +321,7 @@ export const consistoLetterNumbersUnderscores = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '仅包含小写字母、数字和中划线';
+            const message = 'Contains only lowercase letters, numbers, and underscores';
             if (!/^[a-z0-9-]*$/.test(value || '')) {
                 callback(new Error(message));
             } else {
@@ -338,7 +338,7 @@ export const keyPattern = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = 'key 不合法';
+            const message = 'key is illegal';
             let prefix = '';
             let suffix = '';
             const spartIndex = value.indexOf('/');
@@ -366,7 +366,7 @@ export const noSystemKey = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '不能使用系统标签';
+            const message = 'Cannot use system tags';
             if (ignoredKeys.some(item => value.startsWith(item))) {
                 callback(new Error(message));
             } else {
@@ -376,7 +376,7 @@ export const noSystemKey = required => {
     };
 };
 
-export const required = (message = '不能为空') => {
+export const required = (message = 'Cannot be empty') => {
     return {
         trigger: [ 'blur', 'change' ],
         required: true,
@@ -384,7 +384,7 @@ export const required = (message = '不能为空') => {
     };
 };
 
-export const trimRequired = (required, message = '不能为空') => {
+export const trimRequired = (required, message = 'Cannot be empty') => {
     return {
         trigger: [ 'blur', 'change' ],
         validator(rule, value, callback) {
@@ -407,7 +407,7 @@ export const labelValuePatten = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '1-63位字母、数字、"-"、"_"或"."组成，以字母或数字开头、结尾';
+            const message = 'Composed of 1-63 letters, numbers, "-", "_" or ".", starting and ending with letters or numbers';
             const l = `${value}`.length;
             if (!(l >= 1 && l <= 63 && /^(([a-zA-Z0-9][a-zA-Z0-9-_]*\.)*[a-zA-Z0-9]*[a-zA-Z0-9-_]*[[a-zA-Z0-9]+\/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/.test(value || ''))) {
                 callback(new Error(message));
@@ -426,7 +426,7 @@ export const multipartLabelValuePatten = (spliter = /\s/, required, message) => 
                 return callback();
             }
             const arr = (value || '').split(spliter);
-            message = message || '1-63位字母、数字、"-"、"_"或"."组成，以字母或数字开头、结尾，多个以空格分隔';
+            message = message || 'Composed of 1-63 letters, numbers, "-", "_" or ".", starting and ending with letters or numbers, multiple ones separated by spaces';
             const result = arr.map(item => {
                 const l = `${item}`.length;
                 if (!(l >= 1 && l <= 63 && /^(([a-zA-Z0-9][a-zA-Z0-9-_]*\.)*[a-zA-Z0-9]*[a-zA-Z0-9-_]*[[a-zA-Z0-9]+\/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/.test(item || ''))) {
@@ -450,7 +450,7 @@ export const linuxCronPattern = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = 'Linux Cron表达式不合法';
+            const message = 'Linux Cron expression is illegal';
             try {
                 cronValidate(value);
                 callback();
@@ -468,7 +468,7 @@ export const fixedFieldNum = (length, separator, required) => {
             if (!required && !value) {
                 return callback();
             }
-            const message = `由${length}个被“${separator}”分隔的字段组成`;
+            const message = `Consists of ${length} fields separated by "${separator}"`;
             if (value && value.split(separator).length === length) {
                 callback();
             } else {
@@ -485,7 +485,7 @@ export const startsWithLowercaseLetterOrNumber = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '以小写字母或数字开头';
+            const message = 'Start with a lowercase letter or number';
             if (!/^[a-z0-9]/.test(value || '')) {
                 callback(new Error(message));
             } else {
@@ -502,7 +502,7 @@ export const consistofLowercaseLetterNumbersUnderscores = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '仅包含小写字母、数字和下划线';
+            const message = 'Contain only lowercase letters, numbers, and underscores';
             if (!/^[a-z0-9_]*$/.test(value || '')) {
                 callback(new Error(message));
             } else {
@@ -519,7 +519,7 @@ export const endsWithLowercaseLetterOrNumber = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '以小写字母或数字结尾';
+            const message = 'End with a lowercase letter or number';
             if (!/[a-z0-9]$/.test(value || '')) {
                 callback(new Error(message));
             } else {
@@ -536,7 +536,7 @@ export const numberBiggerThen = (min = -Infinity, required) => {
             if (!required && (value !== 0 && !value)) {
                 return callback();
             }
-            const message = `应大于${min}`;
+            const message = `Should be greater than ${min}`;
             const v = +(value);
             if (v <= min) {
                 callback(new Error(message));
@@ -554,7 +554,7 @@ export const someRequired = (list = [], required) => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '必须填一个';
+            const message = 'Must fill in one';
             if (!list.some(l => l)) {
                 callback(new Error(message));
             } else {
@@ -574,7 +574,7 @@ export const arrayRequired = (filterkey = '') => {
             const filter = Array.isArray(filterkey) ?
                 v => filterkey.every(k => !!v[k]) :
                 v => !!v[filterkey];
-            const message = '必须填一个';
+            const message = 'Must fill in one';
             if (Array.isArray(value) && value.filter(filter).length > 0) {
                 callback();
             } else {
@@ -591,7 +591,7 @@ export const cookie = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = 'cookie字符不合法';
+            const message = 'Cookie characters are illegal';
             if (!/^[a-zA-Z0-9_-]{0,1024}$/.test(value || '')) {
                 callback(new Error(message));
             } else {
@@ -608,7 +608,7 @@ export const consistofNormalSymbol = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = "仅包含数字、字母、'-'、 '_' 或'.'";
+            const message = "Contains only numbers, letters, '-', '_' or '.'";
             if (!/^[\w-.]*$/.test(value || '')) {
                 callback(new Error(message));
             } else {
@@ -625,7 +625,7 @@ export const email = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '邮箱格式有误';
+            const message = 'Email format is wrong';
             if (!/^[\w.]+@\w+\.[a-z]{2,3}(\.[a-z]{2,3})?$/.test(value || '')) {
                 callback(new Error(message));
             } else {
@@ -642,7 +642,7 @@ export const nameExistence = (list = [], required) => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '名称已存在';
+            const message = 'Name already exists';
             if (list.find(l => l === value)) {
                 callback(new Error(message));
             } else {
@@ -659,7 +659,7 @@ export const yaml = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = 'yaml 格式错误';
+            const message = 'yaml format error';
             try {
                 YAML.parse(value);
                 callback();
@@ -677,7 +677,7 @@ export const ingressSuffix = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '请输入合法的 ingress 后缀';
+            const message = 'Please enter a legal ingress suffix';
             if (!/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$/.test(value || '')) {
                 callback(new Error(message));
             } else {
@@ -695,7 +695,7 @@ export const greateThenEqual = (nim, message, required) => {
                 return callback();
             }
             nim = +(nim);
-            message = message || `应大于等于${nim}`;
+            message = message || `Should be greater than or equal to ${nim}`;
             if (+(value) < nim) {
                 callback(new Error(message));
             } else {
@@ -713,7 +713,7 @@ export const greateThen = (nim, message, required) => {
                 return callback();
             }
             nim = +(nim);
-            message = message || `应大于${nim}`;
+            message = message || `Should be greater than ${nim}`;
             if (+(value) <= nim) {
                 callback(new Error(message));
             } else {
@@ -731,7 +731,7 @@ export const lessThenEqual = (max, message, required) => {
                 return callback();
             }
             max = +(max);
-            message = message || `应小于等于${max}`;
+            message = message || `Should be less than or equal to ${max}`;
             if (+(value) > max) {
                 callback(new Error(message));
             } else {
@@ -748,8 +748,8 @@ export const clusterDisplayName = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '1-100字符，以中文、字母、数字开头或结尾，支持下划线、中划线';
-            if (!/^([\u4e00-\u9fa5a-zA-Z0-9][\u4e00-\u9fa5a-zA-Z0-9_-]{0,98})?[\u4e00-\u9fa5a-zA-Z0-9]$/.test(value || '')) {
+            const message = '1-100 characters, starting or ending with characters, letters, and numbers, supporting underline and center line';
+            if (!/^([a-zA-Z0-9][a-zA-Z0-9_-]{0,98})?[a-zA-Z0-9]$/.test(value || '')) {
                 callback(new Error(message));
             } else {
                 callback();
@@ -765,7 +765,7 @@ export const cidr = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = 'CIDR 不合法';
+            const message = 'CIDR is illegal';
             if (!/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([1-2][0-9]|3[0-2]|[0-9]))$/.test(value || '')) {
                 callback(new Error(message));
             } else {
@@ -782,7 +782,7 @@ export const urlpattern = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = 'URL不合法';
+            const message = 'URL is illegal';
             try {
                 new URL(value);
                 callback();
@@ -800,7 +800,7 @@ export const startsWithHTTPProtocol = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '以http://或https://开头';
+            const message = 'Start with http:// or https://';
             if (!/^https?:\/\//.test(value || '')) {
                 callback(new Error(message));
             } else {
@@ -817,7 +817,7 @@ export const consistoLetterNumbersSplitterDot = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '仅包含字母、数字、中划线、下划线和点';
+            const message = 'Contains only letters, numbers, dashes, underlines, and dots';
             if (!/^[._a-z0-9-]*$/.test(value || '')) {
                 callback(new Error(message));
             } else {
@@ -834,7 +834,7 @@ export const noEmptyChar = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '仅包含非空白字符';
+            const message = 'Contains only non-whitespace characters';
             if (!/^\S*$/.test(value || '')) {
                 callback(new Error(message));
             } else {
@@ -851,7 +851,7 @@ export const requiredLetterNumbers = required => {
             if (!required && !value) {
                 return callback();
             }
-            const message = '必须包含大小写字母和数字';
+            const message = 'Must contain uppercase and lowercase letters and numbers';
             if (!/[0-9]/.test(value) || !/[a-z]/.test(value) || !/[A-Z]/.test(value)) {
                 callback(new Error(message));
             } else {

@@ -9,7 +9,7 @@ export function toPlainObject(model) {
     return toCommonPlainObject(model)({
         toSpecPlainObject() {
             const labels = g('metadata.labels') || {};
-            // const type = labels['system/tenant'] === 'netease.share' ? labels['system/tenant'] : labels['system/status'];
+            // const type = labels['system/tenant'] === 'kubeworkz.share' ? labels['system/tenant'] : labels['system/status'];
             /*
                 “Share": "node.kubeworkz.io/status"="assigned" and "node.kubeworkz.io/tenant"="share" exist in the tag"
                 “Exclusive”:
@@ -22,7 +22,7 @@ export function toPlainObject(model) {
             } else if (labels['node.kubeworkz.io/status'] === 'unassigned' || (labels['node.kubeworkz.io/status'] === 'assigned' && labels['node.kubeworkz.io/tenant'] !== 'share')) {
                 type = 'exclusive';
             }
-            const mixed = labels['colocation.netease.com/node-pool'] === 'colocation';
+            const mixed = labels['colocation.kubeworkz.com/node-pool'] === 'colocation';
             return {
                 ...g('spec'),
                 type,

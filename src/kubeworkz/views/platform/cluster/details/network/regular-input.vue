@@ -70,7 +70,7 @@
 
 <script>
 import { makeVModelMixin } from 'kubeworkz/mixins/functional';
-import { OPERATORS } from 'kubeworkz/utils/constance';
+import { OPERATORS } from 'kubeworkz';
 import dynamicBlock from 'kubeworkz/elComponent/dynamic-block/index.vue';
 import * as validators from 'kubeworkz/utils/validators';
 export default {

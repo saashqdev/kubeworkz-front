@@ -1,5 +1,5 @@
 <template>
-  <div>没有权限</div>
+  <div>Permission denied</div>
 </template>
 
 <script>

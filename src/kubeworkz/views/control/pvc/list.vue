@@ -181,7 +181,7 @@ import PageMixin from 'kubeworkz/mixins/pagenation';
 import { toPlainObject as toPVCPlainObject } from 'kubeworkz/k8s-resources/persistentvolumeclaim';
 import {
     PVC_MODE_TEXT_MAP,
-} from 'kubeworkz/utils/constance';
+} from 'kubeworkz';
 import createPvcDialog from './create-pvc-dialog.vue';
 import inputSearch from 'kubeworkz/elComponent/inputSearch/index.vue';
 

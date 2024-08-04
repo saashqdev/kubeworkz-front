@@ -1,6 +1,6 @@
 <template>
     <div :class="$style.root">
-        <div :class="$style.footer" v-if="brandName === 'netease'">
+        <div :class="$style.footer" v-if="brandName === 'kubeworkz'">
             <p>All rights reserved by Kubeworkz © 2020-{{ year }} | Terms and Conditions | Privacy Policy</p>
         </div>
     </div>

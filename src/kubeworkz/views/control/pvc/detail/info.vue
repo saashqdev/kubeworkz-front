@@ -102,7 +102,7 @@ import {
 } from 'kubeworkz/k8s-resources/pod/index.js';
 import {
     PVC_MODE_TEXT_MAP,
-} from 'kubeworkz/utils/constance';
+} from 'kubeworkz';
 export default {
     filters: {
         accessModeFilter(val) {

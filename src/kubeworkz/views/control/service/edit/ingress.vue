@@ -129,7 +129,7 @@ import secretSelect from './component/secret-select.vue';
 import hostBlock from './component/host-block.vue';
 import {
     PORTS, DISPATCHS,
-} from 'kubeworkz/utils/constance';
+} from 'kubeworkz';
 import * as validators from 'kubeworkz/utils/validators';
 
 export default {

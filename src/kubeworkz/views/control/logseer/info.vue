@@ -110,7 +110,7 @@
 
 <script>
 import { get } from 'vuex-pathify';
-import { LOG_TYPE } from 'kubeworkz/utils/constance';
+import { LOG_TYPE } from 'kubeworkz';
 export default {
     filters: {
         logType(val) {

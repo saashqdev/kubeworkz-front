@@ -53,7 +53,7 @@ import {
 } from 'kubeworkz/k8s-resources/configmap';
 import {
     SECRET_TYPES,
-} from 'kubeworkz/utils/constance';
+} from 'kubeworkz';
 import configmapInput from './configmap-input.vue';
 import * as validators from 'kubeworkz/utils/validators';
 

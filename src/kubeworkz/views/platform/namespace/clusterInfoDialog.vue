@@ -48,7 +48,7 @@
 <script>
 import {
     CLUSTER_STATUS_MAP,
-} from 'kubeworkz/utils/constance';
+} from 'kubeworkz';
 import { unitConvertCPU, unitConvertMemory } from 'kubeworkz/utils/functional';
 import clusterService from 'kubeworkz/services/cluster';
 

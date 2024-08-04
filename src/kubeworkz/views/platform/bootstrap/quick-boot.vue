@@ -39,7 +39,7 @@
 import { get } from 'vuex-pathify';
 import {
     ROLES,
-} from 'kubeworkz/utils/constance';
+} from 'kubeworkz';
 import {
     toPlainObject as toTenantPlainObject,
 } from 'kubeworkz/k8s-resources/scope/tenant';

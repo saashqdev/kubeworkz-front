@@ -142,7 +142,7 @@ import workloadService from 'kubeworkz/services/k8s-resource';
 import portsEditor from './ports.vue';
 import {
     SERVICE_LOAD_BALANCER_IP_TYPE_MAP, NLB,
-} from 'kubeworkz/utils/constance';
+} from 'kubeworkz';
 import deploymentStatefulsetsInput from './component/deployment-statefulsets-input.vue';
 import * as validators from 'kubeworkz/utils/validators';
 import chipsInput from './component/chips-input.vue';
@@ -284,7 +284,7 @@ export default {
     },
     watch: {
         'model.metadata.name': function(val) {
-            const target = this.model.metadata.labels.find(item => item.key === 'nsf.skiff.netease.com/app');
+            const target = this.model.metadata.labels.find(item => item.key === 'nsf.skiff.kubeworkz.com/app');
             if (target) {
                 target.value = val;
             }
@@ -322,7 +322,7 @@ export default {
     methods: {
         handleInsertNsfLabelChange(value) {
             if (value) {
-                this.$refs.deploymentStatefulsetsInput.forceUpdateMode('hard', [{ key: 'nsf.skiff.netease.com/app', value: this.model.metadata.name }]);
+                this.$refs.deploymentStatefulsetsInput.forceUpdateMode('hard', [{ key: 'nsf.skiff.kubeworkz.com/app', value: this.model.metadata.name }]);
             } else {
                 this.$refs.deploymentStatefulsetsInput.forceUpdateMode('');
             }
@@ -398,7 +398,7 @@ export default {
             }
         },
         getBandWidthKey(ipType) {
-            return `netease.com_loadbalancer_${ipType}_bandwidth`;
+            return `kubeworkz.com_loadbalancer_${ipType}_bandwidth`;
         },
         async loadCrdList() {
             try {

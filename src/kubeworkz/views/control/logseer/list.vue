@@ -127,8 +127,8 @@ import logseerService from 'kubeworkz/services/logseer';
 import PageMixin from 'kubeworkz/mixins/pagenation';
 import {
     PVC_MODE_TEXT_MAP,
-} from 'kubeworkz/utils/constance';
-import { LOG_TYPE } from 'kubeworkz/utils/constance';
+} from 'kubeworkz';
+import { LOG_TYPE } from 'kubeworkz';
 import {
     toPlainObject as toLogconfgPlainObject,
 } from 'kubeworkz/k8s-resources/logconfigs-new';
@@ -163,11 +163,11 @@ export default {
             return logseerService.getLogconfigList;
         },
         instanceService() {
-            return workloadService.getNeteaseResourceInstance;
+            return workloadService.getKubeworkzResourceInstance;
 
         },
         modifyService() {
-            return workloadService.modifyNeteaseResource;
+            return workloadService.modifyKubeworkzResource;
         },
         deleteService() {
             return logseerService.deleteLogconfig;

@@ -120,7 +120,7 @@ import {
 import taintDialog from '../dialogs/taint.vue';
 import {
     CEPH_TYPE_MAP,
-} from 'kubeworkz/utils/constance';
+} from 'kubeworkz';
 import inputSearch from 'kubeworkz/elComponent/inputSearch/index.vue';
 
 export default {

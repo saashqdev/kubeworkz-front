@@ -24,8 +24,8 @@ export default {
         return Math.round(+kiString.replace('Ki', '') / 1024 / 1024);
     },
     getNodeType(labels) {
-        // Three shared labels need to be marked: system/tenantid: netease.share, system/status: assigned, system/namespace: netease.share
-        const type = labels['system/tenant'] === 'netease.share' ? labels['system/tenant'] : labels['system/status'];
+        // Three shared labels need to be marked: system/tenantid: kubeworkz.share, system/status: assigned, system/namespace: kubeworkz.share
+        const type = labels['system/tenant'] === 'kubeworkz.share' ? labels['system/tenant'] : labels['system/status'];
         return NODE_TYPE_MAP[type] || '-';
     },
     getNodeStatus(node) {

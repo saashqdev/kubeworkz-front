@@ -166,7 +166,7 @@ import { podService } from 'kubeworkz/service-combined/pod-service.js';
 import {
     toPlainObject as toPodPlainObject,
 } from 'kubeworkz/k8s-resources/pod/index.js';
-import { CONTAINERTYPE } from 'kubeworkz/utils/constance';
+import { CONTAINERTYPE } from 'kubeworkz';
 export default {
     filters: {
         getContainerIcon(type) {

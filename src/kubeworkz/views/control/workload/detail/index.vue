@@ -253,7 +253,7 @@ export default {
                 case 'ingresses':
                     return workloadService.modifyNetworkingInstance;
                 case 'logconfigs':
-                    return workloadService.modifyNeteaseResource;
+                    return workloadService.modifyKubeworkzResource;
                 default:
                     return null;
             }
@@ -408,7 +408,7 @@ export default {
                         { title: 'condition信息', route: { name: 'control.workload.condition', params: this.$route.params } },
                         { title: '日志', route: { name: 'control.workload.log', params: this.$route.params } },
                         // { title: '自动伸缩', path: `/${moduleName}/detail/HPA` },
-                        // { title: '性能分析', crd: 'abnormals.diagnosis.netease.com', path: `/${moduleName}/detail/performance` },
+                        // { title: '性能分析', crd: 'abnormals.diagnosis.kubeworkz.com', path: `/${moduleName}/detail/performance` },
                         // { title: '资源推荐', crd: 'verticalpodautoscalers.autoscaling.k8s.io', path: `/${moduleName}/detail/recommand` },
                     ];
             }

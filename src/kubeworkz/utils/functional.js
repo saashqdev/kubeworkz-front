@@ -116,12 +116,12 @@ export const getPeriod = (startTime, endTime) => {
         }
     });
 
-    let usedValues = '0秒';
+    let usedValues = '0 seconds';
     values.reverse().some((item, index, list) => {
-        // 从更大的时间刻度开始，如果为0，则忽略对应的展示。第一个不为0的后续时间刻度都要展示
+        // Starting from a larger timescale, if it is 0, the corresponding impression is ignored. The first subsequent time scale that is not 0 will be displayed.
         if (item) {
             const tmp = list.slice(index);
-            usedValues = [ '天', '小时', '分', '秒' ].slice(index).map((subItem, subIndex) => tmp[subIndex] + subItem).join('');
+            usedValues = [ 'Day', 'Hour', 'Minute', 'Second' ].slice(index).map((subItem, subIndex) => tmp[subIndex] + subItem).join('');
             return true;
         }
         return false;
@@ -135,7 +135,7 @@ const STEP_MAP = [ '1m', '2m', '15m', '6h', '1d' ];
 const STEP_TIME_MAP = [ 60, 2 * 60, 15 * 60, 6 * 60 * 60, 24 * 60 * 60 ];
 function getMapValue(startTime, endTime, mapping) {
     const isSecond = `${endTime}`.length < 12;
-    // 换算成分钟
+    // Convert to minutes
     const period = (endTime - startTime) / (isSecond ? 60 : 60 * 1000);
 
     let i = PERIOD_MAP.length - 1;
@@ -247,7 +247,7 @@ export function urlSearchSerialize(obj) {
     return str.slice(0, -1);
 }
 
-// 获取 nodes 的 cpu、memory、gpu 的数据之和
+// Get the sum of the cpu, memory, and gpu data of nodes
 export const getNodeInfo = (list = []) => {
     list = Array.isArray(list) ? list : [];
     return list.reduce((acc, item) => {

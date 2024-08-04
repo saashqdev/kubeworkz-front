@@ -184,7 +184,7 @@
 import { get } from 'vuex-pathify';
 import {
     JOB_STATUS_MAP,
-} from 'kubeworkz/utils/constance';
+} from 'kubeworkz';
 import statusIcon from 'kubeworkz/elComponent/status-icon.vue';
 export default {
     components: {

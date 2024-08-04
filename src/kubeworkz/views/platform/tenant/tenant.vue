@@ -116,7 +116,7 @@ import projectDialog from './project-dialog.vue';
 import memberDialog from './member-dialog.vue';
 import {
     ROLES,
-} from 'kubeworkz/utils/constance';
+} from 'kubeworkz';
 // import UserUploadDialog from './user-upload-dialog.vue';
 import {
     toPlainObject,

@@ -35,9 +35,9 @@ export const PVC_MODE_MAP = [
 ];
 
 export const PVC_MODE_TEXT_MAP = {
-    ReadWriteOnce: '独占读写',
-    ReadOnlyMany: '只读共享',
-    ReadWriteMany: '共享读写',
+    ReadWriteOnce: 'exclusive read and write',
+    ReadOnlyMany: 'read-only sharing',
+    ReadWriteMany: 'shared reading and writing',
 };
 
 export const topologyKeyData = [
@@ -49,63 +49,63 @@ export const topologyKeyData = [
 
 export const CONTAINERTYPE = {
     normal: {
-        text: '业务容器',
+        text: 'Business container',
         icon: 'container',
     },
     init: {
-        text: 'init 容器',
+        text: 'Init container',
         icon: 'initcontainer',
     },
 };
 
 export const JOB_STATUS_MAP = {
     Pending: {
-        text: '未就绪',
+        text: 'Not ready',
         icon: 'expire',
     },
     Running: {
-        text: '执行中',
+        text: 'Executing',
         icon: 'waiting',
     },
     Complete: {
-        text: '执行完成',
+        text: 'Execution completed',
         icon: 'success',
     },
     Failed: {
-        text: '执行失败',
+        text: 'Execution failed',
         icon: 'error',
     },
 };
 
 export const CLUSTER_STATUS_MAP = {
-    normal: '正常',
-    abnormal: '不正常',
-    processing: '运行中',
-    deleting: '删除中',
+    normal: 'normal',
+    abnormal: 'abnormal',
+    processing: 'running',
+    deleting: 'deleting',
 };
 
 export const SERVICE_LOAD_BALANCER_IP_TYPE_MAP = {
     private: {
-        text: '私有网 IP',
+        text: 'Private network IP',
     },
     public: {
-        text: '公网 IP',
+        text: 'Public IP',
     },
     idc: {
-        text: '机房网 IP',
+        text: 'Data center network IP`',
     },
 };
 
 export const NODE_TYPE_MAP = {
-    'netease.share': '共享',
-    assigned: '独占',
-    unassigned: '独占',
+    'kubeworkz.share': 'shared',
+    assigned: 'exclusive',
+    unassigned: 'exclusive',
 };
 
 export const NODE_STATUS_MAP = {
-    unschedulable: '维护中',
-    normal: '正常',
-    abnormal: '异常',
+    unschedulable: 'in maintenance',
+    normal: 'normal',
+    abnormal: 'abnormal',
 };
 
 export const CEPH_TYPE_MAP = {
@@ -113,7 +113,7 @@ export const CEPH_TYPE_MAP = {
     'ceph.com/rbd': 'CephRbd',
 };
 
-export const ignoredKeys = [ 'system', 'kubernetes.io', 'beta.kubernetes.io', 'cicd.skiff.netease.com' ];
+export const ignoredKeys = [ 'system', 'kubernetes.io', 'beta.kubernetes.io', 'cicd.skiff.kubeworkz.com' ];
 
 export const PORTS = [
     { text: 80, value: 80 },
@@ -158,25 +158,25 @@ export const RESOURCE_CONVERT_AUTH_MAP = {
 
 
 export const LOG_TYPE = {
-    dockerStdout: '容器标准输出',
-    k8sLogfile: '容器日志文件',
-    logfile: '节点日志文件',
+    dockerStdout: 'Container standard output',
+    k8sLogfile: 'Container log files',
+    logfile: 'Node log file',
 };
 
 export const LOG_STATUS = {
-    waiting: '待下发',
-    loaded: '已下发',
-    error: '异常',
-    disabled: '关闭',
-    unknown: '未知',
+    waiting: 'To be issued',
+    loaded: 'Already issued',
+    error: 'Abnormal',
+    disabled: 'Disabled',
+    unknown: 'Unknown',
 };
 
 export const OPERATORS = [
-    { text: '匹配标签', value: 'label', placeholder: '' },
-    { text: '操作符 In', value: 'In', placeholder: '可输入多个值，用空格分割' },
-    { text: '操作符 NotIn', value: 'NotIn', placeholder: '可输入多个值，用空格分割' },
-    { text: '操作符 Exists', value: 'Exists', placeholder: '请输入整数数值' },
-    { text: '操作符 DoesNotExist', value: 'DoesNotExist', placeholder: '请输入整数数值' },
+    { text: 'Match tag', value: 'label', placeholder: '' },
+    { text: 'Operator In', value: 'In', placeholder: 'Multiple values ​​can be entered, separated by spaces.' },
+    { text: 'Operator NotIn', value: 'NotIn', placeholder: 'Multiple values ​​can be entered, separated by spaces.' },
+    { text: 'Operator Exists', value: 'Exists', placeholder: 'Please enter an integer value' },
+    { text: 'Operator DoesNotExist', value: 'DoesNotExist', placeholder: 'Please enter an integer value' },
 ];
 
 export const CLUSTER_NETWORK_TYPE_MAP = {
@@ -187,7 +187,7 @@ export const CLUSTER_NETWORK_TYPE_MAP = {
         text: 'Calico',
     },
     // vpc: {
-    //     text: '网易云 SDN',
+    //     text: 'Kubeworkz Cloud SDN',
     // },
     // other: {
     //     text: 'Other',

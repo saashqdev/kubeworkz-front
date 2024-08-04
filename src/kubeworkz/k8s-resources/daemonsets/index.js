@@ -29,7 +29,7 @@ export function toK8SObject(model) {
         toSpecK8SObject,
     });
 
-    obj.metadata.labels['system/tenant'] = model.spec.level.ind === 'platform' ? 'netease.share' : model.spec.level.tenant;
+    obj.metadata.labels['system/tenant'] = model.spec.level.ind === 'platform' ? 'kubeworkz.share' : model.spec.level.tenant;
     return obj;
 }
 
@@ -40,7 +40,7 @@ export function toK8SObject(model) {
 //         toSpecK8SObject,
 //     });
 
-//     obj.metadata.labels['system/tenant'] = model.spec.level.ind === 'platform' ? 'netease.share' : model.spec.level.tenant;
+//     obj.metadata.labels['system/tenant'] = model.spec.level.ind === 'platform' ? 'kubeworkz.share' : model.spec.level.tenant;
 //     return obj;
 // }
 

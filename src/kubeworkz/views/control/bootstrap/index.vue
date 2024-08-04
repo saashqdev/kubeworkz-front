@@ -1,68 +1,68 @@
 <template>
   <div>
     <el-alert
-      title="平台管理员可以通过 kubectl 客户端管理容器集群资源"
+      title="Platform administrators can manage container cluster resources through the kubectl client"
       type="info"
-      description="可管理已授权资源"
+      description="Can manage authorized resources"
       show-icon
       :closable="false"
     >
     </el-alert>
     <section :class="$style.section">
       <div :class="$style.title">
-        1. 确认本地已安装 kubectl 客户端（适配 1.9 及以上版本）
+        1. Confirm that the kubectl client has been installed locally (adapted to version 1.9 and above)
       </div>
     </section>
     <section :class="$style.section">
       <div :class="$style.title">
-        2. 下载所需的配置文件
+        2. Download the required configuration files
       </div>
       <div :class="$style.content">
         <el-button
           type="primary"
           @click="download"
         >
-          下载配置文件
+          Download configuration file
         </el-button>
       </div>
     </section>
     <section :class="$style.section">
       <div :class="$style.title">
-        3. 将配置文件 config 放置到 .kube 目录下，执行 kubectl config view 查看配置是否生效
+        3. Place the configuration file config in the .kube directory and execute kubectl config view to check whether the configuration takes effect.
       </div>
       <div :class="$style.content">
-        如果配置文件名称修改为其他名称，则在使用 kubectl 时，通过--kubeconfig=&lt;fullname&gt;指定所用的配置文件
+        If the configuration file name is modified to another name, when using kubectl, specify the configuration file used by --kubeconfig=&lt;fullname&gt;
       </div>
     </section>
 
-    <!-- <u-section title="2. 下载所需的配置文件" />
-    <u-section title="3. 将配置文件 config 放置到 .kube 目录下，执行 kubectl config view 查看配置是否生效">
+    <!-- <u-section title="2. Download the required configuration files" />
+    <u-section title="3. Place the configuration file config in the .kube directory and execute kubectl config view to check whether the configuration takes effect.">
       <div :class="$style.wrap">
-        如果配置文件名称修改为其他名称，则在使用 kubectl 时，通过--kubeconfig=&lt;fullname&gt;指定所用的配置文件
+        If the configuration file name is modified to another name, when using kubectl, specify the configuration file used by --kubeconfig=&lt;fullname&gt;
       </div>
     </u-section> -->
-    <!-- <u-section title="4. 使用 Kubectl 创建和管理资源"> -->
+    <!-- <u-section title="4. Create and manage resources using Kubectl"> -->
     <!-- <div :class="$style.wrap">
-        轻舟容器云通过在资源上添加附加信息对资源进行逻辑隔离，比如区分租户、项目。通过web端创建资源，容器云已为您自动添加了相应的信息，但是通过 kubectl 客户端创建时，我们无法自动添加这些信息。因此需要在使用时手工添加 labels 信息。
-        <p>具体信息如下：</p>
-        <div>system/tenant=&lt;租户标识></div>
-        <div>system/&lt;项目标识>=true</div>
-        <div>system/namespace=&lt;空间名称></div>
+        Kubeworkz Container Cloud logically isolates resources by adding additional information to resources, such as distinguishing tenants and projects. When creating resources through the web side, Container Cloud has automatically added the corresponding information for you. However, when creating resources through the kubectl client, we cannot automatically add this information. Therefore, labels information needs to be added manually when using it.
+        <p>Specific information is as follows:</p>
+        <div>system/tenant=&lt;Tenant ID&gt;></div>
+        <div>ssystem/&lt;project identification>=true&gt;</div>
+        <div>system/namespace=&lt;space name&gt;</div>
       </div>
-      <p>可用设置</p>
+      <p>Available settings</p>
       <u-linear-layout direction="vertical">
         <u-linear-layout>
-                    <span>租户</span>
+                    <span>Tenant</span>
                     <u-select v-if="tenants.length" v-model="tenantId" :data="tenants"></u-select>
                     <u-select v-else disabled :data="emptyTenant"></u-select>
-                    <span>项目</span>
+                    <span>Project</span>
                     <u-select v-if="projects.length" v-model="projectId" :data="projects"></u-select>
                     <u-select v-else disabled :data="emptyProject"></u-select>
                 </u-linear-layout>
                 <u-table-view :data="list" :loading="!nsLoaded" layout="fixed">
-                    <u-table-view-column title="租户标识" width="30%" ellipsis>{{ tenantName }}</u-table-view-column>
-                    <u-table-view-column title="项目标识" width="30%" ellipsis>{{ projectName }}</u-table-view-column>
-                    <u-table-view-column title="空间名称" label="name" width="40%" ellipsis></u-table-view-column>
+                    <u-table-view-column title="Tenant ID" width="30%" ellipsis>{{ tenantName }}</u-table-view-column>
+                    <u-table-view-column title="Project ID" width="30%" ellipsis>{{ projectName }}</u-table-view-column>
+                    <u-table-view-column title="Space name" label="name" width="40%" ellipsis></u-table-view-column>
                 </u-table-view>
       </u-linear-layout> -->
     <!-- </u-section> -->
@@ -77,7 +77,7 @@ import { readFile } from 'kubeworkz/utils/functional';
 export default {
     metaInfo() {
         return {
-            title: '常用工具 - kubeworkz',
+            title: 'Common tool - kubeworkz',
         };
     },
     data() {

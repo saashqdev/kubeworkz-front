@@ -21,12 +21,12 @@ export const toPlainObject = model => {
         maxSurge,
         maxUnavailable,
     };
-    const tenant = g('metadata.labels["system/tenant"]') || 'netease.share';
+    const tenant = g('metadata.labels["system/tenant"]') || 'kubeworkz.share';
     return {
         ...toSelectorPlainObject(g('spec')),
         strategy,
         level: { // level
-            ind: tenant === 'netease.share' ? 'platform' : 'tenant',
+            ind: tenant === 'kubeworkz.share' ? 'platform' : 'tenant',
             tenant,
         },
     };

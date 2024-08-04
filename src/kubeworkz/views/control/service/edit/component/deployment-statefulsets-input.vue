@@ -147,9 +147,9 @@ export default {
         },
         showModel: {
           get() {
-            if(this.model.find(item => item.key === 'nsf.skiff.netease.com/app' && item.disabled !== this.insertNsfLabel )) {
+            if(this.model.find(item => item.key === 'nsf.skiff.kubeworkz.com/app' && item.disabled !== this.insertNsfLabel )) {
               return this.model.map(item => {
-                if (item.key === 'nsf.skiff.netease.com/app') {
+                if (item.key === 'nsf.skiff.kubeworkz.com/app') {
                   item.disabled = this.insertNsfLabel;
                 }
                 return item;
@@ -237,7 +237,7 @@ export default {
         },
         serviceName(val) {
           if(this.insertNsfLabel) {
-            const target = this.model.find(item => item.disabled === true && item.key === 'nsf.skiff.netease.com/app');
+            const target = this.model.find(item => item.disabled === true && item.key === 'nsf.skiff.kubeworkz.com/app');
             if(target) {
               target.value = val;
             }

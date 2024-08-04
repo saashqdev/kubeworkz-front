@@ -182,7 +182,7 @@ import repoSecretConfig from './repo-secret-config.vue';
 import deployConfig from './deploy-config.vue';
 import jobConfig from './job-config.vue';
 import workloadService from 'kubeworkz/services/k8s-resource';
-import { nsfDeploymentAnnotations } from 'kubeworkz/utils/constance';
+import { nsfDeploymentAnnotations } from 'kubeworkz';
 import labelEditor from 'kubeworkz/elComponent/label-editor.vue';
 import * as validators from 'kubeworkz/utils/validators';
 export default {
@@ -247,7 +247,7 @@ export default {
     async created() {
         if (this.workload === 'deployments') {
             const serviceList = await this.loasServiceList();
-            const nsfAppLabel = (this.model.podTemplate.metadata.labels || []).find(item => item.key === 'nsf.skiff.netease.com/app');
+            const nsfAppLabel = (this.model.podTemplate.metadata.labels || []).find(item => item.key === 'nsf.skiff.kubeworkz.com/app');
             if (nsfAppLabel) {
                 nsfAppLabel.selectValues = serviceList;
             }

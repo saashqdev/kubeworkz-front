@@ -73,7 +73,7 @@ import uAppProjectSelect from './header/u-app-project-select.vue';
 import { removeItem } from 'kubeworkz/utils/persistant';
 import {
     ROLES,
-} from 'kubeworkz/utils/constance';
+} from 'kubeworkz';
 export default {
     components: {
         uAppTenantSelect,

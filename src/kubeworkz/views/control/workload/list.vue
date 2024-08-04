@@ -456,7 +456,7 @@ import { pagenationMixin } from 'kubeworkz/mixins';
 
 import {
     JOB_STATUS_MAP,
-} from 'kubeworkz/utils/constance';
+} from 'kubeworkz';
 import {
     getPeriod,
 } from 'kubeworkz/utils/functional';

@@ -107,7 +107,7 @@
 
 <script>
 import { get } from 'vuex-pathify';
-import { CONTAINERTYPE } from 'kubeworkz/utils/constance';
+import { CONTAINERTYPE } from 'kubeworkz';
 
 export default {
     filters: {

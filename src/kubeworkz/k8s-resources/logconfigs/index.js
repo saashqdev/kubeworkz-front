@@ -117,7 +117,7 @@ function refactInputs(inputs, type) {
 export function toK8SObject(model) {
     const g = getFromModel(model);
     const obj = toConfigK8SObject(
-        'netease.com/v1',
+        'kubeworkz.com/v1',
         'Logconfig',
         model
     );

@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { FIELD_DATA } from 'kubeworkz/utils/constance';
+import { FIELD_DATA } from 'kubeworkz';
 import envMixin from './env.mixin';
 import * as validators from 'kubeworkz/utils/validators';
 

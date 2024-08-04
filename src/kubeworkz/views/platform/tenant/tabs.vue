@@ -19,7 +19,7 @@
 import { get } from 'vuex-pathify';
 import {
     ROLES,
-} from 'kubeworkz/utils/constance';
+} from 'kubeworkz';
 export default {
     data() {
         return {

@@ -7,14 +7,14 @@
     >
       <div :class="$style.itemHead">
         <div :class="$style.itemTitle">
-          数据{{ index + 1 }}
+          data{{ index + 1 }}
         </div>
         <div :class="$style.itemActionBox">
           <el-link
             type="primary"
             @click="handleDeleteItem(index)"
           >
-            删除
+            delete
           </el-link>
         </div>
       </div>

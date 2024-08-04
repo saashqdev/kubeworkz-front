@@ -97,7 +97,7 @@ const CLUSTER_STATUS_MAP = {
 };
 
 const NODE_TYPE_MAP = {
-    'netease.share': 'shared',
+    'kubeworkz.share': 'shared',
     assigned: 'Exclusive',
     unassigned: 'Exclusive',
 };

@@ -61,7 +61,7 @@
 
 <script>
 import envMixin from './env.mixin';
-import { RESOURCE_DATA } from 'kubeworkz/utils/constance';
+import { RESOURCE_DATA } from 'kubeworkz';
 import * as validators from 'kubeworkz/utils/validators';
 export default {
     mixins: [ envMixin ],

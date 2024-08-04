@@ -113,7 +113,7 @@ import {
 } from 'kubeworkz/k8s-resources/secret';
 import {
     SECRET_TYPES,
-} from 'kubeworkz/utils/constance';
+} from 'kubeworkz';
 import opaqueInput from './opaque-input.vue';
 import dockerConfig from './docker-config.vue';
 import * as validators from 'kubeworkz/utils/validators';

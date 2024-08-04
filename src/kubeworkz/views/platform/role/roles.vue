@@ -79,7 +79,7 @@ import {
 import roleDialog from './role-dialog.vue';
 import {
     ROLES,
-} from 'kubeworkz/utils/constance';
+} from 'kubeworkz';
 export default {
     metaInfo() {
         let current = '';

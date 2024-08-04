@@ -13,14 +13,14 @@ export const toPlainObject = model => {
         text: `${name}.${namespace}:${p.port}`,
     }));
     const annotations = g('metadata.annotations', {}); // annotations
-    const ipType = annotations['nlb.netease.com/lb-network'] // LoadBalancer IP type
-        || annotations['netease.com/lb-network']
-        || annotations['netease.com_loadbalancer_network'];
+    const ipType = annotations['nlb.kubeworkz.com/lb-network'] // LoadBalancer IP type
+        || annotations['kubeworkz.com/lb-network']
+        || annotations['kubeworkz.com_loadbalancer_network'];
     const ipTypeText = (SERVICE_LOAD_BALANCER_IP_TYPE_MAP[ipType] || {}).text || '-'; // LoadBalancer IP Type text
-    const bandWidth = annotations['nlb.netease.com/lb-bandwidth'] // LoadBalancer bandwidth
-        || annotations['netease.com/lb-bandwidth']
-        || annotations[`netease.com_loadbalancer_${ipType}_bandwidth`]
-        || annotations['netease.com_loadbalancer_bandwidth']
+    const bandWidth = annotations['nlb.kubeworkz.com/lb-bandwidth'] // LoadBalancer bandwidth
+        || annotations['kubeworkz.com/lb-bandwidth']
+        || annotations[`kubeworkz.com_loadbalancer_${ipType}_bandwidth`]
+        || annotations['kubeworkz.com_loadbalancer_bandwidth']
         || '-';
     const type = g('spec.type'); // Type
     const clusterIP = g('spec.clusterIP'); // clusterIP
