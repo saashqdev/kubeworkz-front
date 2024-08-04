@@ -124,7 +124,7 @@ import clusterSelect from './cluster-select.vue';
 
 import {
     toPlainObject as toCubeResourceQoutaPlainObject,
-} from 'kubeworkz/k8s-resources/cubeResourceQuota/index.js';
+} from 'kubeworkz';
 import tenantSelect from 'kubeworkz/elComponent/global/tenant-select.vue';
 import projectSelect from 'kubeworkz/elComponent/global/project-select.vue';
 import scopeService from 'kubeworkz/services/scope';

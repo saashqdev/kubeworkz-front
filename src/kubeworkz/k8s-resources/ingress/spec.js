@@ -14,24 +14,24 @@ const REWRITE_KEY = 'nginx.ingress.kubernetes.io/rewrite-target';
 export const toPlainObject = model => {
     const g = getFromModel(model);
 
-    const tls = (g('spec.tls') || []); // 证书列表
-    const port = tls.length ? 443 : 80; // 端口号
-    const singleTLS = { // 所有域名使用相同证书
+    const tls = (g('spec.tls') || []); // Certificate list
+    const port = tls.length ? 443 : 80; // The port number
+    const singleTLS = { // All domain names use the same certificate
         enable: tls.length === 1,
         secretName: g('spec.tls[0].secretName'),
     };
 
     const annotations = g('metadata.annotations', {}); // annotations
-    const rules = g('spec.rules') || []; // 转发规则
+    const rules = g('spec.rules') || []; // Forwarding rules
     const rulesConfig = rules.map(rule => {
         const gr = getFromModel(rule);
-        const host = gr('host'); // 域名
-        const httpPath = (gr('http.paths') || []).map(item => { // 路径列表
+        const host = gr('host'); // domain name
+        const httpPath = (gr('http.paths') || []).map(item => { // path list
             const gp = getFromModel(item);
             return {
-                path: gp('path'),  // 路径
-                service: gp('backend.service.name'), // 服务名
-                port: gp('backend.service.port.number'), // 服务端口号
+                path: gp('path'),  // path
+                service: gp('backend.service.name'), // Service Name
+                port: gp('backend.service.port.number'), // Service port number
             };
         });
         return {
@@ -61,16 +61,16 @@ export const toPlainObject = model => {
         ...pickBy(g('spec'), v => !isObjectLike(v)),
         port,
         annotations: {
-            dispatch: annotations[DISAPTCH_KEY] || 'round_robin', // 调度算法
-            enableSession: !!annotations[COOKIE_KEY], // 会话保持
-            cookieName: annotations[COOKIE_KEY], // Cookie 名称
-            rewrite: annotations[REWRITE_KEY], // 重写目标
+            dispatch: annotations[DISAPTCH_KEY] || 'round_robin', // Scheduling Algorithm
+            enableSession: !!annotations[COOKIE_KEY], // Session persistence
+            cookieName: annotations[COOKIE_KEY], // Cookie name
+            rewrite: annotations[REWRITE_KEY], // Rewrite target
         },
-        tls, // 证书列表
-        singleTLS, // 所有域名使用相同证书
-        rules: g('spec.rules'), // 原始转发规则
-        rulesConfig, // 转换后的转发规则
-        pathInfos, // 详情页-负载均衡详情
+        tls, // Certificate list
+        singleTLS, // All domain names use the same certificate
+        rules: g('spec.rules'), // Original forwarding rules
+        rulesConfig, // Converted forwarding rules
+        pathInfos, // Details page-Load balancing details
         services: uniq(services),
     };
 };

@@ -33,7 +33,7 @@
 </template>
 
 <script>
-// 重写 el-link，增强能力
+// Rewrite el-link to enhance capabilities
 export default {
     name: 'ElLink',
 
@@ -65,18 +65,18 @@ export default {
         _elFormItemSize() {
             return (this.elFormItem || {}).elFormItemSize;
         },
-        // 先复用 input
+        // Reuse input first
         linkSize() {
             return this.size || this._elFormItemSize || (this.$ELEMENT || {}).size;
         },
         linkHref() {
             if (typeof window === 'undefined') return;
             if (this.to && this.$router && this.$router.resolve) {
-                const routeData = this.$router.resolve(this.to); // 通过自带 api 解析
-                if (routeData) { // 得到 href
+                const routeData = this.$router.resolve(this.to); // Parse through built-in API
+                if (routeData) { // get href
                     const pathname = window.location.pathname || '';
                     const href = routeData.href;
-                    if (href.startsWith('#')) { // 兼容 base 标签
+                    if (href.startsWith('#')) { // Compatible with base tag
                         return pathname + href;
                     }
                     return href;

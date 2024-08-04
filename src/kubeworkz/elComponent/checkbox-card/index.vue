@@ -1,7 +1,7 @@
 <template>
     <div :class="$style.cardWrap">
         <div :class="$style.cardHeader">
-            <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" :disabled="disabled || options.length === 0">全选</el-checkbox>
+            <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" :disabled="disabled || options.length === 0">Select all</el-checkbox>
         </div>
         <div :class="$style.cardBody">
             <el-checkbox-group v-if="options.length" v-model="checkedItems" :class="$style.checkboxGroup" :disabled="disabled">
@@ -28,7 +28,7 @@ export default {
         },
         placeholder: {
             type: String,
-            default: '暂无可选项'
+            default: 'No options available yet'
         }
     },
     data() {

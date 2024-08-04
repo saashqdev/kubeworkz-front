@@ -31,13 +31,13 @@ export const getDefault = () => ({
             containerName: '',
             matchFields: [
                 { type: '', key: '' },
-            ], // 元信息/注入Pod标记
+            ], // Meta information/Injection Pod tag
             fields: [
                 {
                     key: '',
                     value: '',
                 },
-            ], // 元信息/自定义标记
+            ], // Meta information/custom tags
             multiline: {
                 active: false,
                 pattern: '',

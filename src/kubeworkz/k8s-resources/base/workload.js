@@ -4,28 +4,28 @@ import { getFromModel, genReset } from './utils';
 import {
     toPlainObject as toMetadataPlainObject,
     toK8SObject as toMetadataK8SObject,
-} from '../metadata'; // metadate相关转换函数
+} from '../metadata'; // metadate related conversion functions
 
 import {
     toPlainObject as toPodTemplatePlainObject,
-} from '../pod/pod-template'; // pod-template相关转换函数
+} from '../pod/pod-template'; // pod-template related conversion functions
 
 import {
     toK8SObject as toPodSpecK8SObject,
-} from '../pod/pod-spec'; // pod-spec相关转换函数
+} from '../pod/pod-spec'; // pod-spec related conversion functions
 
 import {
     toPlainObject as toContainerPlainObject,
     toK8SObject as toContainerK8SObject,
-} from '../container'; // 容器相关转换函数
+} from '../container'; // Container related conversion functions
 
 export function toPlainObject(model) {
     const g = getFromModel(model);
     return ({
-        toSpecPlainObject, // Spec转换函数
-        toStatusPlainObject, // Status转换函数
-        podTemplatePath = 'spec.template', // pod模版路径
-        containerPath = 'spec.template.spec', // 容器spec路径
+        toSpecPlainObject, // Spec conversion function
+        toStatusPlainObject, // Status conversion function
+        podTemplatePath = 'spec.template', // Pod template path
+        containerPath = 'spec.template.spec', // Container spec path
     }) => {
         const podTemplate = toPodTemplatePlainObject(g(podTemplatePath));
         const containers = toContainerPlainObject(g(containerPath), model);
@@ -37,8 +37,8 @@ export function toPlainObject(model) {
             podTemplate,
             containers,
             status: toStatusPlainObject(model, containers, podTemplate),
-            podStatus: g('podStatus') || {}, // pod状态
-            puresource: Object.freeze(cloneDeep(model)), // k8s原始数据
+            podStatus: g('podStatus') || {}, // pod status
+            puresource: Object.freeze(cloneDeep(model)), // k8s raw data
         };
         // Object.defineProperty(obj, 'puresource', {
         //     value: ,
@@ -53,7 +53,7 @@ export function toK8SObject(model) {
     return ({
         apiVersion,
         kind,
-        toSpecK8SObject, // Spec转换函数
+        toSpecK8SObject, // Spec conversion function
     }) => {
 
         const metadata = toMetadataK8SObject(model);

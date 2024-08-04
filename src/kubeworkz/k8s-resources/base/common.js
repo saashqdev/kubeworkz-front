@@ -15,12 +15,12 @@ export function toPlainObject(model) {
         toStatusPlainObject,
     }) => {
         const obj = {
-            apiVersion: g('apiVersion'), // api版本
-            kind: g('kind'), // 资源类型
-            spec: toSpecPlainObject(model), // spec转换
-            metadata: toMetadataPlainObject(model), // metadata转换
-            status: toStatusPlainObject(model), // status转换
-            puresource: Object.freeze(cloneDeep(model)), // 原始数据
+            apiVersion: g('apiVersion'), // api version
+            kind: g('kind'), // Resource Type
+            spec: toSpecPlainObject(model), // spec conversion
+            metadata: toMetadataPlainObject(model), // metadata conversion
+            status: toStatusPlainObject(model), // status conversion
+            puresource: Object.freeze(cloneDeep(model)), // Raw data
         };
         return obj;
     };
@@ -32,10 +32,10 @@ export function toK8SObject(model) {
         kind,
         toSpecK8SObject,
     }) => {
-        const metadata = toMetadataK8SObject(model); // metadata 转换
+        const metadata = toMetadataK8SObject(model); // metadata conversion
         const obj = {
-            apiVersion, // api版本
-            kind, // 资源类型
+            apiVersion, // api version
+            kind, // resource type
             metadata, // metadata
             spec: toSpecK8SObject(model, metadata), //  spec
         };

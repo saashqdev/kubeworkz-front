@@ -128,7 +128,7 @@ import scopeService from 'kubeworkz/services/scope';
 import { get } from 'vuex-pathify';
 import {
     toPlainObject as toCubeResourceQoutaPlainObject,
-} from 'kubeworkz/k8s-resources/cubeResourceQuota/index.js';
+} from 'kubeworkz';
 import kubeTenantSelectMultiple from 'kubeworkz/component/global/common/kube-tenant-select-multiple.vue';
 import userService from 'kubeworkz/services/user';
 

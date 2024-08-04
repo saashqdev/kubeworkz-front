@@ -3,7 +3,7 @@ export default {
     roundedSelection: false,
     readOnly: false,
     cursorStyle: 'line',
-    automaticLayout: true, // 自动布局
+    automaticLayout: true, // autolayout
     glyphMargin: true,
     contextmenu: false,
     scrollbar: {

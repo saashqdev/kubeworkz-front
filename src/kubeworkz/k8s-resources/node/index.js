@@ -11,16 +11,16 @@ export function toPlainObject(model) {
             const labels = g('metadata.labels') || {};
             // const type = labels['system/tenant'] === 'netease.share' ? labels['system/tenant'] : labels['system/status'];
             /*
-                “共享”：标签中存在"node.kubeworkz.io/status"="assigned"且"node.kubeworkz.io/tenant"="share"
-                “独占”：
-                ​		标签中存在"node.kubeworkz.io/status"="unassigned"
-                ​		标签中存在"node.kubeworkz.io/status"="assigned"且"node.kubeworkz.io/tenant"的值不等于"share"
+                “Share": "node.kubeworkz.io/status"="assigned" and "node.kubeworkz.io/tenant"="share" exist in the tag"
+                “Exclusive”:
+                ​		"node.kubeworkz.io/status"="unassigned" exists in the label
+                ​		"node.kubeworkz.io/status"="assigned" exists in the label and the value of "node.kubeworkz.io/tenant" is not equal to "share"
              */
             let type = '-';
             if (labels['node.kubeworkz.io/status'] === 'assigned' && labels['node.kubeworkz.io/tenant'] === 'share') {
-                type = '共享';
+                type = 'shared';
             } else if (labels['node.kubeworkz.io/status'] === 'unassigned' || (labels['node.kubeworkz.io/status'] === 'assigned' && labels['node.kubeworkz.io/tenant'] !== 'share')) {
-                type = '独占';
+                type = 'exclusive';
             }
             const mixed = labels['colocation.netease.com/node-pool'] === 'colocation';
             return {

@@ -24,12 +24,12 @@
       <el-button
         :loading="cancleLoading"
         @click="dialogVisible = false"
-      >取 消</el-button>
+      >Cancel</el-button>
       <el-button
         type="primary"
         :loading="commitLoading"
         @click="handleOk"
-      >确 定</el-button>
+      >OK</el-button>
     </span>
   </el-dialog>
 </template>

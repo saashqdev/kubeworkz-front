@@ -20,7 +20,7 @@ import {
 } from './status';
 let uniqueid = 1;
 
-function resolveEnv(env) { //环境变量处理
+function resolveEnv(env) { // Environment variable handling
     const obj = {
         value: [],
         secretKeyRef: [],
@@ -57,7 +57,7 @@ function resolveEnv(env) { //环境变量处理
     return obj;
 }
 
-const refactEnv = envModel => { //环境变量处理
+const refactEnv = envModel => { // Environment variable handling
     return concat(
         envModel.value.filter(isFilledObject).map(o => ({
             name: o.key,
@@ -98,7 +98,7 @@ const refactEnv = envModel => { //环境变量处理
     );
 };
 
-const resolveLifeCycle = lifecycle => { // 生命周期执行脚本处理
+const resolveLifeCycle = lifecycle => { // Life cycle execution script processing
 
     const obj = {
         enable: false,
@@ -126,7 +126,7 @@ const resolveLifeCycle = lifecycle => { // 生命周期执行脚本处理
     return obj;
 };
 
-const refactLifeCycle = lifecycleModel => { // 生命周期执行脚本处理
+const refactLifeCycle = lifecycleModel => { // Life cycle execution script processing
     if (!lifecycleModel.enable) return null;
     switch (lifecycleModel.method) {
         case 'exec':
@@ -156,7 +156,7 @@ const refactLifeCycle = lifecycleModel => { // 生命周期执行脚本处理
     }
 };
 
-const resolveProbe = probe => { // 探针处理
+const resolveProbe = probe => { // Probe handling
     const obj = {
         enable: false,
         failureThreshold: 3,
@@ -186,7 +186,7 @@ const resolveProbe = probe => { // 探针处理
     return obj;
 };
 
-const refactProbe = probeModel => { // 探针处理
+const refactProbe = probeModel => { // Probe handling
     if (!probeModel.enable) return null;
     const g = getFromModel(probeModel);
     return {
@@ -199,7 +199,7 @@ const refactProbe = probeModel => { // 探针处理
     };
 };
 
-const resolveContainerPorts = ports => { // 容器端口处理
+const resolveContainerPorts = ports => { // Container port handling
     const obj = {
         enable: false,
         configs: [],
@@ -216,13 +216,13 @@ const resolveContainerPorts = ports => { // 容器端口处理
     return obj;
 };
 
-const refactPorts = portsModel => { // 容器端口处理
+const refactPorts = portsModel => { // Container port handling
     if (!portsModel.enable) return null;
 
     return portsModel.configs.slice();
 };
 
-const resolveResource = resource => { // 容器资源配置处理
+const resolveResource = resource => { // Container resource configuration processing
     const obj = {
         type: 0,
         cpu: 0.1,
@@ -236,16 +236,16 @@ const resolveResource = resource => { // 容器资源配置处理
     const g = getFromModel(resource);
     obj.cpu = unitConvert(g('requests.cpu'), 'cpu');
     obj.memory = unitConvert(g('requests.memory'));
-    obj.gpu = g('limits["nvidia.com/gpu"]', 0); // TODO 扩展其他gpu类型
+    obj.gpu = g('limits["nvidia.com/gpu"]', 0); // TODO extend other gpu types
     obj.type = RESOURCE_REQUEST_MAP.findIndex(item => item.cpu === obj.cpu && item.memory === obj.memory);
     obj.multiple = Math.round(unitConvert(g('limits.cpu'), 'cpu') / obj.cpu) || 1;
     return obj;
 };
 
-const refactResouce = resourceModel => { // 容器资源配置处理
+const refactResouce = resourceModel => { // Container resource configuration processing
     const cpu = toNumber(resourceModel.cpu);
     const memory = toNumber(resourceModel.memory);
-    const gpu = toNumber(resourceModel.gpu); // TODO 扩展其他gpu类型
+    const gpu = toNumber(resourceModel.gpu); // TODO extend other gpu types
     const multiple = toNumber(resourceModel.multiple);
     return {
         limits: { cpu: `${cpu * multiple * 1000}m`, memory: `${memory * multiple}Mi`, "nvidia.com/gpu": gpu },
@@ -253,7 +253,7 @@ const refactResouce = resourceModel => { // 容器资源配置处理
     };
 };
 
-const resolveVolumes = (volumeMounts, volumes) => { // 挂载数据卷处理
+const resolveVolumes = (volumeMounts, volumes) => { // Mounting data volume processing
     const obj = {
         pvc: [],
         configmap: [],
@@ -358,7 +358,7 @@ const resolveVolumes = (volumeMounts, volumes) => { // 挂载数据卷处理
     return obj;
 };
 
-// Name字段统一格式String.format(data-volume-%s-%d, 容器名字, index.getAndIncrement());
+// Name field unified format String.format(data-volume-%s-%d, container name, index.getAndIncrement());
 const volumeNameGenerator = containerName => {
     let i = 0;
     return () => `data-volume-${containerName}-${i++}`;
@@ -413,7 +413,7 @@ const refactVolumes = (
                 key: p.key,
                 path: p.filePath,
             });
-            // 新星item支持subPath
+            // Nova item supports subPath
             // configMapVolumnsMap[key].subPath = '';
         }
     });
@@ -559,29 +559,29 @@ const refactVolumes = (
 //     return volumeMounts;
 // };
 
-export const resolveContainer = (c, type, volumes, workload) => { //容器处理
+export const resolveContainer = (c, type, volumes, workload) => { // Container handling
     const cg = getFromModel(c);
     const container = {
-        type, //类型
-        containerName: cg('name'), //容器名称
+        type, // Type
+        containerName: cg('name'), // Container name
         args: cg('args', []).join('\n'), // 
         command: cg('command', []).join('\n'),
-        env: resolveEnv(cg('env', [])), // 容器环境变量
-        image: cg('image'), //容器镜像
-        imagePullPolicy: cg('imagePullPolicy'), //镜像拉取策略
+        env: resolveEnv(cg('env', [])), // Container environment variables
+        image: cg('image'), // Container image
+        imagePullPolicy: cg('imagePullPolicy'), // Image pull strategy
         // log: resolveLogs(cg('volumeMounts', [])),
-        probe: {  //探针
+        probe: {  // Probe
             postStart: resolveLifeCycle(cg('lifecycle.postStart')),
             preStop: resolveLifeCycle(cg('lifecycle.preStop')),
             liveness: resolveProbe(cg('livenessProbe', null)),
             readiness: resolveProbe(cg('readinessProbe', null)),
         },
-        ports: resolveContainerPorts(cg('ports', null)), //端口
-        resources: resolveResource(cg('resources', null)), //资源配额
-        volumes: resolveVolumes(cg('volumeMounts', []), volumes), // 数据卷
+        ports: resolveContainerPorts(cg('ports', null)), // Port
+        resources: resolveResource(cg('resources', null)), // Resource quota
+        volumes: resolveVolumes(cg('volumeMounts', []), volumes), // Data volume
         uniqueid: uniqueid++, // uid
-        status: toStatusPlainObject(workload, cg('name')), // 容器状态
-        raw: cloneDeep(c), // 原始的数据
+        status: toStatusPlainObject(workload, cg('name')), // Container status
+        raw: cloneDeep(c), // Raw data
     };
 
     container.showAdvanced =
@@ -596,8 +596,8 @@ export const resolveContainer = (c, type, volumes, workload) => { //容器处理
 
 export const toPlainObject = (model, workload) => {
     const g = getFromModel(model);
-    const containers = g('containers', []); // 普通容器
-    const initContainers = g('initContainers', []); // init容器
+    const containers = g('containers', []); // Ordinary container
+    const initContainers = g('initContainers', []); // init container
     const volumes = g('volumes', []);
     const nc = containers.map(c => resolveContainer(c, 'normal', volumes, workload));
     const initc = initContainers.map(c => resolveContainer(c, 'init', volumes, workload));
@@ -621,20 +621,20 @@ export const refactContainer = (c, podVolumes, podVolumesYaml, cIndex) => {
         'resources',
         'volumeMounts',
     ], [
-        cg('containerName'), // 容器名称
-        cg('args').split('\n').filter(i => i).map(i => i.replaceAll('\r', '')), // 启动命令参数
-        cg('command').split('\n').filter(i => i).map(i => i.replaceAll('\r', '')), //启动命令
-        refactEnv(cg('env')), //环境变量
-        cg('image'), //镜像
-        cg('imagePullPolicy'), // 镜像拉取策略
-        refactLifeCycle(cg('probe.postStart')), // 生命周期-启动后配置
-        refactLifeCycle(cg('probe.preStop')), // 生命周期-停止前执行配置
-        refactProbe(cg('probe.liveness')), // 存活探针
-        refactProbe(cg('probe.readiness')), // 就绪探针
-        refactPorts(cg('ports')), // 端口
-        refactResouce(cg('resources')), //资源配置
+        cg('containerName'), // Container name
+        cg('args').split('\n').filter(i => i).map(i => i.replaceAll('\r', '')), // Start command parameters
+        cg('command').split('\n').filter(i => i).map(i => i.replaceAll('\r', '')), // Start command
+        refactEnv(cg('env')), // Environment variables
+        cg('image'), // Mirror
+        cg('imagePullPolicy'), // Image pull strategy
+        refactLifeCycle(cg('probe.postStart')), // Lifecycle-Post-launch configuration
+        refactLifeCycle(cg('probe.preStop')), // Lifecycle - Execute configuration before stopping
+        refactProbe(cg('probe.liveness')), // Survival probe
+        refactProbe(cg('probe.readiness')), // Readiness probe
+        refactPorts(cg('ports')), // Port
+        refactResouce(cg('resources')), // Resource allocation
         // refactVolumes(cg('volumes'), cg('containerName'), podVolumes, podVolumesYaml),  
-        refactVolumes(cg('volumes'), cIndex, podVolumes, podVolumesYaml), //容器名过程名过长时挂载会有问题，使用index代替 // 数据卷
+        refactVolumes(cg('volumes'), cIndex, podVolumes, podVolumesYaml), // If the container name and process name are too long, there will be problems with mounting. Use index instead // data volume.
     ]);
     // const logVolumns = refactLogs(cg('log', []), cg('containerName'), podVolumesYaml);
     // if (logVolumns) container.volumeMounts = container.volumeMounts.concat(logVolumns);
@@ -655,7 +655,7 @@ export const toK8SObject = model => {
         hostPath: [],
         otherVolume: [],
     };
-    cg('containers', []).forEach((c, cIndex) => { // 区分init容器及普通容器
+    cg('containers', []).forEach((c, cIndex) => { // Distinguish between init containers and ordinary containers
         if (c.type === 'normal') {
             containers.push(refactContainer(c, podVolumes, podVolumesYaml, cIndex));
         }
@@ -675,18 +675,18 @@ export const toK8SObject = model => {
 
 
 export const getDefaultContainer = () => ({
-    containerName: '', //容器名称
-    type: 'normal', // 容器类型
-    image: '', // 容器镜像
-    imagePullPolicy: 'Always', //镜像拉取策略
-    resources: { // 资源配置
+    containerName: '', // Container name
+    type: 'normal', // Container type
+    image: '', // Container image
+    imagePullPolicy: 'Always', // Image pull strategy
+    resources: { // Resource allocation
         type: 0,
         cpu: 0.1,
         gpu: 0,
         memory: 128,
         multiple: 1,
     },
-    volumes: { //数据卷
+    volumes: { // Data volume
         pvc: [],
         configmap: [],
         secret: [],
@@ -696,17 +696,17 @@ export const getDefaultContainer = () => ({
         otherVolume: [],
     },
     log: [],
-    env: { // 环境变量
+    env: { // environment variables
         value: [],
         secretKeyRef: [],
         configMapKeyRef: [],
         fieldRef: [],
         resourceFieldRef: [],
     },
-    command: '', // 启动命令
-    args: '', // 启动命令参数
-    probe: { // 探针
-        liveness: { //存活探针
+    command: '', // Start command
+    args: '', // Start command parameters
+    probe: { // probe
+        liveness: { // survival probe
             enable: false,
             failureThreshold: 3,
             successThreshold: 1,
@@ -720,7 +720,7 @@ export const getDefaultContainer = () => ({
             port: 8080,
             httpHeaders: [],
         },
-        readiness: { // 就绪探针
+        readiness: { // Readiness probe
             enable: false,
             failureThreshold: 3,
             successThreshold: 1,
@@ -734,7 +734,7 @@ export const getDefaultContainer = () => ({
             port: 8080,
             httpHeaders: [],
         },
-        preStop: { //生命周期-停止前
+        preStop: { // Life cycle - before stopping
             enable: false,
             method: 'exec',
             command: '',
@@ -743,7 +743,7 @@ export const getDefaultContainer = () => ({
             port: 8080,
             httpHeaders: [],
         },
-        postStart: { // 生命周期-启动后
+        postStart: { // Life cycle-after startup
             enable: false,
             method: 'exec',
             command: '',
@@ -753,7 +753,7 @@ export const getDefaultContainer = () => ({
             httpHeaders: [],
         },
     },
-    ports: { // 端口
+    ports: { // port
         enable: false,
         configs: [],
     },

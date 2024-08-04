@@ -32,7 +32,7 @@ export default {
     data() {
         return {
             enableWebconsoleAudit: false,
-            heartCheckInterval: 3 * 60 * 1000, // 心跳间隔
+            heartCheckInterval: 3 * 60 * 1000, // heartbeat interval
             showModal: false,
             height: 300,
             width: 900,
@@ -85,7 +85,7 @@ export default {
                 const sessionId = res.id;
                 href = this.globalBaseURL + '/webconsole/api/sockjs?' + sessionId;
                 // if (this.enableWebconsoleAudit) {
-                //     // 审计
+                //     // audit
                 //     href += ('&webuser=' + cookie.readCookie('accountId'));
                 // }
                 this.sessionId = sessionId;
@@ -118,7 +118,7 @@ export default {
                     const sessionId = res.id;
                     href = this.globalBaseURL + '/webconsole/api/sockjs?' + sessionId;
                     // if (this.enableWebconsoleAudit) {
-                    //     // 审计
+                    //     // audit
                     //     href += ('&webuser=' + cookie.readCookie('accountId'));
                     // }
                     this.sessionId = sessionId;
@@ -127,8 +127,8 @@ export default {
                 }
             } else {
                 this.$eConfirm({
-                    title: '提示',
-                    message: '无法建立与服务器端的连接',
+                    title: 'Hint',
+                    message: 'Unable to establish connection to server side',
                     width: '460px',
                     ok: () => Promise.resolve(),
                     cancel: () => Promise.resolve(),
@@ -196,8 +196,8 @@ export default {
             console.log(this.socketMeta);
             this.socketMeta.closing = true;
             this.$eConfirm({
-                title: '提示',
-                message: '关闭将断开所有服务器连接',
+                title: 'Hint',
+                message: 'Shutdown will disconnect all servers',
                 width: '460px',
                 customClass: this.$style.customDialogClass,
                 ok: () => {

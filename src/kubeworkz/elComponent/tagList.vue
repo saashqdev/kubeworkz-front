@@ -29,7 +29,7 @@
           type="primary"
           :class="$style.moreBtn"
         >
-          更多
+          More
         </el-link>
       </el-popover>
     </template>

@@ -22,9 +22,9 @@
           placement="right"
         >
           <template slot="content">
-            <div>Key 分为前缀和后缀，以/分隔，可只写后缀。</div>
-            <div>前缀: 0-253位小写字母、数字、"-"、"."组成，以字母或数字开头、结尾，"."之前需为字母或数字。</div>
-            <div>后缀: 1-63位字母、数字、"-"、"_"或"."组成，以字母或数字开头、结尾。</div>
+            <div>Key is divided into prefix and suffix, separated by /, you can write only the suffix.</div>
+            <div>Prefix: 0-253 lowercase letters, numbers, "-", ".", starting and ending with letters or numbers, "." must be preceded by letters or numbers.</div>
+            <div>Suffix: 1-63 letters, numbers, "-", "_" or ".", starting and ending with letters or numbers.</div>
           </template>
           <i class="el-icon-question" />
         </el-tooltip>
@@ -38,14 +38,14 @@
             validators.keyPattern(false),
             validators.noRedundance(exsitKeys, false),
             ...(!noSystemKeyRule && !record.disabled ? [ validators.noSystemKey(false) ] : []),
-            ...(required ? [{ required: true, message: '不能为空'}] : [])
+            ...(required ? [{ required: true, message: 'Cannot be empty'}] : [])
           ]"
         >
           <el-select
             v-if="selectKeys"
             v-model="record.key"
             :disabled="disabled || record.disabled || record.disabledKey"
-            placeholder="请选择"
+            placeholder="Please choose"
             filterable
             allow-create
           >
@@ -76,7 +76,7 @@
             v-if="record.selectValues"
             v-model="record.value"
             :disabled="disabled || record.disabled || record.disabledValue"
-            placeholder="请选择"
+            placeholder="Please choose"
             filterable
             :allow-create="record.allowCreate"
           >

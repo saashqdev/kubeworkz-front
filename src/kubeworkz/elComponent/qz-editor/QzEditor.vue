@@ -16,10 +16,10 @@ export default {
     props: {
         width: { type: [ String, Number ], default: '100%' },
         height: { type: [ String, Number ], default: '100%' },
-        value: { type: String, default: '' }, // 编辑器初始显示文字
-        language: { type: String, default: 'javascript' }, // 语言支持
-        theme: { type: String, default: 'vs' }, // 官方自带三种主题vs, hc-black, or vs-dark
-        options: { type: [ Array, Object ], default: () => {} }, // 配置
+        value: { type: String, default: '' }, // Editor initial display text
+        language: { type: String, default: 'javascript' }, // language support
+        theme: { type: String, default: 'vs' }, // There are three official themes: vs, hc-black, or vs-dark
+        options: { type: [ Array, Object ], default: () => {} }, // Configuration
         highlighted: { type: Array, default: () => [{
             number: 0,
             class: '',
@@ -33,11 +33,11 @@ export default {
     },
     data() {
         return {
-            editor: null, // 文本编辑器return {
+            editor: null, // text editor return {
             defaults: {
                 ...JSON.parse(JSON.stringify(defaultOptions)),
             },
-            originalEditor: null, // diff 模式
+            originalEditor: null, // diff mode
         };
     },
     computed: {
@@ -65,7 +65,7 @@ export default {
     watch: {
         options() {
             this.editor && this.editor.updateOptions(this.editorOptions);
-            // originalEditor 是diff场景下元数据，直接操作是不可取的
+            // originalEditor It is metadata in the diff scenario, and direct operation is not advisable.
             // this.originalEditor && this.originalEditor.updateOptions(this.editorOptions);
         },
         highlighted: {
@@ -88,8 +88,8 @@ export default {
             if (!this.editor) {
                 return;
             }
-            if (!oV && nV !== oV) { // 只有当 value 为空时处理，否则光标会一直失焦
-                // 更新编辑器中的文本
+            if (!oV && nV !== oV) { // This is only processed when value is empty, otherwise the cursor will remain out of focus.
+                // Update text in editor
                 this.editor.setValue(nV);
                 this.editor.setPosition({column: Infinity, lineNumber: Infinity});
             }
@@ -99,7 +99,7 @@ export default {
                 return;
             }
             if (nV !== oV) {
-                // 更新比较的文本
+                // Update the text of the comparison
                 return this.originalEditor.setValue(nV);
             }
         },
@@ -141,7 +141,7 @@ export default {
             }
         },
         createMonaco() {
-            // 初始化编辑器，确保dom已经渲染
+            // Initialize the editor and ensure that the dom has been rendered
             if (this.isDiff) {
                 const originalModel = monaco.editor.createModel(this.originalValue);
                 const modifiedModel = monaco.editor.createModel(this.value);
@@ -164,7 +164,7 @@ export default {
             if (!this.editor) {
                 return;
             }
-            return this.editor.getValue(); // 获取编辑器中的文本
+            return this.editor.getValue(); // Get the text in the editor
         },
         destroyMonaco() {
             if (this.editor) {
@@ -176,7 +176,7 @@ export default {
             if (!this.editor) {
                 return;
             }
-            return this.editor.setValue(nV); // 重新设置编辑器中的文本
+            return this.editor.setValue(nV); // Reset text in editor
         },
     },
     mounted() {

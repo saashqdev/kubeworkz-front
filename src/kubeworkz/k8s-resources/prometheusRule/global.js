@@ -14,9 +14,9 @@ export const RESOURCE = {
 };
 
 export const CRITICALS = [
-    { text: '轻微', value: 'info' },
-    { text: '一般', value: 'warning' },
-    { text: '紧急', value: 'critical' },
+    { text: 'slight', value: 'info' },
+    { text: 'general', value: 'warning' },
+    { text: 'urgent', value: 'critical' },
 ];
 
 export function getDefaultRule() {

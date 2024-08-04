@@ -21,7 +21,7 @@
     <el-input
         v-else
         disabled
-        placeholder="暂无项目"
+        placeholder="No projects yet"
     />
   </kube-valve>
 </template>
@@ -102,7 +102,7 @@ export default {
                 };
             });
             if ((this.isPlatform || this.isTenant) && !this.noEmpty) {
-                projects.unshift({ text: '不指定', value: '' });
+                projects.unshift({ text: 'Not specify', value: '' });
             }
             this.list = projects;
 

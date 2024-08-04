@@ -35,8 +35,8 @@ export default {
         },
         beforeCloseCheck(ok, cancle) {
             console.log('beforeCloseCheck');
-            ok(); // 确认关闭
-            // cancle(); //取消关闭
+            ok(); // Confirm close
+            // cancle(); // Cancel close
         },
         onOpenCallback(term) {
             console.log('onOpenCallback');
@@ -52,27 +52,27 @@ export default {
             console.log('onInputCallback', c);
             switch (str) {
                 case '\r':
-                    console.log('回车符');
+                    console.log('carriage return');
                     this.term.write('\r\n');
                     break;
                 case '\x7F':
-                    console.log('删除');
+                    console.log('delete');
                     this.term.write('\u0008 \u0008');
                     break;
                 case '\u001b[D':
-                    console.log('左箭头');
+                    console.log('left arrow');
                     this.term.write('\u001b[D');
                     break;
                 case '\u001b[C':
-                    console.log('右箭头');
+                    console.log('right arrow');
                     this.term.write('\u001b[C');
                     break;
                 case '\u001b[A':
-                    console.log('上箭头');
+                    console.log('up arrow');
                     this.term.write('\u001b[A');
                     break;
                 case '\u001b[B':
-                    console.log('下箭头');
+                    console.log('down arrow');
                     this.term.write('\u001b[B');
                     break;
                 default:

@@ -123,7 +123,7 @@ import {
     toPlainObject as toCubeResourceQoutaPlainObject,
     toK8SObject as toCubeResourceQoutaK8SObject,
     patchK8SObject as patchCubeResourceQoutaK8SObject,
-} from 'kubeworkz/k8s-resources/cubeResourceQuota/index.js';
+} from 'kubeworkz';
 import {
     unitConvertMemory,
     unitConvertCPU,

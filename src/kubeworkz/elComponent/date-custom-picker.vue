@@ -4,7 +4,7 @@
       <el-radio-group  v-model="quickValue" @change="handleQuickValueChange">
         <el-radio-button v-for="(item, index) in quickOptions" :key="index" :label="item.value">{{item.text}}</el-radio-button>
       </el-radio-group>
-      <el-link style="margin-left:8px" type="primary" @click="handleChangeCurrentType('custom')">自定义</el-link>
+      <el-link style="margin-left:8px" type="primary" @click="handleChangeCurrentType('custom')">Customize</el-link>
     </template>
     <template
       v-else
@@ -12,27 +12,27 @@
       <el-date-picker
         v-model="customStartTime"
         type="datetime"
-        placeholder="开始时间"
+        placeholder="Starting Time"
         :clearable="false"
       />
       至
       <el-date-picker
         v-model="customEndTime"
         type="datetime"
-        placeholder="结束时间"
+        placeholder="End Time"
         :clearable="false"
       />
-      <el-button style="margin-left:8px" type="primary" @click="handleOk">确定</el-button>
-      <el-link style="margin-left:8px" type="primary" @click="handleChangeCurrentType('quick')">返回默认</el-link>
+      <el-button style="margin-left:8px" type="primary" @click="handleOk">OK</el-button>
+      <el-link style="margin-left:8px" type="primary" @click="handleChangeCurrentType('quick')">Return to default</el-link>
     </template>
 
     <!-- <el-date-picker
       
       v-model="timeRange"
       type="datetimerange"
-      range-separator="至"
-      start-placeholder="开始日期"
-      end-placeholder="结束日期">
+      range-separator="to"
+      start-placeholder="Start date"
+      end-placeholder="End date">
     </el-date-picker> -->
   </div>
 </template>
@@ -43,9 +43,9 @@ export default {
       type: Array,
       default: () => {
         return [
-          { text: '近30分钟', value: 30 * 60 * 1000 },
-          { text: '近6小时', value: 360 * 60 * 1000 },
-          { text: '近1天', value: 1440 * 60 * 1000 },
+          { text: 'nearly 30 minutes', value: 30 * 60 * 1000 },
+          { text: 'nearly 6 hours', value: 360 * 60 * 1000 },
+          { text: 'last 1 day', value: 1440 * 60 * 1000 },
         ]
       }
     },

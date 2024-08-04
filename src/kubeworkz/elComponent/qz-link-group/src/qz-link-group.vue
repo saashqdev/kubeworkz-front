@@ -17,14 +17,14 @@
         :size="buttonSize"
         :type="moreType"
       >
-        更多<i class="el-icon-arrow-down el-icon--right" />
+        More<i class="el-icon-arrow-down el-icon--right" />
       </el-button>
       <el-link
         v-else
         :type="moreType"
         :underline="false"
       >
-        更多<i class="el-icon-arrow-down el-icon--right" />
+        More<i class="el-icon-arrow-down el-icon--right" />
       </el-link>
       <el-dropdown-menu slot="dropdown">
         <template v-for="(item, index) in $slots.default">

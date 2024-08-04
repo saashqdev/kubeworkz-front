@@ -23,7 +23,7 @@
         :disabled="disabled"
         @click="handleSearch"
       >
-        搜索
+        Search
       </el-button>
     </div>
   </div>
@@ -33,7 +33,7 @@ export default {
     props: {
         placeholder: {
             type: String,
-            default: '请输入名称搜素',
+            default: 'Please enter name to search',
         },
         position: {
             type: String,

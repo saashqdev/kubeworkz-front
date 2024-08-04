@@ -16,7 +16,7 @@ export function toPlainObject(model) {
     return {
         ...obj,
         type: g('type', 'Opaque'), //
-        data: toObjectArray(g('data') || {}, 'key', 'value'), // 数据 key-value
+        data: toObjectArray(g('data') || {}, 'key', 'value'), // data key-value
         isJoinImage: !!g('metadata.annotations["kubeworkz.io/image"]', null),
         joinImage: g('metadata.annotations["kubeworkz.io/image"]', ''),
     };
@@ -34,7 +34,7 @@ export function toK8SObject(model) {
             key: item.key,
             value: item.value ? item.value.replaceAll('\r', '') : item.value,
         }
-    }), 'key', 'value'); // 数据 key-value
+    }), 'key', 'value'); // data key-value
     const annotations = getFun(obj, 'metadata.annotations', {});
     if (model.isJoinImage && model.joinImage) {
         annotations['kubeworkz.io/image'] = model.joinImage;
@@ -65,6 +65,6 @@ export function patchK8SObject(model) {
                 key: item.key,
                 value: item.value ? item.value.replaceAll('\r', '') : item.value,
             };
-        }), 'key', 'value'), // 数据 key-value
+        }), 'key', 'value'), // data key-value
     };
 }

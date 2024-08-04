@@ -1,17 +1,17 @@
-## 基础用法
+## Basic Usage
 
 ```html
 <qz-link-group max="4">
-    <el-link href="https://element.eleme.io" target="_blank">默认链接</el-link>
-    <el-link type="primary">主要链接</el-link>
-    <el-link type="success">成功链接</el-link>
-    <el-link type="warning">警告链接</el-link>
-    <el-link type="danger">危险链接</el-link>
-    <el-link type="info">信息链接</el-link>
+    <el-link href="https://element.eleme.io" target="_blank">Default link</el-link>
+    <el-link type="primary">Main link</el-link>
+    <el-link type="success">Successful link</el-link>
+    <el-link type="warning">Warning link</el-link>
+    <el-link type="danger">Dangerous links</el-link>
+    <el-link type="info">Information link</el-link>
 </qz-link-group>
 ```
 
-## demo演示
+## Demo
 ::: demo
 ```html
 <template>
@@ -19,21 +19,21 @@
         <div class="cell">
             <div class="title">max:3</div>
             <qz-link-group>
-                <el-link :underline="false">默认链接</el-link>
-                <el-link :underline="false" type="primary">主要链接</el-link>
-                <el-link :underline="false" type="success">成功链接</el-link>
-                <el-link :underline="false" type="warning">警告链接</el-link>
+                <el-link :underline="false">Default link</el-link>
+                <el-link :underline="false" type="primary">Main link</el-link>
+                <el-link :underline="false" type="success">Successful link</el-link>
+                <el-link :underline="false" type="warning">Warning link</el-link>
             </qz-link-group>
         </div>
         <div class="cell">
             <div class="title">max:5</div>
             <qz-link-group max="5">
-                <el-link :underline="false">默认链接</el-link>
-                <el-link :underline="false" type="primary">主要链接</el-link>
-                <el-link :underline="false" type="success">成功链接</el-link>
-                <el-link :underline="false" type="warning">警告链接</el-link>
-                <el-link :underline="false" type="danger">危险链接</el-link>
-                <el-link :underline="false" type="info">信息链接</el-link>
+                <el-link :underline="false">Default link</el-link>
+                <el-link :underline="false" type="primary">Main link</el-link>
+                <el-link :underline="false" type="success">Successful link</el-link>
+                <el-link :underline="false" type="warning">Warning link</el-link>
+                <el-link :underline="false" type="danger">Dangerous links</el-link>
+                <el-link :underline="false" type="info">Information link</el-link>
             </qz-link-group>
         </div>
     </section>
@@ -56,20 +56,20 @@ export default {};
 ```
 :::
 
-## 组件效果说明
+## Component effect description
 
-- 当子元素中link个数 <= max的值时,正常排列展示
-- 当子元素中link个数 > max的值时,正常排列展示 max-1个，剩余的更多下拉框展示
+- When the number of links in the child element <= the value of max, the normal arrangement will be displayed.
+- When the number of links in the child element > the value of max, max-1 will be displayed in normal arrangement, and the remaining drop-down boxes will be displayed.
 
 </br>
 
 ## Attributes
-| 参数      | 说明               |     类型        |    可选值    |   默认值   |
+| Parameters | Description | Type | Optional values ​​| Default values ​​|
 |-----------|-------------------|-----------------|-------------|-----------|
-|  max      |  最大展示link个数  | String/Number   |      -      |     3     |
-|  isButton |  是否是按钮组 | Boolean         |     -       |   false   |
-|  buttonSize |      按钮尺寸    | String          |  medium / small / mini  |   -   |
-|  moreType |      更多按钮的类型    | String          |  primary / default / info / danger / success  |   primary   |
+|  max      |  Maximum number of links displayed  | String/Number   |      -      |     3     |
+|  isButton |  Is it a button group? | Boolean         |     -       |   false   |
+|  buttonSize |      Button size    | String          |  medium / small / mini  |   -   |
+|  moreType |      More button types    | String          |  primary / default / info / danger / success  |   primary   |
 
 
 

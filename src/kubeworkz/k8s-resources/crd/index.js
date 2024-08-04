@@ -9,8 +9,8 @@ export function toPlainObject(model) {
     const g = getFromModel(model);
     return {
         ...obj,
-        names: g('spec.names'), // 名称
-        group: g('spec.group'), // 组
-        versions: (g('spec.versions') || []).map(v => v.name), // 本版
+        names: g('spec.names'), // name
+        group: g('spec.group'), // group
+        versions: (g('spec.versions') || []).map(v => v.name), // version
     };
 }

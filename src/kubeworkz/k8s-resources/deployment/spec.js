@@ -11,36 +11,36 @@ import {
 
 export const toPlainObject = model => {
     const g = getFromModel(model);
-    const minReadySeconds = g('spec.minReadySeconds'); // 最短就绪时间
-    const maxSurge = g('spec.strategy.rollingUpdate.maxSurge'); // 最大超预期副本数
-    const maxUnavailable = g('spec.strategy.rollingUpdate.maxUnavailable'); // 最大不可用副本数
+    const minReadySeconds = g('spec.minReadySeconds'); // Minimum ready time
+    const maxSurge = g('spec.strategy.rollingUpdate.maxSurge'); // Maximum number of copies beyond expectations
+    const maxUnavailable = g('spec.strategy.rollingUpdate.maxUnavailable'); // Maximum number of unusable copies
     const strategy = {
-        type: g('spec.strategy.type'), // 更新类型
+        type: g('spec.strategy.type'), // Update type
         enable: !!(minReadySeconds || maxSurge || maxUnavailable),
-        minReadySeconds, // 最短就绪时间
-        maxSurge, // 最大超预期副本数
-        maxUnavailable, // 最大不可用副本数
+        minReadySeconds, // Minimum ready time
+        maxSurge, // Maximum number of copies beyond expectations
+        maxUnavailable, // Maximum number of unusable copies
     };
     return {
         // progressDeadlineSeconds: g('spec.progressDeadlineSeconds'),
-        replicas: g('spec.replicas', 1), // 副本数
-        ...toSelectorPlainObject(g('spec')), // selector 字段，定义 Deployment 如何查找要管理的 Pods
-        strategy, // 更新策略
+        replicas: g('spec.replicas', 1), // Number of replicas
+        ...toSelectorPlainObject(g('spec')), // The selector field defines how the Deployment finds the Pods to be managed.
+        strategy, // update strategy
     };
 };
 
 export const toK8SObject = model => {
     const g = getFromModel(model);
     const obj = {
-        replicas: toNumber(g('spec.replicas')), // 副本数
+        replicas: toNumber(g('spec.replicas')), // Number of replicas
     };
-    const minReadySeconds = toNumber(g('spec.strategy.minReadySeconds')); // 最短就绪时间
-    const maxSurge = `${g('spec.strategy.maxSurge')}`.endsWith('%') ? g('spec.strategy.maxSurge') : toNumber(g('spec.strategy.maxSurge')); // 最大超预期副本数
-    const maxUnavailable = `${g('spec.strategy.maxUnavailable')}`.endsWith('%') ? g('spec.strategy.maxUnavailable') : toNumber(g('spec.strategy.maxUnavailable')); // 最大不可用副本数
+    const minReadySeconds = toNumber(g('spec.strategy.minReadySeconds')); // Minimum ready time
+    const maxSurge = `${g('spec.strategy.maxSurge')}`.endsWith('%') ? g('spec.strategy.maxSurge') : toNumber(g('spec.strategy.maxSurge')); // Maximum number of copies beyond expectations
+    const maxUnavailable = `${g('spec.strategy.maxUnavailable')}`.endsWith('%') ? g('spec.strategy.maxUnavailable') : toNumber(g('spec.strategy.maxUnavailable')); // Maximum number of unusable copies
     if (minReadySeconds || minReadySeconds === 0 || maxSurge || maxSurge === 0 || maxUnavailable || maxUnavailable === 0) {
         obj.strategy = {
             rollingUpdate: {
-                type: 'RollingUpdate', // 更新类型
+                type: 'RollingUpdate', // Update type
             },
         };
 
@@ -59,8 +59,8 @@ export const toK8SObject = model => {
 
 export const toModifyK8SObject = (target, model) => {
     const resetProperty = genReset(target, model);
-    resetProperty('spec.replicas'); // 副本数
-    resetProperty('spec.minReadySeconds'); // 最短就绪时间
-    resetProperty('spec.strategy.rollingUpdate.maxSurge'); // 最大超预期副本数
-    resetProperty('spec.strategy.rollingUpdate.maxUnavailable'); // 最大不可用副本数
+    resetProperty('spec.replicas'); // Number of replicas
+    resetProperty('spec.minReadySeconds'); // Minimum ready time
+    resetProperty('spec.strategy.rollingUpdate.maxSurge'); // Maximum number of copies beyond expectations
+    resetProperty('spec.strategy.rollingUpdate.maxUnavailable'); // Maximum number of unusable copies
 };

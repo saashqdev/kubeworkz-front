@@ -121,7 +121,7 @@ export default {
         },
         addButtonText: {
             type: String,
-            default: '添加',
+            default: 'Add to',
         },
     },
     data() {

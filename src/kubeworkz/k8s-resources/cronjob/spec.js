@@ -15,13 +15,13 @@ export const toPlainObject = model => {
     const g = getFromModel(model);
     return {
         // ...pickBy(g('spec'), v => !isObjectLike(v)),
-        concurrencyPolicy: g('spec.concurrencyPolicy', 'Allow'), // 并发策略
-        schedule: g('spec.schedule'), // 定时调度设置
-        successfulJobsHistoryLimit: g('spec.successfulJobsHistoryLimit'), // 保留执行成功任务的个数
-        failedJobsHistoryLimit: g('spec.failedJobsHistoryLimit'), // 保留执行失败任务的个数
-        startingDeadlineSeconds: g('spec.startingDeadlineSeconds'), // 任务启动截止时间
+        concurrencyPolicy: g('spec.concurrencyPolicy', 'Allow'), // Concurrency strategy
+        schedule: g('spec.schedule'), // Schedule scheduling settings
+        successfulJobsHistoryLimit: g('spec.successfulJobsHistoryLimit'), // Keep the number of successfully executed tasks
+        failedJobsHistoryLimit: g('spec.failedJobsHistoryLimit'), // Keep the number of failed tasks
+        startingDeadlineSeconds: g('spec.startingDeadlineSeconds'), // Task start deadline
         matchLabels: toObjectArray(g('spec.selector.matchLabels', {}), 'key', 'value'),
-        suspend: g('spec.suspend'), // 是否暂停
+        suspend: g('spec.suspend'), // Whether to pause
     };
 };
 
@@ -29,13 +29,13 @@ export const toK8SObject = (model, metadata, obj) => {
     const g = getFromModel(model);
     const template = obj.spec.template;
     return {
-        concurrencyPolicy: toNumber(g('spec.concurrencyPolicy')), // 并发策略
-        schedule: g('spec.schedule'), // 定时调度设置 
-        successfulJobsHistoryLimit: toNumber(g('spec.successfulJobsHistoryLimit')), // 保留执行成功任务的个数
-        failedJobsHistoryLimit: toNumber(g('spec.failedJobsHistoryLimit')), // 保留执行失败任务的个数
-        startingDeadlineSeconds: g('spec.startingDeadlineSeconds') && toNumber(g('spec.startingDeadlineSeconds')), // 任务启动截止时间
+        concurrencyPolicy: toNumber(g('spec.concurrencyPolicy')), // Concurrency strategy
+        schedule: g('spec.schedule'), // Schedule scheduling settings 
+        successfulJobsHistoryLimit: toNumber(g('spec.successfulJobsHistoryLimit')), // Keep the number of successfully executed tasks
+        failedJobsHistoryLimit: toNumber(g('spec.failedJobsHistoryLimit')), // Keep the number of failed tasks
+        startingDeadlineSeconds: g('spec.startingDeadlineSeconds') && toNumber(g('spec.startingDeadlineSeconds')), // Task start deadline
         template: undefined,
-        jobTemplate: { // 指定执行 CronJob 时将创建的作业
+        jobTemplate: { // Specifies the job that will be created when the CronJob is executed
             spec: {
                 ...toJobSpecK8SObject(g('jobTemplate')),
                 template,

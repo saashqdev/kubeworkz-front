@@ -21,7 +21,7 @@
     <el-input
         v-else
         disabled
-        placeholder="暂无租户"
+        placeholder="No tenants yet"
     />
   </kube-valve>
 </template>

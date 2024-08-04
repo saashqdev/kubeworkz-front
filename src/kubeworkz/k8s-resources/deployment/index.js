@@ -8,11 +8,11 @@ import {
     toPlainObject as toSpecPlainObject,
     toK8SObject as toSpecK8SObject,
     toModifyK8SObject as toModifySpecK8SObject,
-} from './spec'; // spec相关转换函数
+} from './spec'; // spec related conversion function
 
 import {
     toPlainObject as toStatusPlainObject,
-} from './status'; // status相关转换函数
+} from './status'; // status related conversion function
 
 export function toPlainObject(model) {
     return toWorkloadPlainObject(model)({

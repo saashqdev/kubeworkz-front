@@ -1,12 +1,12 @@
 import { get, keys, zipObject, unset, set } from 'lodash';
 
-export const getFromModel = model => { // 对get函数封装
+export const getFromModel = model => { // Encapsulate the get function
     return (path, _default = undefined) => get(model, path, _default);
 };
-export const toObjectArray = (obj, labelStr, valueStr) => { // 对象转数组 { field1: 'a', field2: 'b'} -> [{ key: 'field1', value: 'a' }, { key: 'field2', value: 'b' }]
+export const toObjectArray = (obj, labelStr, valueStr) => { // Object to array { field1: 'a', field2: 'b'} -> [{ key: 'field1', value: 'a' }, { key: 'field2', value: 'b' }]
     return keys(obj).map(k => ({ [labelStr]: k, [valueStr]: obj[k] }));
 };
-export const KVtoObject = (target = [], key, value) => { // //数组转对象 [{ key: 'field1', value: 'a' }, { key: 'field2', value: 'b' }] -> { field1: 'a', field2: 'b'}
+export const KVtoObject = (target = [], key, value) => { // //Array to object [{ key: 'field1', value: 'a' }, { key: 'field2', value: 'b' }] -> { field1: 'a', field2: 'b'}
     const existLabels = target.filter(i => i[key]);
     return zipObject(
         existLabels.map(l => l[key]),

@@ -107,11 +107,11 @@ export default {
         },
         overMaxCountTipFormatter: {
             type: Function,
-            default: maxCount => `最多只能添加${maxCount}个`,
+            default: maxCount => `You can only add at most ${maxCount} individual`,
         },
         underMinCountTipFormatter: {
             type: Function,
-            default: minCount => '无法删除',
+            default: minCount => 'Cannot be deleted',
         },
         textField: {
             type: String,
@@ -123,7 +123,7 @@ export default {
         },
         addButtonText: {
             type: String,
-            default: '添加',
+            default: 'Add to',
         },
         validateFile: {
             type: String,

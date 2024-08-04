@@ -5,24 +5,24 @@
         max:3
       </div>
       <qz-link-group>
-        <el-link>默认链接</el-link>
+        <el-link>Default link</el-link>
         <el-link
           type="primary"
           @click="test"
         >
-          主要链接
+          Main link
         </el-link>
         <el-link
           type="success"
           @click="test"
         >
-          成功链接
+          Successful link
         </el-link>
         <el-link
           type="warning"
           @click="test"
         >
-          警告链接
+          Warning link
         </el-link>
       </qz-link-group>
     </div>
@@ -31,36 +31,36 @@
         max:5
       </div>
       <qz-link-group max="5">
-        <el-link>默认链接</el-link>
+        <el-link>Default link</el-link>
         <el-link
           type="primary"
           @click="test"
         >
-          主要链接
+          Main link
         </el-link>
         <el-link
           type="success"
           @click="test"
         >
-          成功链接
+          Successful link
         </el-link>
         <el-link
           type="warning"
           @click="test"
         >
-          警告链接
+          Warning link
         </el-link>
         <el-link
           type="danger"
           @click="test"
         >
-          危险链接
+          Dangerous links
         </el-link>
         <el-link
           type="info"
           @click="test"
         >
-          信息链接
+          Information link
         </el-link>
       </qz-link-group>
     </div>
@@ -73,36 +73,36 @@
         is-button
         more-type="danger"
       >
-        <el-button>默认链接</el-button>
+        <el-button>Default link</el-button>
         <el-button
           type="primary"
           @click="test"
         >
-          主要链接
+          Main link
         </el-button>
         <el-button
           type="success"
           @click="test"
         >
-          成功链接
+          Successful link
         </el-button>
         <el-button
           type="warning"
           @click="test"
         >
-          警告链接
+          Warning link
         </el-button>
         <el-button
           type="danger"
           @click="test"
         >
-          危险链接
+          Dangerous links
         </el-button>
         <el-button
           type="info"
           @click="test"
         >
-          信息链接
+          Information link
         </el-button>
       </qz-link-group>
     </div>

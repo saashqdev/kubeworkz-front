@@ -1,8 +1,8 @@
-# qz-terminal 终端组件
+# QZ-Terminal Terminal Component
 
-基于xterm.js实现的页面终端展示组件
+Page terminal display component based on xterm.js
 
-## 基础用法
+## Basic Usage
 ```vue
 <template>
   <div>
@@ -41,8 +41,8 @@ export default {
         },
         beforeCloseCheck(ok, cancle) {
             console.log('beforeCloseCheck');
-            ok(); // 确认关闭
-            // cancle(); //取消关闭
+            ok(); // Confirm close
+            // cancle(); // Cancel close
         },
         onOpenCallback(term) {
             console.log('onOpenCallback');
@@ -58,27 +58,27 @@ export default {
             console.log('onInputCallback', c);
             switch (str) {
                 case '\r':
-                    console.log('回车符');
+                    console.log('carriage return');
                     this.term.write('\r\n');
                     break;
                 case '\x7F':
-                    console.log('删除');
+                    console.log('delete');
                     this.term.write('\u0008 \u0008');
                     break;
                 case '\u001b[D':
-                    console.log('左箭头');
+                    console.log('left arrow');
                     this.term.write('\u001b[D');
                     break;
                 case '\u001b[C':
-                    console.log('右箭头');
+                    console.log('right arrow');
                     this.term.write('\u001b[C');
                     break;
                 case '\u001b[A':
-                    console.log('上箭头');
+                    console.log('up arrow');
                     this.term.write('\u001b[A');
                     break;
                 case '\u001b[B':
-                    console.log('下箭头');
+                    console.log('down arrow');
                     this.term.write('\u001b[B');
                     break;
                 default:
@@ -95,7 +95,7 @@ export default {
 </script>
 ```
 
-## 演示
+## Demo
 ::: demo
 ```vue
 <<<include(./test/Demo.vue)
@@ -104,24 +104,24 @@ export default {
 
 
 ## Attributes
-| 参数               | 说明                                                     | 类型              | 可选值      | 默认值 |
-|--------------------|----------------------------------------------------------|-------------------|-------------|--------|
-|   ref     |   注册引用信息    |String |   -   |   -   |
-|  show | 是否显示 Terminal，支持 .sync 修饰符 |Boolean   |   -   |   false   |
-| height |   Terminal高度   |Number |    -   | 400 |
-| width | Terminal宽度 |Number | - | 900 |
-| options | xterm.js 配置参数 |Object |  | {} |
-| beforeCloseCheck | 关闭前确认函数<br />function(ok, cancel) {} 参数两个回调函数<br />确认关闭执行ok()，取消关闭执行cancel()<br />注：仅点击Terminal右上角关闭按钮时触发 |Function | - | - |
-> options值详见[xtermjs文档](https://xtermjs.org/docs/)
+| Parameters         | Description                                              | Type              | Optional values ​​| Default values ​​|
+|--------------------|----------------------------------------------------------|-------------------|-----------------|----------------|
+|   ref     |   Register citation information    |String |   -   |   -   |
+|  show | Whether to display Terminal, support .sync modifier |Boolean   |   -   |   false   |
+| height |   Terminal height   |Number |    -   | 400 |
+| width | Terminal width |Number | - | 900 |
+| options | xterm.js Configuration parameters |Object |  | {} |
+| beforeCloseCheck | Confirm function before closing<br />function(ok, cancel) {} Parameters two callback functions<br />To confirm the shutdown, execute ok(), to cancel the shutdown, execute cancel().<br />Note: This is only triggered when the close button in the upper right corner of Terminal is clicked. |Function | - | - |
+> For details on the options value, see [xtermjs documentation](https://xtermjs.org/docs/)
 
-### Events 说明
+### Event Description
 
-| 事件名称          | 说明               | 回调参数                                                     |
+| Event name          | Illustrate               | Callback parameters                                                     |
 | ----------------- | ------------------ | ------------------------------------------------------------ |
-| onOpenCallback    | 终端打开后回调     | term实例，<br />通过term.write("string")向终端写入字符串<br />通过term.writeln("string")向终端写入字符串并换行 |
-| onResizeCallback  | 终端大小变化后回调 | 终端当前大小， {cols: 62, rows: 18}                          |
-| onInputCallback   | 终端输入回调       | 输入字符                                                     |
-| onDestroyCallback | 终端关闭后回调     | -                                                            |
+| onOpenCallback    | Callback after terminal is opened     | term instance,<br />Write a string to the terminal via term.write("string")<br />Write a string to the terminal through term.writeln("string") and wrap it in a new line |
+| onResizeCallback  | Callback after terminal size changes | The current size of the terminal, {cols: 62, rows: 18}                          |
+| onInputCallback   | Terminal input callback       | Enter characters                                                     |
+| onDestroyCallback | Callback after the terminal is closed     | -                                                            |
 
 
 <!-- #endregion snippet -->

@@ -1,7 +1,7 @@
 import SockJS from 'sockjs-client';
 class heartCheck {
     constructor(ws, heartCheckInterval, sendHeartCheckSign) {
-        this.timeout = heartCheckInterval || 9 * 60 * 1000; // 9分钟发一次心跳
+        this.timeout = heartCheckInterval || 9 * 60 * 1000; // Heartbeat every 9 minutes
         this.timeoutObj = null;
         this.serverTimeoutObj = null;
         this.ws = ws;
@@ -16,12 +16,12 @@ class heartCheck {
 
     start() {
         this.timeoutObj = setTimeout(() => {
-            // 这里发送一个心跳，后端收到后，返回一个心跳消息，
-            // onmessage拿到返回的心跳就说明连接正常
+            // A heartbeat is sent here, and after the backend receives it, a heartbeat message is returned.
+            // If onmessage gets the returned heartbeat, it means the connection is normal.
             this.sendHeartCheckSign(this.ws);
-            this.serverTimeoutObj = setTimeout(function() { // 如果超过一定时间还没重置，说明后端主动断开了
+            this.serverTimeoutObj = setTimeout(function() { // If it has not been reset after a certain period of time, it means that the backend is actively disconnected.
                 console.log('heartCheck close');
-                this.ws.close(); // 如果onclose会执行reconnect，我们执行ws.close()就行了.如果直接执行reconnect 会触发onclose导致重连两次
+                this.ws.close(); // If onclose will execute reconnect, we can just execute ws.close(). If reconnect is executed directly, onclose will be triggered and cause reconnection twice.
             }, this.timeout);
         }, this.timeout);
     }

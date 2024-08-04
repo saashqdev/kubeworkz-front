@@ -46,7 +46,7 @@ import {
 
 import {
     toPlainObject as toCubeResourceQoutaPlainObject,
-} from 'kubeworkz/k8s-resources/cubeResourceQuota/index.js';
+} from 'kubeworkz';
 
 import {
     toPlainObject as toProjectPlainObject,

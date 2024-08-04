@@ -106,7 +106,7 @@ import {
 
 import {
     toPlainObject as toCubeResourceQoutaPlainObject,
-} from 'kubeworkz/k8s-resources/cubeResourceQuota/index.js';
+} from 'kubeworkz';
 import {
     toK8SObject as toSubnamespaceK8SObject,
 } from 'kubeworkz/k8s-resources/subnamespace';

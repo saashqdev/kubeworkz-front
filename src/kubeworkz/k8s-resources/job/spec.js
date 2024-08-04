@@ -11,16 +11,16 @@ import {
 
 export const toPlainObject = (model, containers, podTemplate) => {
     const g = getFromModel(model);
-    if (!g('spec.template.spec.restartPolicy')) { // 重启策略
+    if (!g('spec.template.spec.restartPolicy')) { // Restart strategy
         podTemplate.spec.restartPolicy = 'OnFailure';
     }
 
     return {
         ...pickBy(g('spec'), v => !isObjectLike(v)),
-        completions: g('spec.completions', 1), // 预期成功执行数
-        parallelism: g('spec.parallelism', 1), // 并行数
-        activeDeadlineSeconds: g('spec.activeDeadlineSeconds'), // 超时时间
-        backoffLimit: g('spec.backoffLimit', 6), // 重试次数
+        completions: g('spec.completions', 1), // Expected number of successful executions
+        parallelism: g('spec.parallelism', 1), // Parallel number
+        activeDeadlineSeconds: g('spec.activeDeadlineSeconds'), // overtime time
+        backoffLimit: g('spec.backoffLimit', 6), // number of retries
         matchLabels: toObjectArray(g('spec.selector.matchLabels', {}), 'key', 'value'),
     };
 };
@@ -28,12 +28,12 @@ export const toPlainObject = (model, containers, podTemplate) => {
 export const toK8SObject = model => {
     const g = getFromModel(model);
     const obj = {
-        completions: toNumber(g('spec.completions')), // 预期成功执行数
-        parallelism: toNumber(g('spec.parallelism')), // 并行数
-        backoffLimit: toNumber(g('spec.backoffLimit')), // 重试次数
+        completions: toNumber(g('spec.completions')), // Expected number of successful executions
+        parallelism: toNumber(g('spec.parallelism')), // Parallel number
+        backoffLimit: toNumber(g('spec.backoffLimit')), // number of retries
         selector: {},
     };
-    const activeDeadlineSeconds = g('spec.activeDeadlineSeconds'); // 超时时间
+    const activeDeadlineSeconds = g('spec.activeDeadlineSeconds'); // overtime time
     if (activeDeadlineSeconds) {
         obj.activeDeadlineSeconds = toNumber(activeDeadlineSeconds);
     }

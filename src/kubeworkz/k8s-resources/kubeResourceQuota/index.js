@@ -10,23 +10,23 @@ import {
 } from 'kubeworkz/utils/functional';
 
 const defaultHard = {
-    'requestsCpu': '', // 请求cpu
-    'limitsCpu': '', // 上限cpu
-    'requestsMemory': '', // 请求内存
-    'limitsMemory': '', // 上限内存
-    'requestsNvidiaGpu': '', // 请求gpu
-    'requestsStorage': '', // 请求存储
+    'requestsCpu': '', // request cpu
+    'limitsCpu': '', // upper limit cpu
+    'requestsMemory': '', // Request memory
+    'limitsMemory': '', // Upper limit memory
+    'requestsNvidiaGpu': '', // Request gpu
+    'requestsStorage': '', // Request storage
 };
 export function toPlainObject(model) {
     const obj = toConfigPlainObject(model);
     const g = getFromModel(model);
     const hard = {
-        'limitsCpu': g('spec.hard["limits.cpu"]') ? unitConvertCPU(g('spec.hard["limits.cpu"]')) : 0, // 请求cpu
-        'requestsCpu': g('spec.hard["requests.cpu"]') ? unitConvertCPU(g('spec.hard["requests.cpu"]')) : 0, // 上限cpu
-        'limitsMemory': g('spec.hard["limits.memory"]') ? unitConvertMemory(g('spec.hard["limits.memory"]')) : 0, // 请求内存
-        'requestsMemory': g('spec.hard["requests.memory"]') ? unitConvertMemory(g('spec.hard["requests.memory"]')) : 0, // 上限内存
-        'requestsNvidiaGpu': g('spec.hard["requests.nvidia.com/gpu"]') ? unitConvertCPU(g('spec.hard["requests.nvidia.com/gpu"]')) : 0, // 请求gpu
-        'requestsStorage': g('spec.hard["requests.storage"]') ? unitConvertMemory(g('spec.hard["requests.storage"]'), 'Gi') : 0, // 请求存储
+        'limitsCpu': g('spec.hard["limits.cpu"]') ? unitConvertCPU(g('spec.hard["limits.cpu"]')) : 0, // request cpu
+        'requestsCpu': g('spec.hard["requests.cpu"]') ? unitConvertCPU(g('spec.hard["requests.cpu"]')) : 0, // upper limit cpu
+        'limitsMemory': g('spec.hard["limits.memory"]') ? unitConvertMemory(g('spec.hard["limits.memory"]')) : 0, // Request memory
+        'requestsMemory': g('spec.hard["requests.memory"]') ? unitConvertMemory(g('spec.hard["requests.memory"]')) : 0, // Upper limit memory
+        'requestsNvidiaGpu': g('spec.hard["requests.nvidia.com/gpu"]') ? unitConvertCPU(g('spec.hard["requests.nvidia.com/gpu"]')) : 0, // Request gpu
+        'requestsStorage': g('spec.hard["requests.storage"]') ? unitConvertMemory(g('spec.hard["requests.storage"]'), 'Gi') : 0, // Request storage
     };
     return {
         ...obj,
@@ -35,7 +35,7 @@ export function toPlainObject(model) {
             target: g('spec.target'),
         },
         status: {
-            hard: { // 总配额
+            hard: { // total quota
                 cpu: g('status.hard["requests.cpu"]') ? unitConvertCPU(g('status.hard["requests.cpu"]')) : 0,
                 limitsCpu: g('status.hard["limits.cpu"]') ? unitConvertCPU(g('status.hard["limits.cpu"]')) : 0,
                 memory: g('status.hard["requests.memory"]') ? unitConvertMemory(g('status.hard["requests.memory"]')) : 0,
@@ -43,7 +43,7 @@ export function toPlainObject(model) {
                 gpu: g('status.hard["requests.nvidia.com/gpu"]') ? unitConvertCPU(g('status.hard["requests.nvidia.com/gpu"]')) : 0,
                 storage: g('status.hard["requests.storage"]') ? unitConvertMemory(g('status.hard["requests.storage"]'), 'Gi') : 0,
             },
-            used: { // 已用配额
+            used: { // Quota used
                 cpu: g('status.used["requests.cpu"]') ? unitConvertCPU(g('status.used["requests.cpu"]')) : 0,
                 limitsCpu: g('status.used["limits.cpu"]') ? unitConvertCPU(g('status.used["limits.cpu"]')) : 0,
                 memory: g('status.used["requests.memory"]') ? unitConvertMemory(g('status.used["requests.memory"]')) : 0,
@@ -63,17 +63,17 @@ export function toK8SObject(model, tenant, clusterName) {
         apiVersion: 'quota.kubeworkz.io/v1',
         kind: 'CubeResourceQuota',
         metadata: {
-            name: `${clusterName}.${tenant}`, // 名称
+            name: `${clusterName}.${tenant}`, // name
             labels: {
-                'kubeworkz.io/cluster': clusterName, // 集群名
-                'kubeworkz.io/tenant': tenant, // 租户名
+                'kubeworkz.io/cluster': clusterName, // Cluster name
+                'kubeworkz.io/tenant': tenant, // Tenant name
             },
             annotations: {
                 'kubeworkz.io/sync': 'true',
             },
         },
         spec: {
-            hard: { // 总配额
+            hard: { // total quota
                 'requests.cpu': g('spec.hard["requestsCpu"]'),
                 'limits.cpu': g('spec.hard["limitsCpu"]'),
                 'requests.memory': g('spec.hard["requestsMemory"]') + 'Mi',

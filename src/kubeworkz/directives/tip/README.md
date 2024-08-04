@@ -1,20 +1,20 @@
--   常规使用
+-   General Use
 
 ```html
-<div>这里是需要展示的内容和弹框展示的内容</div>
+<div>Here is the content that needs to be displayed and the content displayed in the pop-up box.</div>
 ```
 
--   需要添加 title、class、width、height 等内容
+-   Need to add title, class, width, height, etc.
 
 ```html
-<div v-tips="{ width:400, title:'这里是测试title',popperClass:'test1 test2',placement:'left' }">这里是需要展示的内容和弹框展示的内容</div>
+<div v-tips="{ width:400, title:'Here is the test title', popperClass:'test1 test2', placement:'left' }">Here is the content that needs to be displayed and the content displayed in the pop-up box.</div>
 ```
 
 ```html
-<div v-tips="'这里是自定义的展示内容'">这里是需要展示的内容和弹框展示的内容</div>
+<div v-tips="'Here is the customized display content'">Here is the content that needs to be displayed and the content displayed in the pop-up box.</div>
 ```
 
--   v-tips 可不传数据,不传则直接显示innerText的内容
--   v-tips 传数据时，若直接传的是字符串，则直接显示传入的字符串内容，若所传字符串是空字符串，则触发显示
--   v-tips 传数据时，若传入为对象，仅为设置 popper 的视觉效果，所传参数和 element-ui 的 popover 参数一致。[https://element.eleme.cn/#/zh-CN/component/popover](https://element.eleme.cn/#/zh-CN/component/popover)
--   tip展示位置默认在`上方`显示,触发条件默认是`hover`
+-   v-tips You can not transfer data, otherwise the content of innerText will be displayed directly.
+-   v-tips When transmitting data, if a string is passed directly, the content of the passed string will be displayed directly. If the passed string is an empty string, the display will be triggered.
+-   v-tips When transferring data, if it is passed as an object, it only sets the visual effect of the popper. The parameters passed are consistent with the popover parameters of element-ui. [https://element.eleme.cn/#/en-US/component/popover](https://element.eleme.cn/#/en-US/component/popover)
+-   The tip placement is displayed `above` by default, and the trigger condition is `hover` by default

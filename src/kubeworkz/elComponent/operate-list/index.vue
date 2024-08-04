@@ -31,7 +31,7 @@ export default {
         },
         moreBtnContent: {
             type: String,
-            default: '更多'
+            default: 'More'
         }
     },
     data() {
