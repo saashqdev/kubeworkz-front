@@ -7,11 +7,11 @@
         @click="toCreate"
         icon="el-icon-plus"
       >
-        创建存储声明
+        Create a storage claim
       </el-button>
-      <el-button :disabled="!currentDelPvc || isReview" @click="deleteBatch">批量删除</el-button>
+      <el-button :disabled="!currentDelPvc || isReview" @click="deleteBatch">Batch deletion</el-button>
       <el-button @click="refresh" square icon="el-icon-refresh-right"></el-button>
-      <inputSearch v-model="filterName" placeholder="请输入名称搜索" position="right" @search="onSearch"/>
+      <inputSearch v-model="filterName" placeholder="Please enter name to search" position="right" @search="onSearch"/>
     </el-row>
     <el-row>
       <x-request
@@ -37,7 +37,7 @@
             </el-table-column>
             <el-table-column
               prop="metadata.name"
-              label="名称"
+              label="Name"
               :show-overflow-tooltip="true"
               sortable
             >
@@ -49,13 +49,13 @@
             </el-table-column>
             <el-table-column
               prop="status.phase"
-              label="状态"
+              label="State"
               :show-overflow-tooltip="true"
               width="80"
             ></el-table-column>
             <el-table-column
               prop="spec.volumeName"
-              label="持久存储"
+              label="Persistent storage"
               :show-overflow-tooltip="true"
               width="120"
             >
@@ -65,7 +65,7 @@
             </el-table-column>
             <el-table-column
               prop="spec.storageClassName"
-              label="存储类别"
+              label="Storage class"
               :show-overflow-tooltip="true"
               width="120"
             >
@@ -75,7 +75,7 @@
             </el-table-column>
             <el-table-column
               prop="spec.resources.requests.storage"
-              label="容量"
+              label="Capacity"
               :show-overflow-tooltip="true"
               width="100"
             >
@@ -85,7 +85,7 @@
             </el-table-column>
             <el-table-column
               prop="status.capacity.storage"
-              label="实际容量"
+              label="Actual capacity"
               :show-overflow-tooltip="true"
               width="100"
             >
@@ -95,7 +95,7 @@
             </el-table-column>
             <el-table-column
               prop="spec.accessModes"
-              label="模式"
+              label="Model"
               :show-overflow-tooltip="true"
               width="100"
             >
@@ -110,14 +110,14 @@
             ></el-table-column>
             <el-table-column
               prop="action"
-              label="操作"
+              label="Action"
               width="180"
             >
               <template slot-scope="{ row }">
                 <qz-link-group max="3">
-                  <el-link type="primary" @click="editItem(row)" :disabled="isReview || row.status.phase !== 'Bound'">设置</el-link>
-                  <el-link type="primary" @click="deleteItem(row)" :disabled="isReview">删除</el-link>
-                  <el-link type="primary" @click="editYAML(row)" :disabled="isReview || row.status.phase !== 'Bound'">YAML 设置</el-link>
+                  <el-link type="primary" @click="editItem(row)" :disabled="isReview || row.status.phase !== 'Bound'">Set up</el-link>
+                  <el-link type="primary" @click="deleteItem(row)" :disabled="isReview">Delete</el-link>
+                  <el-link type="primary" @click="editYAML(row)" :disabled="isReview || row.status.phase !== 'Bound'">YAML settings</el-link>
                 </qz-link-group>
               </template>
             </el-table-column>
@@ -142,7 +142,7 @@
       @refresh="refresh"
     />
     <el-dialog
-      title="删除存储声明"
+      title="Delete storage claim"
       :visible.sync="showDelCheck"
       @close="handleClose"
       :close-on-click-modal="false"
@@ -150,23 +150,23 @@
       <el-form
         label-width="120px"
       >
-        <el-form-item label="存储声明名称">
+        <el-form-item label="Store claim name">
           <div style="word-break:break-all">
               {{currentDelPvc}}
           </div>
         </el-form-item>
-        <el-form-item label="文本确认">
+        <el-form-item label="Text confirmation">
           <el-input
             type="textarea"
             :autosize="{ minRows: 3 }"
-            placeholder="请填入上方文本进行二次确认"
+            placeholder="Please fill in the text above for secondary confirmation"
             v-model="userInputPvc"
           />
         </el-form-item>
       </el-form>
       <div slot="footer">
-        <el-button @click="handleClose">取 消</el-button>
-        <el-button type="primary" @click="handleDelete" :loading="delLoading" :disabled="userInputPvc !== currentDelPvc">确 定</el-button>
+        <el-button @click="handleClose">Cancel</el-button>
+        <el-button type="primary" @click="handleDelete" :loading="delLoading" :disabled="userInputPvc !== currentDelPvc">OK</el-button>
       </div>
     </el-dialog>
   </el-row>
@@ -233,15 +233,15 @@ export default {
         columns() {
             return [
                 { type: 'selection', width: '60px' },
-                { title: '名称', name: 'metadata.name', sortable: true, textwrap: true },
-                { title: '状态', name: 'status.phase', width: '80px' },
-                { title: '持久存储', name: 'spec.volumeName', width: '120px' },
-                { title: '存储类别', name: 'spec.storageClassName', width: '120px' },
-                { title: '容量', name: 'spec.resources.requests.storage', width: '100px' },
-                { title: '实际容量', name: 'status.capacity.storage' },
-                { title: '模式', name: 'spec.accessModes' },
+                { title: 'Name', name: 'metadata.name', sortable: true, textwrap: true },
+                { title: 'State', name: 'status.phase', width: '80px' },
+                { title: 'Persistent storage', name: 'spec.volumeName', width: '120px' },
+                { title: 'Storage class', name: 'spec.storageClassName', width: '120px' },
+                { title: 'Capacity', name: 'spec.resources.requests.storage', width: '100px' },
+                { title: 'Actual capacity', name: 'status.capacity.storage' },
+                { title: 'Model', name: 'spec.accessModes' },
                 { title: 'Mount By', name: 'mountBy' },
-                { title: '操作', name: 'operation', width: '160px' },
+                { title: 'Operation', name: 'operation', width: '160px' },
             ];
         },
         requestParam() {
@@ -316,7 +316,7 @@ export default {
             const response = await this.instanceService(reqParam);
 
             this.$editResource({
-                title: `${item.metadata.name} —— YAML 设置`,
+                title: `${item.metadata.name} —— YAML settings`,
                 content: response,
                 onSubmit: async content => {
                     await this.modifyService({
@@ -338,8 +338,8 @@ export default {
             this.currentDelPvc = item.metadata.name;
             this.userInputPvc = '';
             // this.$confirm({
-            //     title: '删除',
-            //     content: `确认要删除 ${item.metadata.name} 吗？`,
+            //     title: 'Delete',
+            //     content: `Confirm to delete ${item.metadata.name}?`,
             //     ok: async () => {
             //         const reqParam = {
             //             pathParams: {

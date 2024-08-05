@@ -20,7 +20,7 @@
         <u-select
           v-else
           size="large"
-          value="暂无 Secrets"
+          value="No Secrets yet"
           disabled
         />
 
@@ -33,7 +33,7 @@
         <u-select
           v-else
           size="large"
-          value="暂无 Key"
+          value="No Key yet"
           disabled
         />
       </u-linear-layout>
@@ -91,7 +91,7 @@ export default {
     },
     methods: {
         resolver(response) {
-            const list = [{ text: '暂不选择', value: '' }, ...response.items.map(i => {
+            const list = [{ text: 'Don\'t choose yet', value: '' }, ...response.items.map(i => {
                 const p = toMetadataPlainObject(i);
                 return {
                     text: p.name,

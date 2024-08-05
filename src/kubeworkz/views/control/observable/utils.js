@@ -11,7 +11,7 @@ export const rulespecCRD = {
 };
 
 export const critical = [
-    { text: '轻微', value: 'info' },
-    { text: '一般', value: 'warning' },
-    { text: '紧急', value: 'critical' },
+    { text: 'Info', value: 'info' },
+    { text: 'Warning', value: 'warning' },
+    { text: 'Critical', value: 'critical' },
 ];

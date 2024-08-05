@@ -5,29 +5,29 @@
       style="margin-bottom: 12px"
       @click="viewYAML"
     >
-      查看详细信息
+      Check the detail information
     </el-button>
-    <el-descriptions title="基本信息" :column="1">
-      <el-descriptions-item label="存储声明名称">
+    <el-descriptions title="Basic Information" :column="1">
+      <el-descriptions-item label="Store claim name">
         {{ instance.metadata.name }}
       </el-descriptions-item>
-      <el-descriptions-item label="状态">
+      <el-descriptions-item label="State">
         {{ instance.status.phase }}
       </el-descriptions-item>
-      <el-descriptions-item label="持久存储">
+      <el-descriptions-item label="Persistent storage">
         {{ instance.spec.volumeName || '-' }}
       </el-descriptions-item>
-      <el-descriptions-item label="存储类别">
+      <el-descriptions-item label="Storage class">
         {{ instance.spec.storageClassName || '-' }}
       </el-descriptions-item>
-      <el-descriptions-item label="容量">
+      <el-descriptions-item label="Capacity">
         {{ instance.spec.resources.requests.storage || '-' }}
       </el-descriptions-item>
-      <el-descriptions-item label="模式">
+      <el-descriptions-item label="Model">
         {{ instance.spec.accessMode | accessModeFilter }}
       </el-descriptions-item>
     </el-descriptions>
-    <el-descriptions title="关联的副本" :column="1" />
+    <el-descriptions title="Associated copy" :column="1" />
     <x-request
       ref="request"
       :service="podService"
@@ -42,7 +42,7 @@
         >
           <el-table-column
             prop="metadata.name"
-            label="副本名称"
+            label="Copy name"
             :show-overflow-tooltip="true"
           >
             <template slot-scope="{ row }">
@@ -53,7 +53,7 @@
           </el-table-column>
           <el-table-column
             prop="status.phase"
-            label="副本状态"
+            label="Replica status"
             width="80"
             :show-overflow-tooltip="true"
           ></el-table-column>
@@ -69,7 +69,7 @@
           </el-table-column>
           <el-table-column
             prop="status.hostIP"
-            label="所在节点IP"
+            label="Node IP"
             :show-overflow-tooltip="true"
             width="100"
           >
@@ -79,7 +79,7 @@
           </el-table-column>
           <el-table-column
             prop="creationTimestamp"
-            label="创建时间"
+            label="Creation time"
             width="180"
             :show-overflow-tooltip="true"
           >
@@ -116,12 +116,12 @@ export default {
         return {
             podService: workloadExtendService.getPVCPods,
             podColumn: [
-                { title: '副本名称', name: 'metadata.name' },
-                { title: '副本状态', name: 'status.phase', width: '80px' },
+                { title: 'Copy name', name: 'metadata.name' },
+                { title: 'Replica status', name: 'status.phase', width: '80px' },
                 { title: 'IP', name: 'status.podIP', width: '100px' },
-                { title: '所在节点IP', name: 'status.hostIP', width: '100px' },
-                { title: '重启次数', name: 'status.restartCount', width: '100px' },
-                { title: '创建时间', name: 'creationTimestamp', width: '180px' },
+                { title: 'Node IP', name: 'status.hostIP', width: '100px' },
+                { title: 'Number of restarts', name: 'status.restartCount', width: '100px' },
+                { title: 'Creation time', name: 'creationTimestamp', width: '180px' },
             ],
         };
     },
@@ -147,10 +147,10 @@ export default {
         },
         serviceColumn() {
             const columns = [
-                { title: '目标端口', name: 'targetPort', width: '100px' },
-                { title: '协议', name: 'protocol', width: '100px' },
-                { title: '服务端口', name: 'port', width: '100px' },
-                { title: '名称', name: 'name' },
+                { title: 'Target port', name: 'targetPort', width: '100px' },
+                { title: 'Protocol', name: 'protocol', width: '100px' },
+                { title: 'Service port', name: 'port', width: '100px' },
+                { title: 'Name', name: 'name' },
             ];
             if (this.instance.template === 'nodePort') {
                 columns.splice(3, 0, { title: 'NodePort', name: 'nodePort', width: '100px' });
@@ -166,7 +166,7 @@ export default {
         },
         viewYAML() {
             this.$editResource({
-                title: `${this.instance.metadata.name} —— 查看详细信息`,
+                title: `${this.instance.metadata.name} —— check the detail information`,
                 content: this.instance.puresource,
                 editorOption: {
                     readOnly: true,

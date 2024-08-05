@@ -1,20 +1,20 @@
 <template>
   <kube-form>
     <kube-form-item
-      label="类型"
+      label="Type"
       required
     >
       <u-radios
         v-model="model.perspect"
       >
         <u-radio label="metric">
-          维度
+          Dimensions
         </u-radio>
       </u-radios>
     </kube-form-item>
     <template v-if="model.perspect === 'metric'">
       <kube-form-item
-        label="维度"
+        label="Dimensions"
         required
       >
         <u-select
@@ -25,7 +25,7 @@
         />
       </kube-form-item>
       <kube-form-item
-        label="集群"
+        label="Cluster"
         required
       >
         {{ cluster }}
@@ -51,7 +51,7 @@
           style="display:none"
         >
         <kube-form-item
-          label="对象"
+          label="Object"
           layout="block"
           required
           :message="errors && errors[0]"
@@ -63,10 +63,10 @@
             @select="handelTargetsAllCheckedSelect"
           >
             <u-radio :label="true">
-              所有{{ targetName }}
+              All {{ targetName }}
             </u-radio>
             <u-radio :label="false">
-              选择已有的{{ targetName }}
+              Select existing {{ targetName }}
             </u-radio>
           </u-radios>
           <x-request
@@ -89,16 +89,16 @@
       </validation-provider>
       <kube-form-item
         v-if="cluster"
-        label="规则"
+        label="Rule"
         layout="block"
         required
       >
         <u-radios v-model="model.operation">
           <u-radio label="or">
-            满足以下任意条件
+            Meet any of the following conditions
           </u-radio>
           <u-radio label="and">
-            满足以下所有条件
+            Meet all of the following conditions
           </u-radio>
         </u-radios>
         <x-request
@@ -110,10 +110,10 @@
               <thead>
                 <tr>
                   <th width="240px">
-                    指标
+                    Index
                   </th>
                   <th width="350px">
-                    告警阈值
+                    Alert threshold
                   </th>
                 </tr>
               </thead>
@@ -163,7 +163,7 @@
           </template>
         </x-request>
         <u-form-table-add-button @click="addCondition">
-          添加
+          Add to
         </u-form-table-add-button>
       </kube-form-item>
     </template>
@@ -173,7 +173,7 @@
 import _ from 'lodash';
 import uCheckboxCard from 'library/common/u-checkbox-card';
 import { EVENTS_MAPPING } from './mapping.js';
-import { dimensions, scopesChoice, scopesContent } from './constance';
+import { dimensions, scopesChoice, scopesContent } from './constants.js';
 import clusterService from 'kubeworkz/services/cluster';
 import k8sResourceService from 'kubeworkz/services/k8s-resource';
 import nsService from 'kubeworkz/services/namespace';
@@ -357,7 +357,7 @@ export default {
                         const workloadName = item.metadata.name;
                         const containers = item.spec.template.spec.containers;
                         return {
-                            // key 值和 dimension 对应
+                            // The key value corresponds to the dimension
                             workload: [ `${value}.${workloadName}` ],
                             pod: [ `${value}.${workloadName}` ],
                             container: containers.map(c =>

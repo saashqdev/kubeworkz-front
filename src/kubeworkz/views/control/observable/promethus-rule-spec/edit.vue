@@ -7,10 +7,10 @@
       <kube-name-input
         v-model="model.metadata.name"
         :disabled="isEdit"
-        label="告警名称"
+        label="Alert name"
       />
       <kube-form-item
-        label="输入模式"
+        label="Input mode"
         required
       >
         <u-radios
@@ -19,16 +19,16 @@
           @select="handleEntryModelSelect"
         >
           <u-radio label="common">
-            普通
+            General
           </u-radio>
           <u-radio label="advanced">
-            高级
+            Advanced
           </u-radio>
         </u-radios>
       </kube-form-item>
       <alarmExtendSetting
         v-if="entryModel === 'common'"
-        ref="alarmExtendSetting"
+        ref="alertExtendSetting"
         :is-edit="isEdit"
         :extend-info="extendInfo"
       />
@@ -39,7 +39,7 @@
         rules="required"
       >
         <kube-form-item
-          label="表达式"
+          label="Expression"
           required
           :message="errors && errors[0]"
         >
@@ -51,17 +51,17 @@
         </kube-form-item>
       </validation-provider>
       <kube-form-item
-        label="告警程度"
+        label="Alert level"
       >
         <u-radios v-model="model.spec.rule.severity">
           <u-radio label="info">
-            轻微
+            Info
           </u-radio>
           <u-radio label="warning">
-            一般
+            Warning
           </u-radio>
           <u-radio label="critical">
-            紧急
+            Critical
           </u-radio>
         </u-radios>
       </kube-form-item>
@@ -71,7 +71,7 @@
         rules="required"
       >
         <kube-form-item
-          label="通知策略组"
+          label="Notification policy group"
           :message="errors && errors[0]"
           required
         >
@@ -93,7 +93,7 @@
                   v-else
                   disabled
                   :color="errors && errors[0] ? 'error' : ''"
-                  :data="[{text: '暂无告警策略'}]"
+                  :data="[{text: 'No alert strategy yet'}]"
                 />
               </template>
             </template>
@@ -112,7 +112,7 @@
                 :icon="scope.submitting ? 'loading' : ''"
                 @click="scope.submit"
               >
-                {{ isEdit ? '立即修改' : '立即创建' }}
+                {{ isEdit ? 'Modify now' : 'Create now' }}
               </u-button>
             </u-linear-layout>
           </template>

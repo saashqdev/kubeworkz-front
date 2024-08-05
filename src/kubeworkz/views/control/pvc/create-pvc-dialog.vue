@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    :title="isEdit ? '编辑存储声明' : '创建存储声明'"
+    :title="isEdit ? 'Edit storage statement' : 'Create a storage claim'"
     :visible.sync="show"
     width="800px"
     @close="close"
@@ -24,7 +24,7 @@
             label-width="120px"
           >
             <el-form-item
-              label="存储类别"
+              label="Storage class"
               :rules="[
                 validators.required(),
               ]"
@@ -34,7 +34,7 @@
                 v-if="(data || []).length"
                 v-model="model.spec.storageClassName" 
                 filterable
-                placeholder="选择存储类别"
+                placeholder="Select storage class"
                 :disabled="isEdit"
               >
                 <el-option
@@ -48,21 +48,21 @@
               <el-input
                 v-else
                 disabled
-                placeholder="暂无存储类别"
+                placeholder="No storage class yet"
               />
             </el-form-item>
             <el-form-item
-              label="名称"
+              label="Name"
               :rules="[
                 validators.required(),
                 validators.k8sResourceNameValidator()
               ]"
               prop="metadata.name"
             >
-              <el-input v-model="model.metadata.name" :disabled="isEdit" placeholder="1-63位小写字母、数字、或中划线组成，以字母开头，字母或数字结尾"/>
+              <el-input v-model="model.metadata.name" :disabled="isEdit" placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"/>
             </el-form-item>
             <el-form-item 
-              label="容量"
+              label="Capacity"
               :rules="[
                 validators.required(),
                 validators.consistofFloatNumber(false),
@@ -77,18 +77,18 @@
               </el-input>
             </el-form-item>
             <el-form-item
-              label="模式"
+              label="Model"
               :rules="[
                 validators.required(),
               ]"
               prop="spec.accessMode"
             >
               <template slot="label">
-                模式
+                Model
                 <el-tooltip effect="dark" placement="bottom-start" popper-class="ncs-el-tooltip-popper">
                   <template slot="content">
-                    根据存储提供者的不同，选择所支持的访问模式，具体规则参照
-                    <el-link type="primary" @click="handleJump('https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/#access-modes')">链接</el-link>
+                    Depending on the storage provider, select the supported access mode. For specific rules, refer to
+                    <el-link type="primary" @click="handleJump('https://kubernetes.io/en-us/docs/concepts/storage/persistent-volumes/#access-modes')">link</el-link>
                   </template>
                   <i class="el-icon-question" style="position: absolute;right:4px;top:11px"/>
                 </el-tooltip>
@@ -110,8 +110,8 @@
       </template>
     </x-request>
     <div slot="footer">
-      <el-button @click="close">取 消</el-button>
-      <el-button type="primary" @click="submit" :loading="commitLoading">确 定</el-button>
+      <el-button @click="close">Cancel</el-button>
+      <el-button type="primary" @click="submit" :loading="commitLoading">OK</el-button>
     </div>
   </el-dialog>
 </template>
@@ -207,7 +207,7 @@ export default {
             return curr.provisioner === 'ceph.com/rbd' ? modes.slice(0, 2) : modes;
         },
         async submit() {
-            // 触发校验
+            // Trigger verification
             try {
                 if (this.$refs) {
                     await this.$refs.form.validate();
