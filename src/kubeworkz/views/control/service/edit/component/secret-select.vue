@@ -1,6 +1,6 @@
 <template>
   <el-form-item
-    label="证书"
+    label="Certificate"
     :prop="prefixProp"
     :rules="[
       ...(visible ? [ validators.required() ] : []),
@@ -24,7 +24,7 @@
             v-if="(data || []).length > 0"
             v-model="model" 
             filterable
-            placeholder="请选择"
+            placeholder="Please choose"
           >
             <el-option
               v-for="item in data"
@@ -38,15 +38,15 @@
             v-else
             v-model="model"
             disabled
-            placeholder="暂无证书"
+            placeholder="No certificate yet"
           />
           <div>
-            如需新的证书，可
+            If you need a new certificate, you can
             <el-link
               type="primary"
               @click="openNewWindow({ path: '/control/secrets/list', query: $route.query })"
             >
-              创建证书
+              Create certificate
             </el-link>
             <i
               style="font-size:16px; margin-left: 8px"
@@ -58,7 +58,7 @@
           <!-- <u-quick-create
             :loading="loading"
             :to="{ path: `/control/secrets/list` }"
-            name="证书"
+            name="Certificate"
             @refresh="refresh"
           /> -->
         </div>

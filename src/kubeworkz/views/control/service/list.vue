@@ -7,10 +7,10 @@
           @click="toCreate"
           icon="el-icon-plus"
         >
-          创建{{ workloadLiteral }}
+          Create {{ workloadLiteral }}
         </el-button>
         <el-button @click="refresh" square icon="el-icon-refresh-right"></el-button>
-        <inputSearch v-model="filterName" placeholder="请输入名称搜索" position="right" @search="onSearch"/>
+        <inputSearch v-model="filterName" placeholder="Please enter name to search" position="right" @search="onSearch"/>
     </div>
     <div :key="workload">
         <x-request
@@ -30,7 +30,7 @@
                 >
                     <el-table-column
                         prop="metadata.name"
-                        label="名称"
+                        label="Name"
                         :show-overflow-tooltip="true"
                         sortable
                     >
@@ -43,13 +43,13 @@
                     <template v-if="['services'].includes(workload)">
                         <el-table-column
                             prop="spec.type"
-                            label="类型"
+                            label="Type"
                             width="120"
                         >
                         </el-table-column>
                         <el-table-column
                             prop="spec.ports"
-                            label="	内部访问地址"
+                            label="Internal access address"
                             width="160"
                         >
                             <template slot-scope="{ row }">
@@ -61,7 +61,7 @@
                         </el-table-column>
                         <el-table-column
                             prop="spec.clusterIP"
-                            label="	集群 IP"
+                            label="	Cluster IP"
                             width="100"
                             :show-overflow-tooltip="true"
                         >
@@ -70,7 +70,7 @@
                     <template v-if="['ingresses'].includes(workload)">
                         <el-table-column
                             prop="outside"
-                            label="	外部访问地址"
+                            label="	External access address"
                             width="160"
                             :show-overflow-tooltip="true"
                         >
@@ -80,11 +80,11 @@
                         </el-table-column>
                         <el-table-column
                             prop="spec.rules"
-                            label="	规则"
+                            label="	Rule"
                             width="200"
                         >
                             <template slot-scope="{ row }">
-                                <el-tooltip effect="dark" content="Top Center 提示文字" placement="top">
+                                <el-tooltip effect="dark" content="Top Center prompt text" placement="top">
                                      <div slot="content" v-html="ingressRuleFilter(row).join('<br/>')"></div>
                                     <div :class="$style.textEllipsis">{{ingressRuleFilter(row).join(', ')}}</div>
                                 </el-tooltip>
@@ -93,7 +93,7 @@
                     </template>
                     <el-table-column
                         prop="metadata.creationTimestamp"
-                        label="创建时间"
+                        label="Creation time"
                         width="170"
                         :show-overflow-tooltip="true"
                         sortable
@@ -104,19 +104,19 @@
                     </el-table-column>
                     <el-table-column
                         prop="action"
-                        label="操作"
+                        label="Action"
                         width="180"
                     >
                         <template slot-scope="{ row }">
                             <qz-link-group max="3"  :key="workload">
                                 <el-link type="primary" @click="editItem(row)" :disabled="isReview">
-                                    设置
+                                    Set up
                                 </el-link>
                                 <el-link type="primary" @click="deleteItem(row)" :disabled="isReview">
-                                    删除
+                                    Delete
                                 </el-link>
                                 <el-link type="primary" @click="editYAML(row)" :disabled="isReview">
-                                    YAML 设置
+                                    YAML settings
                                 </el-link>
                             </qz-link-group>
                         </template>
@@ -219,9 +219,9 @@ export default {
         workloadLiteral() {
             switch (this.workload) {
                 case 'services':
-                    return '服务';
+                    return 'Service';
                 case 'ingresses':
-                    return '负载均衡';
+                    return 'Load balancing';
                 default:
                     return '';
             }
@@ -230,21 +230,21 @@ export default {
             switch (this.workload) {
                 case 'services':
                     return [
-                        { title: '名称', name: 'metadata.name', sortable: true, textwrap: true },
-                        { title: '类型', name: 'spec.type', width: '80px' },
-                        { title: '内部访问地址', name: 'spec.ports', width: '120px', type: 'tag' },
-                        { title: '集群 IP', name: 'spec.clusterIP', width: '100px' },
-                        { title: '创建时间', name: 'metadata.creationTimestamp', width: '160px', sortable: true },
-                        { title: '操作', name: 'operation', width: '160px' },
+                        { title: 'Name', name: 'metadata.name', sortable: true, textwrap: true },
+                        { title: 'Type', name: 'spec.type', width: '80px' },
+                        { title: 'Internal access address', name: 'spec.ports', width: '120px', type: 'tag' },
+                        { title: 'Cluster IP', name: 'spec.clusterIP', width: '100px' },
+                        { title: 'Creation time', name: 'metadata.creationTimestamp', width: '160px', sortable: true },
+                        { title: 'Operation', name: 'operation', width: '160px' },
                     ];
 
                 case 'ingresses':
                     return [
-                        { title: '名称', name: 'metadata.name', sortable: true, textwrap: true },
-                        { title: '外部访问地址', name: 'outside', width: '120px' },
-                        { title: '规则', name: 'spec.rules', width: '200px' },
-                        { title: '创建时间', name: 'metadata.creationTimestamp', width: '160px', sortable: true },
-                        { title: '操作', name: 'operation', width: '160px' },
+                        { title: 'Name', name: 'metadata.name', sortable: true, textwrap: true },
+                        { title: 'External access address', name: 'outside', width: '120px' },
+                        { title: 'Rule', name: 'spec.rules', width: '200px' },
+                        { title: 'Creation time', name: 'metadata.creationTimestamp', width: '160px', sortable: true },
+                        { title: 'Operation', name: 'operation', width: '160px' },
                     ];
                 default:
                     return [];
@@ -352,7 +352,7 @@ export default {
             const response = await this.instanceService(reqParam);
 
             this.$editResource({
-                title: `${item.metadata.name} —— YAML 设置`,
+                title: `${item.metadata.name} —— YAML settings`,
                 content: response,
                 onSubmit: async content => {
                     await this.modifyService({
@@ -370,8 +370,8 @@ export default {
         },
         deleteItem(item) {
             this.$eConfirm({
-                title: '删除',
-                message: `确定删除 ${item.metadata.name} 吗？`,
+                title: 'Delete',
+                message: `Confirm delete of ${item.metadata.name}?`,
                 width: '460px',
                 ok: async () => {
                     const reqParam = {

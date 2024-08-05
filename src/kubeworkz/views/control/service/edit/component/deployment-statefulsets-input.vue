@@ -12,13 +12,13 @@
         <el-switch v-if="showSwitch" v-model="localSwitchStatus" @change="() => {model = [];workloadName = null;}" style="margin-right:12px"></el-switch>
       </div>
       <template v-if="!showSwitch || localSwitchStatus">
-        <div style="color: rgb(153, 153, 153);"><span>若关联多个工作负载，请使用高级模式</span></div>
+        <div style="color: rgb(153, 153, 153);"><span>If multiple workloads are associated, use advanced mode</span></div>
         <el-radio-group v-model="mode" v-if="showModeRadio" :disabled="insertNsfLabel">
           <el-radio label="simple">
-            简单
+            Simple
           </el-radio>
           <el-radio label="hard">
-            高级
+            Advanced
           </el-radio>
         </el-radio-group>
         <template v-if="mode === 'simple'">
@@ -49,7 +49,7 @@
                 v-model="workloadName"
                 disabled
                 size="large"
-                placeholder="暂无工作负载"
+                placeholder="No workload yet"
               />
             </template>
           </x-request>

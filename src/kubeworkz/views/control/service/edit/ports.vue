@@ -18,34 +18,34 @@
                 dataIndex: 'targetPort',
             },
             {
-                title: '协议',
+                title: 'Protocol',
                 dataIndex: 'protocol',
             },
             {
-                title: '服务端口',
+                title: 'Service port',
                 dataIndex: 'port',
             },
             ...(isNodePort ? [ { title: 'NodePort', dataIndex: 'nodePort' }] : []),
             {
-                title: '名称',
+                title: 'Name',
                 dataIndex: 'name'
             }
         ]"
       >
         <template slot="th-targetPort">
-          目标端口
+          Target port
           <el-tooltip effect="dark" placement="right" popper-class="ncs-el-tooltip-popper">
             <template slot="content">
-              pod的端口
+              Pod port
             </template>
             <i class="el-icon-question"/>
           </el-tooltip>
         </template>
         <template slot="th-port">
-          服务端口
+          Service port
           <el-tooltip effect="dark" placement="right" popper-class="ncs-el-tooltip-popper">
             <template slot="content">
-              k8s集群内部访问service的端口
+              The port used to access the service within the k8s cluster
             </template>
             <i class="el-icon-question"/>
           </el-tooltip>
@@ -54,7 +54,7 @@
           NodePort
           <el-tooltip effect="dark" placement="right" popper-class="ncs-el-tooltip-popper">
             <template slot="content">
-              NodePort 为通过节点转发的访问端口，为空时K8s默认会自动在【30000~32767】之间随机分配，可能会与其他应用产生冲突，强烈建议该端口由管理员统一分配使用。
+              NodePort is the access port forwarded through the node. If it is empty, K8s will automatically assign it randomly between [30000~32767] by default, which may conflict with other applications. It is strongly recommended that this port be uniformly allocated and used by the administrator.
             </template>
             <i class="el-icon-question"/>
           </el-tooltip>
@@ -68,7 +68,7 @@
               validators.numberBetween(1, 65535, false),
             ]"
           >
-            <el-input v-model="portModel.targetPort" placeholder="1-65535内的整数"/>
+            <el-input v-model="portModel.targetPort" placeholder="1-65535 internal integer"/>
           </el-form-item>
         </template>
         <template v-slot:protocol="{record: portModel}">
@@ -89,7 +89,7 @@
               validators.enhanceNoRedundance(exsitKeys, `${portModel.protocol}-${portModel.port}`, false),
             ]"
           >
-            <el-input v-model="portModel.port" placeholder="1-65535内的整数"/>
+            <el-input v-model="portModel.port" placeholder="1-65535 internal integer"/>
           </el-form-item>
         </template>
         <template v-slot:nodePort="{record: portModel, index: portIndex}">
@@ -101,7 +101,7 @@
               validators.numberBetween(30000, 32767, false),
             ]"
           >
-            <el-input v-model="portModel.nodePort" placeholder="30000-32767，默认随机"/>
+            <el-input v-model="portModel.nodePort" placeholder="30000-32767, default random"/>
           </el-form-item>
         </template>
         <template v-slot:name="{record: portModel, index: portIndex}">
@@ -115,13 +115,13 @@
               validators.lengthBetween(1, 63, false),
             ]"
           >
-            <el-input v-model="portModel.name" placeholder="1-63位小写字母、数字或中划线组成，字母和数字开头和结尾"/>
+            <el-input v-model="portModel.name" placeholder="1-63 lowercase letters, numbers or underscores, beginning and ending with letters and numbers"/>
           </el-form-item>
         </template>
       </dynamicBlock>
       <el-alert
         v-if="isEdit"
-        title="修改Ports名称会导致对应的对外服务端口失效，需要重新设置对应的对外服务端口"
+        title="Modifying the Ports name will cause the corresponding external service port to become invalid, and the corresponding external service port needs to be reset."
         type="info"
         show-icon
         :closable="false"

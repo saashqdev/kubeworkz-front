@@ -5,71 +5,71 @@
       style="margin-bottom: 12px"
       @click="viewYAML"
     >
-      查看详细信息
+      Check the detail information
     </el-button>
-    <el-descriptions title="基本信息" :column="1">
-      <el-descriptions-item label="负载均衡名称">
+    <el-descriptions title="Basic Information" :column="1">
+      <el-descriptions-item label="Load balancing name">
         {{ instance.metadata.name }}
       </el-descriptions-item>
-      <el-descriptions-item label="集群名称">
+      <el-descriptions-item label="Cluster name">
         {{ cluster }}
       </el-descriptions-item>
-      <el-descriptions-item label="空间">
+      <el-descriptions-item label="Namespace">
         {{ namespace }}
       </el-descriptions-item>
-      <el-descriptions-item label="创建时间">
+      <el-descriptions-item label="Creation time">
         {{ instance.metadata.creationTimestamp | smartDateFormat }}
       </el-descriptions-item>
-      <el-descriptions-item label="标签">
+      <el-descriptions-item label="Label">
         <div :class="$style.tagWrap">
           <el-tag type="info" v-for="label in instance.metadata.labels" :key="label.key" :title="label.key + ':' + label.value">{{ label.key }}: {{ label.value }}</el-tag>
         </div>
       </el-descriptions-item>
-      <el-descriptions-item label="注释">
+      <el-descriptions-item label="Annotation">
         <div :class="$style.tagWrap">
           <el-tag type="info" v-for="label in instance.metadata.annotations" :key="label.key" :title="label.key + ':' + label.value">{{ label.key }}: {{ label.value }}</el-tag>
         </div>
       </el-descriptions-item>
     </el-descriptions>
-    <el-descriptions title="负载均衡详情" :column="1">
-      <el-descriptions-item label="规则">
+    <el-descriptions title="Load balancing details" :column="1">
+      <el-descriptions-item label="Rule">
         <el-table
           :data="instance.spec.pathInfos || []"
           style="width: 100%"
         >
           <el-table-column
             prop="url"
-            label="转发路径"
+            label="Forwarding path"
             :show-overflow-tooltip="true"
           >
           </el-table-column>
           <el-table-column
             prop="service"
-            label="服务"
+            label="Serve"
             :show-overflow-tooltip="true"
           >
           </el-table-column>
         </el-table>
       </el-descriptions-item>
     </el-descriptions>
-    <el-descriptions title="关联的服务" :column="1"/>
+    <el-descriptions title="Associated services" :column="1"/>
     <el-table
       :data="(instance.spec.services || []).map(s => ({ name: s }))"
       style="width: 100%"
     >
       <el-table-column
         prop="name"
-        label="服务名称"
+        label="Service name"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         prop="operation"
-        label="操作"
+        label="Operation"
         :show-overflow-tooltip="true"
       >
         <template slot-scope="{ row }">
           <el-link type="primary" :to="{ path: `/control/services/${row.name}`, query: $route.query }">
-            查看服务
+            View services
           </el-link>
         </template>
       </el-table-column>
@@ -92,12 +92,12 @@ export default {
         return {
             podService: workloadService.getAPIV1,
             pathColumn: [
-                { title: '转发路径', name: 'url' },
-                { title: '服务', name: 'service', width: '40%' },
+                { title: 'Forwarding path', name: 'url' },
+                { title: 'Serve', name: 'service', width: '40%' },
             ],
             serviceColumn: [
-                { title: '服务名称', name: 'name' },
-                { title: '操作', name: 'operation', width: '40%' },
+                { title: 'Service name', name: 'name' },
+                { title: 'Operation', name: 'operation', width: '40%' },
             ],
         };
     },
@@ -113,7 +113,7 @@ export default {
         },
         viewYAML() {
             this.$editResource({
-                title: `${this.instance.metadata.name} —— 查看详细信息`,
+                title: `${this.instance.metadata.name} —— check the detail information`,
                 content: this.instance.puresource,
                 editorOption: {
                     readOnly: true,

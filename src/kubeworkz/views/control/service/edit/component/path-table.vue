@@ -9,11 +9,11 @@
               dataIndex: 'path',
           },
           {
-              title: '服务',
+              title: 'Service',
               dataIndex: 'service',
           },
           {
-              title: '端口',
+              title: 'Port',
               dataIndex: 'port',
           }
       ]"
@@ -29,7 +29,7 @@
             validators.noRedundance(exsitPaths, false)
           ]"
         >
-          <el-input v-model="record.path" placeholder="请输入路径或者正则"/>
+          <el-input v-model="record.path" placeholder="Please enter the path or regular expression"/>
         </el-form-item>
       </template>
       <template v-slot:service="{record, index}">
@@ -44,7 +44,7 @@
           <el-select
             v-model="record.service"
             filterable
-            placeholder="请选择"
+            placeholder="Please choose"
           >
             <el-option
               v-for="item in serviceList"
@@ -66,7 +66,7 @@
             validators.numberBetween(1, 65535, false),
           ]"
         >
-          <el-input v-model="record.port" placeholder="1-65535内的整数"/>
+          <el-input v-model="record.port" placeholder="1-65535 internal integer"/>
         </el-form-item>
       </template>
     </dynamicBlock>

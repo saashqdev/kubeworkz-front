@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-dialog
-      title="外部访问设置"
+      title="External access settings"
       :visible.sync="show"
       width="640px"
       @close="close"
@@ -17,20 +17,20 @@
             :showAddBtn="false"
             :columns="[
                 {
-                    title: '服务端口',
+                    title: 'Service port',
                     dataIndex: 'servicePort',
                 },
                 {
-                    title: '协议',
+                    title: 'Protocol',
                     dataIndex: 'protocol',
                 },
                 {
-                    title: '对外服务端口',
+                    title: 'External service port',
                     dataIndex: 'ex',
                     width: '250px'
                 },
                 {
-                    title: '服务端口名称',
+                    title: 'Service port name',
                     dataIndex: 'servicePortName',
                 },
             ]"
@@ -52,7 +52,7 @@
                 >
                   <el-input
                     v-model="dataModel.ex"
-                    placeholder="1-65535内的整数"
+                    placeholder="1-65535 internal integer"
                     :disabled="!dataModel.enable"
                   />
                 </el-form-item>
@@ -62,8 +62,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer">
-        <el-button @click="close">取 消</el-button>
-        <el-button type="primary" @click="submit" :loading="submitLoading">确 定</el-button>
+        <el-button @click="close">Cancel</el-button>
+        <el-button type="primary" @click="submit" :loading="submitLoading">OK</el-button>
       </div>
     </el-dialog>
   </div>

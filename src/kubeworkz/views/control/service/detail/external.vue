@@ -2,7 +2,7 @@
   <div>
     <div>
       <el-alert
-        description="服务（Service）可通过负载均衡控制器暴露给容器云外的应用访问，启用外部访问需指定从负载均衡控制器上对外暴露的端口，端口不可使用80和443，<协议, 端口>组合不可重复，端口不可被其他业务占用。可以通过负载均衡控制器的IP：port进行访问。负载均衡控制器有多个实例，可以通过DNS关联，实现高可用。服务端口名称修改会导致端口设置失效。"
+        description="Services can be exposed to applications outside the container cloud through the load balancing controller. To enable external access, you need to specify the port exposed from the load balancing controller. Ports 80 and 443 cannot be used. The <protocol, port> combination cannot be repeated. , the port cannot be occupied by other services. It can be accessed through the IP:port of the load balancing controller. The load balancing controller has multiple instances and can be associated through DNS to achieve high availability. Changing the service port name will cause the port settings to become invalid."
         type="warning"
         show-icon
         :closable="false"
@@ -13,7 +13,7 @@
           type="primary"
           @click="$refs.externalDialog.open()"
         >
-          设置
+          Set up
         </el-button>
         <x-request
           ref="request"
@@ -24,7 +24,7 @@
         >
           <template slot-scope="{ data }">
             <span :title="(data || []).join(',')">
-              访问地址: {{ (data || []).join(',') }}
+              Address: {{ (data || []).join(',') }}
             </span>
           </template>
         </x-request>
@@ -45,7 +45,7 @@
         >
           <el-table-column
             prop="ex"
-            label="对外服务端口"
+            label="External service port"
             :show-overflow-tooltip="true"
           >
             <template slot-scope="{ row }">
@@ -54,17 +54,17 @@
           </el-table-column>
           <el-table-column
             prop="protocol"
-            label="类型"
+            label="Type"
             :show-overflow-tooltip="true"
           ></el-table-column>
           <el-table-column
             prop="servicePort"
-            label="服务端口"
+            label="Service port"
             :show-overflow-tooltip="true"
           ></el-table-column>
           <el-table-column
             prop="servicePortName"
-            label="服务端口名称"
+            label="Service port name"
             :show-overflow-tooltip="true"
           ></el-table-column>
         </el-table>
@@ -96,9 +96,9 @@ export default {
             externalService: extendWorkloadService.getExternalAddress,
             externalAddressService: extendWorkloadService.getExternalAddressInService,
             columns: [
-                { title: '对外服务端口', name: 'ex' },
-                { title: '类型', name: 'protocol' },
-                { title: '服务端口', name: 'servicePort' },
+                { title: 'External service port', name: 'ex' },
+                { title: 'Type', name: 'protocol' },
+                { title: 'Service port', name: 'servicePort' },
             ],
         };
     },

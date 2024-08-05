@@ -2,17 +2,17 @@
   <div>
     <el-form ref="form" :model="model" label-position="right" label-width="120px" style="width:80%">
       <el-form-item
-        label="名称"
+        label="Name"
         prop="metadata.name"
         :rules="[
           validators.required(),
           validators.k8sResourceNameValidator(),
         ]"
       >
-        <el-input v-model="model.metadata.name" :disabled="isEdit" placeholder="1-63位小写字母、数字、或中划线组成，以字母开头，字母或数字结尾"/>
+        <el-input v-model="model.metadata.name" :disabled="isEdit" placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"/>
       </el-form-item>
       <el-form-item
-        label="端口"
+        label="Port"
         prop="spec.port"
         :rules="[
           validators.required(),
@@ -21,7 +21,7 @@
         <el-select
           v-model="model.spec.port"
           filterable
-          placeholder="请选择"
+          placeholder="Please choose"
         >
           <el-option
             v-for="item in ports"
@@ -33,7 +33,7 @@
         </el-select>
       </el-form-item>
       <el-form-item
-        label="调度算法"
+        label="Scheduling Algorithm"
         prop="spec.annotations.dispatch"
         :rules="[
           validators.required(),
@@ -42,7 +42,7 @@
         <el-select
           v-model="model.spec.annotations.dispatch"
           filterable
-          placeholder="请选择"
+          placeholder="Please choose"
         >
           <el-option
             v-for="item in dispatches"
@@ -56,7 +56,7 @@
       <secret-select
         v-if="model.spec.port === 443"
         v-model="model.spec.singleTLS.secretName"
-        description="所有域名使用相同证书"
+        description="All domain names use the same certificate"
         :init-visible="model.spec.singleTLS.enable"
         prefixProp="spec.singleTLS.secretName"
       >
@@ -69,7 +69,7 @@
         </template>
       </secret-select>
       <el-form-item
-        label="转发规则"
+        label="Forwarding rules"
         prop="spec.rulesConfig"
         :rules="[
           validators.required(),
@@ -83,7 +83,7 @@
         />
       </el-form-item>
       <el-form-item
-        label="会话保持"
+        label="Session persistence"
       >
         <el-switch
           v-model="model.spec.annotations.enableSession"
@@ -91,14 +91,14 @@
       </el-form-item>
       <el-form-item
         v-if="model.spec.annotations.enableSession"
-        label="Cookie 名称"
+        label="Cookie name"
         prop="spec.annotations.cookieName"
         :rules="[
           validators.required(),
           validators.cookie(false),
         ]"
       >
-        <div style="color: #999">访问时需携带对应名称的cookie，会话保持功能才能正常工作。</div>
+        <div style="color: #999">You need to carry the cookie with the corresponding name when accessing, so that the session persistence function can work properly. kie name</div>
         <el-input
           v-model="model.spec.annotations.cookieName"
         />
@@ -109,7 +109,7 @@
           @click="submit"
           :loading="submitLoading"
         >
-          {{ isEdit ? '立即修改' : '立即创建' }}
+          {{ isEdit ? 'Modify now' : 'Create now' }}
         </el-button>
       </el-form-item>
     </el-form>

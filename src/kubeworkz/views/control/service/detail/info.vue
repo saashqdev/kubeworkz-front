@@ -5,51 +5,51 @@
       style="margin-bottom: 12px"
       @click="viewYAML"
     >
-      查看详细信息
+      Check the detail information
     </el-button>
-    <el-descriptions title="基本信息" :column="1">
-      <el-descriptions-item label="服务名称">
+    <el-descriptions title="Basic Information" :column="1">
+      <el-descriptions-item label="Service name">
         {{ instance.metadata.name }}
       </el-descriptions-item>
-      <el-descriptions-item label="集群名称">
+      <el-descriptions-item label="Cluster name">
         {{ cluster }}
       </el-descriptions-item>
-      <el-descriptions-item label="空间">
+      <el-descriptions-item label="Namespace">
         {{ namespace }}
       </el-descriptions-item>
-      <el-descriptions-item label="创建时间">
+      <el-descriptions-item label="Creation time">
         {{ instance.metadata.creationTimestamp | smartDateFormat }}
       </el-descriptions-item>
-      <el-descriptions-item label="标签">
+      <el-descriptions-item label="Label">
         <div :class="$style.tagWrap">
           <el-tag type="info" v-for="label in instance.metadata.labels" :key="label.key" :title="label.key + ':' + label.value">{{ label.key }}: {{ label.value }}</el-tag>
         </div>
       </el-descriptions-item>
-      <el-descriptions-item label="注释">
+      <el-descriptions-item label="Annotate">
         <div :class="$style.tagWrap">
           <el-tag type="info" v-for="label in instance.metadata.annotations" :key="label.key" :title="label.key + ':' + label.value">{{ label.key }}: {{ label.value }}</el-tag>
         </div>
       </el-descriptions-item>
-      <el-descriptions-item label="标签选择器">
+      <el-descriptions-item label="Tag selector">
         <div :class="$style.tagWrap">
           <el-tag type="info" v-for="label in instance.spec.matchLabels" :key="label.key" :title="label.key + ':' + label.value">{{ label.key }}: {{ label.value }}</el-tag>
         </div>
       </el-descriptions-item>
-      <el-descriptions-item label="类型">
+      <el-descriptions-item label="Type">
         {{ instance.spec.type }}
       </el-descriptions-item>
-      <el-descriptions-item label="集群 IP">
+      <el-descriptions-item label="Cluster IP">
         {{ instance.spec.clusterIP }}
       </el-descriptions-item>
       <el-descriptions-item
         v-if="instance.spec.type === 'LoadBalancer'"
-        label="IP 类型"
+        label="IP Type"
       >
         {{ instance.spec.ipTypeText }}
       </el-descriptions-item>
       <el-descriptions-item
         v-if="instance.spec.type === 'LoadBalancer'"
-        label="网络带宽"
+        label="Network bandwidth"
       >
         {{ instance.spec.bandWidth }}Mbps
       </el-descriptions-item>
@@ -60,26 +60,26 @@
         {{(instance.spec.externalIPs || []).join(', ')}}
       </el-descriptions-item>
     </el-descriptions>
-    <el-descriptions title="服务详情" :column="1">
-      <el-descriptions-item label="域名">
+    <el-descriptions title="Service details" :column="1">
+      <el-descriptions-item label="Domain name">
         {{ instance.spec.host }}
       </el-descriptions-item>
-      <el-descriptions-item label="端口">
+      <el-descriptions-item label="Port">
         <el-table
           :data="instance.spec.ports"
           style="width: 100%"
         >
           <el-table-column
             prop="targetPort"
-            label="目标端口"
+            label="Target port"
           ></el-table-column>
           <el-table-column
             prop="protocol"
-            label="协议"
+            label="Protocol"
           ></el-table-column>
           <el-table-column
             prop="port"
-            label="服务端口"
+            label="Service port"
           ></el-table-column>
           <el-table-column
             v-if="instance.spec.type === 'NodePort'"
@@ -88,12 +88,12 @@
           ></el-table-column>
           <el-table-column
             prop="name"
-            label="名称"
+            label="Name"
           ></el-table-column>
         </el-table>
       </el-descriptions-item>
     </el-descriptions>
-    <el-descriptions title="副本" :column="1"/>
+    <el-descriptions title="Copy" :column="1"/>
     <x-request
       ref="request"
       :service="podService"
@@ -108,7 +108,7 @@
         > 
           <el-table-column
             prop="metadata.name"
-            label="副本名称"
+            label="Copy name"
             :show-overflow-tooltip="true"
           >
             <template slot-scope="{ row }">
@@ -119,7 +119,7 @@
           </el-table-column>
           <el-table-column
             prop="status.phase"
-            label="副本状态"
+            label="Replica status"
             width="80"
             :show-overflow-tooltip="true"
           ></el-table-column>
@@ -131,7 +131,7 @@
           ></el-table-column>
           <el-table-column
             prop="creationTimestamp"
-            label="创建时间"
+            label="Creation time"
             width="180"
             :show-overflow-tooltip="true"
           >
@@ -141,13 +141,13 @@
           </el-table-column>
           <el-table-column
             prop="operation"
-            label="操作"
+            label="Operation"
             width="180"
             :show-overflow-tooltip="true"
           >
             <template slot-scope="{ row }">
               <el-link type="primary" :to="{ path: `/control/services/${instance.metadata.name}/event`, query: { ...$route.query, kind: 'pod', pod: row.metadata.name } }">
-                查看事件
+                View events
               </el-link>
             </template>
           </el-table-column>
@@ -172,11 +172,11 @@ export default {
         return {
             // podService: workloadExtendService.getWorkloads,
             podColumn: [
-                { title: '副本名称', name: 'metadata.name' },
-                { title: '副本状态', name: 'status.phase', width: '80px' },
+                { title: 'Copy name', name: 'metadata.name' },
+                { title: 'Replica status', name: 'status.phase', width: '80px' },
                 { title: 'IP', name: 'status.podIP', width: '100px' },
-                { title: '创建时间', name: 'creationTimestamp', width: '180px' },
-                { title: '操作', name: 'operation', width: '200px' },
+                { title: 'Creation time', name: 'creationTimestamp', width: '180px' },
+                { title: 'Operation', name: 'operation', width: '200px' },
             ],
         };
     },
@@ -202,10 +202,10 @@ export default {
         },
         serviceColumn() {
             const columns = [
-                { title: '目标端口', name: 'targetPort', width: '100px' },
-                { title: '协议', name: 'protocol', width: '100px' },
-                { title: '服务端口', name: 'port', width: '100px' },
-                { title: '名称', name: 'name' },
+                { title: 'Target port', name: 'targetPort', width: '100px' },
+                { title: 'Protocol', name: 'protocol', width: '100px' },
+                { title: 'Service port', name: 'port', width: '100px' },
+                { title: 'Name', name: 'name' },
             ];
             if (this.instance.spec.type === 'NodePort') {
                 columns.splice(3, 0, { title: 'NodePort', name: 'nodePort', width: '100px' });
@@ -229,7 +229,7 @@ export default {
         },
         viewYAML() {
             this.$editResource({
-                title: `${this.instance.metadata.name} —— 查看详细信息`,
+                title: `${this.instance.metadata.name} —— Check the detail information`,
                 content: this.instance.puresource,
                 editorOption: {
                     readOnly: true,

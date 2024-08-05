@@ -15,12 +15,12 @@
           :initialAdd="true"
           :minCount="1"
           :getDefaultItem="getRuleTemplate"
-          addButtonText="添加分组"
+          addButtonText="Add group"
           :validateFile="prefixProp"
         >
           <template slot-scope="{ item: ruleModel, index: ruleIndex }">
             <el-form-item 
-              label="域名"
+              label="Domain name"
               :rules="[
                 validators.required(),
               ]"
@@ -40,7 +40,7 @@
               :prefixProp="`${prefixProp}.${ruleIndex}.secretName`"
             />
             <el-form-item 
-              label="路径"
+              label="Path"
               :rules="[
                 validators.required(),
               ]"

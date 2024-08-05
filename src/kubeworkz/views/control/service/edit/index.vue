@@ -2,7 +2,7 @@
   <div>
     <el-form ref="form" :model="model" label-position="right" label-width="120px">
       <el-form-item
-        label="名称"
+        label="Name"
         prop="metadata.name"
         :rules="[
           validators.required(),
@@ -10,11 +10,11 @@
         ]"
       >
         <div style="color: rgb(153, 153, 153);">
-          通过四层负载均衡访问关联工作负载实例
+          Access associated workload instances through Layer 4 load balancing
         </div>
-        <el-input v-model="model.metadata.name" :disabled="isEdit" placeholder="1-63位小写字母、数字、或中划线组成，以字母开头，字母或数字结尾"/>
+        <el-input v-model="model.metadata.name" :disabled="isEdit" placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"/>
       </el-form-item>
-      <el-form-item label="类型">
+      <el-form-item label="Type">
         <el-radio-group
           v-model="type"
           :disabled="isEdit && model.spec.template === 'headless'"
@@ -27,28 +27,28 @@
         </div>
       </el-form-item>
       <el-form-item
-        label="使用方式"
+        label="Usage"
         v-if="type === 'ClusterIP'"
       >
         <el-radio-group
           v-model="model.spec.template"
           :disabled="isEdit && model.spec.template === 'headless'"
         >
-          <el-radio label="normal">常规服务</el-radio>
+          <el-radio label="normal">Regular services</el-radio>
           <el-radio
             label="headless"
             :disabled="isEdit && model.spec.template !== 'headless'"
           >
-            Headless 服务
+            Headless service
           </el-radio>
-          <el-radio label="external">外部服务</el-radio>
+          <el-radio label="external">External services</el-radio>
         </el-radio-group>
         <div style="color: rgb(153, 153, 153);">
           {{ templateDescription }}
         </div>
       </el-form-item>
       <el-form-item
-        label="标签"
+        label="Label"
         layout="block"
       >
         <label-editor
@@ -87,7 +87,7 @@
         label="Endpoints"
         prop="endpoints"
       >
-        <div style="color: rgb(153, 153, 153);">请输入IP地址，多个IP地址以空格分割。不支持输入以下IP地址: 127.0.0.0/8, 169.254.0.0/16, 224.0.0.0/24。</div>
+        <div style="color: rgb(153, 153, 153);">Please enter an IP address. Multiple IP addresses should be separated by spaces. Entering the following IP addresses is not supported: 127.0.0.0/8, 169.254.0.0/16, 224.0.0.0/24.</div>
         <chipsInput
           prefixProp="endpoints"
           v-model="model.endpoints" 
@@ -103,17 +103,17 @@
           validators.required()
         ]"
       >
-        <div style="color: rgb(153, 153, 153);">请输入IP地址，多个IP地址以空格分割。不支持输入以下IP地址: 127.0.0.0/8, 169.254.0.0/16, 224.0.0.0/24。</div>
+        <div style="color: rgb(153, 153, 153);">Please enter an IP address. Multiple IP addresses should be separated by spaces. Entering the following IP addresses is not supported: 127.0.0.0/8, 169.254.0.0/16, 224.0.0.0/24.</div>
         <chipsInput
           prefixProp="spec.externalIPs"
           v-model="model.spec.externalIPs" 
           :rules="chipRules"
-          placeholder="需填写正确的 IP 地址，多个 IP 地址以空格分隔"
+          placeholder="The correct IP address needs to be filled in. Multiple IP addresses should be separated by spaces."
         />
       </el-form-item>
       <el-form-item
         v-if="model.spec.template !== 'headless'"
-        label="会话保持"
+        label="Session persistence"
       >
         <el-switch v-model="serviceSessionSwitch"></el-switch>
       </el-form-item>
@@ -123,7 +123,7 @@
           @click="submit"
           :loading="submitLoading"
         >
-          {{ isEdit ? '立即修改' : '立即创建' }}
+          {{ isEdit ? 'Modify now' : 'Create now' }}
         </el-button>
       </el-form-item>
     </el-form>
@@ -165,13 +165,13 @@ export default {
             group: [],
             chipRules: [
                 {
-                    message: 'IP 地址格式不正确',
+                    message: 'IP address format is incorrect',
                     validator: (val, list) => {
                         return /^[\d.\s]+$/.test(val);
                     },
                 },
                 {
-                    message: 'IP 地址格式不正确',
+                    message: 'IP address format is incorrect',
                     validator: (val, list) => {
                         const arr = val.split('.');
                         if (arr.length !== 4) return false;
@@ -188,13 +188,13 @@ export default {
                     },
                 },
                 {
-                    message: '该 IP 地址已存在',
+                    message: 'This IP address already exists',
                     validator: (val, list) => {
                         return !list.includes(val);
                     },
                 },
                 {
-                    message: '该 IP 地址在禁止地址段内',
+                    message: 'The IP address is within a prohibited address range',
                     validator: (val, list) => {
                         const arr = val.split('.');
                         // 127.0.0.0/8
@@ -211,7 +211,7 @@ export default {
                     },
                 },
                 {
-                    message: '最多添加1000个 IP 地址',
+                    message: 'Add up to 1000 IP addresses',
                     validator: (val, list) => {
                         return list.length < 1000;
                     },
@@ -272,13 +272,13 @@ export default {
             },
         },
         typeDescription() {
-            if (this.type === 'nodePort') return '通过集群节点静态端口暴露给集群外访问。';
-            if (this.type === 'ClusterIP') return '通过集群内部域名暴露给同一集群内其他工作负载访问。';
+            if (this.type === 'nodePort') return 'Exposed to access outside the cluster through cluster node static ports.';
+            if (this.type === 'ClusterIP') return 'Exposed to other workloads in the same cluster through cluster internal domain names.';
             return '';
         },
         templateDescription() {
-            if (this.model.spec.template === 'headless') return '用于StatefulSet创建过程，关联到StatefulSet资源，为StatefulSet工作副本提供静态域名';
-            if (this.model.spec.template === 'external') return '通过External公开外部IP地址，以访问集群内的服务';
+            if (this.model.spec.template === 'headless') return 'Used in the StatefulSet creation process, associated to the StatefulSet resource, and provides a static domain name for the StatefulSet working copy.';
+            if (this.model.spec.template === 'external') return 'Expose external IP addresses through External to access services within the cluster';
             return '';
         },
     },
@@ -349,19 +349,19 @@ export default {
                         data: yaml,
                         noAlert: true,
                     });
-                    // 处理endpoints
+                    // Handle endpoints
                     if (this.model.spec.template === 'headless') {
                         if (this.model.spec.enableSelecter && this.hasEndpoints) {
-                            // 删除endpoints
+                            // Delete endpoints
                             await this.deleteEndpoints();
                         } else if (!this.model.spec.enableSelecter && this.hasEndpoints && !this.model.endpoints.length) {
-                            // 删除endpoints
+                            // Delete endpoints
                             await this.deleteEndpoints();
                         } else if (!this.model.spec.enableSelecter && this.hasEndpoints && !!this.model.endpoints.length) {
-                            // 更新endpoints
+                            // Update endpoints
                             await this.updateEndpoints();
                         } else if (!this.model.spec.enableSelecter && !this.hasEndpoints && !!this.model.endpoints.length) {
-                            // 创建endpoints
+                            // Create endpoints
                             await this.createdEndpoints();
                         }
                     }
@@ -379,7 +379,7 @@ export default {
                         data: yaml,
                         noAlert: true,
                     });
-                    // 处理endpoints
+                    // Handle endpoints
                     if (this.model.spec.template === 'headless' && !this.model.spec.enableSelecter && this.model.endpoints.length) {
                         //
                         await this.createdEndpoints();
