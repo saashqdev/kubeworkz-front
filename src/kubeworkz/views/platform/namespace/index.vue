@@ -324,7 +324,7 @@ export default {
             //     title: '删除',
             //     content: `确认要删除 ${item.namespace} 吗？`,
             //     ok: async () => {
-            //         await cubeUltimateService.deleteNameSpace({
+            //         await kubeUltimateService.deleteNameSpace({
             //             params: {
             //                 type: item.type,
             //                 namespace: item.namespace,
@@ -362,7 +362,7 @@ export default {
                     name: this.delNsInfo.namespace,
                 },
             });
-            // await cubeUltimateService.deleteNameSpace({
+            // await kubeUltimateService.deleteNameSpace({
             //     params: omit(this.delNsInfo, [ 'isFederateMaster' ]),
             // });
             this.delLoading = false;

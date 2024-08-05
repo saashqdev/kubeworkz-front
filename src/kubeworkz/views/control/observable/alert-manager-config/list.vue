@@ -6,7 +6,7 @@
         color="primary"
         @click="toCreate"
       >
-        创建告警策略组
+        Create an alert policy group
       </u-button>
       <u-button
         icon="refresh"
@@ -15,7 +15,7 @@
       />
       <kube-input-search
         :align-right="true"
-        placeholder="请输入名称搜索"
+        placeholder="Please enter name to search"
         @search="onSearch"
       />
     </u-linear-layout>
@@ -48,35 +48,35 @@
             <u-linear-layout gap="small">
               <u-link-list :key="workload">
                 <!-- <u-link-list-item @click="silentItem(item)">
-                  静默
+                  Silence
                 </u-link-list-item> -->
                 <u-link-list-item @click="editItem(item)">
-                  设置
+                  Set up
                 </u-link-list-item>
                 <u-link-list-item @click="deleteItem(item)">
-                  删除
+                  Delete
                 </u-link-list-item>
                 <u-link-list-item @click="editYAML(item)">
-                  YAML 设置
+                  YAML settings
                 </u-link-list-item>
               </u-link-list>
             </u-linear-layout>
           </template>
           <template #noData>
             <template v-if="pagenation.selector">
-              没有搜索到相关内容，可调整关键词重新搜索
+              If no relevant content is found, you can adjust the keywords and search again.
             </template>
             <template v-else>
-              还没有任何 告警策略组 现在就 <u-link @click="toCreate">
-                立即创建
+              There are no alert policy groups yet <u-link @click="toCreate">
+                Create now
               </u-link>
-              一个吧
+              Just one
             </template>
           </template>
           <template #error>
-            获取数据失败，请
+            Failed to obtain data, please
             <u-link @click="refresh">
-              重试
+              rerty
             </u-link>
           </template>
         </kube-table>
@@ -109,7 +109,7 @@ import {
 export default {
     metaInfo() {
         return {
-            title: '告警策略组 - kubeworkz',
+            title: 'Alert policy group - kubeworkz',
         };
     },
     components: {
@@ -119,10 +119,10 @@ export default {
     data() {
         return {
             columns: [
-                { title: '策略组名称', name: 'metadata.name' },
-                // { title: '创建人', name: 'creater' },
-                { title: '创建时间', name: 'metadata.creationTimestamp', width: '180px' },
-                { title: '操作', name: 'operation', width: '180px' },
+                { title: 'Policy group name', name: 'metadata.name' },
+                // { title: 'Founder', name: 'creater' },
+                { title: 'Creation time', name: 'metadata.creationTimestamp', width: '180px' },
+                { title: 'Operate', name: 'operation', width: '180px' },
             ],
         };
     },
@@ -204,7 +204,7 @@ export default {
             const response = await this.instanceService(reqParam);
 
             this.$editResource({
-                title: `${item.metadata.name} —— YAML 设置`,
+                title: `${item.metadata.name} —— YAML settings`,
                 content: response,
                 onSubmit: async content => {
                     await this.modifyService({
@@ -220,8 +220,8 @@ export default {
         },
         deleteItem(item) {
             this.$confirm({
-                title: '删除',
-                content: `确认要删除 ${item.metadata.name} 吗？`,
+                title: 'Delete',
+                content: `Confirm to delete ${item.metadata.name}?`,
                 ok: async () => {
                     const reqParam = {
                         pathParams: {

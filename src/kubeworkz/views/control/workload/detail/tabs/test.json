@@ -4,7 +4,7 @@
     "metadata": {
         "creationTimestamp": "2021-05-30T07:57:51Z",
         "generation": 1,
-        "name": "cube-workload-deployment",
+        "name": "kube-workload-deployment",
         "namespace": "kube-public",
         "resourceVersion": "10007949",
         "uid": "be7d19df-ff35-4306-91f9-def8235ed1fe"

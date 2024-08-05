@@ -47,7 +47,7 @@
             :show-overflow-tooltip="true"
           />
           <el-table-column
-            prop="cuberesourcequota"
+            prop="kuberesourcequota"
             label="共享资源"
             :show-overflow-tooltip="true"
             width="75"
@@ -65,10 +65,10 @@
             width="140"
           >
             <template slot-scope="{ row }">
-              <template v-if="row.cuberesourcequota">
-                <div>{{ row.cuberesourcequota.status.used.cpu }} / {{row.cuberesourcequota.status.hard.cpu }} Cores</div>
-                <div>{{ row.cuberesourcequota.status.used.memory | clusterMemory }} / {{ row.cuberesourcequota.status.hard.memory | clusterMemory }} Gi</div>
-                <div>{{ row.cuberesourcequota.status.used.gpu }} / {{ row.cuberesourcequota.status.hard.gpu }} Cores</div>
+              <template v-if="row.kuberesourcequota">
+                <div>{{ row.kuberesourcequota.status.used.cpu }} / {{row.kuberesourcequota.status.hard.cpu }} Cores</div>
+                <div>{{ row.kuberesourcequota.status.used.memory | clusterMemory }} / {{ row.kuberesourcequota.status.hard.memory | clusterMemory }} Gi</div>
+                <div>{{ row.kuberesourcequota.status.used.gpu }} / {{ row.kuberesourcequota.status.hard.gpu }} Cores</div>
               </template>
               <div v-else>
                 -
@@ -82,9 +82,9 @@
             width="140"
           >
             <template slot-scope="{ row }">
-              <template v-if="row.cuberesourcequota">
-                <div>{{ row.cuberesourcequota.status.used.limitsCpu }} / {{ row.cuberesourcequota.status.hard.limitsCpu }} Cores</div>
-                <div>{{ row.cuberesourcequota.status.used.limitsMemory | clusterMemory }} / {{ row.cuberesourcequota.status.hard.limitsMemory | clusterMemory }} Gi</div>
+              <template v-if="row.kuberesourcequota">
+                <div>{{ row.kuberesourcequota.status.used.limitsCpu }} / {{ row.kuberesourcequota.status.hard.limitsCpu }} Cores</div>
+                <div>{{ row.kuberesourcequota.status.used.limitsMemory | clusterMemory }} / {{ row.kuberesourcequota.status.hard.limitsMemory | clusterMemory }} Gi</div>
                 <div>-</div>
               </template>
               <div v-else>
@@ -160,7 +160,7 @@ export default {
                 // { name: 'tenant', title: '租户标识' },
                 { name: 'tenantDisplayName', title: '租户' },
                 // { name: 'resource', title: '共享资源（已分配请求配额/已分配上限配额/请求配额/上限配额）', width: '370px' },
-                { name: 'cuberesourcequota', title: '共享资源', width: '75px'},
+                { name: 'kuberesourcequota', title: '共享资源', width: '75px'},
                 { name: 'request', title: '已分配配额/请求配额', width: '140px'},
                 { name: 'limit', title: '已分配上限/上限配额', width: '140px'},
                 // { name: 'memory', title: '持久存储（已分配/配额）' },
@@ -210,7 +210,7 @@ export default {
                 });
                 const res = await Promise.all(arr);
                 list.forEach((i, index) => {
-                    i.cuberesourcequota = res[index] && toCubeResourceQoutaPlainObject(res[index]);
+                    i.kuberesourcequota = res[index] && toCubeResourceQoutaPlainObject(res[index]);
                 });
                 return list;
             };

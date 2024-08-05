@@ -1,22 +1,22 @@
 <template>
   <div>
-    <!-- <u-info-list-group :title="`${title} 监控`" /> -->
+    <!-- <u-info-list-group :title="`${title} monitor`" /> -->
     <div style="margin-bottom: 20px">
       <i v-if="loading" class="el-icon-loading" style="font-size: 24px"/>
       <div v-else-if="rows.length === 0">
-        暂无监控项
+        No monitoring items yet
       </div>
       <template v-else>
         <div style="display:flex;">
           <div style="margin-right:8px;display:flex;">
-            <span style="margin-right:8px;line-height:32px">时间:</span>
+            <span style="margin-right:8px;line-height:32px">Time:</span>
             <dateCustomPicker
               :date="{ startTime, endTime}"
               @update="updateTime"
             />
           </div>
           <div v-if="selectshowable" style="margin-right:8px;display:flex;">
-            <span style="margin-right:8px;line-height:32px">监控维度:</span>
+            <span style="margin-right:8px;line-height:32px">Monitoring dimensions:</span>
             <dimensionSelect :value="rows" @change="handleAsyncPanelShow"/>
           </div>
         </div>
@@ -45,7 +45,7 @@
                     <span :class="$style.occupation">{{ findLongest(sources[v.name]) }}</span>
                     <el-select
                         v-model="variableSelected[v.name]" 
-                        placeholder="请选择"
+                        placeholder="Please choose"
                         style="width: 100%"
                         :class="$style.selector"
                     >
@@ -63,7 +63,7 @@
                   value=""
                   disabled
                   style="width: auto"
-                  :placeholder="`暂无${v.name}`"
+                  :placeholder="`None ${v.name}`"
                 />
               </template>
             </kube-valve>
@@ -150,7 +150,7 @@ import dateCustomPicker from 'kubeworkz/elComponent/date-custom-picker.vue';
 import dimensionSelect from './dimensionSelect.vue';
 export default {
     metaInfo: {
-        title: '监控 - kubeworkz',
+        title: 'Monitor - kubeworkz',
     },
     components: {
         kubeDataBoard,
@@ -165,10 +165,10 @@ export default {
             // podService: workloadService.getAPIV1,
             queryService: monitorService.queryRange,
             periodList: [
-                { name: '近30分钟', value: 30 * 60 * 1000 },
-                { name: '近6小时', value: 360 * 60 * 1000 },
-                { name: '近1天', value: 1440 * 60 * 1000 },
-                // { name: '近7天', value: 10080 * 60 * 1000 },
+                { name: 'nearly 30 minutes', value: 30 * 60 * 1000 },
+                { name: 'nearly 6 hours', value: 360 * 60 * 1000 },
+                { name: 'last 1 day', value: 1440 * 60 * 1000 },
+                // { name: 'last 7 days', value: 10080 * 60 * 1000 },
             ],
             startTime: 0,
             endTime: 0,
@@ -219,13 +219,13 @@ export default {
         },
         resource() {
             if (this.workload === 'pods') {
-                return 'cube-pod-resource';
+                return 'kube-pod-resource';
             }
             if (this.workload === 'persistentvolumeclaims') {
-                return 'cube-resource-persistent-volumes';
+                return 'kube-resource-persistent-volumes';
             }
             if (this.workload) {
-                return 'cube-workload-resource';
+                return 'kube-workload-resource';
             }
             return this.$route.meta.resource;
 

@@ -10,7 +10,7 @@ module.exports = {
     },
     htmls: [{
         filename: 'index.html',
-        title: 'Kubecube',
+        title: 'Kubeworkz',
         hash: true,
         template: './src/template/index.html',
     }],

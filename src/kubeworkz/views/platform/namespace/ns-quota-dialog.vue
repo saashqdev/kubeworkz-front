@@ -246,12 +246,12 @@ export default {
         handleValidate() {
             this.$refs.observer.validate();
         },
-        resolver(cubeQuotaResponse) {
+        resolver(kubeQuotaResponse) {
             // this.type = response ? 'edit' : 'create';
             if (!this.isEdit) {
                 this.model.resource = toResourceQuotaPlainObject();
             }
-            const quota = toCubeResourceQoutaPlainObject(cubeQuotaResponse);
+            const quota = toCubeResourceQoutaPlainObject(kubeQuotaResponse);
             Object.assign(this.availables, {
                 cpu: +new BigNumber(quota.status.hard.cpu).minus(quota.status.used.cpu).plus(this.model.resource.spec.hard.cpu), // - unitConvertCPU(clusterQuota.assignedCpu),
                 limitsCpu: +new BigNumber(quota.status.hard.limitsCpu).minus(quota.status.used.limitsCpu).plus(this.model.resource.spec.hard.limitsCpu),

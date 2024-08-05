@@ -30,20 +30,20 @@ const service = Service({
         },
         createCubeQuotaResource: {
             method: 'post',
-            url: '/apis/quota.kubeworkz.io/v1/cuberesourcequota',
+            url: '/apis/quota.kubeworkz.io/v1/kuberesourcequota',
         },
         getCubeQuotaResource: {
             method: 'get',
-            url: '/apis/quota.kubeworkz.io/v1/cuberesourcequota',
+            url: '/apis/quota.kubeworkz.io/v1/kuberesourcequota',
         },
         getCubeQuotaResourceInstance: {
             method: 'get',
-            template: '/apis/quota.kubeworkz.io/v1/cuberesourcequota/{name}',
+            template: '/apis/quota.kubeworkz.io/v1/kuberesourcequota/{name}',
             silent: true,
         },
         patchKubeDefineResource: {
             method: 'patch',
-            template: '/apis/quota.kubeworkz.io/v1/cuberesourcequota/{name}',
+            template: '/apis/quota.kubeworkz.io/v1/kuberesourcequota/{name}',
             headers: {
                 'Content-Type': 'application/merge-patch+json',
             },

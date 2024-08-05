@@ -1,8 +1,8 @@
 <template>
   <div :class="$style.wrap">
-    <el-button type="primary" @click="handleOpen">维度选择</el-button>
+    <el-button type="primary" @click="handleOpen">Dimension selection</el-button>
     <el-dialog
-      title="维度选择"
+      title="Dimension selection"
       :visible="dialogVisible"
       width="600px"
       @close="close"
@@ -17,8 +17,8 @@
         </div>
       </div>
       <div slot="footer">
-        <el-button @click="close">取 消</el-button>
-        <el-button type="primary" @click="submit">确 定</el-button>
+        <el-button @click="close">Cancel</el-button>
+        <el-button type="primary" @click="submit">OK</el-button>
       </div>
     </el-dialog>
   </div>

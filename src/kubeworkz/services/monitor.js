@@ -29,7 +29,7 @@ const service = Service({
         },
         // getPodDashboards: {
         //     method: 'get',
-        //     url: '/kube/proxy/clusters/pivot-cluster/apis/monitoring.kubeworkz.io/v1/namespaces/kube-public/dashboards/cube-pod-resource',
+        //     url: '/kube/proxy/clusters/pivot-cluster/apis/monitoring.kubeworkz.io/v1/namespaces/kube-public/dashboards/kube-pod-resource',
         // },
         getVariableLabel: {
             method: 'get',

@@ -158,8 +158,8 @@ export default {
         },
     },
     methods: {
-        resolver(cubeQuotaResponse) {
-            if (!cubeQuotaResponse) {
+        resolver(kubeQuotaResponse) {
+            if (!kubeQuotaResponse) {
                 this.model.availables = {
                     cpu: 0,
                     limitsCpu: 0,
@@ -171,7 +171,7 @@ export default {
                 return;
             }
             this.model.resource = toResourceQuotaPlainObject();
-            const quota = toCubeResourceQoutaPlainObject(cubeQuotaResponse);
+            const quota = toCubeResourceQoutaPlainObject(kubeQuotaResponse);
             Object.assign(this.model.availables, {
                 cpu: quota.status.hard.cpu - quota.status.used.cpu, // - unitConvertCPU(clusterQuota.assignedCpu),
                 limitsCpu: quota.status.hard.limitsCpu - quota.status.used.limitsCpu,

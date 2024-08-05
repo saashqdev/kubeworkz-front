@@ -16,7 +16,7 @@ npm install
 npm run build
 docker build .
 ```
-Put the packaged front-end image in the container of the frontend deployment under the Kubecube-system namespace.
+Put the packaged front-end image in the container of the frontend deployment under the Kubekube-system namespace.
 
 ## For Developers
 ### Preparation 

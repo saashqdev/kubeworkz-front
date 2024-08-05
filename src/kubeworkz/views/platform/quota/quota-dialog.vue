@@ -120,9 +120,9 @@ export default {
                 }),
             ]);
         },
-        resolver([ cubeQuotaResponse, clusterQuota ]) {
-            this.type = cubeQuotaResponse ? 'edit' : 'create';
-            this.model = toCubeResourceQoutaPlainObject(cubeQuotaResponse);
+        resolver([ kubeQuotaResponse, clusterQuota ]) {
+            this.type = kubeQuotaResponse ? 'edit' : 'create';
+            this.model = toCubeResourceQoutaPlainObject(kubeQuotaResponse);
             this.used = {
                 usedCpu: this.model.status.used.cpu,
                 usedMemory: this.model.status.used.memory,

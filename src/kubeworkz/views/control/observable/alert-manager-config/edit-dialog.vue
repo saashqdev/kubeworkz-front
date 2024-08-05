@@ -1,6 +1,6 @@
 <template>
   <u-modal
-    :title="isEdit ? '编辑告警策略组' : '创建告警策略组'"
+    :title="isEdit ? 'Edit alert policy group' : 'Create an alert policy group'"
     ok-button=""
     cancel-button=""
     :visible.sync="show"
@@ -24,7 +24,7 @@
           }"
         >
           <kube-form-item
-            label="通知方式"
+            label="Method to inform"
             :message="errors && errors[0]"
             name="storage"
             layout="block"
@@ -41,7 +41,7 @@
                   :class="$style.group"
                 >
                   <div :class="$style.header">
-                    <span>状态：</span>
+                    <span>State:</span>
                     <u-switch
                       v-model="inputsModel.enable"
                       :with-text="true"
@@ -57,12 +57,12 @@
                     :row-comp="blockRowLayout"
                     :column-comp="null"
                     :data-template="() => getDataTemplate(inputsModel.receiver)"
-                    button-name="添加"
+                    button-name="Add to"
                   >
                     <template slot-scope="{ model: row, index }">
                       <kube-form v-if="inputsModel.receiver === 'wechatConfigs'">
                         <kube-form-item
-                          label="是否接受告警恢复通知"
+                          label="Whether to accept alert recovery notification"
                           label-size="large"
                         >
                           <u-checkbox
@@ -79,7 +79,7 @@
                           }"
                         >
                           <kube-form-item
-                            label="企业微信用户名"
+                            label="Enterprise WeChat username"
                             layout="list"
                             :message="row.toUser && errors && errors[0]"
                           >
@@ -90,7 +90,7 @@
                             />
                           </kube-form-item>
                           <kube-form-item
-                            label="企业微信用户组"
+                            label="Enterprise WeChat User Group"
                             layout="list"
                             :message="row.toParty && errors && errors[0]"
                           >
@@ -101,7 +101,7 @@
                             />
                           </kube-form-item>
                           <kube-form-item
-                            label="企业微信用户标签"
+                            label="Enterprise WeChat user label"
                             layout="list"
                             :message="row.toTag && errors && errors[0]"
                           >
@@ -113,7 +113,7 @@
                           </kube-form-item>
                         </validation-provider>
                         <u-link @click="row.advanced = !row.advanced">
-                          {{ row.advanced ? '收起' : '展开' }}更多配置
+                          {{ row.advanced ? 'Close' : 'Expand' }}More configurations
                         </u-link>
                         <template v-if="row.advanced">
                           <validation-provider
@@ -162,7 +162,7 @@
                       </kube-form>
                       <kube-form v-if="inputsModel.receiver === 'webhookConfigs'">
                         <kube-form-item
-                          label="是否接受告警恢复通知"
+                          label="Whether to accept alert recovery notification"
                           label-size="large"
                         >
                           <u-checkbox
@@ -198,7 +198,7 @@
                       </kube-form>
                       <template v-if="inputsModel.receiver === 'emailConfigs'">
                         <kube-form-item
-                          label="是否接受告警恢复通知"
+                          label="Whether to accept alert recovery notification"
                           label-size="large"
                         >
                           <u-checkbox
@@ -210,7 +210,7 @@
                           :name="`emailConfigs-${index}-to`"
                         >
                           <kube-form-item
-                            label="收件人邮箱"
+                            label="Recipient email"
                             layout="list"
                             :message="errors && errors[0]"
                           >
@@ -223,7 +223,7 @@
                           </kube-form-item>
                         </validation-provider>
                         <u-link @click="row.advanced = !row.advanced">
-                          {{ row.advanced ? '收起' : '展开' }}更多配置
+                          {{ row.advanced ? 'Close' : 'Expand' }}More configurations
                         </u-link>
                         <template v-if="row.advanced">
                           <validation-provider
@@ -302,10 +302,10 @@
                 :icon="scope.submitting ? 'loading' : ''"
                 @click="scope.submit"
               >
-                确定
+                OK
               </u-button>
               <u-button @click="close">
-                取消
+                Cancel
               </u-button>
             </u-linear-layout>
           </template>

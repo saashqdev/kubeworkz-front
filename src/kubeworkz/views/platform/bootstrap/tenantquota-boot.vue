@@ -224,9 +224,9 @@ export default {
                 return clusters;
             };
         },
-        quotaResolver([ cubeQuotaResponse, clusterQuota ]) {
-            this.quotaType = cubeQuotaResponse ? 'edit' : 'create';
-            this.model.model = toCubeResourceQoutaPlainObject(cubeQuotaResponse);
+        quotaResolver([ kubeQuotaResponse, clusterQuota ]) {
+            this.quotaType = kubeQuotaResponse ? 'edit' : 'create';
+            this.model.model = toCubeResourceQoutaPlainObject(kubeQuotaResponse);
             this.model.used = {
                 usedCpu: this.model.model.status.used.cpu,
                 usedMemory: this.model.model.status.used.memory,
@@ -243,8 +243,8 @@ export default {
 
 
 
-            // this.quotaType = cubeQuotaResponse ? 'edit' : 'create';
-            // this.model.model = toCubeResourceQoutaPlainObject(cubeQuotaResponse);
+            // this.quotaType = kubeQuotaResponse ? 'edit' : 'create';
+            // this.model.model = toCubeResourceQoutaPlainObject(kubeQuotaResponse);
             // this.model.used = {
             //   usedCpu: this.model.model.status.used.cpu,
             //   usedMemory: this.model.model.status.used.memory,
