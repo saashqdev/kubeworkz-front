@@ -2,17 +2,17 @@
   <div>
     <el-form ref="form" :model="model" label-position="right" label-width="120px" style="width:80%">
       <el-form-item 
-        label="名称" 
+        label="Name" 
         prop="metadata.name"
         :rules="[
           validators.required(),
           validators.k8sResourceNameValidator()
         ]"
       >
-        <el-input v-model="model.metadata.name" :disabled="isEdit" placeholder="1-63位小写字母、数字、或中划线组成，以字母开头，字母或数字结尾"/>
+        <el-input v-model="model.metadata.name" :disabled="isEdit" placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"/>
       </el-form-item>
       <el-form-item 
-        label="类型" 
+        label="Type" 
         prop="type"
         :rules="[
           validators.required()
@@ -33,7 +33,7 @@
       </el-form-item>
       <template v-if="model.type === 'Opaque'">
         <el-form-item 
-          label="数据" 
+          label="Data" 
           prop="type"
         >
           <opaque-input v-model="model.data" prefixProp="data"/>
@@ -41,13 +41,13 @@
       </template>
       <template v-if="model.type === 'kubernetes.io/tls'">
         <el-form-item 
-          label="证书内容"
+          label="Certificate content"
         >
           <el-input
             v-model="model.dataSource['tls.crt']"
             type="textarea"
             :rows="5"
-            placeholder="请输入PEM编码"
+            placeholder="Please enter PEM code"
           />
           <u-uploader
             :class="$style.uploader"
@@ -56,18 +56,18 @@
             @before-send="onUpload($event, 'tls.crt')"
             @error="uploadError($event, 'tls.crt')"
           >
-            <el-link type="primary">上传文件</el-link>
+            <el-link type="primary">Upload files</el-link>
           </u-uploader>
           <span ref="tls.crt"></span>
         </el-form-item>
         <el-form-item 
-          label="私钥"
+          label="Private key"
         >
           <el-input
             v-model="model.dataSource['tls.key']"
             type="textarea"
             :rows="5"
-            placeholder="请输入PEM编码"
+            placeholder="Please enter PEM code"
           />
           <u-uploader
             :class="$style.uploader"
@@ -76,14 +76,14 @@
             @before-send="onUpload($event, 'tls.key')"
             @error="uploadError($event, 'tls.key')"
           >
-            <el-link type="primary">上传文件</el-link>
+            <el-link type="primary">Upload files</el-link>
           </u-uploader>
           <span ref="tls.key"></span>
         </el-form-item>
       </template>
       <template v-if="model.type === 'kubernetes.io/dockerconfigjson'">
         <el-form-item 
-          label="数据" 
+          label="Data" 
           prop="type"
         >
           <docker-config v-model="model.dockerData" prefixProp="dockerData"/>
@@ -95,7 +95,7 @@
           @click="submit"
           :loading="submitLoading"
         >
-          {{ isEdit ? '立即修改' : '立即创建' }}
+          {{ isEdit ? 'Modify now' : 'Create now' }}
         </el-button>
       </el-form-item>
     </el-form>
@@ -155,7 +155,7 @@ export default {
         uploadError(e, key) {
             const ref = this.$refs[key];
             ref.color = 'error';
-            if (e.name === 'ExtensionError') { ref.innerText = `只能上传 ${e.extensions.join(', ')} 类型的文件！`; } else { ref.innerText = e.message; }
+            if (e.name === 'ExtensionError') { ref.innerText = `Can only upload ${e.extensions.join(', ')} type of file!`; } else { ref.innerText = e.message; }
             this.model.dataSource[key] = '';
         },
         async submit() {

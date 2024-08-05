@@ -1,20 +1,20 @@
 <template>
   <div>
     <u-info-list-group
-      title="基本信息"
+      title="Basic Information"
       column="1"
       label-size="large"
     >
-      <u-info-list-item label="日志任务名称">
+      <u-info-list-item label="Log task name">
         {{ instance.name }}
       </u-info-list-item>
-      <u-info-list-item label="创建时间">
+      <u-info-list-item label="Creation time">
         {{ instance.createTime | formatLocaleTime }}
       </u-info-list-item>
-      <u-info-list-item label="集群/空间">
+      <u-info-list-item label="cluster/namespace">
         {{ cluster }}/{{ namespace }}
       </u-info-list-item>
-      <u-info-list-item label="标签选择器">
+      <u-info-list-item label="Tag selector">
         <span
           v-for="label in instance.labelSelector"
           :key="label.key"
@@ -25,7 +25,7 @@
     </u-info-list-group>
     <u-info-list-group
       v-if="instance.inputs.length > 0"
-      title="高级配置"
+      title="Advanced configuration"
       column="1"
       label-size="large"
     >
@@ -34,35 +34,35 @@
         :key="idx"
       >
         <template slot="breif">
-          日志采集路径: {{ input.paths.map(p => p.path).join(', ') }}
+          Log collection path: {{ input.paths.map(p => p.path).join(', ') }}
         </template>
         <u-info-list-item
           v-if="input.paths.length"
-          label="日志采集路径"
+          label="Log collection path"
         >
           {{ input.paths.map(p => p.path).join(', ') }}
         </u-info-list-item>
         <u-info-list-item
           v-if="input.containerName"
-          label="容器名称"
+          label="Container name"
         >
           {{ input.containerName }}
         </u-info-list-item>
         <u-info-list-item
           v-if="input.matchFields.length > 0"
-          label="元信息/注入Pod标记"
+          label="Meta information/Injection Pod tag"
         >
           <kube-table
             table-width="100%"
             :columns="[
-              { title: '类型', name: 'type' },
+              { title: 'Type', name: 'type' },
               { title: 'Key', name: 'key' }]"
             :items="input.matchFields"
           />
         </u-info-list-item>
         <u-info-list-item
           v-if="input.fields.length > 0"
-          label="元信息/自定义标记"
+          label="Meta information/custom tags"
         >
           <kube-table
             table-width="100%"
@@ -74,7 +74,7 @@
         </u-info-list-item>
         <u-info-list-item
           v-if="input.multiline"
-          label="日志多行配置"
+          label="Log multi-line configuration"
         >
           <kube-table
             table-width="100%"
@@ -87,19 +87,19 @@
         </u-info-list-item>
         <u-info-list-item
           v-if="input.excludeFiles.length"
-          label="排除日志"
+          label="Exclude logs"
         >
           {{ input.excludeFiles.map(p => p.path).join(', ') }}
         </u-info-list-item>
         <u-info-list-item
           v-if="input.ignoreOlder"
-          label="忽略日志文件时长"
+          label="Ignore log file duration"
         >
           {{ input.ignoreOlder.num }} {{ input.ignoreOlder.unit }}
         </u-info-list-item>
         <u-info-list-item
           v-if="input.cleanLogs && (input.cleanLogs.retainDays || input.cleanLogs.retainDays === 0)"
-          label="日志保留"
+          label="Log retention"
         >
           {{ input.cleanLogs.retainDays }} 天
         </u-info-list-item>
@@ -118,15 +118,15 @@ export default {
         },
         modeUnitFilter(val) {
             if (val === 'retainNum') {
-                return '个';
+                return 'Unit';
             }
-            return '天';
+            return 'Day';
         },
         modeFilter(val) {
             if (val === 'retainNum') {
-                return '保留文件数';
+                return 'Number of files to keep';
             }
-            return '保留时间';
+            return 'Keep time';
         },
     },
     props: {

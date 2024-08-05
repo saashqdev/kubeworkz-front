@@ -14,7 +14,7 @@
       <div :class="$style.lpart">
         <!-- <span :class="$style.logType">
                     <u-icons name="logseerlognormal"></u-icons>
-                    <u-text>原始日志</u-text>
+                    <u-text>Original log</u-text>
                 </span> -->
       </div>
       <div :class="$style.rpart">
@@ -23,7 +23,7 @@
 
         <!-- <span @click="changeMODE('json')" style="margin-left: 10px" :class="$style.logType" :mode="mode === 'json'">
                     <u-icons name="logseerjson"></u-icons>
-                    <u-text>JSON格式</u-text>
+                    <u-text>JSON format</u-text>
                 </span> -->
         <!-- <span @click="openLikes" :class="$style.logType" :mode="selectedFileds.length > 0 || showLikesPopper"> -->
         <!-- <span
@@ -32,7 +32,7 @@
           @click="$refs.downloadmodal.open()"
         >
           <u-icons name="exportlog" />
-          <u-text>导出日志</u-text>
+          <u-text>Export log</u-text>
         </span> -->
         <span
           :class="$style.logType"
@@ -40,7 +40,7 @@
           @click="changeShowMode('source')"
         >
           <u-icons name="logseerlognormal" />
-          <u-text>原始日志</u-text>
+          <u-text>Original log</u-text>
         </span>
         <span
           :class="$style.logType"

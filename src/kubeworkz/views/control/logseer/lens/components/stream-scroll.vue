@@ -33,9 +33,9 @@ const scrollBoundary = 100;
 let uniqueKey = 0;
 export default {
     props: {
-        frequent: Number, // 秒
-        loadmoreFn: Function, // 一次性加载所有需要展示的数据
-        normalizeData: Function, // 数据正规化
+        frequent: Number, // second
+        loadmoreFn: Function, // Load all data that needs to be displayed at once
+        normalizeData: Function, // Data normalization
     },
     data() {
         return {
@@ -103,7 +103,7 @@ export default {
             return !this.containerHitBottom();
         },
         containerNotHitBottom() {
-            // 是否自动刷新当前页面 ？ 显示的数据位于最后
+            // Automatically refresh the current page? The data displayed is at the end
             if (this.allData.length === 0) return false;
             const b = this.containeElm;
             return b.clientHeight + b.scrollTop < b.scrollHeight - scrollBoundary;

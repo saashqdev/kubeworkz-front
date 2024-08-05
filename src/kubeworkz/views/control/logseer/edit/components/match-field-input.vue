@@ -4,7 +4,7 @@
     :get-default-item="getDataTemplate"
     :columns="[
       {
-        title: '类型',
+        title: 'Type',
         dataIndex: 'type',
       },
       {
@@ -16,7 +16,7 @@
     <template #type="{ record }">
       <el-select
         v-model="record.type"
-        placeholder="请选择"
+        placeholder="Please choose"
       >
         <el-option
           v-for="item in options"
@@ -35,7 +35,7 @@
       >
         <el-input
           v-model="record.key"
-          placeholder="1-63位小写字母、数字、或中划线组成，以字母开头，字母或数字结尾"
+          placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"
         />
       </el-form-item>
     </template>

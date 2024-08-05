@@ -2,7 +2,7 @@
   <u-input
     :value="query"
     size="normal large"
-    placeholder="请输入traceId"
+    placeholder="Please enter traceId"
     @keypress="onKeyPress"
     @change="onChange"
   />

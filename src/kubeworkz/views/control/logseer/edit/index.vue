@@ -7,37 +7,37 @@
       label-width="120px"
     >
       <el-form-item
-        label="日志任务名称"
+        label="Log task name"
         prop="name"
         :rules="[
-          { required: true, message: '名称不能为空' },
+          { required: true, message: 'Name is required' },
           validators.k8sResourceNameValidator(),
         ]"
       >
         <el-input
           v-model="model.name"
           :disabled="isEdit"
-          placeholder="1-63位小写字母、数字、或中划线组成，以字母开头，字母或数字结尾"
+          placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"
         />
       </el-form-item>
-      <el-form-item label="集群">
+      <el-form-item label="Cluster">
         {{ cluster }}
       </el-form-item>
-      <el-form-item label="空间">
+      <el-form-item label="Space">
         {{ namespace }}
       </el-form-item>
       <el-form-item
-        label="标签选择器"
+        label="Tag selector"
         :prop="`labelSelector`"
         :rules="[
-          { required: true, message: '不能为空'},
+          { required: true, message: 'Cannot be empty'},
         ]"
       >
         <template slot="label">
-          标签选择器
+          Tag selector
           <el-tooltip
             effect="dark"
-            content="通过Label选择指定的工作负载，采集其中的日志"
+            content="Select the specified workload through Label and collect its logs"
             placement="right"
             popper-class="kube-el-tooltip-popper"
           >
@@ -55,23 +55,23 @@
           prefix-prop="labelSelector"
         />
       </el-form-item>
-      <el-form-item label="采集配置项">
+      <el-form-item label="Collect configuration items">
         <dynamicTab
           v-model="model.inputs"
           validate-file="inputs"
           :initial-add="true"
           :min-count="1"
           :mini-formatter="(item, index) => {
-            return `配置-${index + 1}`
+            return `Configuration-${index + 1}`
           }"
           :get-default-item="getDefaultInputItem"
         >
           <template slot-scope="{item, index}">
             <el-form-item
-              label="配置项名称"
+              label="Configuration item name"
               :prop="`inputs.${index}.name`"
               :rules="[
-                { required: true, message: '名称不能为空'},
+                { required: true, message: 'Name is required'},
                 validators.k8sResourceNameValidator(),
               ]"
               :class="$style.inputsFieldItem"
@@ -79,23 +79,23 @@
               <el-input
                 v-model="item.name"
                 :disabled="item.exist"
-                placeholder="1-63位小写字母、数字、或中划线组成，以字母开头，字母或数字结尾"
+                placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"
               />
             </el-form-item>
             <el-form-item
-              label="日志源类型"
+              label="Log source type"
               :class="$style.inputsFieldItem"
             >
               <template slot="label">
-                日志源类型
+                Log source type
                 <el-tooltip
                   effect="dark"
                   placement="right"
                   popper-class="kube-el-tooltip-popper"
                 >
                   <template slot="content">
-                    容器标准输出：容器中的标准输出流；<br>
-                    容器日志：容器内产生的文本日志以及容器的元数据信息
+                    Container standard output: the standard output stream in the container;<br>
+                    Container logs: text logs generated within the container and metadata information of the container
                   </template>
                   <i
                     class="el-icon-question"
@@ -110,15 +110,15 @@
                 }"
               >
                 <el-radio label="dockerStdout">
-                  容器标准输出
+                  Container standard output
                 </el-radio>
                 <el-radio label="k8sLogfile">
-                  容器日志文件
+                  Container log files
                 </el-radio>
               </el-radio-group>
             </el-form-item>
             <el-form-item
-              label="日志采集路径"
+              label="Log collection path"
               :class="$style.inputsFieldItem"
             >
               <template v-if="item.type === 'dockerStdout'">
@@ -130,7 +130,7 @@
               <template v-if="item.type === 'k8sLogfile'">
                 <pathInput
                   v-model="item.paths"
-                  placeholder="输入日志路径或glob表达式"
+                  placeholder="Enter log path or glob expression"
                   :prefix-prop="`inputs.${index}.paths`"
                   :required="true"
                   :rules="[
@@ -140,14 +140,14 @@
               </template>
             </el-form-item>
             <el-form-item
-              label="容器"
+              label="Container"
               :class="$style.inputsFieldItem"
             >
               <template slot="label">
-                容器
+                Container
                 <el-tooltip
                   effect="dark"
-                  content="容器"
+                  content="Container"
                   placement="right"
                   popper-class="kube-el-tooltip-popper"
                 >
@@ -159,18 +159,18 @@
               </template>
               <el-input
                 v-model="item.containerName"
-                placeholder="输入容器名称"
+                placeholder="Enter container name"
               />
             </el-form-item>
             <el-form-item
-              label="元信息/注入Pod标记"
+              label="Meta information/Injection Pod tag"
               :class="$style.inputsFieldItem"
             >
               <template slot="label">
-                元信息/自定义标记
+                Meta information/custom tags
                 <el-tooltip
                   effect="dark"
-                  content="在日志配置中注入Pod的label(标签)、env(环境变量)、annotation(注解)，可用作日志查询页面的筛选条件。"
+                  content="Inject the Pod's label, env (environment variable), and annotation (annotation) into the log configuration, which can be used as filtering conditions on the log query page."
                   placement="right"
                   popper-class="kube-el-tooltip-popper"
                 >
@@ -186,14 +186,14 @@
               />
             </el-form-item>
             <el-form-item
-              label="元信息/自定义标记"
+              label="Meta information/custom tags"
               :class="$style.inputsFieldItem"
             >
               <template slot="label">
-                元信息/自定义标记
+                Meta information/custom tags
                 <el-tooltip
                   effect="dark"
-                  content="自定义Key-Value值，可用作日志查询页面的筛选条件"
+                  content="Customized Key-Value value, which can be used as filtering conditions on the log query page"
                   placement="right"
                   popper-class="kube-el-tooltip-popper"
                 >
@@ -209,7 +209,7 @@
               />
             </el-form-item>
             <el-form-item
-              label="日志多行配置"
+              label="Log multi-line configuration"
               :class="$style.inputsFieldItem"
             >
               <div style="display:flex;align-items:center;height:36px">
@@ -220,19 +220,19 @@
                 <el-input
                   v-if="item.multiline.active"
                   v-model="item.multiline.pattern"
-                  placeholder="输入匹配多行的正则表达式"
+                  placeholder="Enter a regular expression that matches multiple lines"
                 />
               </div>
             </el-form-item>
             <el-form-item
-              label="排除日志 "
+              label="Exclude logs "
               :class="$style.inputsFieldItem"
             >
               <template slot="label">
-                排除日志
+                Exclude logs
                 <el-tooltip
                   effect="dark"
-                  content="该路径下的文件将被忽略，日志内容不被收集"
+                  content="Files under this path will be ignored and log content will not be collected."
                   placement="right"
                   popper-class="kube-el-tooltip-popper"
                 >
@@ -244,19 +244,19 @@
               </template>
               <pathInput
                 v-model="item.excludeFiles"
-                placeholder="支持正则匹配，建议排除压缩文件，例如：\.gz$"
+                placeholder="Supports regular matching, it is recommended to exclude compressed files, for example:\.gz$"
                 :prefix-prop="`inputs.${index}.excludeFiles`"
               />
             </el-form-item>
             <el-form-item
-              label="忽略日志文件时长  "
+              label="Ignore log file duration  "
               :class="$style.inputsFieldItem"
             >
               <template slot="label">
-                忽略日志文件时长
+                Ignore log file duration
                 <el-tooltip
                   effect="dark"
-                  content="将忽略日志任务创建时间起对应时间段内的日志文件"
+                  content="Log files within the corresponding time period from the creation time of the log task will be ignored."
                   placement="right"
                   popper-class="kube-el-tooltip-popper"
                 >
@@ -274,13 +274,13 @@
                 step-strictly
                 style="width:160px"
               />
-              <span style="margin-left: 8px">小时</span>
+              <span style="margin-left: 8px">Hour</span>
             </el-form-item>
             <el-form-item
-              label="日志保留"
+              label="Log retention"
               :class="$style.inputsFieldItem"
             >
-              <span style="margin-right: 8px">保留时间</span>
+              <span style="margin-right: 8px">Keep time</span>
               <el-input-number
                 v-model="item.cleanLogs.retainDays"
                 controls-position="right"
@@ -289,7 +289,7 @@
                 step-strictly
                 style="width:160px"
               />
-              <span style="margin-left: 8px">天</span>
+              <span style="margin-left: 8px">Day</span>
             </el-form-item>
           </template>
         </dynamicTab>
@@ -299,7 +299,7 @@
           type="primary"
           @click="submit"
         >
-          {{ isEdit ? '立即更新' : '立即创建' }}
+          {{ isEdit ? 'Update immediately' : 'Create now' }}
         </el-button>
       </el-form-item>
     </el-form>
@@ -330,8 +330,8 @@ import logseerService from 'kubeworkz/services/logseer';
 export default {
     filters: {
         retainModeUnit(val) {
-            if (val === 'retainNum') return '个';
-            if (val === 'retainDays') return '天';
+            if (val === 'retainNum') return 'Individual';
+            if (val === 'retainDays') return 'Day';
             return '';
         },
     },
@@ -373,8 +373,8 @@ export default {
                     },
                 ],
                 containerName: '',
-                matchFields: [], // 元信息/注入Pod标记
-                fields: [], // 元信息/自定义标记
+                matchFields: [], // Meta information/Injection Pod tag
+                fields: [], // Meta information/custom tags
                 multiline: {
                     active: false,
                     pattern: '',
@@ -390,7 +390,7 @@ export default {
             };
         },
         async submit() {
-            // 触发校验
+            // Trigger verification
             try {
                 await this.$refs.form.validate();
             } catch (error) {

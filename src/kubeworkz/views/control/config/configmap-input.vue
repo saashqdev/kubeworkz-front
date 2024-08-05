@@ -7,14 +7,14 @@
     >
       <div :class="$style.itemHead">
         <div :class="$style.itemTitle">
-          data{{ index + 1 }}
+          Data{{ index + 1 }}
         </div>
         <div :class="$style.itemActionBox">
           <el-link
             type="primary"
             @click="handleDeleteItem(index)"
           >
-            delete
+            Delete
           </el-link>
         </div>
       </div>
@@ -30,7 +30,7 @@
         >
           <el-input
             v-model="item.key"
-            placeholder="Key 由数字、字母、'-'、 '_' 或'.'组成"
+            placeholder="Key consists of numbers, letters, '-', '_' or '.'"
           />
         </el-form-item>
         <el-form-item
@@ -54,7 +54,7 @@
         icon="el-icon-plus"
         @click="handleAdd"
       >
-        添加
+        Add to
       </el-button>
     </div>
   </div>

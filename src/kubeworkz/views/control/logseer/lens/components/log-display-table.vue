@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- 字段过滤显示模式 -->
+    <!-- Field filter display mode -->
     <div :class="[$style.table, $style.tableScroll]">
       <div :class="[$style.row, $style.thead]">
         <span
@@ -18,7 +18,7 @@
         >
           <span
             :class="$style.shrink"
-            :title="titleSpand ? '收起' : '展开'"
+            :title="titleSpand ? 'Close' : 'Expand'"
             @click="titleSpand = !titleSpand"
           >{{ titleSpand ? '❮': '❯' }}</span>
           message
@@ -79,7 +79,7 @@
                   <div :class="$style.menu">
                     <span
                       v-if="d.mode === 'source'"
-                      title="模式切换"
+                      title="Mode switching"
                       @click="d.mode = 'json'"
                     >
                       <u-icons
@@ -90,7 +90,7 @@
                     </span>
                     <span
                       v-if="d.mode === 'json'"
-                      title="模式切换"
+                      title="Mode switching"
                       @click="d.mode = 'source'"
                     >
                       <u-icons
@@ -100,7 +100,7 @@
                       />
                     </span>
                     <span
-                      title="日志上下文"
+                      title="Log context"
                       @click="goContext(d)"
                     >
                       <u-icons
@@ -181,7 +181,7 @@
       v-if="displayData.length === 0"
       :class="$style.nodata"
     >
-      <span>暂无相关日志</span>
+      <span>No related logs yet</span>
     </div>
   </div>
 </template>
@@ -273,19 +273,19 @@ export default {
             this.$store.commit('lens/setTableSort', this.tablesort === 'asc' ? 'desc' : 'asc');
             this.forceToRefresh();
         },
-        // findVisiableRows(e){
+        // findVisableRows(e){
         //     if(!this.$refs.table) return;
         //     const elm = this.containeElm;
         //     const height = window.innerHeight;
-        //     const visiableRows = [];
+        //     const visableRows = [];
         //     Array.prototype.forEach.call(this.$refs.table.children, (ele, idx) => {
         //         const top = ele.getBoundingClientRect().top;
-        //         if(top > 0 && top < height && !visiableRows.includes(idx)) {
-        //             visiableRows.push(idx)
+        //         if(top > 0 && top < height && !visableRows.includes(idx)) {
+        //             visableRows.push(idx)
         //         }
         //     });
 
-        //     this.visiableRows = this.visiableRows.concat(visiableRows);
+        //     this.visableRows = this.visableRows.concat(visableRows);
         // },
         removeSelectHead(f) {
             this.removeSelected(f);

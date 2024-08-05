@@ -6,7 +6,7 @@
       :underline="false"
       @click="handleImport"
     >
-      导入已有工作负载标签
+      Import existing workload tags
     </el-link>
     <labelEditor
       v-model="localLabels"
@@ -15,17 +15,17 @@
       :disabled="disabled"
     />
     <el-dialog
-      title="提示"
+      title="Hint"
       :visible.sync="dialogVisible"
     >
       <el-form
         label-position="right"
         label-width="120px"
       >
-        <el-form-item label="工作负载">
+        <el-form-item label="Workload">
           <el-select
             v-model="form.workload"
-            placeholder="请选择工作负载"
+            placeholder="Please select a workload"
           >
             <el-option-group
               label="deployment"
@@ -54,11 +54,11 @@
         slot="footer"
         class="dialog-footer"
       >
-        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button @click="dialogVisible = false">Cancel</el-button>
         <el-button
           type="primary"
           @click="handleSubmit"
-        >确 定</el-button>
+        >OK</el-button>
       </span>
     </el-dialog>
   </div>

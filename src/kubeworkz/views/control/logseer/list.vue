@@ -6,7 +6,7 @@
         icon="el-icon-plus"
         @click="toCreate"
       >
-        创建日志任务
+        Create log task
       </el-button>
       <el-button
         square
@@ -14,7 +14,7 @@
         @click="refresh"
       />
       <elInputSearch
-        placeholder="请输入名称搜索"
+        placeholder="Please enter name to search"
         position="right"
         @search="onSearch"
       />
@@ -35,7 +35,7 @@
         >
           <el-table-column
             prop="name"
-            label="日志任务名称"
+            label="Log task name"
             :show-overflow-tooltip="true"
             sortable
           >
@@ -50,7 +50,7 @@
           </el-table-column>
           <el-table-column
             prop="labelSelector"
-            label="标签选择器"
+            label="Tag selector"
           >
             <template slot-scope="{ row }">
               <tagList
@@ -61,7 +61,7 @@
           </el-table-column>
           <el-table-column
             prop="pathCollection"
-            label="日志路径"
+            label="Log path"
           >
             <template slot-scope="{ row }">
               <tagList
@@ -72,7 +72,7 @@
           </el-table-column>
           <el-table-column
             prop="createTime"
-            label="创建时间"
+            label="Creation time"
             :show-overflow-tooltip="true"
           >
             <template slot-scope="{ row }">
@@ -81,7 +81,7 @@
           </el-table-column>
           <el-table-column
             prop="operate"
-            label="操作"
+            label="Operate"
             :show-overflow-tooltip="true"
             width="120"
           >
@@ -90,14 +90,14 @@
                 type="primary"
                 @click="editItem(row)"
               >
-                设置
+                Set up
               </el-link>
               <el-link
                 type="primary"
                 style="margin-left:8px"
                 @click="deleteItem(row)"
               >
-                删除
+                Delete
               </el-link>
             </template>
           </el-table-column>
@@ -140,7 +140,7 @@ export default {
     },
     metaInfo: {
         title: 'kubeworkz',
-        titleTemplate: '日志任务管理 - %s',
+        titleTemplate: 'Log task management - %s',
     },
     filters: {
         logType(val) {
@@ -174,15 +174,15 @@ export default {
         },
         columns() {
             return [
-                { title: '日志任务名称', name: 'metadata.name', sortable: true, textwrap: true },
-                { title: '日志源类型', name: 'type', width: '120px' },
-                { title: '标签选择器', name: 'metadata.labels', width: '180px', type: 'tag', cellprops: {
+                { title: 'Log task name', name: 'metadata.name', sortable: true, textwrap: true },
+                { title: 'Log source type', name: 'type', width: '120px' },
+                { title: 'Tag selector', name: 'metadata.labels', width: '180px', type: 'tag', cellprops: {
                     formatter(item) { return `${item.key}=${item.value}`; },
                     isChip: true,
                 } },
-                { title: '日志路径', name: 'path', width: '200px', textwrap: true },
-                { title: '创建时间', name: 'metadata.creationTimestamp', width: '180px' },
-                { title: '操作', name: 'operation', width: '160px' },
+                { title: 'Log path', name: 'path', width: '200px', textwrap: true },
+                { title: 'Creation time', name: 'metadata.creationTimestamp', width: '180px' },
+                { title: 'Operate', name: 'operation', width: '160px' },
             ];
 
         },
@@ -251,8 +251,8 @@ export default {
         },
         deleteItem(item) {
             this.$confirm({
-                title: '删除',
-                content: `确认要删除 ${item.name} 吗？`,
+                title: 'Delete',
+                content: `Confirm to delete ${item.name}?`,
                 ok: async () => {
                     const reqParam = {
                         pathParams: {

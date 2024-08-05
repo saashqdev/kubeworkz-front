@@ -1,18 +1,18 @@
 <template>
   <u-modal
     :visible.sync="show"
-    title="日志导出"
+    title="Log export"
     size="huge"
     ok-button=""
     cancel-button=""
     @close="close"
   >
     <u-form>
-      <!-- <u-form-item label="选择保存路径" name="path">
+      <!-- <u-form-item label="Select save path" name="path">
                <u-input size="huge" :value="model.path" readonly @click="showDefaultFolder"></u-input>
             </u-form-item> -->
       <u-form-item
-        label="日志保存格式"
+        label="Log saving format"
         name="path"
       >
         <u-select
@@ -22,35 +22,35 @@
         />
       </u-form-item>
       <u-form-item
-        label="导出文件条数"
+        label="Number of exported files"
         name="path"
       >
         <u-number-input
           v-model="model.capacity"
           :min="1"
           :max="total"
-        /> 条
+        /> Strip
       </u-form-item>
       <!-- <u-form-item
         v-if="logseerSensitiveSwitch"
-        label="导出敏感数据"
+        label="Export sensitive data"
         name="path"
       >
         <u-radios v-model="model.desensitize">
           <u-radio :label="false">
-            是
+            Yes
           </u-radio>
           <u-radio :label="true">
-            否
+            No
           </u-radio>
         </u-radios>
       </u-form-item>
       <u-form-item>
-        <p>导出说明：</p>
+        <p>Export instructions:</p>
         <ol>
-          <li>原始日志导出格式为.txt，CSV格式导出格式为.csv</li>
-          <li>文件统一命名为：日志文件名-下载时间（年月日-时分秒）</li>
-          <li>当导出文件数据量达到设置值时，会自动创建一个新的导出任务，生成新的导出文件。</li>
+          <li>The original log export format is .txt, and the CSV format export format is .csv</li>
+          <li>The files are uniformly named: log file name - download time (year, month, day - hours, minutes and seconds)</li>
+          <li>When the data volume of the export file reaches the set value, a new export task will be automatically created and a new export file will be generated.</li>
         </ol>
       </u-form-item> -->
       <u-submit-button
@@ -65,10 +65,10 @@
               :icon="scope.submitting ? 'loading' : ''"
               @click="scope.submit"
             >
-              确定
+              OK
             </u-button>
             <u-button @click="close">
-              取消
+              Cancel
             </u-button>
           </u-linear-layout>
         </template>
@@ -94,7 +94,7 @@ export default {
                 desensitize: false,
             },
             formats: [
-                { text: '文本', value: 'txt' },
+                { text: 'text', value: 'txt' },
                 { text: 'csv', value: 'csv' },
             ],
             show: false,

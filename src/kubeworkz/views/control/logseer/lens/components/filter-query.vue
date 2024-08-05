@@ -2,7 +2,7 @@
   <u-input
     :value="query"
     size="normal large"
-    placeholder="示例：status:200 AND extension:PHP"
+    placeholder="Example: status:200 AND extension:PHP"
     @keypress="onKeyPress"
     @change="onChange"
   />

@@ -50,7 +50,7 @@ export default {
     methods: {
         resolver(response) {
             const list = [
-                { text: '全部任务', value: 'all' },
+                { text: 'All tasks', value: 'all' },
                 ...(response.items || []).map(i => ({
                     text: i.name,
                     value: i.name,

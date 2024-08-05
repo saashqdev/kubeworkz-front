@@ -5,12 +5,12 @@
       :initialAdd="true"
       :minCount="1"
       :getDefaultItem="getDataTemplate"
-      addButtonText="添加镜像仓库配置"
+      addButtonText="Add image warehouse configuration"
       :validateFile="prefixProp"
     >
       <template slot-scope="{ item: dataModel, index: dataIndex }">
         <el-form-item 
-          label="镜像仓库"
+          label="Mirror warehouse"
           :prop="`${prefixProp}.${dataIndex}.host`"
           :rules="[
             validators.required(),
@@ -23,7 +23,7 @@
           />
         </el-form-item>
         <el-form-item 
-          label="用户名"
+          label="Username"
           :prop="`${prefixProp}.${dataIndex}.username`"
           :rules="[
             validators.required(),
@@ -35,7 +35,7 @@
           />
         </el-form-item>
         <el-form-item 
-          label="密码"
+          label="Password"
           :prop="`${prefixProp}.${dataIndex}.password`"
           :rules="[
             validators.required(),
@@ -47,7 +47,7 @@
           />
         </el-form-item>
         <el-form-item 
-          label="邮件"
+          label="Email"
           :prop="`${prefixProp}.${dataIndex}.email`"
           :rules="[
             validators.email(false)

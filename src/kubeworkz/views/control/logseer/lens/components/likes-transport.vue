@@ -3,7 +3,7 @@
   <!--
         <span @click="SET_SHOW_LIKES_POPPER(!showLikesPopper)" :class="$style.logType" :mode="incharge || showLikesPopper">
             <u-icons name="global"></u-icons>
-            <u-text>感兴趣字段</u-text>
+            <u-text>Fields of interest</u-text>
         </span> -->
   <!-- <div :class="$style.drawer" :style="`height:${popperHeight}px`" v-show="showLikesPopper" slot="popper"> -->
   <u-popper
@@ -13,7 +13,7 @@
   >
     <span>
       <u-icons name="logseerlikes" />
-      <u-text>感兴趣字段</u-text>
+      <u-text>Fields of interest</u-text>
     </span>
     <div
       v-show="showLikesPopper"
@@ -33,13 +33,13 @@
                     <u-icon name="angle-left" size="small"></u-icon>
                 </span> -->
         <u-text size="large">
-          添加感兴趣的字段
+          Add fields of interest
         </u-text>
         <span
           :class="$style.close"
           @click="SET_SHOW_LIKES_POPPER(false)"
         />
-        <!-- <u-input size="small normal" v-model="currentValue" placeholder="输入字段名称模糊搜索" :class="$style.input" @keyup.enter="search" @reset="search($event, '')" close>
+        <!-- <u-input size="small normal" v-model="currentValue" placeholder="Input field name fuzzy search" :class="$style.input" @keyup.enter="search" @reset="search($event, '')" close>
                     <u-icons :class="$style.search" name="search"></u-icons>
                 </u-input> -->
       </u-linear-layout>
@@ -47,14 +47,14 @@
       <div :class="$style.body">
         <div :class="$style.part">
           <div>
-            <u-text>可选择的字段</u-text>
+            <u-text>Optional fields</u-text>
           </div>
           <div :class="$style.box">
             <div :class="$style.boxHeader">
               <u-input
                 v-model="currentValue"
                 size="small normal"
-                placeholder="输入字段名称模糊搜索"
+                placeholder="Input field name fuzzy search"
                 :class="$style.input"
                 close
                 @keyup.enter="search"
@@ -77,7 +77,7 @@
                   @click.stop="toggleLocalRemains(s)"
                 >
                   <u-tooltip
-                    content="只能选择6个字段"
+                    content="Only 6 fields can be selected"
                     :disabled="remainsLocal[s] || selectedAndRemainLocalLength < 6"
                   >
                     <u-text display="block">
@@ -85,7 +85,7 @@
                     </u-text>
                   </u-tooltip>
 
-                  <!-- <span :class="$style.tip" v-if="!remainsLocal[s] && selectedAndRemainLocalLength === 6">只能选择6个字段</span> -->
+                  <!-- <span :class="$style.tip" v-if="!remainsLocal[s] && selectedAndRemainLocalLength === 6">Only 6 fields can be selected</span> -->
                 </li>
               </ul>
             </div>
@@ -107,7 +107,7 @@
         </div>
         <div :class="$style.part">
           <div>
-            <u-text>已选择的字段</u-text>
+            <u-text>Selected fields</u-text>
           </div>
           <div :class="$style.box">
             <div :class="$style.boxHeader">
@@ -117,7 +117,7 @@
                 color="primary"
                 @click="clear"
               >
-                清空
+                Clear
               </u-button>
               <u-text style="float: right">
                 {{ selectedFiltered.length }}/6

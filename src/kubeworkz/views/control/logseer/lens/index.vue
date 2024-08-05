@@ -62,18 +62,18 @@
             style="position: relative;width: 480px;"
           />
           <template v-if="type === 'stream'">
-            <u-text>刷新频率</u-text>
+            <u-text>Refresh frequency</u-text>
             <u-number-input
               v-model="frequent"
               :min="1"
             />
-            <u-text>秒/次</u-text>
+            <u-text>Seconds/Times</u-text>
           </template>
 
           <u-button
             icon="refresh"
             square
-            :title="refresh?'点击按钮，开始日志查询':'点击按钮，刷新日志'"
+            :title="refresh?'Click the button to start log query':'Click the button to refresh the log'"
             @click="search(false)"
           />
         </u-linear-layout>
@@ -127,7 +127,7 @@ function transQuery(cnt) {
 export default {
     metaInfo: {
         title: 'kubeworkz',
-        titleTemplate: '日志查询 - %s',
+        titleTemplate: 'Log query - %s',
     },
     components: {
         // ...selectComponents('u-global-cluster-select',
@@ -160,9 +160,9 @@ export default {
 
             tab: {},
             tabs: [
-                { title: '搜索模式', route: { path: '/control/lens/normal' } },
-                { title: '实时流模式', route: { path: '/control/lens/stream' } },
-                // { title: '全链路检索模式', route: { path: '/control/lens/trace' } },
+                { title: 'Search mode', route: { path: '/control/lens/normal' } },
+                { title: 'Live streaming mode', route: { path: '/control/lens/stream' } },
+                // { title: 'Full link search mode', route: { path: '/control/lens/trace' } },
             ],
 
 
@@ -191,11 +191,11 @@ export default {
         title() {
             switch (this.$route.path) {
                 case '/lens/normal':
-                    return '搜索模式';
+                    return 'Search mode';
                 case '/lens/stream':
-                    return '实时流模式';
+                    return 'Live streaming mode';
                 case '/lens/trace':
-                    return '全链路检索模式';
+                    return 'Full link search mode';
                 default:
                     return '';
             }
@@ -259,7 +259,7 @@ export default {
                 });
             }
             if (this.type === 'trace' && !query) {
-                // trace默认一开始不查询
+                // Trace does not query at the beginning by default
                 NProgress.done();
                 return Promise.resolve({
                     hits: [],
@@ -267,7 +267,7 @@ export default {
                 });
             }
             if (this.type === 'trace') {
-                // trace query加引号
+                // Trace query with quotes
                 if (!/^".*"$/.test(query)) {
                     query = `"${query}"`;
                 }

@@ -8,7 +8,7 @@
       style="width:80%"
     >
       <el-form-item
-        label="名称"
+        label="Name"
         prop="metadata.name"
         :rules="[
           validators.required(),
@@ -18,11 +18,11 @@
         <el-input
           v-model="model.metadata.name"
           :disabled="isEdit"
-          placeholder="1-63位小写字母、数字、或中划线组成，以字母开头，字母或数字结尾"
+          placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"
         />
       </el-form-item>
       <el-form-item
-        label="数据"
+        label="Data"
       >
         <configmap-input
           v-model="model.data"
@@ -35,7 +35,7 @@
           :loading="submitLoading"
           @click="submit"
         >
-          {{ isEdit ? '立即修改' : '立即创建' }}
+          {{ isEdit ? 'Modify now' : 'Create now' }}
         </el-button>
       </el-form-item>
     </el-form>

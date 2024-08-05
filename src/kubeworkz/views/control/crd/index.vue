@@ -11,10 +11,10 @@
           icon="el-icon-plus"
           :disabled="isReview"
         >
-          创建自定义资源
+          Create custom resources
         </el-button>
         <el-button @click="doRefresh" square icon="el-icon-refresh-right"></el-button>
-        <inputSearch placeholder="请输入名称搜索" position="right" @search="onSearch"/>
+        <inputSearch placeholder="Please enter name to search" position="right" @search="onSearch"/>
       </div>
       <el-tabs :value="activeTab" page="main" @tab-click="habdleTabClick">
         <el-tab-pane v-for="item in tabs" :key="item.value" :label="item.title" :name="item.value"/>
@@ -52,8 +52,8 @@ export default {
     data() {
         return {
             tabs: [
-                { title: '集群级别', value: 'Cluster', route: { path: '/control/crd/Cluster' } },
-                { title: '空间级别', value: 'Namespaced', route: { path: '/control/crd/Namespaced' } },
+                { title: 'Cluster level', value: 'Cluster', route: { path: '/control/crd/Cluster' } },
+                { title: 'Namespace level', value: 'Namespaced', route: { path: '/control/crd/Namespaced' } },
             ],
             selector: '',
             refreshKey: +new Date(),
@@ -109,7 +109,7 @@ export default {
         },
         createCRD() {
             this.$editResource({
-                title: '创建自定义资源',
+                title: 'Create custom resources',
                 content: {
                     apiVersion: 'apiextensions.k8s.io/v1beta1',
                     kind: 'CustomResourceDefinition',

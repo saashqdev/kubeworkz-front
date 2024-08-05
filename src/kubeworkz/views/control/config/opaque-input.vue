@@ -22,7 +22,7 @@
             validators.consistofNormalSymbol(false),
           ]"
         >
-          <el-input v-model="dataModel.key" placeholder="Key 由数字、字母、'-'、 '_' 或'.'组成"/>
+          <el-input v-model="dataModel.key" placeholder="Key consists of numbers, letters, '-', '_' or '.'"/>
         </el-form-item>
       </template>
       <template v-slot:value="{record: dataModel}">

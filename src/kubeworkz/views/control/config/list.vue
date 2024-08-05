@@ -7,10 +7,10 @@
           @click="toCreate"
           icon="el-icon-plus"
         >
-          创建 {{ workloadLiteral }}
+          Create {{ workloadLiteral }}
         </el-button>
       <el-button @click="refresh" square icon="el-icon-refresh-right"></el-button>
-      <inputSearch v-model="filterName" placeholder="请输入名称搜索" position="right" @search="onSearch"/>
+      <inputSearch v-model="filterName" placeholder="Please enter name to search" position="right" @search="onSearch"/>
     </div>
     <x-request
       ref="request"
@@ -30,7 +30,7 @@
         >
           <el-table-column
             prop="metadata.name"
-            label="名称"
+            label="Name"
             :show-overflow-tooltip="true"
             sortable
           >
@@ -43,13 +43,13 @@
           <el-table-column
             v-if="workload === 'secrets'"
             prop="type"
-            label="类型"
+            label="Type"
             :show-overflow-tooltip="true"
             width="240"
           ></el-table-column>
           <el-table-column
             prop="metadata.creationTimestamp"
-            label="创建时间"
+            label="Creation time"
             width="170"
             sortable
           >
@@ -59,14 +59,14 @@
           </el-table-column>
           <el-table-column
             prop="action"
-            label="操作"
+            label="Action"
             width="180"
           >
             <template slot-scope="{ row }">
               <qz-link-group max="3">
-                <el-link type="primary" :disabled="!SECRET_TYPES.includes(row.type) || isReview" @click="editItem(row)">设置</el-link>
-                <el-link type="primary" :disabled="isReview || (row.metadata.pureLabels || {})['system/defaultImagePullSecret'] === 'true'" @click="deleteItem(row)">删除</el-link>
-                <el-link type="primary" :disabled="isReview" @click="editYAML(row)">YAML 设置</el-link>
+                <el-link type="primary" :disabled="!SECRET_TYPES.includes(row.type) || isReview" @click="editItem(row)">Set up</el-link>
+                <el-link type="primary" :disabled="isReview || (row.metadata.pureLabels || {})['system/defaultImagePullSecret'] === 'true'" @click="deleteItem(row)">Delete</el-link>
+                <el-link type="primary" :disabled="isReview" @click="editYAML(row)">YAML Settings</el-link>
               </qz-link-group>
             </template>
           </el-table-column>
@@ -150,17 +150,17 @@ export default {
             switch (this.workload) {
                 case 'secrets':
                     return [
-                        { title: '名称', name: 'metadata.name', sortable: true, textwrap: true },
-                        { title: '类型', name: 'type', width: '240px' },
-                        { title: '创建时间', name: 'metadata.creationTimestamp', width: '160px', sortable: true },
-                        { title: '操作', name: 'operation', width: '160px' },
+                        { title: 'Name', name: 'metadata.name', sortable: true, textwrap: true },
+                        { title: 'Type', name: 'type', width: '240px' },
+                        { title: 'Creation time', name: 'metadata.creationTimestamp', width: '160px', sortable: true },
+                        { title: 'Operation', name: 'operation', width: '160px' },
                     ];
 
                 case 'configmaps':
                     return [
-                        { title: '名称', name: 'metadata.name', sortable: true, textwrap: true },
-                        { title: '创建时间', name: 'metadata.creationTimestamp', width: '160px', sortable: true },
-                        { title: '操作', name: 'operation', width: '160px' },
+                        { title: 'Name', name: 'metadata.name', sortable: true, textwrap: true },
+                        { title: 'Creation time', name: 'metadata.creationTimestamp', width: '160px', sortable: true },
+                        { title: 'Operation', name: 'operation', width: '160px' },
                     ];
                 default:
                     return [];
@@ -249,7 +249,7 @@ export default {
             const response = await this.instanceService(reqParam);
 
             this.$editResource({
-                title: `${item.metadata.name} —— YAML 设置`,
+                title: `${item.metadata.name} —— YAML Settings`,
                 content: response,
                 onSubmit: async content => {
                     await this.modifyService({
@@ -267,8 +267,8 @@ export default {
         },
         deleteItem(item) {
             this.$eConfirm({
-                title: '删除',
-                message: `确认要删除 ${item.metadata.name} 吗？`,
+                title: 'Delete',
+                message: `Confirm to delete ${item.metadata.name}?`,
                 ok: async () => {
                     const reqParam = {
                         pathParams: {

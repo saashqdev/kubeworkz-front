@@ -9,7 +9,7 @@
         />
       </span>
       <div slot="content">
-        感兴趣字段
+        Fields of interest
       </div>
     </u-tooltip>
     <div
@@ -33,11 +33,11 @@
             size="small"
           />
         </span>
-        <u-text>感兴趣字段</u-text>
+        <u-text>Fields of interest</u-text>
         <u-input
           v-model="currentValue"
           size="small normal"
-          placeholder="输入字段名称模糊搜索"
+          placeholder="Input field name fuzzy search"
           :class="$style.input"
           close
           @keyup.enter="search"
@@ -64,11 +64,11 @@
             justify="space-between"
             alignment="center"
           >
-            <u-text>已选字段</u-text>
+            <u-text>Selected fields</u-text>
             <u-button
               :class="$style.btn"
               @click="clearSelected"
-            >清空</u-button>
+            >Clear</u-button>
           </u-linear-layout>
           <div :class="$style.content">
             <span
@@ -91,8 +91,8 @@
             justify="space-between"
             alignment="center"
           >
-            <u-text>可选字段</u-text>
-            <!-- <u-button :class="$style.btn" @click="selectAll">全选</u-button>  -->
+            <u-text>Optional fields</u-text>
+            <!-- <u-button :class="$style.btn" @click="selectAll">Select all</u-button>  -->
           </u-linear-layout>
           <div :class="$style.content">
             <span
@@ -111,7 +111,7 @@
           size="normal"
           style="width:100%;"
           @click="confirm"
-        >确认并展示</u-button>
+        >Confirm and show</u-button>
       </div>
     </div>
   </span>

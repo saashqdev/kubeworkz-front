@@ -5,7 +5,7 @@
     :data-template="getDataTemplate"
   >
     <template slot="column">
-      <th>类型</th>
+      <th>Type</th>
       <th>Key</th>
     </template>
     <template slot-scope="{ model, index }">

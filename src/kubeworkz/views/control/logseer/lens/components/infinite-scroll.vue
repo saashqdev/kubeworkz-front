@@ -24,10 +24,10 @@ function getContainerEl(el) {
 export default {
     props: {
 
-        step: Number, // 数据每次加载的条数
-        lazyRows: { type: Number, default: 10 }, // 数据每次渲染的条数
-        normalizeData: Function, // 数据正规化
-        getDefaultData: Function, // 默认数据生成
+        step: Number, // The number of data items loaded each time
+        lazyRows: { type: Number, default: 10 }, // The number of pieces of data rendered each time
+        normalizeData: Function, // Data normalization
+        getDefaultData: Function, // Default data generation
         loadmoreFn: Function,
     },
     data() {
@@ -93,24 +93,24 @@ export default {
         firstLoad() {
 
             const {
-                lazyRows, // 一次懒加载的量
-                offset, // 当前偏移量
-                total, // 总量
+                lazyRows, // Amount of lazy loading
+                offset, // Current offset
+                total, // Total amount
                 step,
             } = this;
             this.loadmoreFn(this.offset).then(({ hits, total }) => {
                 // this.total = total;
                 this.data = hits.map(this.formatDATA);
-                // 接下来要解决 offset 与 displayData 的赋值
+                // Next, we need to solve the assignment of offset and displayData.
                 const l = this.data.length;
                 const offset = l;
                 if (total > lazyRows) {
-                    // 如果总量 >= lazyRows
+                    // if total >= lazyRows
                     this.displayData = this.data.slice(0, lazyRows);
                     this.offset = lazyRows;
                     this.loadUntilFullScreen();
                 } else {
-                    // 如果总量 < lazyRows
+                    // if total < lazyRows
                     this.displayData = this.data.slice(0, total);
                     this.offset = total;
                 }
@@ -119,9 +119,9 @@ export default {
         },
         loadMore() {
             const {
-                lazyRows, // 一次懒加载的量
-                offset, // 当前偏移量
-                total, // 总量
+                lazyRows, // Amount of lazy loading
+                offset, // Current offset
+                total, // Total amount
                 step,
             } = this;
 
@@ -129,15 +129,15 @@ export default {
             let newOffset = offset + lazyRows;
             newOffset = newOffset > total ? total : newOffset;
             if (existDataLength < newOffset) {
-                // 将新增的 data 长度
+                // The length of the new data will be
                 const remainsRow = total - offset > step ? step : total - offset;
 
-                // 已有的数据长度 与 计算后的偏移量 比较
+                // Compare the existing data length with the calculated offset
                 const dataPromise = this.loadmoreFn(this.offset);
                 dataPromise.then(({ hits, total }) => {
                     this.data.splice(existDataLength, remainsRow, ...hits.map(this.formatDATA));
                     this.total = total;
-                    this.displayData = this.data.slice(0, this.offset); // 必须是 this.offset
+                    this.displayData = this.data.slice(0, this.offset); // Must be this.offset
                 }).catch(err => console.log(err));
                 this.data = this.data.concat(new Array(remainsRow).fill(this.getDefaultData()));
             }

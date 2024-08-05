@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.filters">
     <u-text :class="[$style.cell, $style.col1]">
-      筛选条件：
+      Filter criteria:
     </u-text>
     <div
       ref="spanRoot"

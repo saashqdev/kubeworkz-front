@@ -9,10 +9,10 @@
       <div slot="act">
         <operateList>
           <operateButtonOption @click="editYAML" :disabled="isReview">
-          YAML 设置
+            YAML settings
           </operateButtonOption>
           <operateButtonOption @click="deleteCrd" :disabled="isReview">
-          删除
+            Delete
           </operateButtonOption>
         </operateList>
       </div>
@@ -27,7 +27,7 @@
         <i v-if="loading" class="el-icon-loading" style="font-size: 24px"/>
         <template v-else>
           <el-tabs value="instance" page="main">
-            <el-tab-pane label="实例" name="instance"/>
+            <el-tab-pane label="Example" name="instance"/>
           </el-tabs>
           <div>
             <el-button 
@@ -36,7 +36,7 @@
               icon="el-icon-plus"
               :disabled="isReview"
             >
-              创建 {{ data.names.plural }}
+              Create {{ data.names.plural }}
             </el-button>
             <el-button @click="refresh" square icon="el-icon-refresh-right"></el-button>
           </div>
@@ -65,13 +65,13 @@
               >
                 <el-table-column
                   prop="metadata.name"
-                  label="名称"
+                  label="Name"
                   :show-overflow-tooltip="true"
                 >
                 </el-table-column>
                 <el-table-column
                   prop="metadata.creationTimestamp"
-                  label="创建时间"
+                  label="Creation time"
                   width="170"
                 >
                   <template slot-scope="{ row }">
@@ -80,13 +80,13 @@
                 </el-table-column>
                 <el-table-column
                   prop="action"
-                  label="操作"
+                  label="Action"
                   width="180"
                 >
                   <template slot-scope="{ row }">
                     <qz-link-group max="3">
-                      <el-link type="primary" @click="editItem(data, row)">YAML 设置</el-link>
-                      <el-link type="primary" @click="deleteItem(data, row)">删除</el-link>
+                      <el-link type="primary" @click="editItem(data, row)">YAML settings</el-link>
+                      <el-link type="primary" @click="deleteItem(data, row)">Delete</el-link>
                     </qz-link-group>
                   </template>
                 </el-table-column>
@@ -136,9 +136,9 @@ export default {
         return {
             crdService: workloadService.getCRDInstance,
             columns: [
-                { title: '名称', name: 'metadata.name', textwrap: true },
-                { title: '创建时间', name: 'metadata.creationTimestamp', width: '180px' },
-                { title: '操作', name: 'operation', width: '200px' },
+                { title: 'Name', name: 'metadata.name', textwrap: true },
+                { title: 'Creation time', name: 'metadata.creationTimestamp', width: '180px' },
+                { title: 'Operation', name: 'operation', width: '200px' },
             ],
         };
     },
@@ -215,7 +215,7 @@ export default {
         },
         toCreate(data) {
             this.$editResource({
-                title: `${this.name} —— YAML 设置`,
+                title: `${this.name} —— YAML settings`,
                 content: {
                     apiVersion: `${data.group}/${this.version}`,
                     kind: data.names.kind,
@@ -236,7 +236,7 @@ export default {
         async editYAML() {
             const response = await workloadService.getCRDInstance(this.crdParam);
             this.$editResource({
-                title: `${this.name} —— YAML 设置`,
+                title: `${this.name} —— YAML settings`,
                 content: response,
                 onSubmit: async content => {
                     await workloadService.modifyCRDInstance({
@@ -250,7 +250,7 @@ export default {
 
         editItem(data, item) {
             this.$editResource({
-                title: `${item.metadata.name} —— YAML 设置`,
+                title: `${item.metadata.name} —— YAML settings`,
                 content: item.puresource,
                 onSubmit: async content => {
                     await this.opCRService('modify')({
@@ -266,8 +266,8 @@ export default {
         },
         deleteItem(data, item) {
             this.$eConfirm({
-                title: '删除',
-                message: `确认要删除 ${item.metadata.name} 吗？`,
+                title: 'Delete',
+                message: `Confirm to delete ${item.metadata.name}?`,
                 ok: async () => {
                     await this.opCRService('delete')({
                         pathParams: {
@@ -281,8 +281,8 @@ export default {
         },
         deleteCrd() {
             this.$eConfirm({
-                title: '删除',
-                message: `确认要删除 ${this.name} 吗？`,
+                title: 'Delete',
+                message: `Confirm to delete ${this.name}?`,
                 ok: async () => {
                     await workloadService.deleteCRDInstance({
                         ...this.crdParam

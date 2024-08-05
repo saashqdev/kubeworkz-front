@@ -19,19 +19,19 @@
         >
           <el-table-column
             prop="metadata.name"
-            label="名称"
+            label="Name"
             :show-overflow-tooltip="true"
           >
           </el-table-column>
           <el-table-column
             prop="group"
-            label="组"
+            label="Group"
             :show-overflow-tooltip="true"
           >
           </el-table-column>
           <el-table-column
             prop="versions"
-            label="版本"
+            label="Version"
             :show-overflow-tooltip="true"
           >
             <template slot-scope="{ row }">
@@ -82,16 +82,16 @@
           </template>
           <template #noData>
             <template v-if="pagenation.selector">
-              没有搜索到相关内容，可调整关键词重新搜索
+              If no relevant content is found, you can adjust the keywords and search again.
             </template>
             <template v-else>
-              还没有任何 自定义资源
+              There are no custom resources yet
             </template>
           </template>
           <template #error>
-            获取数据失败，请
+            Failed to obtain data, please
             <u-link @click="refresh">
-              重试
+              Retry
             </u-link>
           </template>
         </kube-table>
@@ -126,9 +126,9 @@ export default {
         return {
             service: workloadService.getCRD,
             columns: [
-                { title: '名称', name: 'metadata.name', textwrap: true },
-                { title: '组', name: 'group', textwrap: true },
-                { title: '版本', name: 'versions', textwrap: true },
+                { title: 'Name', name: 'metadata.name', textwrap: true },
+                { title: 'Group', name: 'group', textwrap: true },
+                { title: 'Version', name: 'versions', textwrap: true },
             ],
         };
     },

@@ -25,7 +25,7 @@
       :class="$style.confirm"
       color="primary"
       @click="submit"
-    >确定</a>
+    >OK</a>
     <a
       target="_self"
       :class="$style.close"

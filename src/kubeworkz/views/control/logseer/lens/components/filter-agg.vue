@@ -9,11 +9,11 @@
     <u-select
       v-model="unit"
       size="small"
-      style="margin-left: 5px;text-align:left;width: 4em;    vertical-align: bottom;"
+      style="margin-left: 5px;text-align:left;width: 4em; vertical-align: bottom;"
     >
-      <u-select-item value="d">天</u-select-item>
-      <u-select-item value="h">时</u-select-item>
-      <u-select-item value="m">分</u-select-item>
+      <u-select-item value="d">day</u-select-item>
+      <u-select-item value="h">hour</u-select-item>
+      <u-select-item value="m">minute</u-select-item>
     </u-select>
   </span>
 </template>

@@ -94,10 +94,10 @@ export default {
 
 <style module>
 .root{
-    -moz-user-select:none; /*火狐*/
-    -webkit-user-select:none; /*webkit浏览器*/
+    -moz-user-select:none; /*Firefox*/
+    -webkit-user-select:none; /*Webkit Browser*/
     -ms-user-select:none; /*IE10*/
-    -khtml-user-select:none; /*早期浏览器*/
+    -khtml-user-select:none; /*early browsers*/
     user-select:none;
     display: inline-block;
     cursor: pointer;

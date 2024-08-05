@@ -14,7 +14,7 @@
         :prop="`${prefixProp}.${index}.path`"
         :rules="[
           validators.noRedundance(exsitKeys, false),
-          ...(required ? [{ required: true, message: '不能为空'}] : []),
+          ...(required ? [{ required: true, message: 'Cannot be empty'}] : []),
           ...rules
         ]"
       >

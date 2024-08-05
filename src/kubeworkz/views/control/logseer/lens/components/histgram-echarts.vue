@@ -4,9 +4,9 @@
       direction="horizontal"
       style="text-align:center"
     >
-      <u-text>日志</u-text><u-text size="large">
+      <u-text>Log</u-text><u-text size="large">
         {{ total }}
-      </u-text><u-text>条</u-text>
+      </u-text><u-text>Stripe</u-text>
       <u-filter-agg />
     </u-linear-layout>
     <x-echarts
