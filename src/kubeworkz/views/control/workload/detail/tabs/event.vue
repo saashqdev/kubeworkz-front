@@ -5,7 +5,7 @@
         <el-select
           v-model="kind"
           style="width:200px"
-          placeholder="请选择"
+          placeholder="Please choose"
         >
           <el-option
             v-for="item in kinds"
@@ -20,7 +20,7 @@
             <el-select
               v-model="type"
               style="width:200px"
-              placeholder="请选择"
+              placeholder="Please choose"
             >
               <el-option
                 v-for="item in types"
@@ -34,7 +34,7 @@
               v-if="podList.length"
               v-model="pod"
               style="width:400px"
-              placeholder="请选择"
+              placeholder="Please choose"
             >
               <el-option
                 v-for="item in podList"
@@ -47,7 +47,7 @@
             <el-select
               v-else
               style="width:400px"
-              placeholder="暂无 Pod"
+              placeholder="No Pods yet"
               :disabled="true"
             />
           </template>
@@ -56,7 +56,7 @@
               v-if="currentVersionPods.length"
               v-model="currentJob"
               style="width:200px"
-              placeholder="请选择"
+              placeholder="Please choose"
               @change="handleJobChange"
             >
               <el-option
@@ -70,14 +70,14 @@
             <el-select
               v-else
               style="width:200px"
-              placeholder="暂无 job"
+              placeholder="No job yet"
               :disabled="true"
             />
             <el-select
               v-if="currentVersionPods.length"
               v-model="pod"
               style="width:400px"
-              placeholder="请选择"
+              placeholder="Please choose"
             >
               <el-option
                 v-for="item in currentVersionPods"
@@ -90,7 +90,7 @@
             <el-select
               v-else
               style="width:400px"
-              placeholder="暂无 Pod"
+              placeholder="No Pods yet"
               :disabled="true"
             />
           </template>
@@ -99,7 +99,7 @@
               v-if="currentVersionPods.length"
               v-model="pod"
               style="width:400px"
-              placeholder="请选择"
+              placeholder="Please choose"
             >
               <el-option
                 v-for="item in currentVersionPods"
@@ -112,14 +112,14 @@
             <el-select
               v-else
               style="width:400px"
-              placeholder="暂无 Pod"
+              placeholder="No Pods yet"
               :disabled="true"
             />
           </template>
         </template>
       </template>
       <el-checkbox v-model="autoRefresh">
-        自动刷新
+        Auto Refresh
       </el-checkbox>
     </div>
     <el-table
@@ -129,23 +129,23 @@
     >
       <el-table-column
         prop="message"
-        label="消息"
+        label="Message"
       />
       <el-table-column
         prop="reason"
-        label="原因"
+        label="Reason"
         width="120"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         prop="involvedObject.fieldPath"
-        label="事件对象fieldPath"
+        label="Event object fieldPath"
         width="160"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         prop="firstTimestamp"
-        label="首次出现时间"
+        label="First appearance time"
         width="160"
         :show-overflow-tooltip="true"
       >
@@ -155,7 +155,7 @@
       </el-table-column>
       <el-table-column
         prop="lastTimestamp"
-        label="上次出现时间"
+        label="Last seen time"
         width="160"
         :show-overflow-tooltip="true"
       >
@@ -165,7 +165,7 @@
       </el-table-column>
       <el-table-column
         prop="count"
-        label="计数"
+        label="Count"
         width="100"
         :show-overflow-tooltip="true"
       />
@@ -221,12 +221,12 @@ export default {
     data() {
         return {
             columns: [
-                { title: '消息', name: 'message', textwrap: true },
-                { title: '原因', name: 'reason', width: '120px' },
-                { title: '事件对象fieldPath', name: 'involvedObject.fieldPath', width: '160px' },
-                { title: '首次出现时间', name: 'firstTimestamp', width: '160px' },
-                { title: '上次出现时间', name: 'lastTimestamp', width: '160px' },
-                { title: '计数', name: 'count', width: '50px' },
+                { title: 'Message', name: 'message', textwrap: true },
+                { title: 'Reason', name: 'reason', width: '120px' },
+                { title: 'Event object fieldPath', name: 'involvedObject.fieldPath', width: '160px' },
+                { title: 'First appearance time', name: 'firstTimestamp', width: '160px' },
+                { title: 'Last seen time', name: 'lastTimestamp', width: '160px' },
+                { title: 'Count', name: 'count', width: '50px' },
             ],
             kind: this.$route.query.kind,
 
@@ -235,7 +235,7 @@ export default {
 
             pod: this.$route.query.pod || null,
             type: this.$route.query.type || 'current',
-            types: [{ text: '当前版本', value: 'current' }, { text: '历史版本', value: 'history' }],
+            types: [{ text: 'Current version', value: 'current' }, { text: 'Version history', value: 'history' }],
             events: [],
             eventGrouped: {},
             currentVersionPods: [],
@@ -344,7 +344,7 @@ export default {
         kinds() {
             return [
                 { text: this.$route.params.workload, value: 'default' },
-                { text: '副本', value: 'pod' },
+                { text: 'Copy', value: 'pod' },
             ];
         },
         noPodEvent() {

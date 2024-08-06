@@ -1,23 +1,23 @@
 <template>
   <div :class="$style.root">
-    <div v-if="loading" :class="$style.loadingBox"><div :class="$style.loadingTextWrap"><i class="el-icon-loading" style="font-size: 24px"/> 正在加载数据</div></div>
+    <div v-if="loading" :class="$style.loadingBox"><div :class="$style.loadingTextWrap"><i class="el-icon-loading" style="font-size: 24px"/> Loading data</div></div>
     <!-- <button
       :class="$style.pageBtn"
       @click="scrollTo(-5)"
     >
-      向上翻页
+      Pade up
     </button> -->
     <table :class="[$style.table, $style.tableScroll]" :theme="theme">
       <thead :class="[$style.row, $style.thead]">
         <tr :class="$style.row">
           <th :class="[$style.col, $style.col1]">
-            时间
+            Time
           </th>
           <th
             :class="[$style.col, $style.coln]"
             type="message"
           >
-            日志内容
+            Log content
           </th>
         </tr>
       </thead>
@@ -32,7 +32,7 @@
           <td :class="[$style.col, $style.col1]">
           </td>
           <td :class="[$style.col, $style.coln, $style.logContent]" style="text-align: center">
-            {{ hasMoreOld ?  '' : '暂无更多历史日志' }}
+            {{ hasMoreOld ?  '' : 'No more history logs yet' }}
           </td>
         </tr>
         <template v-if="data.length > 0">
@@ -55,7 +55,7 @@
             <td
               style="text-align: center"
             >
-              暂无日志
+              No logs yet
             </td>
           </tr>
         </template>
@@ -72,7 +72,7 @@
       :class="$style.pageBtn"
       @click="scrollTo(5)"
     >
-      向下翻页
+      Page down
     </button> -->
   </div>
 </template>

@@ -1,10 +1,10 @@
 <template>
   <div>
     <el-form-item
-      label="仓库密钥"
+      label="Repository key"
       layout="block"
     >
-      <el-select v-model="model" multiple placeholder="请选择">
+      <el-select v-model="model" multiple placeholder="Please choose">
         <el-option
           v-for="item in repoSecrets"
           :key="item.value"
@@ -13,12 +13,12 @@
         </el-option>
       </el-select>
       <div>
-        如需新的Secret，可
+        If you need a new Secret, you can
         <el-link
           type="primary"
           @click="openNewWindow({ path: '/control/secrets/list', query: $route.query })"
         >
-          创建Secret
+          Create secret
         </el-link>
         <i
           style="font-size:16px; margin-left: 8px"

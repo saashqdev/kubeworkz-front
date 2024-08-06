@@ -3,7 +3,7 @@
     <el-form ref="form" :model="model" :rules="rules" label-position="right" label-width="160px">
       <el-form-item
         v-if="workload === 'jobs' || workload === 'cronjobs'"
-        label="重启策略"
+        label="Restart strategy"
         prop="podTemplate.spec.restartPolicy"
       >
         <el-radio-group v-model="model.podTemplate.spec.restartPolicy">
@@ -11,7 +11,7 @@
         </el-radio-group>
       </el-form-item>
       <repo-secret-config v-model="model.podTemplate.spec.imagePullSecrets" />
-      <el-form-item label="标签">
+      <el-form-item label="Label">
         <labelEditor
           :workload="workload"
           :projectName="project"
@@ -21,7 +21,7 @@
           prefixProp="podTemplate.metadata.labels"
         />
       </el-form-item>
-      <el-form-item label="注释">
+      <el-form-item label="Annotation">
         <labelEditor
           :workload="''"
           prefixKey="annotations"
@@ -32,7 +32,7 @@
       <el-form-item v-if="workload === 'deployments'">
         <template slot="label">
           HostNetwork
-          <el-tooltip effect="dark" content="为避免副本迁移导致端口冲突，请设置节点亲和性保证副本调度到固定节点。hostnetwork模式下，负载使用service和ingress无效" placement="right" popper-class="ncs-el-tooltip-popper">
+          <el-tooltip effect="dark" content="To avoid port conflicts caused by replica migration, set node affinity to ensure that replicas are scheduled to fixed nodes. In hostnetwork mode, the load using service and ingress is invalid." placement="right" popper-class="ncs-el-tooltip-popper">
             <i class="el-icon-question" style="position: absolute;right:4px;top:11px"/>
           </el-tooltip>
         </template>
@@ -57,7 +57,7 @@
       </template>
       <template v-if="workload === 'cronjobs'">
         <el-form-item
-          label="定时规则"
+          label="Timing rules"
         >
           <el-form-item
             :prop="`spec.concurrencyPolicy`"
@@ -68,12 +68,12 @@
             style="display: flex;margin-bottom: 22px"
           >
             <template slot="label">
-              并发策略
+              Concurrency strategy
               <el-tooltip effect="dark" placement="right" popper-class="ncs-el-tooltip-popper">
                 <div slot="content">
-                  Forbid: 在前一个任务未完成时，不创建新任务<br>
-                  Allow: 定时任务不断创建新的任务，会抢占集群资源<br>
-                  Replace: 当到达新任务创建时间点，而前一个任务未完成时，新的任务会取代前一个任务<br>
+                  Forbid: Do not create a new task while the previous task is not completed<br>
+                  Allow: Scheduled tasks continue to create new tasks, which will seize cluster resources.<br>
+                  Replace: When the new task creation time is reached and the previous task is not completed, the new task will replace the previous task.<br>
                 </div>
                 <i class="el-icon-question" style="position: absolute;right:4px;top:11px"/>
               </el-tooltip>
@@ -84,7 +84,7 @@
           </el-form-item>
           <el-form-item
             :prop="`spec.schedule`"
-            label="定时调度设置"
+            label="Schedule scheduling settings"
             :rules="[
               validators.required(),
               validators.linuxCronPattern(false),
@@ -94,17 +94,17 @@
           >
             <el-input
               v-model="model.spec.schedule"
-              placeholder="填写正确的 Linux Cron时间格式"
+              placeholder="Fill in the correct Linux Cron time format"
             />
             <div>
-              下次执行任务的时间为: {{ parsedTime }}
+              The next time the task is executed is: {{ parsedTime }}
             </div>
           </el-form-item>
           <el-form-item
-            label="任务记录"
+            label="Task record"
           >
             <el-form-item
-              label="保留执行成功任务的个数"
+              label="Keep the number of successfully executed tasks"
               :class="$style.columnFormItem"
             >
               <el-input-number
@@ -114,10 +114,10 @@
                 style="width: 300px;"
                 :step-strictly="true"
               />
-              <span style="margin-left:8px">个</span>
+              <span style="margin-left:8px">Task</span>
             </el-form-item>
             <el-form-item
-              label="保留执行失败任务的个数"
+              label="Keep the number of failed tasks"
               :class="$style.columnFormItem"
             >
               <el-input-number
@@ -127,11 +127,11 @@
                 style="width: 300px;"
                 :step-strictly="true"
               />
-              <span style="margin-left:8px">个</span>
+              <span style="margin-left:8px">Task</span>
             </el-form-item>
           </el-form-item>
           <el-form-item
-            label="任务启动截止时间"
+            label="Task start deadline"
             style="margin-bottom:22px"
             :prop="`spec.startingDeadlineSeconds`"
             :rules="[
@@ -139,18 +139,18 @@
             ]"
           >
             <template slot="label">
-              任务启动截止时间
+              Task start deadline
               <el-tooltip effect="dark" placement="right" popper-class="ncs-el-tooltip-popper">
                 <div slot="content">
-                  并发策略为Allow时，任务启动截止时间未设置，任务也至少执行一次；<br>
-                  并发策略为Forbid时，当到达新任务创建时间点，而不能创建新任务时，将被标记为错过调度。<br>
-                  当错过调度次数累计达到100次，定时任务将不再启动新任务。<br>
+                  When the concurrency policy is Allow, the task startup deadline is not set, and the task is executed at least once;<br>
+                  When the concurrency policy is Forbid, when the new task creation time is reached and a new task cannot be created, it will be marked as missed scheduling.<br>
+                  When the cumulative number of missed scheduling reaches 100 times, the scheduled task will no longer start new tasks.<br>
                 </div>
                 <i class="el-icon-question" style="position: absolute;right:4px;top:11px"/>
               </el-tooltip>
             </template>
             <el-input v-model="model.spec.startingDeadlineSeconds" style="width: 300px;"/>
-            <span style="margin-left:8px">秒</span>
+            <span style="margin-left:8px">Second</span>
           </el-form-item>
         </el-form-item>
       </template>
@@ -159,14 +159,14 @@
             color="primary"
             @click="$emit('go', -1)"
           >
-            上一步
+            Previous
           </el-button>
           <el-button
             type="primary"
             @click="submit"
             :loading="submitLoading"
           >
-            {{ isEdit ? '立即修改' : '立即创建' }}
+            {{ isEdit ? 'Edit' : 'Create' }}
           </el-button>
         </el-form-item>
     </el-form>
@@ -214,7 +214,7 @@ export default {
             serviceList: [],
             rules: {
                 'podTemplate.spec.restartPolicy': [
-                    { required: true, message: '重启策略不能为空', trigger: 'blur' },
+                    { required: true, message: 'Restart policy cannot be empty', trigger: 'blur' },
                 ],
             },
             submitLoading: false,
@@ -270,7 +270,7 @@ export default {
             return this.serviceList;
         },
         async submit() {
-            // 触发校验
+            // Trigger verification
             try {
                 await this.$refs.form.validate();
             } catch (error) {

@@ -5,143 +5,143 @@
       style="margin-bottom: 12px"
       @click="viewYAML"
     >
-      查看详细信息
+      Check the detail information
     </el-button>
-    <el-descriptions title="基本信息" :column="1">
-      <el-descriptions-item label="集群名称">
+    <el-descriptions title="Basic Information" :column="1">
+      <el-descriptions-item label="Cluster name">
         {{ cluster }}
       </el-descriptions-item>
-      <el-descriptions-item label="空间">
+      <el-descriptions-item label="Namespace">
         {{ namespace }}
       </el-descriptions-item>
-      <el-descriptions-item label="创建时间">
+      <el-descriptions-item label="Creation time">
         {{ instance.metadata.creationTimestamp | smartDateFormat }}
       </el-descriptions-item>
       <template v-if="workload === 'cronjobs'">
-        <el-descriptions-item label="状态">
-          {{ instance.spec.suspend ? '暂停' : '已启动' }}
+        <el-descriptions-item label="State">
+          {{ instance.spec.suspend ? 'suspended' : 'started' }}
         </el-descriptions-item>
-        <el-descriptions-item label="正在运行任务数">
+        <el-descriptions-item label="Number of running tasks">
           {{ (instance.status.active || []).length }}
         </el-descriptions-item>
-        <el-descriptions-item label="并发策略">
+        <el-descriptions-item label="Concurrency strategy">
           {{ instance.spec.concurrencyPolicy }}
         </el-descriptions-item>
-        <el-descriptions-item label="定时调度设置">
+        <el-descriptions-item label="Schedule scheduling settings">
           {{ instance.spec.schedule }}
         </el-descriptions-item>
-        <el-descriptions-item label="保留执行成功任务的个数">
+        <el-descriptions-item label="Keep the number of successfully executed tasks">
           {{ instance.spec.successfulJobsHistoryLimit }}
         </el-descriptions-item>
-        <el-descriptions-item label="保留执行失败任务的个数">
+        <el-descriptions-item label="Keep the number of failed tasks">
           {{ instance.spec.failedJobsHistoryLimit }}
         </el-descriptions-item>
         <el-descriptions-item
           v-if="instance.spec.startingDeadlineSeconds"
-          label="任务启动截止时间"
+          label="Task start deadline"
         >
           {{ instance.spec.startingDeadlineSeconds }}
         </el-descriptions-item>
       </template>
-      <el-descriptions-item label="标签">
+      <el-descriptions-item label="Label">
         <div :class="$style.tagWrap">
           <el-tag type="info" v-for="label in instance.metadata.labels" :key="label.key" :title="label.key + ':' + label.value">{{ label.key }}: {{ label.value }}</el-tag>
         </div>
       </el-descriptions-item>
       <!-- ??? -->
-      <el-descriptions-item label="注释">
+      <el-descriptions-item label="Annotation">
         <div :class="$style.tagWrap">
           <el-tag type="info" v-for="label in instance.metadata.annotations" :key="label.key" :title="label.key + ':' + label.value">{{ label.key }}: {{ label.value }}</el-tag>
         </div>
       </el-descriptions-item>
       <el-descriptions-item
         v-if="['deployments', 'statefulsets'].includes(workload) "
-        label="副本"
+        label="Instance"
       >
         <div v-if="workload === 'deployments'">
-          {{ instance.status.desired }} desired，
-          {{ instance.status.updated }} updated，
-          {{ instance.status.available }} available，
-          {{ instance.status.unavailable }} unavailable，
+          {{ instance.status.desired }} desired,
+          {{ instance.status.updated }} updated,
+          {{ instance.status.available }} available,
+          {{ instance.status.unavailable }} unavailable,
           {{ instance.status.total }} total
         </div>
         <div v-if="workload === 'statefulsets'">
-          {{ instance.status.desired }} desired，
+          {{ instance.status.desired }} desired,
           {{ instance.status.total }} total
         </div>
       </el-descriptions-item>
       <el-descriptions-item
-        label="标签选择器"
+        label="Tag selector"
         :column="1"
       >
         <div :class="$style.tagWrap">
           <el-tag type="info" v-for="label in instance.spec.matchLabels" :key="label.key" :title="label.key + ':' + label.value">{{ label.key }}: {{ label.value }}</el-tag>
         </div>
       </el-descriptions-item>
-      <el-descriptions-item label="级别" v-if="workload === 'daemonsets'">
-        {{instance.spec.level.ind === 'platform' ? '平台级' : ''}}
+      <el-descriptions-item label="Level" v-if="workload === 'daemonsets'">
+        {{instance.spec.level.ind === 'platform' ? 'platform level' : ''}}
         {{instance.spec.level.ind === 'tenant' ? instance.spec.level.tenant : ''}}
       </el-descriptions-item>
       <el-descriptions-item
         v-if="workload === 'deployments'"
-        label="更新策略"
+        label="Update strategy"
       >
         <template v-if="instance.spec.strategy.type === 'RollingUpdate'">
-          RollingUpdate，maxSurge：{{ instance.spec.strategy.maxSurge }}，maxUnavailable：{{ instance.spec.strategy.maxUnavailable }}
+          RollingUpdate, maxSurge:{{ instance.spec.strategy.maxSurge }},maxUnavailable:{{ instance.spec.strategy.maxUnavailable }}
         </template>
         <template v-else>
           {{ instance.spec.strategy.type }}
         </template>
       </el-descriptions-item>
       <template v-if="workload === 'statefulsets'">
-        <el-descriptions-item label="服务名">
+        <el-descriptions-item label="Service Name">
           {{ instance.spec.serviceName }}
         </el-descriptions-item>
-        <el-descriptions-item label="存储声明模板">
-          {{ instance.spec.volumeClaimTemplates.enable ? instance.spec.volumeClaimTemplates.templates.map(i => i.name).join('，'): '-' }}
+        <el-descriptions-item label="Storage declaration template">
+          {{ instance.spec.volumeClaimTemplates.enable ? instance.spec.volumeClaimTemplates.templates.map(i => i.name).join(','): '-' }}
         </el-descriptions-item>
       </template>
 
       <template v-if="workload === 'jobs'">
-        <el-descriptions-item label="状态">
+        <el-descriptions-item label="Status">
           <statusIcon :name="instance.status.runningStatus | getJobStatusIcon"/> {{ instance.status.runningStatus | getJobStatusText }}
         </el-descriptions-item>
-        <el-descriptions-item label="预期成功执行数">
+        <el-descriptions-item label="Expected number of successful executions">
           {{ instance.spec.completions }}
         </el-descriptions-item>
-        <el-descriptions-item label="并行数">
+        <el-descriptions-item label="Parallel number">
           {{ instance.spec.parallelism }}
         </el-descriptions-item>
-        <el-descriptions-item label="超时时间">
-          {{ instance.spec.activeDeadlineSeconds === undefined ? '-' : instance.spec.activeDeadlineSeconds + '秒' }}
+        <el-descriptions-item label="Overtime time">
+          {{ instance.spec.activeDeadlineSeconds === undefined ? '-' : instance.spec.activeDeadlineSeconds + 'second' }}
         </el-descriptions-item>
-        <el-descriptions-item label="重试次数">
+        <el-descriptions-item label="Number of retries">
           {{ instance.spec.backoffLimit }}
         </el-descriptions-item>
       </template>
     </el-descriptions>
-    <el-descriptions title="部署模板" :column="1">
-      <el-descriptions-item label="容器">
-        {{ instance.containers.map(c => c.containerName).join('，') }}
+    <el-descriptions title="Deploy template" :column="1">
+      <el-descriptions-item label="Container">
+        {{ instance.containers.map(c => c.containerName).join(',') }}
       </el-descriptions-item>
-      <el-descriptions-item label="标签">
+      <el-descriptions-item label="Label">
         <div :class="$style.tagWrap">
           <el-tag type="info" v-for="label in instance.podTemplate.metadata.labels" :key="label.key" :title="label.key + ':' + label.value">{{ label.key }}: {{ label.value }}</el-tag>
         </div>
       </el-descriptions-item>
-      <el-descriptions-item label="重启策略">
+      <el-descriptions-item label="Restart strategy">
         {{ instance.podTemplate.spec.restartPolicy }}
       </el-descriptions-item>
     </el-descriptions>
     <template v-if="workload !== 'cronjobs'">
-      <el-descriptions title="条件" :column="1" />
+      <el-descriptions title="Condition" :column="1" />
       <el-table
         :data="instance.status.conditions"
         style="width: 100%"
       >
         <el-table-column
           prop="condition"
-          label="条件"
+          label="Condition"
           :show-overflow-tooltip="true"
           width="180"
         >
@@ -151,7 +151,7 @@
         </el-table-column>
         <el-table-column
           prop="message"
-          label="消息"
+          label="Message"
         >
           <template slot-scope="{ row }">
             {{ row.message }}
@@ -159,7 +159,7 @@
         </el-table-column>
         <el-table-column
           prop="lastchecktime"
-          label="上次检测时间"
+          label="Last detection time"
           width="180"
         >
           <template slot-scope="{ row }">
@@ -168,7 +168,7 @@
         </el-table-column>
         <el-table-column
           prop="lastchangetime"
-          label="上次转换时间"
+          label="Last conversion time"
           width="180"
         >
           <template slot-scope="{ row }">
@@ -211,7 +211,7 @@ export default {
     methods: {
         viewYAML() {
             this.$editResource({
-                title: `${this.instance.metadata.name} —— 查看 YAML`,
+                title: `${this.instance.metadata.name} —— View YAML`,
                 content: this.instance.puresource,
                 editorOption: {
                     readOnly: true,

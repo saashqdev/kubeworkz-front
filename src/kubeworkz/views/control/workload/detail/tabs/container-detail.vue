@@ -5,7 +5,7 @@
     />
      <el-tabs value="0" page="main">
       <el-tab-pane
-        label="详情"
+        label="Details"
         :name="0"
       />
     </el-tabs>
@@ -18,19 +18,19 @@
         style="margin-bottom: 20px;"
         @click="viewYAML"
       >
-        查看详细信息
+        Check the detail information
       </el-button>
-      <el-descriptions title="基本信息" :column="1">
-        <el-descriptions-item label="名称">
+      <el-descriptions title="Basic Information" :column="1">
+        <el-descriptions-item label="Name">
           {{ container.containerName }}
         </el-descriptions-item>
-        <el-descriptions-item label="镜像">
+        <el-descriptions-item label="Mirror">
           {{ container.image }}
         </el-descriptions-item>
-        <el-descriptions-item label="镜像拉取策略">
+        <el-descriptions-item label="Image pull strategy">
           {{ container.imagePullPolicy }}
         </el-descriptions-item>
-        <el-descriptions-item label="资源限制" contentStyle="display:block" labelStyle="align-self: flex-start;">
+        <el-descriptions-item label="Resource limits" contentStyle="display:block" labelStyle="align-self: flex-start;">
           <div>
             <el-table
               :data="resourceData"
@@ -54,7 +54,7 @@
             </el-table>
           </div>
         </el-descriptions-item>
-        <el-descriptions-item label="挂载数据卷" contentStyle="display:block" labelStyle="align-self: flex-start;">
+        <el-descriptions-item label="Mount data volume" contentStyle="display:block" labelStyle="align-self: flex-start;">
           <div>
             <el-table
               :data="volumns"
@@ -62,12 +62,12 @@
             >
               <el-table-column
                 prop="name"
-                label="存储声明"
+                label="Storage statement"
                 :show-overflow-tooltip="true"
               ></el-table-column>
               <el-table-column
                 prop="mountPath"
-                label="挂载点"
+                label="Mount point"
                 :show-overflow-tooltip="true"
               ></el-table-column>
             </el-table>
@@ -165,11 +165,11 @@ export default {
                 this.volumns = this.container.raw.volumeMounts;
                 console.log(this.container);
             } catch (err) {
-                this.message = 'container 不存在';
+                this.message = 'Container does not exist';
             }
         },
         getContainerText(type) {
-            return (CONTAINERTYPE[type] || {}).text || '业务容器';
+            return (CONTAINERTYPE[type] || {}).text || 'Business container';
         },
         getContainer(data) {
             data = data || [];
@@ -178,7 +178,7 @@ export default {
         },
         viewYAML() {
             this.$editResource({
-                title: `${this.container.containerName} —— 查看 YAML`,
+                title: `${this.container.containerName} —— View YAML`,
                 content: this.container.raw,
                 editorOption: {
                     readOnly: true,

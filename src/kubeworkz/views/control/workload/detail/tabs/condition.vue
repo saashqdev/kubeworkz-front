@@ -5,7 +5,7 @@
         <el-select
           v-model="kind"
           style="width:200px"
-          placeholder="请选择"
+          placeholder="Please choose"
         >
           <el-option
             v-for="item in kinds"
@@ -20,7 +20,7 @@
             <el-select
               v-model="type"
               style="width:200px"
-              placeholder="请选择"
+              placeholder="Please choose"
             >
               <el-option
                 v-for="item in types"
@@ -34,7 +34,7 @@
               v-if="podList.length"
               v-model="pod"
               style="width:400px"
-              placeholder="请选择"
+              placeholder="Please choose"
             >
               <el-option
                 v-for="item in podList"
@@ -47,7 +47,7 @@
             <el-select
               v-else
               style="width:400px"
-              placeholder="暂无 Pod"
+              placeholder="No Pods yet"
               :disabled="true"
             />
           </template>
@@ -56,7 +56,7 @@
               v-if="currentVersionPods.length"
               v-model="pod"
               style="width:400px"
-              placeholder="请选择"
+              placeholder="Please choose"
             >
               <el-option
                 v-for="item in currentVersionPods"
@@ -69,14 +69,14 @@
             <el-select
               v-else
               style="width:400px"
-              placeholder="暂无 Pod"
+              placeholder="No Pods yet"
               :disabled="true"
             />
           </template>
         </template>
       </template>
       <u-checkbox v-model="autoRefresh">
-        自动刷新
+        Auto Refresh
       </u-checkbox>
     </div>
     <el-table
@@ -86,21 +86,21 @@
     >
       <el-table-column
         prop="type"
-        label="类型"
+        label="Type"
         width="160"
       />
       <el-table-column
         prop="reason"
-        label="条件"
+        label="Reason"
         width="200"
       />
       <el-table-column
         prop="message"
-        label="消息"
+        label="Information"
       />
       <el-table-column
         prop="lastUpdateTime"
-        label="上次检测时间"
+        label="Last detection time"
         width="160"
         :show-overflow-tooltip="true"
       >
@@ -110,7 +110,7 @@
       </el-table-column>
       <el-table-column
         prop="lastTimestamp"
-        label="上次转换时间"
+        label="Last conversion time"
         width="160"
         :show-overflow-tooltip="true"
       >
@@ -167,11 +167,11 @@ export default {
         return {
             replicaService: workloadService.getWorkloads,
             columns: [
-                { title: '类型', name: 'type', width: '160px', textwrap: true },
-                { title: '条件', name: 'reason', width: '200px', textwrap: true },
-                { title: '消息', name: 'message', textwrap: true },
-                { title: '上次检测时间', name: 'lastUpdateTime', width: '160px' },
-                { title: '上次转换时间', name: 'lastTransitionTime', width: '160px' },
+                { title: 'Type', name: 'type', width: '160px', textwrap: true },
+                { title: 'Reason', name: 'reason', width: '200px', textwrap: true },
+                { title: 'Information', name: 'message', textwrap: true },
+                { title: 'Last detection time', name: 'lastUpdateTime', width: '160px' },
+                { title: 'Last conversion time', name: 'lastTransitionTime', width: '160px' },
             ],
             kind: this.$route.query.kind,
 
@@ -180,7 +180,7 @@ export default {
 
             pod: this.$route.query.pod || null,
             type: this.$route.query.type || 'current',
-            types: [{ text: '当前版本', value: 'current' }, { text: '历史版本', value: 'history' }],
+            types: [{ text: 'Current version', value: 'current' }, { text: 'Historic version', value: 'history' }],
             conditions: [],
             conditionsGrouped: {},
             currentVersionPods: [],
@@ -237,7 +237,7 @@ export default {
         kinds() {
             return [
                 { text: this.$route.params.workload, value: 'default' },
-                { text: '副本', value: 'pod' },
+                { text: 'Copy', value: 'pod' },
             ];
         },
     },

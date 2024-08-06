@@ -8,7 +8,7 @@
                 v-if="containers.length"
                 key="contianerlist"
                 v-model="containerName"
-                placeholder="请选择"
+                placeholder="Please choose"
                 style="width: 200px"
             >
                 <el-option
@@ -22,15 +22,15 @@
             <el-input
               v-else
               style="width:200px"
-              placeholder="暂无Container"
+              placeholder="No Container yet"
               :disabled="true"
             />
         </div>
         <el-checkbox v-model="autoRefresh">
-            自动刷新
+            Auto Refresh
         </el-checkbox>
         <span @click="switchSetting" :class="$style.switchButton">
-            <span style="margin-right: 8px">切换背景</span>
+            <span style="margin-right: 8px">Switch background</span>
             <i :class="$style.themeIcon" :theme="theme"></i>
         </span>
       </div>
@@ -46,11 +46,11 @@
     >
       <template slot-scope="{ data }">
         <div style="display: inline-block">
-            <span style="margin-right:8px;line-height:32px">副本</span>
+            <span style="margin-right:8px;line-height:32px">Instance</span>
             <el-select
                 v-if="data && data.length"
                 v-model="podName"
-                placeholder="请选择"
+                placeholder="Please choose"
                 style="width: 200px"
             >
                 <el-option
@@ -64,7 +64,7 @@
             <el-input
               v-else
               style="width:200px"
-              placeholder="暂无副本"
+              placeholder="No instance yet"
               :disabled="true"
             />
         </div>
@@ -73,7 +73,7 @@
             <el-select
                 v-if="containers.length"
                 v-model="containerName"
-                placeholder="请选择"
+                placeholder="Please choose"
                 style="width: 200px"
             >
                 <el-option
@@ -87,15 +87,15 @@
             <el-input
               v-else
               style="width:200px"
-              placeholder="暂无Container"
+              placeholder="No Container yet"
               :disabled="true"
             />
         </div>
         <el-checkbox v-model="autoRefresh">
-            自动刷新
+          Auto Refresh
         </el-checkbox>
         <span @click="switchSetting" :class="$style.switchButton">
-            <span style="margin-right: 8px">切换背景</span>
+            <span style="margin-right: 8px">Switch background</span>
             <i :class="$style.themeIcon" :theme="theme"></i>
         </span>
       </template>

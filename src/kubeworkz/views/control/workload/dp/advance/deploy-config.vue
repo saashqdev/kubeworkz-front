@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form-item
-      label="部署策略"
+      label="Deployment strategy"
     >
       <el-switch
         v-if="!hostNetworkSupport"

@@ -5,55 +5,55 @@
       style="margin-bottom: 12px"
       @click="viewYAML"
     >
-      查看详细信息
+      Check the detail information
     </el-button>
-    <el-descriptions title="基本信息" :column="1">
-      <el-descriptions-item label="Pod 名称">
+    <el-descriptions title="Basic Information" :column="1">
+      <el-descriptions-item label="Pod name">
         {{ instance.metadata.name }}
       </el-descriptions-item>
-      <el-descriptions-item label="集群名称">
+      <el-descriptions-item label="Cluster name">
         {{ cluster }}
       </el-descriptions-item>
-      <el-descriptions-item label="空间">
+      <el-descriptions-item label="Namespace">
         {{ namespace }}
       </el-descriptions-item>
-      <el-descriptions-item label="创建时间">
+      <el-descriptions-item label="Creation time">
         {{ instance.metadata.creationTimestamp | smartDateFormat }}
       </el-descriptions-item>
-      <el-descriptions-item label="标签">
+      <el-descriptions-item label="Label">
         <div :class="$style.tagWrap">
           <el-tag type="info" v-for="label in instance.metadata.labels" :key="label.key" :title="label.key + ':' + label.value">{{ label.key }}: {{ label.value }}</el-tag>
         </div>
       </el-descriptions-item>
-      <el-descriptions-item label="注释">
+      <el-descriptions-item label="Annotation">
         <div :class="$style.tagWrap">
           <el-tag type="info" v-for="label in instance.metadata.annotations" :key="label.key" :title="label.key + ':' + label.value">{{ label.key }}: {{ label.value }}</el-tag>
         </div>
       </el-descriptions-item>
-      <el-descriptions-item label="所属节点">
+      <el-descriptions-item label="Belonging node">
         {{ instance.spec.nodeName }}
       </el-descriptions-item>
-      <el-descriptions-item label="终止宽限期">
+      <el-descriptions-item label="Termination grace period">
         {{ instance.spec.terminationGracePeriodSeconds }}s
       </el-descriptions-item>
-      <el-descriptions-item label="重启策略">
+      <el-descriptions-item label="Restart strategy">
         {{ instance.spec.restartPolicy }}
       </el-descriptions-item>
-      <el-descriptions-item label="条件">
+      <el-descriptions-item label="Condition">
         {{ instance.status.conditions | conditionFilter }}
       </el-descriptions-item>
-      <el-descriptions-item label="控制器">
+      <el-descriptions-item label="Controller">
         {{ ((instance.metadata.ownerReferences || [])[0] || {}).name }}
       </el-descriptions-item>
     </el-descriptions>
-    <el-descriptions title="容器" :column="1"/>
+    <el-descriptions title="Container" :column="1"/>
     <el-table
       :data="instance.containers"
       style="width: 100%"
     >
       <el-table-column
         prop="containerName"
-        label="容器名称"
+        label="Container name"
         :show-overflow-tooltip="true"
       >
         <template slot-scope="{ row }">
@@ -68,12 +68,12 @@
       </el-table-column>
       <el-table-column
         prop="image"
-        label="镜像"
+        label="Image"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         prop="status"
-        label="容器状态"
+        label="Container status"
         :show-overflow-tooltip="true"
         width="100"
       >
@@ -83,13 +83,13 @@
       </el-table-column>
       <el-table-column
         prop="status.restartCount"
-        label="重启次数"
+        label="Number of restarts"
         :show-overflow-tooltip="true"
         width="100"
       />
       <el-table-column
         prop="operation"
-        label="操作"
+        label="Operation"
         width="160"
       >
         <template slot-scope="{ row }">
@@ -97,7 +97,7 @@
             console
           </el-link>
           <el-link type="primary" @click="toLog(row)">
-            查看日志
+            View log
           </el-link>
         </template>
       </el-table-column>
@@ -127,11 +127,11 @@ export default {
     data() {
         return {
             columns: [
-                { title: '容器名称', name: 'containerName' },
-                { title: '镜像', name: 'image', width: '40%' },
-                { title: '容器状态', name: 'status', width: '100px' },
-                { title: '重启次数', name: 'status.restartCount', width: '100px' },
-                { title: '操作', name: 'operation', width: '200px' },
+                { title: 'Container name', name: 'containerName' },
+                { title: 'Image', name: 'image', width: '40%' },
+                { title: 'Container status', name: 'status', width: '100px' },
+                { title: 'Number of restarts', name: 'status.restartCount', width: '100px' },
+                { title: 'Operation', name: 'operation', width: '200px' },
             ],
         };
     },
@@ -145,7 +145,7 @@ export default {
     methods: {
         viewYAML() {
             this.$editResource({
-                title: `${this.instance.metadata.name} —— 查看详细信息`,
+                title: `${this.instance.metadata.name} —— check the detail information`,
                 content: this.instance.puresource,
                 editorOption: {
                     readOnly: true,
@@ -153,7 +153,7 @@ export default {
             });
         },
         getContainerText(type) {
-            return (CONTAINERTYPE[type] || {}).text || '业务容器';
+            return (CONTAINERTYPE[type] || {}).text || 'Business container';
         },
         toLog(item) {
             this.$router.push({

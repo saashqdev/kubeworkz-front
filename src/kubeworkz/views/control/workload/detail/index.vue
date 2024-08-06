@@ -16,38 +16,38 @@
             <template v-if="workload !== 'jobs'">
               <template v-if="['deployments', 'statefulsets'].includes(workload)">
                 <operateButtonOption @click="toResize" :disabled="isReview">
-                  调整副本数
+                  Adjust the number of pods
                 </operateButtonOption>
               </template>
               <operateButtonOption
                 v-if="[ 'deployments' ].includes(workload)"
                 @click="toUpdateImage(name)"
               >
-                滚动更新
+                Rolling update
               </operateButtonOption>
               <template v-if="['deployments', 'statefulsets'].includes(workload)">
                 <operateButtonOption @click="restart" :disabled="isReview">
-                  重建
+                  Rebuild
                 </operateButtonOption>
               </template>
               <operateButtonOption @click="deleteItem" :disabled="isReview">
-                删除
+                Delete
               </operateButtonOption>
               <operateButtonOption v-if="['deployments', 'statefulsets', 'daemonsets', 'cronjobs', 'configmaps', 'secrets', 'services', 'ingresses'].includes(workload)" @click="editItem" :disabled="isReview">
-                设置
+                Set up
               </operateButtonOption>
               <template v-if="workload === 'persistentvolumeclaims'">
                 <operateButtonOption @click="editYAML" :disabled="isReview || (instanceInfo && instanceInfo.status.phase !== 'Bound')">
-                  YAML 设置
+                  YAML settings
                 </operateButtonOption>
               </template>
               <operateButtonOption v-else @click="editYAML" :disabled="isReview">
-                YAML 设置
+                YAML settings
               </operateButtonOption>
             </template>
             <template v-else>
               <operateButtonOption @click="deleteItem" :disabled="isReview">
-                删除
+                Delete
               </operateButtonOption>
             </template>
           </operateList>
@@ -62,7 +62,7 @@
         <template slot-scope="{ data, loading, error }">
           <i v-if="loading" class="el-icon-loading" style="font-size: 24px"/>
           <div v-else-if="error">
-            加载出错！
+            Loading error!
           </div>
           <template v-else-if="withInstanceTransparent">
             <router-view :instance="data" />
@@ -317,7 +317,7 @@ export default {
                 },
             });
             this.$message({
-                message: '已触发重建',
+                message: 'Rebuild triggered',
                 type: 'success',
             });
             this.refresh();
@@ -359,57 +359,57 @@ export default {
             switch (this.workload) {
                 case 'pods':
                     return [
-                        { title: '详情', route: { name: 'control.workload.info', params: this.$route.params } },
-                        { title: '监控', route: { name: 'control.workload.monitor', params: this.$route.params } },
-                        { title: '事件', route: { name: 'control.workload.event', params: this.$route.params } },
-                        { title: 'condition信息', route: { name: 'control.workload.condition', params: this.$route.params } },
-                        { title: '日志', route: { name: 'control.workload.log', params: this.$route.params } },
+                        { title: 'Details', route: { name: 'control.workload.info', params: this.$route.params } },
+                        { title: 'Monitor', route: { name: 'control.workload.monitor', params: this.$route.params } },
+                        { title: 'Event', route: { name: 'control.workload.event', params: this.$route.params } },
+                        { title: 'Condition information', route: { name: 'control.workload.condition', params: this.$route.params } },
+                        { title: 'Log', route: { name: 'control.workload.log', params: this.$route.params } },
                     ];
                 case 'cronjobs':
                     return [
-                        { title: '详情', route: { name: 'control.workload.info', params: this.$route.params } },
-                        { title: '任务列表', route: { name: 'control.workload.jobs', params: this.$route.params } },
-                        { title: '事件', route: { name: 'control.workload.event', params: this.$route.params } },
+                        { title: 'Details', route: { name: 'control.workload.info', params: this.$route.params } },
+                        { title: 'Task list', route: { name: 'control.workload.jobs', params: this.$route.params } },
+                        { title: 'Event', route: { name: 'control.workload.event', params: this.$route.params } },
                     ];
                 case 'services':
                     if ([ 'normal', 'nodePort', 'loadBalancer' ].includes(data.spec.template)) {
                         return [
-                            { title: '详情', route: { name: 'control.workload.info', params: this.$route.params } },
-                            { title: '事件', route: { name: 'control.workload.event', params: this.$route.params } },
-                            { title: '对外服务端口', route: { name: 'control.workload.external', params: this.$route.params } },
+                            { title: 'Details', route: { name: 'control.workload.info', params: this.$route.params } },
+                            { title: 'Event', route: { name: 'control.workload.event', params: this.$route.params } },
+                            { title: 'External service port', route: { name: 'control.workload.external', params: this.$route.params } },
                         ];
                     }
                     return [
-                        { title: '详情', route: { name: 'control.workload.info', params: this.$route.params } },
-                        { title: '事件', route: { name: 'control.workload.event', params: this.$route.params } },
+                        { title: 'Details', route: { name: 'control.workload.info', params: this.$route.params } },
+                        { title: 'Event', route: { name: 'control.workload.event', params: this.$route.params } },
                     ];
                 case 'ingresses':
                     return [
-                        { title: '详情', route: { name: 'control.workload.info', params: this.$route.params } },
-                        { title: '事件', route: { name: 'control.workload.event', params: this.$route.params } },
+                        { title: 'Details', route: { name: 'control.workload.info', params: this.$route.params } },
+                        { title: 'Event', route: { name: 'control.workload.event', params: this.$route.params } },
                     ];
                 case 'persistentvolumeclaims':
                     return [
-                        { title: '详情', route: { name: 'control.workload.info', params: this.$route.params } },
-                        { title: '监控', route: { name: 'control.workload.monitor', params: this.$route.params } },
+                        { title: 'Details', route: { name: 'control.workload.info', params: this.$route.params } },
+                        { title: 'Monitor', route: { name: 'control.workload.monitor', params: this.$route.params } },
                     ];
                 case 'secrets':
                 case 'configmaps':
                 case 'logconfigs':
                     return [
-                        { title: '详情', route: { name: 'control.workload.info', params: this.$route.params } },
+                        { title: 'Details', route: { name: 'control.workload.info', params: this.$route.params } },
                     ];
                 default:
                     return [
-                        { title: '详情', route: { name: 'control.workload.info', params: this.$route.params } },
-                        { title: '副本', route: { name: 'control.workload.pod', params: this.$route.params } },
-                        { title: '监控', route: { name: 'control.workload.monitor', params: this.$route.params } },
-                        { title: '事件', route: { name: 'control.workload.event', params: this.$route.params } },
-                        { title: 'condition信息', route: { name: 'control.workload.condition', params: this.$route.params } },
-                        { title: '日志', route: { name: 'control.workload.log', params: this.$route.params } },
-                        // { title: '自动伸缩', path: `/${moduleName}/detail/HPA` },
-                        // { title: '性能分析', crd: 'abnormals.diagnosis.kubeworkz.com', path: `/${moduleName}/detail/performance` },
-                        // { title: '资源推荐', crd: 'verticalpodautoscalers.autoscaling.k8s.io', path: `/${moduleName}/detail/recommand` },
+                        { title: 'Details', route: { name: 'control.workload.info', params: this.$route.params } },
+                        { title: 'Pod', route: { name: 'control.workload.pod', params: this.$route.params } },
+                        { title: 'Monitor', route: { name: 'control.workload.monitor', params: this.$route.params } },
+                        { title: 'Event', route: { name: 'control.workload.event', params: this.$route.params } },
+                        { title: 'Condition information', route: { name: 'control.workload.condition', params: this.$route.params } },
+                        { title: 'Log', route: { name: 'control.workload.log', params: this.$route.params } },
+                        // { title: 'Auto scaling', path: `/${moduleName}/detail/HPA` },
+                        // { title: 'Performance analysis', crd: 'abnormals.diagnosis.kubeworkz.com', path: `/${moduleName}/detail/performance` },
+                        // { title: 'Resource recommendations', crd: 'verticalpodautoscalers.autoscaling.k8s.io', path: `/${moduleName}/detail/recommand` },
                     ];
             }
         },
@@ -431,7 +431,7 @@ export default {
             const response = await this.service(reqParam);
 
             this.$editResource({
-                title: `${this.name} —— YAML 设置`,
+                title: `${this.name} —— YAML settings`,
                 content: response,
                 onSubmit: async content => {
                     console.log(content);
@@ -450,8 +450,8 @@ export default {
         },
         deleteItem() {
             this.$eConfirm({
-                title: '删除',
-                message: `确认要删除 ${this.name} 吗？`,
+                title: 'Delete',
+                message: `Confirm to delete ${this.name}?`,
                 ok: async () => {
                     const reqParam = {
                         pathParams: {

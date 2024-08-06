@@ -1,7 +1,7 @@
 <template>
   <div>
    <el-form-item
-      label="容忍"
+      label="Toleration"
       :class="$style.columnFormItem"
     >
       <dynamicBlock
@@ -36,7 +36,7 @@
           Effect
           <el-tooltip effect="dark" placement="right" popper-class="ncs-el-tooltip-popper">
             <template slot="content">
-              effect可取值 NoSchedule | PreferNoSchedule | NoExecute | 空， effect 为空表示匹配所有 effect。
+              The possible values ​​of effect are NoSchedule | PreferNoSchedule | NoExecute | empty. If effect is empty, it means matching all effects.
             </template>
             <i class="el-icon-question"/>
           </el-tooltip>
@@ -45,7 +45,7 @@
           TolerationSeconds
           <el-tooltip effect="dark" placement="right" popper-class="ncs-el-tooltip-popper">
             <template slot="content">
-              缺省不进行设置，表示永久生效。
+              By default, it is not set, which means it takes effect permanently.
             </template>
             <i class="el-icon-question"/>
           </el-tooltip>
@@ -64,7 +64,7 @@
           </el-form-item>
         </template>
         <template v-slot:operator="{record: tolerationModel}">
-          <el-select v-model="tolerationModel.operator" placeholder="请选择">
+          <el-select v-model="tolerationModel.operator" placeholder="Please choose">
             <el-option
               v-for="item in operators"
               :key="item.value"
@@ -87,7 +87,7 @@
           </el-form-item>
         </template>
         <template v-slot:effect="{record: tolerationModel}">
-          <el-select v-model="tolerationModel.effect" placeholder="请选择">
+          <el-select v-model="tolerationModel.effect" placeholder="Please choose">
             <el-option
               v-for="item in effects"
               :key="item.value"

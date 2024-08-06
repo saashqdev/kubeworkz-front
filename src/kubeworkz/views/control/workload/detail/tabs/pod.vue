@@ -7,7 +7,7 @@
     :poll="{ interval: 8000 }"
   >
     <template slot-scope="{ data, loading }">
-      <el-descriptions title="基本信息" :column="1" />
+      <el-descriptions title="Basic Information" :column="1" />
       <el-table
         v-loading="loading"
         :data="data || []"
@@ -15,12 +15,12 @@
       >
         <el-table-column
           prop="metadata.name"
-          label="副本名称"
+          label="Metadata name"
           :show-overflow-tooltip="true"
         ></el-table-column>
         <el-table-column
           prop="status.phase"
-          label="副本状态"
+          label="Replica status"
           :show-overflow-tooltip="true"
           width="80"
         ></el-table-column>
@@ -32,7 +32,7 @@
         ></el-table-column>
         <el-table-column
           prop="status.hostIP"
-          label="所在节点IP"
+          label="Node IP"
           :show-overflow-tooltip="true"
           width="100"
         >
@@ -44,13 +44,13 @@
         </el-table-column>
         <el-table-column
           prop="status.restartCount"
-          label="重启次数"
+          label="Number of restarts"
           :show-overflow-tooltip="true"
           width="100"
         ></el-table-column>
         <el-table-column
           prop="creationTimestamp"
-          label="创建时间"
+          label="Creation time"
           :show-overflow-tooltip="true"
           width="180"
         >
@@ -60,25 +60,25 @@
         </el-table-column>
         <el-table-column
           prop="operation"
-          label="操作"
+          label="Operation"
           width="200"
         >
           <template slot-scope="{ row }">
             <el-link type="primary" @click="viewYAML(row)" style="marginRight:10px">
-              查看详细信息
+              Check the detail information
             </el-link>
             <el-link type="primary" @click="toEvent(row)" style="marginRight:10px">
-              查看事件
+              View events
             </el-link>
             <el-link type="primary" @click="deleteItem(row)" :disabled="isReview">
-              删除
+              Delete
             </el-link>
           </template>
         </el-table-column>
       </el-table>
-      <el-descriptions title="容器详情" :column="1" />
+      <el-descriptions title="Container details" :column="1" />
       <div style="marginBottom: 12px">
-        <span style="margin-right: 8px; line-height: 32px;">副本: </span>
+        <span style="margin-right: 8px; line-height: 32px;">Pod: </span>
         <el-select
           key="list"
           v-model="podName"
@@ -100,7 +100,7 @@
       >
         <el-table-column
           prop="containerName"
-          label="容器名称"
+          label="Container name"
           :show-overflow-tooltip="true"
         >
           <template slot-scope="{ row }">
@@ -120,12 +120,12 @@
         </el-table-column>
         <el-table-column
           prop="image"
-          label="镜像"
+          label="Image"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           prop="status"
-          label="容器状态"
+          label="Container status"
           :show-overflow-tooltip="true"
           width="100"
         >
@@ -135,21 +135,21 @@
         </el-table-column>
         <el-table-column
           prop="status.restartCount"
-          label="重启次数"
+          label="Number of restarts"
           :show-overflow-tooltip="true"
           width="100"
         />
         <el-table-column
           prop="operation"
-          label="操作"
+          label="Operation"
           width="160"
         >
           <template slot-scope="{ row }">
             <el-link type="primary" @click="$termModal.open('container', { cluster, namespace, pod: podName, container: row.containerName })" style="marginRight:10px">
-              console
+              Console
             </el-link>
             <el-link type="primary" @click="toLog(row)">
-              查看日志
+              View log
             </el-link>
           </template>
         </el-table-column>
@@ -179,21 +179,21 @@ export default {
     data() {
         return {
             columns: [
-                { title: '副本名称', name: 'metadata.name' },
-                { title: '副本状态', name: 'status.phase', width: '80px' },
+                { title: 'Metadata name', name: 'metadata.name' },
+                { title: 'Replica status', name: 'status.phase', width: '80px' },
                 { title: 'IP', name: 'status.podIP', width: '100px' },
-                { title: '所在节点IP', name: 'status.hostIP', width: '100px' },
-                { title: '重启次数', name: 'status.restartCount', width: '100px' },
-                { title: '创建时间', name: 'creationTimestamp', width: '180px' },
-                { title: '操作', name: 'operation', width: '200px' },
+                { title: 'Node IP', name: 'status.hostIP', width: '100px' },
+                { title: 'Number of restarts', name: 'status.restartCount', width: '100px' },
+                { title: 'Creation time', name: 'creationTimestamp', width: '180px' },
+                { title: 'Operation', name: 'operation', width: '200px' },
             ],
             podName: null,
             containerColumns: [
-                { title: '容器名称', name: 'containerName' },
-                { title: '镜像', name: 'image', width: '40%' },
-                { title: '容器状态', name: 'status', width: '100px' },
-                { title: '重启次数', name: 'status.restartCount', width: '100px' },
-                { title: '操作', name: 'operation', width: '200px' },
+                { title: 'Container name', name: 'containerName' },
+                { title: 'Image', name: 'image', width: '40%' },
+                { title: 'Container status', name: 'status', width: '100px' },
+                { title: 'Number of restarts', name: 'status.restartCount', width: '100px' },
+                { title: 'Operation', name: 'operation', width: '200px' },
 
             ],
         };
@@ -226,7 +226,7 @@ export default {
             window.open(href, '_blank');
         },
         getContainerText(type) {
-            return (CONTAINERTYPE[type] || {}).text || '业务容器';
+            return (CONTAINERTYPE[type] || {}).text || 'Business container';
         },
         resolver(response) {
             const items = (response.items || []).map(r => {
@@ -268,8 +268,8 @@ export default {
         },
         async deleteItem(item) {
             this.$eConfirm({
-                title: '删除',
-                message: `确认要删除 ${item.metadata.name} 吗？`,
+                title: 'Delete',
+                message: `Confirm to delete ${item.metadata.name}?`,
                 ok: async () => {
                     const reqParam = {
                         pathParams: {
@@ -298,7 +298,7 @@ export default {
             const response = await workloadService.getAPIV1Instance(reqParam);
 
             this.$editResource({
-                title: `${item.metadata.name} —— 查看 YAML`,
+                title: `${item.metadata.name} —— View YAML`,
                 content: response,
                 editorOption: {
                     readOnly: true,

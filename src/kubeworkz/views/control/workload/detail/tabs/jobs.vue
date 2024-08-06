@@ -34,12 +34,12 @@
         >
           <el-table-column
             prop="metadata.name"
-            label="名称"
+            label="Name"
           >
           </el-table-column>
           <el-table-column
             prop="status.runningStatus"
-            label="状态"
+            label="Status"
             width="160"
           >
             <template slot-scope="{ row }">
@@ -48,7 +48,7 @@
           </el-table-column>
           <el-table-column
             prop="jobstatus"
-            label="执行情况（完成/全部）"
+            label="Execution status (complete/all)"
             width="200"
           >
             <template slot-scope="{ row }">
@@ -57,7 +57,7 @@
           </el-table-column>
           <el-table-column
             prop="period"
-            label="运行时长"
+            label="Running time"
             width="200"
           >
             <template slot-scope="{ row }">
@@ -66,12 +66,12 @@
           </el-table-column>
           <el-table-column
             prop="operation"
-            label="操作"
+            label="Operation"
             width="100"
           >
             <template slot-scope="{ row }">
               <el-link type="primary" @click="deleteItem(row)">
-                删除
+                Delete
               </el-link>
             </template>
           </el-table-column>
@@ -109,7 +109,7 @@ export default {
     data() {
         const statusList = Object.keys(JOB_STATUS_MAP)
             .map(key => ({ value: key, text: JOB_STATUS_MAP[key].text }));
-        statusList.unshift({ text: '全部状态', value: '' });
+        statusList.unshift({ text: 'All status', value: '' });
         return {
             jobService: extendWorkloadService.getInstance,
             currentStatus: statusList[0].value,
@@ -159,8 +159,8 @@ export default {
         },
         deleteItem(item) {
             this.$eConfirm({
-                title: '删除',
-                message: `确定删除 ${item.metadata.name} 吗？`,
+                title: 'Delete',
+                message: `Confirm delete of ${item.metadata.name}?`,
                 width: '460px',
                 ok: async () => {
                     const reqParam = {

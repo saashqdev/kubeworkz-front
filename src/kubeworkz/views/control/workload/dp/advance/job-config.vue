@@ -1,18 +1,18 @@
 <template>
   <div>
     <el-form-item
-      label="任务设定"
+      label="Task setting"
     >
       <el-form-item
         label=""
         style="display:flex;margin-bottom: 22px;"
       >
-        <!-- <div style="color: #999;">任务达到执行完成状态需要成功执行的 Pod 数量</div> -->
+        <!-- <div style="color: #999;">The number of Pods that need to be successfully executed for the task to reach execution completion status</div> -->
         <template slot="label">
-          预期成功执行数
+          Expected number of successful executions
           <el-tooltip effect="dark" placement="right" popper-class="ncs-el-tooltip-popper">
             <div slot="content">
-              任务达到执行完成状态需要成功执行的 Pod 数量
+              The number of Pods that need to be successfully executed for the task to reach execution completion status
             </div>
             <i class="el-icon-question" style="position: absolute;right:4px;top:11px"/>
           </el-tooltip>
@@ -29,12 +29,12 @@
         label=""
         style="display:flex;margin-bottom: 22px;"
       >
-        <!-- <div style="color: #999;">任务执行过程中允许同时创建的最大 Pod 数,并行数应不大于执行次数</div> -->
+        <!-- <div style="color: #999;">The maximum number of Pods allowed to be created simultaneously during task execution. The number of parallelism should not be greater than the number of executions.</div> -->
         <template slot="label">
-          并行数
+          Parallel number
           <el-tooltip effect="dark" placement="right" popper-class="ncs-el-tooltip-popper">
             <div slot="content">
-              任务执行过程中允许同时创建的最大 Pod 数,并行数应不大于执行次数
+              The maximum number of Pods allowed to be created simultaneously during task execution. The number of parallelism should not be greater than the number of executions.
             </div>
             <i class="el-icon-question" style="position: absolute;right:4px;top:11px"/>
           </el-tooltip>
@@ -55,12 +55,12 @@
           validators.consistofNumber(false),
         ]"
       >
-        <!-- <div style="color: #999;">任务执行超出该时间时，任务将会被标识为执行失败，任务负载下的所有 Pod 实例都会被删除。为空时表示不设置超时时间。</div> -->
+        <!-- <div style="color: #999;">When the task execution exceeds this time, the task will be marked as failed and all Pod instances under the task load will be deleted. When empty, it means no timeout is set.</div> -->
         <template slot="label">
-          超时时间
+          Overtime time
           <el-tooltip effect="dark" placement="right" popper-class="ncs-el-tooltip-popper">
             <div slot="content">
-              任务执行超出该时间时，任务将会被标识为执行失败，任务负载下的所有 Pod 实例都会被删除。为空时表示不设置超时时间。
+              When the task execution exceeds this time, the task will be marked as failed and all Pod instances under the task load will be deleted. When empty, it means no timeout is set.
             </div>
             <i class="el-icon-question" style="position: absolute;right:4px;top:11px"/>
           </el-tooltip>
@@ -69,7 +69,7 @@
         <span style="margin-left:8px">秒</span>
       </el-form-item>
       <el-form-item
-        label="重试次数"
+        label="Number of retries"
         style="margin-bottom:22px"
       >
         <el-input-number

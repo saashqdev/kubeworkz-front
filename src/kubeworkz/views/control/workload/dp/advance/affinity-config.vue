@@ -10,7 +10,7 @@
         :initialAdd="required"
         :minCount="required ? 1 : 0"
         :getDefaultItem="getDataTemplate"
-        addButtonText="添加规则"
+        addButtonText="Add rule"
         :validateFile="prefixProp"
       >
         <template slot-scope="{ item: blockModel, index: blockIndex }">
@@ -50,7 +50,7 @@
               <el-select
                 v-model="ruleModel.operator"
                 :data="operators"
-                placeholder="请选择"
+                placeholder="Please choose"
               >
                 <el-option
                   v-for="item in operators"
@@ -73,7 +73,7 @@
                 <el-input
                   v-if="['Exists', 'DoesNotExist'].includes(ruleModel.operator)"
                   disabled
-                  value="无需填写values"
+                  value="No need to fill in values"
                 />
                 <el-input
                   v-else
@@ -86,13 +86,13 @@
             v-if="['podAntiAffinity', 'podAffinity'].includes(type)"
             style="marginTop: 20px"
           >
-            <el-form-item label="作用空间" style="margin-bottom: 22px;">
+            <el-form-item label="Namespace" style="margin-bottom: 22px;">
               {{ namespace }}
             </el-form-item>
-            <el-form-item label="拓扑域" style="margin-bottom: 22px;">
+            <el-form-item label="Topological domain" style="margin-bottom: 22px;">
               <el-select
                 v-model="blockModel.topologyKey"
-                placeholder="请选择"
+                placeholder="Please choose"
               >
                 <el-option
                   v-for="item in topologyKeyData"
@@ -124,9 +124,9 @@ import {
 } from 'kubeworkz/k8s-resources/pod/affinity';
 import * as validators from 'kubeworkz/utils/validators';
 const titleMap = {
-    nodeAffinity: '节点亲和性',
-    podAffinity: '副本亲和性',
-    podAntiAffinity: '副本反亲和性',
+    nodeAffinity: 'Node affinity',
+    podAffinity: 'Replica affinity',
+    podAntiAffinity: 'Replica anti-affinity',
 };
 export default {
     mixins: [ makeVModelMixin ],

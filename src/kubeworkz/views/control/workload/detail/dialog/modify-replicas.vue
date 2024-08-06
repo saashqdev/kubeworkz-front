@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="调整副本数"
+    title="Adjust the number of copies"
     :visible.sync="show"
     width="500px"
     :custom-class="$style.dialog"
@@ -9,7 +9,7 @@
   >
     <el-form>
       <el-form-item
-        label="副本数"
+        label="Number of replicas"
         label-position="right"
         label-width="120px"
       >
@@ -25,8 +25,8 @@
       </el-form-item>
     </el-form>
     <div slot="footer">
-      <el-button @click="close">取 消</el-button>
-      <el-button :disabled="!canSubmit" type="primary" @click="submit" :loading="submitLoading">确 定</el-button>
+      <el-button @click="close">Cancel</el-button>
+      <el-button :disabled="!canSubmit" type="primary" @click="submit" :loading="submitLoading">OK</el-button>
     </div>
   </el-dialog>
 </template>
@@ -39,7 +39,7 @@ import workloadService from 'kubeworkz/services/k8s-resource';
 export default {
     mixins: [ Modal ],
     props: {
-        instance: Object, // statefulset 需要进行部分的参数调整
+        instance: Object, // statefulset requires some parameter adjustments
     },
     data() {
         return {
