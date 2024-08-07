@@ -4,7 +4,7 @@
       <div :class="$style.form">
         <u-tabs v-model="account.LoginType">
           <u-tab
-            title="普通登录"
+            title="Normal login"
             value="normal"
           />
         <!-- <u-tab
@@ -37,9 +37,9 @@
                   :class="$style.input"
                   name="account"
                   :color="errors && errors[0] ? 'error' : ''"
-                  placeholder="请输入账号"
+                  placeholder="Please input Username"
                   maxlength="128"
-                  maxlength-message="账号最多输入128个字符"
+                  maxlength-message="The account number can be entered up to 128 characters."
                 >
                   <i :class="$style.user_icon" />
                   <i
@@ -74,9 +74,9 @@
                   :color="errors && errors[0] ? 'error' : ''"
                   name="password"
                   :type="pwdFlag ? 'password' : 'text'"
-                  placeholder="请输入密码"
+                  placeholder="Please enter password"
                   maxlength="128"
-                  maxlength-message="密码最多输入128个字符"
+                  maxlength-message="The password must be up to 128 characters long"
                   @keyup.enter="login"
                 >
                   <i :class="$style.pwd_icon" />
@@ -103,7 +103,7 @@
                 style="float: right;"
                 @click="$refs.password.open()"
               >
-                重置密码
+                Reset password
               </u-link>
             </kube-form-item>
             <kube-form-item
@@ -120,7 +120,7 @@
                 :disabled="invalid || loadingSubmit"
                 @click="login"
               >
-                登录
+                Log in
               </u-button>
               <span :class="$style.error_text">{{ errMsg }}</span>
             </kube-form-item>
@@ -141,7 +141,7 @@
                 :class="$style.login_logo"
                 :src="gitHubImg"
               >
-              <span>使用GitHub账号登录</span>
+              <span>Log in with your GitHub account</span>
             </u-button>
           </u-linear-layout>
           <!-- <u-linear-layout
@@ -149,18 +149,18 @@
             type="flex"
             justify="center"
           >
-            使用<u-link
+            User<u-link
               v-if="openIdFlag"
               :class="$style.link"
               @click="openIdLogin"
             >
-              OpenID 登录
+              OpenID login
             </u-link>
             <u-link
               v-if="winADFlag"
               :href="windowAdUrl"
             >
-              Windows AD域登录
+              Windows AD domain login
             </u-link>
           </u-linear-layout> -->
         </validation-observer>

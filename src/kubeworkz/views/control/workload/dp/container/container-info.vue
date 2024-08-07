@@ -7,26 +7,26 @@
         :initialAdd="true"
         :minCount="1"
         :miniFormatter="(item, index) => {
-          return `配置-${index + 1}`
+          return `Configuration-${index + 1}`
         }"
         :getDefaultItem="getDefaultContainer"
       >
       <template slot-scope="{item, index}">
         <el-form-item
-          label="容器名称"
+          label="Container name"
           :prop="`containers.${index}.containerName`"
           :rules="[
-            { required: true, message: '名称不能为空'},
+            { required: true, message: 'Name is required'},
             validators.k8sResourceNameValidator(),
           ]"
         >
-          <el-input v-model="item.containerName" placeholder="1-63位小写字母、数字、或中划线组成，以字母开头，字母或数字结尾"/>
+          <el-input v-model="item.containerName" placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"/>
         </el-form-item>
         <el-form-item
-          label="镜像"
+          label="Image"
           :prop="`containers.${index}.image`"
           :rules="[
-            { required: true, message: '镜像不能为空'},
+            { required: true, message: 'Image cannot be empty'},
           ]"
         >
           <div style="display:flex">
@@ -48,41 +48,41 @@
             <div :class="$style.remainResourceInfo">
               <template v-if="data">
                 <div :class="$style.remainType">
-                  空间配额剩余:
+                  Space quota remaining:
                 </div>
                 <div :class="$style.remainType">
                   <div :class="$style.title">
-                    请求:
+                    Request:
                   </div>
                   <div :class="$style.content">
-                    <span :class="$style.value">CPU: {{data.requests.cpu}} Cores</span><span :class="$style.value">内存: {{data.requests.memory}} MiB</span><span :class="$style.value">GPU: {{data.requests.gpu}} Cores</span>
+                    <span :class="$style.value">CPU: {{data.requests.cpu}} Cores</span><span :class="$style.value">Memory: {{data.requests.memory}} MiB</span><span :class="$style.value">GPU: {{data.requests.gpu}} Cores</span>
                   </div>
                 </div>
                 <div :class="$style.remainType">
                   <div :class="$style.title">
-                    上限:
+                    Upper limit:
                   </div>
                   <div :class="$style.content">
-                    <span :class="$style.value">CPU: {{data.limits.cpu}} Cores</span><span :class="$style.value">内存: {{data.limits.memory}} MiB</span>
+                    <span :class="$style.value">CPU: {{data.limits.cpu}} Cores</span><span :class="$style.value">Memory: {{data.limits.memory}} MiB</span>
                   </div>
                 </div>
               </template>
               <template v-else>
-                <div>空间配额剩余</div>
+                <div>Space quota remaining</div>
                 <div :class="$style.remainType">
                   <div :class="$style.title">
-                    请求:
+                    Request:
                   </div>
                   <div :class="$style.content">
-                    <span :class="$style.value">CPU: -- Cores</span><span :class="$style.value">内存: -- MiB</span><span :class="$style.value">GPU: -- GiB</span>
+                    <span :class="$style.value">CPU: -- Cores</span><span :class="$style.value">Memory: -- MiB</span><span :class="$style.value">GPU: -- GiB</span>
                   </div>
                 </div>
                 <div :class="$style.remainType">
                   <div :class="$style.title">
-                    上限:
+                    Upper limit:
                   </div>
                   <div :class="$style.content">
-                    <span :class="$style.value">CPU: -- Cores</span><span :class="$style.value">内存: -- MiB</span>
+                    <span :class="$style.value">CPU: -- Cores</span><span :class="$style.value">Memory: -- MiB</span>
                   </div>
                 </div>
               </template>
@@ -93,11 +93,11 @@
         <resource-config v-model="item.resources" />
         <el-form-item>
           <el-link @click="item.showAdvanced = !item.showAdvanced" type="primary">
-            {{ item.showAdvanced ? '收起更多配置' : '展开更多配置' }}
+            {{ item.showAdvanced ? 'Collapse more configurations' : 'Expand more configurations' }}
           </el-link>
         </el-form-item>
         <div v-show="item.showAdvanced">
-          <volumns-config
+          <volumes-config
             v-model="item.volumes"
             :pod-volumes="model.podTemplate.spec.volumes"
             :open-dialog="openEmpryDirDialog"
@@ -117,8 +117,8 @@
             ]"
           >
             <template slot="label">
-              容器类型
-              <el-tooltip effect="dark" content="init 容器不支持就绪探针，必须可以执行结束。一个 pod 可以有多个 init 容器，它们将依次在业务容器运行前执行。" placement="right" popper-class="ncs-el-tooltip-popper">
+              Container type
+              <el-tooltip effect="dark" content="The init container does not support readiness probes and must be able to terminate. A pod can have multiple init containers, which will be executed sequentially before the business container is run." placement="right" popper-class="ncs-el-tooltip-popper">
                 <i class="el-icon-question" style="position: absolute;right:4px;top:11px"/>
               </el-tooltip>
             </template>
@@ -127,21 +127,21 @@
             </el-radio-group>
           </el-form-item>
           <el-form-item
-            label="启动命令"
+            label="Start command"
           >
             <div style="color: #999;">
-              常见用法
+              Common usage
               <el-tooltip effect="dark" placement="right" popper-class="ncs-el-tooltip-popper">
                 <div slot="content">
-                  <div>1.使用环境变量</div>
-                    <div>【命令】/bin/echo</div>
-                    <div>【参数】$(ENVNAME)</div>
-                    <div>注：ENVNAME为环境变量中定义的Key值</div>
+                  <div>1. Use environment variables</div>
+                    <div> [Order] /bin/echo</div>
+                    <div> [Parameter] $(ENVNAME)</div>
+                    <div>Note: ENVNAME is the Key value defined in the environment variable</div>
                     <div style="margin-top: 10px;">
-                      2.运行shell命令
+                      2. Run shell command
                     </div>
-                    <div>【命令】/bin/sh</div>
-                    <div>【参数】</div><div style="padding-left: 20px;">
+                    <div> [Order] /bin/sh</div>
+                    <div> [Parameter]</div><div style="padding-left: 20px;">
                       -c
                     </div>
                     <div style="padding-left: 20px;">
@@ -162,7 +162,7 @@
             />
           </el-form-item>
           <el-form-item
-            label="启动命令参数"
+            label="Start command parameters"
           >
             <qz-editor
               style="border: 1px solid #E1E8ED"
@@ -211,16 +211,16 @@
           <el-form-item
             :prop="`containers.${index}.imagePullPolicy`"
             :rules="[
-              { required: true, message: '镜像拉取策略不能为空'},
+              { required: true, message: 'Image pull policy cannot be empty'},
             ]"
           >
             <template slot="label">
-              镜像拉取策略
+              Image pull strategy
               <el-tooltip effect="dark" placement="right" popper-class="ncs-el-tooltip-popper">
                 <div slot="content">
-                  Always：总是重新拉取新镜像<br/>
-                  Never： 永远不会拉取新镜像<br/>
-                  IfNotPresent：默认值，镜像在宿主机上不存在时才拉取
+                  Always: Always pull new images again<br/>
+                  Never: Never pull new images<br/>
+                  IfNotPresent: Default value, the image is pulled only if it does not exist on the host.
                 </div>
                 <i class="el-icon-question" style="position: absolute;right:4px;top:11px"/>
               </el-tooltip>
@@ -233,8 +233,8 @@
       </template>
       </dynamicTab>
       <el-form-item>
-        <el-button type="primary" @click="$emit('go', -1)">上一步</el-button>
-        <el-button type="primary" @click="handleNextStep">下一步</el-button>
+        <el-button type="primary" @click="$emit('go', -1)">Previous</el-button>
+        <el-button type="primary" @click="handleNextStep">Next step</el-button>
       </el-form-item>
     </el-form>
     <empty-dir-dialog
@@ -249,8 +249,8 @@
 import { makeVModelMixin } from 'kubeworkz/mixins/functional.js';
 import { getDefaultContainer } from 'kubeworkz/k8s-resources/container';
 import resourceConfig from './resource-config.vue';
-import volumnsConfig from './volumns-config.vue';
-import emptyDirDialog from './volumns/emptydir-dialog.vue';
+import volumesConfig from './volumes-config.vue';
+import emptyDirDialog from './volumes/emptydir-dialog.vue';
 import envConfig from './env-config.vue';
 import probeConfig from './probe-config.vue';
 import portConfig from './port-config.vue';
@@ -265,7 +265,7 @@ import * as validators from 'kubeworkz/utils/validators';
 export default {
     components: {
         resourceConfig,
-        volumnsConfig,
+        volumesConfig,
         emptyDirDialog,
         // pathInput,
         envConfig,
@@ -281,8 +281,8 @@ export default {
 
             },
             containerTypes: [
-                { text: '业务容器', value: 'normal' },
-                { text: 'init 容器', value: 'init' },
+                { text: 'Business container', value: 'normal' },
+                { text: 'Init container', value: 'init' },
             ],
             imagePullPolicyList: [
                 { value: 'Always', text: 'Always' },
@@ -305,7 +305,7 @@ export default {
     },
     methods: {
         async handleNextStep() {
-            // 触发校验
+            // Trigger verification
             try {
                 await this.$refs.form.validate();
             } catch (error) {

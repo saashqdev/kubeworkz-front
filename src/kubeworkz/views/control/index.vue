@@ -67,7 +67,7 @@ export default {
                 to: {
                     path: '/namespace',
                 },
-                text: '我的空间',
+                text: 'My namespace',
             };
         },
         cluster: get('scope/cluster@value'),

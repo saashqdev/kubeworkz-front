@@ -11,8 +11,8 @@
       >
         <div :class="$style.icon">
           <img :src="bgImage">
-          <div>暂无数据</div>
-          <p>请在【运维管理】> 【资源管理】> 【空间管理】中创建空间</p>
+          <div>No data</div>
+          <p>Please create a space in [Operation and Maintenance] > [Resource Management] > [Namespace Management]</p>
         </div>
       </div>
       <div
@@ -26,7 +26,7 @@
           @click="toNamespace(p)"
         >
           <div :class="$style.header">
-            空间：{{ p.metadata.name }}
+            Namespace:{{ p.metadata.name }}
           </div>
           <x-request
             :class="$style.body"
@@ -43,7 +43,7 @@
                 <div :class="$style.content">
                   <div>
                     <div :class="$style.subtitle">
-                      Requests / 配额 / 利用率
+                      Requests / Quota / Utilization
                     </div>
                     <div :class="$style.value">
                       {{ data.cpuReqUsed }}<sub>Cores</sub>/{{ data.cpuReqHard }}<sub>Cores</sub> ({{ data.cpuRequestUsedRate | percentageFilter }})
@@ -51,7 +51,7 @@
                   </div>
                   <div>
                     <div :class="$style.subtitle">
-                      Limits / 配额 / 利用率
+                      Limits / Quota / Utilization
                     </div>
                     <div :class="$style.value">
                       {{ data.cpuLimitUsed }}<sub>Cores</sub>/{{ data.cpuLimitHard }}<sub>Cores</sub> ({{ data.cpuRequestHardRate | percentageFilter }})
@@ -60,12 +60,12 @@
                 </div>
 
                 <div :class="$style.title">
-                  内存
+                  Memory
                 </div>
                 <div :class="$style.content">
                   <div>
                     <div :class="$style.subtitle">
-                      Requests / 配额 / 利用率
+                      Requests / Quota / Utilization
                     </div>
                     <div :class="$style.value">
                       {{ data.memReqUsed | niceBytes }}<sub>{{ data.memReqUsed | niceBytesUnit }}</sub>/{{ data.memReqHard | niceBytes }}<sub>{{ data.memReqHard | niceBytesUnit }}</sub> ({{ data.memRequestUsedRate | percentageFilter }})
@@ -73,7 +73,7 @@
                   </div>
                   <div>
                     <div :class="$style.subtitle">
-                      Limits / 配额 / 利用率
+                      Limits / Quota / Utilization
                     </div>
                     <div :class="$style.value">
                       {{ data.memLimitUsed | niceBytes }}<sub>{{ data.memLimitUsed | niceBytesUnit }}</sub>/{{ data.memLimitHard | niceBytes }}<sub>{{ data.memLimitHard | niceBytesUnit }}</sub> ({{ data.memRequestHardRate | percentageFilter }})
@@ -81,7 +81,7 @@
                   </div>
                 </div>
                 <div :class="$style.title">
-                  资源
+                  Resource
                 </div>
                 <div :class="$style.workloads">
                   <div>
@@ -194,7 +194,7 @@ const promequery = {
 };
 export default {
     metaInfo: {
-        title: '我的空间 - kubeworkz',
+        title: 'My namespace - kubeworkz',
     },
     filters: {
         percentageFilter(val) {

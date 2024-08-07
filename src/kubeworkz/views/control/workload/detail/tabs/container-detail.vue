@@ -57,7 +57,7 @@
         <el-descriptions-item label="Mount data volume" contentStyle="display:block" labelStyle="align-self: flex-start;">
           <div>
             <el-table
-              :data="volumns"
+              :data="volumes"
               style="width: 100%;"
             >
               <el-table-column
@@ -101,7 +101,7 @@ export default {
             instance: {},
             container: {},
             resourceData: [],
-            volumns: [],
+            volumes: [],
             message: '',
         };
     },
@@ -162,7 +162,7 @@ export default {
                     { type: 'requests', cpu: getFunc(resource, 'requests.cpu', '-'), memory: getFunc(resource, 'requests.memory', '-') },
                     { type: 'limits', cpu: getFunc(resource, 'limits.cpu', '-'), memory: getFunc(resource, 'limits.memory', '-') },
                 ];
-                this.volumns = this.container.raw.volumeMounts;
+                this.volumes = this.container.raw.volumeMounts;
                 console.log(this.container);
             } catch (err) {
                 this.message = 'Container does not exist';

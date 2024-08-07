@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-form-item label="挂载数据卷">
-      <div style="color: #999;">RWO类型存储声明，不支持多副本挂载，请设置副本数为1</div>
+    <el-form-item label="Mount data volume">
+      <div style="color: #999;">RWO type storage statement does not support multiple copy mounting. Please set the number of copies to 1.</div>
       <dynamicTab
         :value="tabs"
         :showAddBtn="false"
@@ -96,19 +96,19 @@
 
 <script>
 import { makeVModelMixin } from 'kubeworkz/mixins/functional.js';
-import pvcConfig from './volumns/pvc-config.vue';
-import configmapConfig from './volumns/configmap-config.vue';
-import secretConfig from './volumns/secret-config.vue';
-import emptyDirConfig from './volumns/emptydir-config.vue';
-import hostPathConfig from './volumns/hostpath-config.vue';
-import vctConfig from './volumns/vct-config.vue';
+import pvcConfig from './volumes/pvc-config.vue';
+import configmapConfig from './volumes/configmap-config.vue';
+import secretConfig from './volumes/secret-config.vue';
+import emptyDirConfig from './volumes/emptydir-config.vue';
+import hostPathConfig from './volumes/hostpath-config.vue';
+import vctConfig from './volumes/vct-config.vue';
 const titleMap = {
     pvc: 'PVC',
     configmap: 'ConfigMap',
     secret: 'Secret',
     emptyDir: 'EmptyDir',
     hostpath: 'HostPath',
-    vct: '存储模板',
+    vct: 'Store template',
 };
 export default {
     components: {

@@ -5,15 +5,15 @@
       :getDefaultItem="getDataTemplate"
       :columns="[
           {
-              title: '节点路径',
+              title: 'Node path',
               dataIndex: 'path',
           },
           {
-              title: '模式',
+              title: 'Model',
               dataIndex: 'pathType'
           },
           {
-              title: '挂载目录',
+              title: 'Mount directory',
               dataIndex: 'mountPath'
           }
       ]"
@@ -33,7 +33,7 @@
         </el-form-item>
       </template>
       <template v-slot:pathType="{record}">
-        <el-select v-model="record.pathType" placeholder="请选择" filterable>
+        <el-select v-model="record.pathType" placeholder="Please choose" filterable>
           <el-option
             v-for="item in pathTypeList"
             :key="item.value"

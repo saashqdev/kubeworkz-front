@@ -5,28 +5,32 @@
       :getDefaultItem="getDataTemplate"
       :columns="[
           {
-              title: 'secret名',
+              title: 'Parameter',
               dataIndex: 'resource',
           },
           {
-              title: '挂载目录',
+              title: 'Mount directory',
               dataIndex: 'mountPath'
           },
           {
-              title: '子路径',
+              title: 'Subpath',
               dataIndex: 'subPath'
           }
       ]"
     >
       <template v-slot:resource="{record}">
-        <el-select v-model="record.resource" placeholder="请选择" filterable>
-            <el-option
-              v-for="item in resources"
-              :key="item.value"
-              :label="item.text"
-              :value="item.value">
-            </el-option>
-          </el-select>
+        <el-select v-model="record.resource" placeholder="Please choose" filterable>
+          <el-option
+            v-for="item in resources"
+            :key="item.value"
+            :label="item.text"
+            :value="item.value">
+            <el-tooltip class="item" effect="dark" content="pending" placement="left" popper-class="ncs-el-tooltip-popper">
+              <i class="el-icon-warning-outline" v-if="item.status.phase === 'Pending'" style="color: #FFA136"/>
+            </el-tooltip>
+            {{item.text}}
+          </el-option>
+        </el-select>
       </template>
       <template v-slot:mountPath="{record, index}">
         <el-form-item 
@@ -59,13 +63,13 @@
         </el-form-item>
       </template>
     </dynamicBlock>
-     <div>
-      如需新的Secret，可
+    <div>
+      If you need a new storage statement, you can
       <el-link
         type="primary"
-        @click="openNewWindow({ path: '/control/secrets/list', query: $route.query })"
+        @click="openNewWindow({ path: '/control/persistentvolumeclaims/list', query: $route.query })"
       >
-        创建Secret
+        Create a storage claim
       </el-link>
       <i
         style="font-size:16px; margin-left: 8px"
@@ -84,13 +88,8 @@ export default {
     mixins: [ makeVModelMixin, volumnMixin ],
     data: () => ({
         validators,
-        resource: 'secrets',
+        resource: 'persistentvolumeclaims',
     }),
-    computed: {
-        errorprefix() {
-            return `${this.prefixKey}-volume-secrets-`;
-        },
-    },
     methods: {
         getDataTemplate() {
             return {

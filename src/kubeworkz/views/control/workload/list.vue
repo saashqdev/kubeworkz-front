@@ -9,7 +9,7 @@
             :disabled="isReview"
             @click="toCreate"
           >
-            部署
+            Deploy
           </el-button>
           <el-button
             square
@@ -18,7 +18,7 @@
           />
           <elInputSearch
             v-model="filterName"
-            placeholder="请输入名称搜索"
+            placeholder="Please enter name to search"
             position="right"
             @search="onSearch"
           />
@@ -44,7 +44,7 @@
               <template v-if="['statefulsets', 'deployments'].includes(workload)">
                 <el-table-column
                   prop="metadata.name"
-                  label="名称"
+                  label="Name"
                   :show-overflow-tooltip="true"
                   sortable
                 >
@@ -59,7 +59,7 @@
                 </el-table-column>
                 <el-table-column
                   prop="date"
-                  label="镜像"
+                  label="Image"
                   :show-overflow-tooltip="true"
                 >
                   <template slot-scope="{ row }">
@@ -68,11 +68,11 @@
                 </el-table-column>
                 <el-table-column
                   prop="date"
-                  label="状态"
+                  label="Status"
                   :width="workload === 'deployments' ? 360 : 180"
                 >
                   <template slot="header">
-                    状态
+                    Status
                     <el-tooltip
                       class="item"
                       effect="dark"
@@ -83,20 +83,20 @@
                         v-if="workload === 'deployments'"
                         slot="content"
                       >
-                        <div>工作负载状态给出工作负载各个副本的状态统计</div>
-                        <div>desired：预期的副本数</div>
-                        <div>updated：已经是最新版本的副本数</div>
-                        <div>available：可用副本数</div>
-                        <div>unavailable：不可用副本数</div>
-                        <div>total：总副本数</div>
+                        <div>Workload status gives status statistics of each copy of the workload</div>
+                        <div>desired: expected number of copies</div>
+                        <div>updated: the number of copies that are already the latest version</div>
+                        <div>available: number of available copies</div>
+                        <div>unavailable: number of unavailable replicas</div>
+                        <div>total: total number of copies</div>
                       </div>
                       <div
                         v-if="workload === 'statefulsets'"
                         slot="content"
                       >
-                        <div>状态信息给出副本的状态统计数据</div>
-                        <div>desired：预期的副本数</div>
-                        <div>total：总副本数</div>
+                        <div>Status information gives the status statistics of the replica</div>
+                        <div>desired: expected number of copies</div>
+                        <div>total: total number of copies</div>
                       </div>
                       <i class="el-icon-question" />
                     </el-tooltip>
@@ -135,7 +135,7 @@
                 </el-table-column>
                 <el-table-column
                   prop="metadata.creationTimestamp"
-                  label="创建时间"
+                  label="Creation time"
                   width="170"
                   sortable
                 >
@@ -145,7 +145,7 @@
                 </el-table-column>
                 <el-table-column
                   prop="action"
-                  label="操作"
+                  label="Operation"
                   width="180"
                 >
                   <template slot-scope="{ row }">
@@ -155,14 +155,14 @@
                         :disabled="isReview"
                         @click="toEditItem(row)"
                       >
-                        设置
+                        Set up
                       </el-link>
                       <el-link
                         type="primary"
                         :disabled="isReview"
                         @click="resize(row)"
                       >
-                        调整副本数
+                        Adjust the number of copies
                       </el-link>
                       <el-link
                         v-if="workload === 'deployments'"
@@ -170,28 +170,28 @@
                         type="primary"
                         @click="toUpdateImage(row)"
                       >
-                        滚动更新
+                        Rolling update
                       </el-link>
                       <el-link
                         type="primary"
                         :disabled="isReview"
                         @click="restart(row)"
                       >
-                        重建
+                        Rebuild
                       </el-link>
                       <el-link
                         type="primary"
                         :disabled="isReview"
                         @click="deleteItem(row)"
                       >
-                        删除
+                        Delete
                       </el-link>
                       <el-link
                         type="primary"
                         :disabled="isReview"
                         @click="editYAML(row)"
                       >
-                        YAML 设置
+                        YAML settings
                       </el-link>
                     </qz-link-group>
                   </template>
@@ -200,7 +200,7 @@
               <template v-if="['daemonsets'].includes(workload)">
                 <el-table-column
                   prop="metadata.name"
-                  label="名称"
+                  label="Name"
                   :show-overflow-tooltip="true"
                   sortable
                 >
@@ -215,16 +215,16 @@
                 </el-table-column>
                 <el-table-column
                   prop="level"
-                  label="级别"
+                  label="Level"
                   :show-overflow-tooltip="true"
                 >
                   <template slot-scope="{ row }">
-                    {{ row.spec.level && (row.spec.level.ind === 'platform' ? '平台级' : '租户级') || '-' }}
+                    {{ row.spec.level && (row.spec.level.ind === 'platform' ? 'Platform level' : 'Tenant level') || '-' }}
                   </template>
                 </el-table-column>
                 <el-table-column
                   prop="metadata.creationTimestamp"
-                  label="创建时间"
+                  label="Creation time"
                   width="170"
                   sortable
                 >
@@ -234,7 +234,7 @@
                 </el-table-column>
                 <el-table-column
                   prop="action"
-                  label="操作"
+                  label="Operation"
                   width="180"
                 >
                   <template slot-scope="{ row }">
@@ -244,21 +244,21 @@
                         :disabled="isReview"
                         @click="toEditItem(row)"
                       >
-                        设置
+                        Set up
                       </el-link>
                       <el-link
                         type="primary"
                         :disabled="isReview"
                         @click="deleteItem(row)"
                       >
-                        删除
+                        Delete
                       </el-link>
                       <el-link
                         type="primary"
                         :disabled="isReview"
                         @click="editYAML(row)"
                       >
-                        YAML 设置
+                        YAML settings
                       </el-link>
                     </qz-link-group>
                   </template>
@@ -267,7 +267,7 @@
               <template v-if="['cronjobs'].includes(workload)">
                 <el-table-column
                   prop="metadata.name"
-                  label="名称"
+                  label="Name"
                   :show-overflow-tooltip="true"
                   sortable
                 >
@@ -282,21 +282,21 @@
                 </el-table-column>
                 <el-table-column
                   prop="status.runningStatus"
-                  label="状态"
+                  label="Status"
                   :show-overflow-tooltip="true"
                 >
                   <template slot-scope="{ row }">
-                    {{ row.spec.suspend ? '暂停' : '已启动' }}
+                    {{ row.spec.suspend ? 'Suspended' : 'Started' }}
                   </template>
                 </el-table-column>
                 <el-table-column
                   prop="spec.schedule"
-                  label="定时设置"
+                  label="Timing settings"
                   :show-overflow-tooltip="true"
                 />
                 <el-table-column
                   prop="status.tasks"
-                  label="正在运行任务数"
+                  label="Number of running tasks"
                   :show-overflow-tooltip="true"
                 >
                   <template slot-scope="{ row }">
@@ -305,7 +305,7 @@
                 </el-table-column>
                 <el-table-column
                   prop="metadata.creationTimestamp"
-                  label="创建时间"
+                  label="Creation time"
                   width="170"
                   sortable
                 >
@@ -315,7 +315,7 @@
                 </el-table-column>
                 <el-table-column
                   prop="action"
-                  label="操作"
+                  label="Action"
                   width="180"
                 >
                   <template slot-scope="{ row }">
@@ -325,21 +325,21 @@
                         :disabled="isReview"
                         @click="toEditItem(row)"
                       >
-                        设置
+                        Set up
                       </el-link>
                       <el-link
                         type="primary"
                         :disabled="isReview"
                         @click="deleteItem(row)"
                       >
-                        删除
+                        Delete
                       </el-link>
                       <el-link
                         type="primary"
                         :disabled="isReview"
                         @click="editYAML(row)"
                       >
-                        YAML 设置
+                        YAML settings
                       </el-link>
                     </qz-link-group>
                   </template>
@@ -348,7 +348,7 @@
               <template v-if="['jobs'].includes(workload)">
                 <el-table-column
                   prop="metadata.name"
-                  label="名称"
+                  label="Name"
                   :show-overflow-tooltip="true"
                   sortable
                 >
@@ -363,7 +363,7 @@
                 </el-table-column>
                 <el-table-column
                   prop="status"
-                  label="状态"
+                  label="Status"
                   :show-overflow-tooltip="true"
                 >
                   <template slot-scope="{ row }">
@@ -372,7 +372,7 @@
                 </el-table-column>
                 <el-table-column
                   prop="jobstatus"
-                  label="执行情况（完成/全部）"
+                  label="Execution status (complete/all)"
                   :show-overflow-tooltip="true"
                 >
                   <template slot-scope="{ row }">
@@ -381,7 +381,7 @@
                 </el-table-column>
                 <el-table-column
                   prop="period"
-                  label="运行时长"
+                  label="Running time"
                   :show-overflow-tooltip="true"
                 >
                   <template slot-scope="{ row }">
@@ -390,7 +390,7 @@
                 </el-table-column>
                 <el-table-column
                   prop="metadata.creationTimestamp"
-                  label="创建时间"
+                  label="Creation time"
                   width="170"
                   sortable
                 >
@@ -400,7 +400,7 @@
                 </el-table-column>
                 <el-table-column
                   prop="action"
-                  label="操作"
+                  label="Action"
                   width="180"
                 >
                   <template slot-scope="{ row }">
@@ -410,7 +410,7 @@
                         :disabled="isReview"
                         @click="deleteItem(row)"
                       >
-                        删除
+                        Delete
                       </el-link>
                     </qz-link-group>
                   </template>
@@ -521,35 +521,35 @@ export default {
                 case 'deployments':
                 case 'statefulsets':
                     return [
-                        { title: '名称', name: 'name', sortable: true },
-                        { title: '状态', name: 'status', width: '360px' },
-                        { title: '创建时间', name: 'creationTimestamp', width: '200px', sortable: true },
-                        { title: '操作', name: 'operation', sortable: false, width: '200px' },
+                        { title: 'Name', name: 'name', sortable: true },
+                        { title: 'Status', name: 'status', width: '360px' },
+                        { title: 'Creation time', name: 'creationTimestamp', width: '200px', sortable: true },
+                        { title: 'Operation', name: 'operation', sortable: false, width: '200px' },
                     ];
                 case 'daemonsets':
                     return [
-                        { title: '名称', name: 'name', sortable: true },
-                        { title: '级别', name: 'level', width: '320px' },
-                        { title: '创建时间', name: 'creationTimestamp', width: '200px', sortable: true },
-                        { title: '操作', name: 'operation', sortable: false, width: '200px' },
+                        { title: 'Name', name: 'name', sortable: true },
+                        { title: 'Level', name: 'level', width: '320px' },
+                        { title: 'Creation time', name: 'creationTimestamp', width: '200px', sortable: true },
+                        { title: 'Operation', name: 'operation', sortable: false, width: '200px' },
                     ];
                 case 'jobs':
                     return [
-                        { title: '名称', name: 'name', sortable: true },
-                        { title: '状态', name: 'status', width: '160px' },
-                        { title: '执行情况（完成/全部）', name: 'jobstatus', width: '200px', sortable: true },
-                        { title: '运行时长', name: 'period', width: '160px', sortable: true },
-                        { title: '操作', name: 'operation', sortable: false, width: '100px' },
+                        { title: 'Name', name: 'name', sortable: true },
+                        { title: 'Status', name: 'status', width: '160px' },
+                        { title: 'Execution status (complete/all)', name: 'jobstatus', width: '200px', sortable: true },
+                        { title: 'Running time', name: 'period', width: '160px', sortable: true },
+                        { title: 'Operation', name: 'operation', sortable: false, width: '100px' },
                     ];
                 case 'cronjobs':
                     return [
-                        { title: '名称', name: 'name', sortable: true },
-                        { title: '空间', name: 'metadata.namespace', width: '160px' },
-                        { title: '状态', name: 'status.runningStatus', width: '80px' },
-                        { title: '定时调度设置', name: 'spec.schedule', width: '120px' },
-                        { title: '正在运行任务数', name: 'status.tasks', width: '120px' },
-                        { title: '创建时间', name: 'creationTimestamp', width: '160px' },
-                        { title: '操作', name: 'operation', width: '160px' },
+                        { title: 'Name', name: 'name', sortable: true },
+                        { title: 'Namespace', name: 'metadata.namespace', width: '160px' },
+                        { title: 'Status', name: 'status.runningStatus', width: '80px' },
+                        { title: 'Schedule scheduling settings', name: 'spec.schedule', width: '120px' },
+                        { title: 'Number of running tasks', name: 'status.tasks', width: '120px' },
+                        { title: 'Creation time', name: 'creationTimestamp', width: '160px' },
+                        { title: 'Operation', name: 'operation', width: '160px' },
                     ];
                 default:
                     return [];
@@ -691,7 +691,7 @@ export default {
                 },
             });
             this.$message({
-                message: '已触发重建',
+                message: 'Rebuild triggered',
                 type: 'success',
             });
             this.refresh();
@@ -748,8 +748,8 @@ export default {
         },
         deleteItem(item) {
             this.$eConfirm({
-                title: '删除',
-                message: `确认要删除 ${item.metadata.name} 吗？`,
+                title: 'Delete',
+                message: `Confirm to delete ${item.metadata.name}?`,
                 ok: async () => {
                     const reqParam = {
                         pathParams: {
@@ -776,7 +776,7 @@ export default {
             const response = await this.instanceService(reqParam);
 
             this.$editResource({
-                title: `${item.metadata.name} —— YAML 设置`,
+                title: `${item.metadata.name} —— YAML settings`,
                 content: response,
                 onSubmit: async content => {
                     console.log(content);

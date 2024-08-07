@@ -1,29 +1,29 @@
 <template>
   <el-dialog
-    title="配置 EmptyDir"
+    title="Configure EmptyDir"
     :visible.sync="show"
     width="800px"
     @close="close"
     :close-on-click-modal="false"
   >
-    <el-alert title="请设置合理大小的EmptyDir，避免影响同一个node上的其他工作负载" type="warning" show-icon :closable="false"/>
+    <el-alert title="Please set a reasonable size EmptyDir to avoid affecting other workloads on the same node." type="warning" show-icon :closable="false"/>
     <el-form ref="form" :model="model" label-position="right" label-width="120px">
       <el-form-item label="EmptyDir">
-        <div style="color: #999;">适用于共享运行时产生的数据、数据临时存储等场景，负载的重启、删除等操作会导致临时路径被删除</div>
+        <div style="color: #999;">It is suitable for scenarios such as sharing data generated during runtime and temporary data storage. Operations such as restarting and deleting the load will cause the temporary path to be deleted.</div>
         <dynamicBlock
           v-model="model.emptyDirs"
           :getDefaultItem="getDataTemplate"
           :columns="[
               {
-                  title: 'EmptyDir 名称',
+                  title: 'EmptyDir name',
                   dataIndex: 'name',
               },
               {
-                  title: '介质',
+                  title: 'Medium',
                   dataIndex: 'medium'
               },
               {
-                  title: '大小',
+                  title: 'Size',
                   dataIndex: 'sizeLimit'
               },
               {
@@ -50,7 +50,7 @@
             </el-form-item>
           </template>
           <template v-slot:medium="{record}">
-            <el-select v-model="record.medium" placeholder="请选择" filterable>
+            <el-select v-model="record.medium" placeholder="Please choose" filterable>
               <el-option
                 v-for="item in mediums"
                 :key="item.value"
@@ -71,8 +71,8 @@
       </el-form-item>
     </el-form>
     <div slot="footer">
-      <el-button @click="close">取消</el-button>
-      <el-button type="primary" @click="submit">确定</el-button>
+      <el-button @click="close">Cancel</el-button>
+      <el-button type="primary" @click="submit">OK</el-button>
     </div>
   </el-dialog>
 </template>
@@ -89,8 +89,8 @@ export default {
         return {
             show: false,
             mediums: [
-                { text: '内存', value: 'Memory' },
-                { text: '磁盘', value: '' },
+                { text: 'Memory', value: 'Memory' },
+                { text: 'Disk', value: '' },
             ],
             validators,
             model: {
@@ -119,7 +119,7 @@ export default {
             };
         },
         async submit() {
-            // 触发校验
+            // Trigger verification
             try {
                 await this.$refs.form.validate();
             } catch (error) {

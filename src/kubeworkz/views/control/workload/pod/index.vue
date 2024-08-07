@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="overflow: hidden;">
-      <elInputSearch placeholder="请输入名称搜索" position="right" @search="onSearch"/>
+      <elInputSearch placeholder="Please enter name to search" position="right" @search="onSearch"/>
     </div>
     <x-request
       ref="request"
@@ -21,7 +21,7 @@
         >
           <el-table-column
             prop="metadata.name"
-            label="副本名称"
+            label="Pod name"
             :show-overflow-tooltip="true"
             sortable
           >
@@ -39,19 +39,19 @@
           />
           <el-table-column
             prop="status.phase"
-            label="副本状态"
+            label="Replica status"
             :show-overflow-tooltip="true"
             width="100"
           />
           <el-table-column
             prop="status.restartCount"
-            label="重启次数"
+            label="Number of restarts"
             :show-overflow-tooltip="true"
             width="70"
           />
           <el-table-column
             prop="status.cpuUsage"
-            label="CPU 使用量"
+            label="CPU usage"
             :show-overflow-tooltip="true"
             width="100"
           >
@@ -61,7 +61,7 @@
           </el-table-column>
           <el-table-column
             prop="status.memoryUsage"
-            label="内存使用量"
+            label="Memory usage"
             :show-overflow-tooltip="true"
             width="100"
           >
@@ -71,7 +71,7 @@
           </el-table-column>
           <el-table-column
             prop="metadata.creationTimestamp"
-            label="创建时间"
+            label="Creation time"
             :show-overflow-tooltip="true"
             width="160"
             sortable
@@ -82,14 +82,14 @@
           </el-table-column>
           <el-table-column
             prop="operation"
-            label="操作"
+            label="Operation"
             :show-overflow-tooltip="true"
             width="120"
           >
             <template slot-scope="{ row }">
               <qz-link-group max="3">
-                <el-link type="primary" @click="view(row)">查看详情</el-link>
-                <el-link type="primary" @click="deleteItem(row)" :disabled="isReview">删除</el-link>
+                <el-link type="primary" @click="view(row)">Check the details</el-link>
+                <el-link type="primary" @click="deleteItem(row)" :disabled="isReview">Delete</el-link>
               </qz-link-group>
             </template>
           </el-table-column>
@@ -128,14 +128,14 @@ export default {
         return {
             service: workloadExtendService.getWorkloads,
             columns: [
-                { title: '副本名称', name: 'metadata.name', sortable: true, textwrap: true },
+                { title: 'Pod name', name: 'metadata.name', sortable: true, textwrap: true },
                 { title: 'IP', name: 'status.podIP', width: '100px' },
-                { title: '副本状态', name: 'status.phase', width: '120px', sortable: true },
-                { title: '重启次数', name: 'status.restartCount', width: '70px' },
-                { title: 'CPU 使用量', name: 'status.cpuUsage', width: '100px' },
-                { title: '内存使用量', name: 'status.memoryUsage', width: '100px' },
-                { title: '创建时间', name: 'metadata.creationTimestamp', width: '160px', sortable: true },
-                { title: '操作', name: 'operation', width: '120px' },
+                { title: 'Replica status', name: 'status.phase', width: '120px', sortable: true },
+                { title: 'Number of restarts', name: 'status.restartCount', width: '70px' },
+                { title: 'CPU usage', name: 'status.cpuUsage', width: '100px' },
+                { title: 'Memory usage', name: 'status.memoryUsage', width: '100px' },
+                { title: 'Creation time', name: 'metadata.creationTimestamp', width: '160px', sortable: true },
+                { title: 'Operation', name: 'operation', width: '120px' },
             ],
         };
     },
@@ -206,7 +206,7 @@ export default {
             const response = await workloadService.getAPIV1Instance(reqParam);
 
             this.$editResource({
-                title: `${item.metadata.name} —— YAML 设置`,
+                title: `${item.metadata.name} —— YAML settings`,
                 content: response,
                 editorOption: {
                     readOnly: true,
@@ -216,8 +216,8 @@ export default {
         },
         deleteItem(item) {
             this.$eConfirm({
-                title: '删除',
-                message: `确定删除 ${item.metadata.name} 吗？`,
+                title: 'Delete',
+                message: `Confirm delete ${item.metadata.name}?`,
                 width: '460px',
                 ok: async () => {
                     const reqParam = {

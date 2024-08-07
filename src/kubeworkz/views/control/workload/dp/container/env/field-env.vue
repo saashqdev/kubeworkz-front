@@ -27,12 +27,12 @@
         >
           <el-input
             v-model="record.key"
-            placeholder="1-64位字母、数字或下划线组成，以字母开头"
+            placeholder="Composed of 1-64 letters, numbers or underscores, starting with a letter"
           />
         </el-form-item>
       </template>
       <template v-slot:field="{record}">
-        <el-select v-model="record.field" placeholder="请选择" filterable>
+        <el-select v-model="record.field" placeholder="Please choose" filterable>
           <el-option
             v-for="item in FIELD_DATA"
             :key="item.value"

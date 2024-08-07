@@ -1,43 +1,43 @@
 <template>
   <div>
     <el-form ref="form" :model="model" :rules="rules" label-position="right" label-width="160px">
-      <el-form-item label="集群">
+      <el-form-item label="Cluster">
         {{ cluster }}
       </el-form-item>
-      <el-form-item label="空间">
+      <el-form-item label="Namespace">
         {{ namespace }}
       </el-form-item>
-      <el-form-item label="名称" prop="metadata.name">
-        <el-input v-model="model.metadata.name" :disabled="isEdit" placeholder="1-63位小写字母、数字、或中划线组成，以字母开头，字母或数字结尾"/>
+      <el-form-item label="Name" prop="metadata.name">
+        <el-input v-model="model.metadata.name" :disabled="isEdit" placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"/>
       </el-form-item>
       <template v-if="workload === 'daemonsets'">
-        <el-form-item label="级别">
+        <el-form-item label="Level">
           <el-radio-group v-model="model.spec.level.ind" :disabled="isEdit">
-            <el-radio label="platform">平台级</el-radio>
-            <el-radio label="tenant">租户级</el-radio>
+            <el-radio label="platform">Platform level</el-radio>
+            <el-radio label="tenant">Tenant level</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="租户" v-if="model.spec.level.ind === 'tenant'" prop="spec.level.tenant">
+        <el-form-item label="Tenant" v-if="model.spec.level.ind === 'tenant'" prop="spec.level.tenant">
           <tenant-select v-model="model.spec.level.tenant" :disabled="isEdit"/>
         </el-form-item>
       </template>
-      <el-form-item label="副本数" v-if="!['cronjobs', 'jobs', 'daemonsets'].includes(workload)">
+      <el-form-item label="Number of replicas" v-if="!['cronjobs', 'jobs', 'daemonsets'].includes(workload)">
         <el-input-number v-model="model.spec.replicas" controls-position="right" :min="0" style="width: 300px;"/>
-        <span style="margin-left:8px">个</span>
+        <span style="margin-left:8px">Replica</span>
       </el-form-item>
       <template v-if="workload === 'statefulsets'">
-        <el-form-item label="服务名" prop="spec.serviceName">
-          <el-input v-model="model.spec.serviceName" :disabled="isEdit" placeholder="1-63位小写字母、数字、或中划线组成，以字母开头，字母或数字结尾"/>
+        <el-form-item label="Service Name" prop="spec.serviceName">
+          <el-input v-model="model.spec.serviceName" :disabled="isEdit" placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"/>
         </el-form-item>
         <storage-config v-model="model.spec.volumeClaimTemplates" />
       </template>
-      <el-form-item label="时区同步">
+      <el-form-item label="Time zone synchronization">
         <el-switch v-model="model.timeSync"/>
-        <span style="margin-left:8px;color:#aaa">开启后容器与节点使用相同时区(时区同步功能依赖容器中挂载的本地磁盘，请勿修改删除)</span>
+        <span style="margin-left:8px;color:#aaa">After opening, the container and the node use the same time zone (the time zone synchronization function relies on the local disk mounted in the container, please do not modify or delete it)</span>
       </el-form-item>
       <el-form-item label="" v-if="['deployments', 'daemonsets'].includes(workload)">
         <el-link type="primary" @click="advanced = !advanced">
-          {{ advanced ? '收起': '展开' }}更多配置
+          {{ advanced ? 'Close': 'Expand' }} More configurations
         </el-link>
       </el-form-item>
       <update-strategy
@@ -45,7 +45,7 @@
         v-model="model.spec.strategy"
       />
       <el-form-item>
-        <el-button type="primary" @click="handleNextStep">下一步</el-button>
+        <el-button type="primary" @click="handleNextStep">Next step</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -73,15 +73,15 @@ export default {
             advanced: getFunc(this.value, 'spec.strategy.enable'),
             rules: {
                 'metadata.name': [
-                    { required: true, message: '名称不能为空', trigger: 'blur' },
+                    { required: true, message: 'Name is required', trigger: 'blur' },
                     validators.k8sResourceNameValidator(),
                 ],
                 'spec.serviceName': [
-                    { required: true, message: '服务名不能为空', trigger: 'blur' },
+                    { required: true, message: 'Service name cannot be empty', trigger: 'blur' },
                     validators.k8sResourceNameValidator(),
                 ],
                 'spec.level.tenant': [
-                    { required: true, message: '租户不能为空', trigger: 'blur' },
+                    { required: true, message: 'Tenant cannot be empty', trigger: 'blur' },
                 ],
                 'spec.strategy.minReadySeconds': [
                     validators.consistofNumber(false),
@@ -111,7 +111,7 @@ export default {
             this.$refs.observer.validate();
         },
         async handleNextStep() {
-            // 触发校验
+            // Trigger verification
             try {
                 await this.$refs.form.validate();
             } catch (error) {

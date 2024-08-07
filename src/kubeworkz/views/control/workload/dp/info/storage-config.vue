@@ -1,6 +1,6 @@
 <template>
   <el-form-item
-    label="存储"
+    label="Storage"
   >
     <el-switch
       v-model="model.enable"
@@ -23,18 +23,18 @@
               :getDefaultItem="getDataTemplate"
               :initialAdd="true"
               :minCount="1"
-              addButtonText="添加声明模板"
+              addButtonText="Add declaration template"
               :disabled="isEdit"
               :miniFormatter="(item, index) => {
-                return `配置 - ${index + 1}`
+                return `Configuration - ${index + 1}`
               }"
             >
               <template slot-scope="{item, index}">
                 <el-form-item
-                  label="存储类别"
+                  label="Storage class"
                   :prop="`spec.volumeClaimTemplates.templates.${index}.storageClassName`"
                   :rules="[
-                    { required: true, message: '存储类别不能为空'},
+                    { required: true, message: 'Storage class cannot be empty'},
                   ]"
                   style="margin-bottom: 22px;"
                 >
@@ -51,25 +51,25 @@
                   </el-select>
                 </el-form-item>
                 <el-form-item
-                  label="名称"
+                  label="Name"
                   :prop="`spec.volumeClaimTemplates.templates.${index}.name`"
                   :rules="[
-                    { required: true, message: '名称不能为空'},
+                    { required: true, message: 'Name is required'},
                     validators.k8sResourceNameValidator(),
                   ]"
                   style="margin-bottom: 22px;"
                 >
-                  <el-input v-model="item.name" :disabled="isEdit" placeholder="1-63位小写字母、数字、或中划线组成，以字母开头，字母或数字结尾"/>
+                  <el-input v-model="item.name" :disabled="isEdit" placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"/>
                 </el-form-item>
                 <el-form-item
-                  label="容量"
+                  label="Capacity"
                   style="margin-bottom: 22px;"
                 >
                   <el-input-number v-model="item.storage" :min="1" controls-position="right" style="width: 300px;" :disabled="isEdit"/>
                   <span style="margin-left:8px">GiB</span>
                 </el-form-item>
                 <el-form-item
-                  label="模式"
+                  label="Model"
                   style="margin-bottom: 22px;"
                 >
                   <el-select

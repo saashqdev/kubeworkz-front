@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form-item label="环境变量">
+    <el-form-item label="Environment variables">
       <dynamicTab
         :value="tabs"
         :showAddBtn="false"
@@ -102,7 +102,7 @@ export default {
     data() {
         return {
             tabs: [
-                { tab: 'value', title: '值' },
+                { tab: 'value', title: 'Value' },
                 { tab: 'secretKeyRef', title: 'Secret' },
                 { tab: 'configMapKeyRef', title: 'Configmap' },
                 { tab: 'fieldRef', title: 'Field' },

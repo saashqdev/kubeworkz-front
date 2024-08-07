@@ -32,7 +32,7 @@
 
 <script>
 import { makeVModelMixin } from 'kubeworkz/mixins/functional';
-import volumnMixin from 'kubeworkz/views/control/workload/dp/container/volumns/volumn-mixin.js';
+import volumnMixin from 'kubeworkz';
 export default {
     mixins: [ makeVModelMixin, volumnMixin ],
     data() {

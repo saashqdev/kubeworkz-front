@@ -2,9 +2,9 @@
   <div>
     <div :class="$style.stepTitle">
       <el-steps :active="step">
-        <el-step title="基本信息" />
-        <el-step title="容器配置" />
-        <el-step title="高级配置" />
+        <el-step title="Basic Information" />
+        <el-step title="Container Arrangement" />
+        <el-step title="Advanced Configuration" />
       </el-steps>
     </div>
     <div :class="$style.stepContent">

@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-dialog
-      title="YAML 编排"
+      title="YAML orchestration"
       width="800px"
       :visible.sync="show"
       @close="close"
@@ -24,7 +24,7 @@
               @error="uploadError($event)"
             >
               <el-button icon="el-icon-download">
-                从文件导入
+                Import from file
               </el-button>
             </u-uploader>
             <el-button
@@ -32,7 +32,7 @@
               icon="el-icon-plus"
               @click="showResourceModal = true"
             >
-              从已有资源导入
+              Import from existing resources
             </el-button>
           </div>
         </div>
@@ -57,18 +57,18 @@
         </div>
       </template>
       <div slot="footer">
-        <el-button @click="close">取消</el-button>
-        <el-button :disabled="!!readOnly" @click="submit(true)" :loading="commitLoading">预检测</el-button>
-        <el-button type="primary" :disabled="!!readOnly" @click="submit" :loading="commitLoading">确定</el-button>
+        <el-button @click="close">Cancel</el-button>
+        <el-button :disabled="!!readOnly" @click="submit(true)" :loading="commitLoading">Pre-test</el-button>
+        <el-button type="primary" :disabled="!!readOnly" @click="submit" :loading="commitLoading">OK</el-button>
       </div>
     </el-dialog>
     <el-dialog
       :visible.sync="showResourceModal"
-      title="已有资源导入"
+      title="Resources have been imported"
       :close-on-click-modal="false"
     >
       <el-form label-width="120px">
-        <el-form-item label="资源类型">
+        <el-form-item label="Resource Type">
           <el-select
             v-model="model.kind"
             filterable
@@ -82,7 +82,7 @@
             />
           </el-select>
         </el-form-item>
-        <el-form-item label="实例">
+        <el-form-item label="Example">
           <i v-if="model.loading" class="el-icon-loading" style="font-size: 24px"/>
           <template v-else>
             <el-select
@@ -102,7 +102,7 @@
               v-else
               key="none"
               disabled
-              placeholder="暂无选项"
+              placeholder="No options yet"
             />
           </template>
         </el-form-item>
@@ -114,7 +114,7 @@
           <template slot-scope="scope">
             <u-linear-layout>
               <u-button @click="showResourceModal = false">
-                取消
+                Cancel
               </u-button>
               <u-button
                 color="primary"
@@ -122,15 +122,15 @@
                 :icon="scope.submitting ? 'loading' : ''"
                 @click="scope.submit"
               >
-                确定
+                OK
               </u-button>
             </u-linear-layout>
           </template>
         </u-submit-button> -->
       </el-form>
       <div slot="footer">
-        <el-button @click="showResourceModal = false">取 消</el-button>
-        <el-button :disabled="model.instance.length === 0" type="primary" @click="loadResource" :loading="resourceLoading">确 定</el-button>
+        <el-button @click="showResourceModal = false">Cancel</el-button>
+        <el-button :disabled="model.instance.length === 0" type="primary" @click="loadResource" :loading="resourceLoading">OK</el-button>
       </div>
     </el-dialog>
     <div v-if="fullScreen" :class="$style.fullScreenEditor">
@@ -247,17 +247,17 @@ export default {
             this.validateTimeoutId = window.setTimeout(() => {
                 this.yamlContent = value;
                 try {
-                // 重置
+                // Reset
                     this.yamlErrorTip = '';
                     yamljs.parse(value);
                 } catch (err) {
                     console.log(err);
-                    // 二次校验
+                    // Second verification
                     try {
                         YAML.parse(value);
                     } catch (e) {
                         const { parsedLine, snippet } = err;
-                        this.yamlErrorTip = `第${parsedLine}行解析错误："${snippet}"`;
+                        this.yamlErrorTip = `Parsing error at line ${parsedLine}:"${snippet}"`;
                     }
                 }
             }, 300);
@@ -316,7 +316,7 @@ export default {
             };
         },
         uploadError(e) {
-            this.uploadErrorTip = e.name === 'ExtensionError' ? `只能上传 ${e.extensions.join(', ')} 类型的文件！` : e.message;
+            this.uploadErrorTip = e.name === 'ExtensionError' ? `Can only upload ${e.extensions.join(', ')} type of file!` : e.message;
         },
         async preview() {
             try {
@@ -381,7 +381,7 @@ export default {
                     noAlert: true,
                 });
                 if (dryRun === true) {
-                    this.$toast.success('预检测成功');
+                    this.$toast.success('Pre-test successful');
                 } else {
                     this.close();
                 }

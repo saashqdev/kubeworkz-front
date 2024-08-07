@@ -8,10 +8,10 @@ const filters = {
 };
 
 const listColumns = [
-    { title: '名称', name: 'name', sortable: true },
-    { title: '状态', name: 'status', width: '320px' },
-    { title: '创建时间', name: 'creationTimestamp', width: '200px', sortable: true },
-    { title: '操作', name: 'operation', sortable: false, width: '200px' },
+    { title: 'Name', name: 'name', sortable: true },
+    { title: 'Status', name: 'status', width: '320px' },
+    { title: 'Creation time', name: 'creationTimestamp', width: '200px', sortable: true },
+    { title: 'Operation', name: 'operation', sortable: false, width: '200px' },
 ];
 
 const service = {

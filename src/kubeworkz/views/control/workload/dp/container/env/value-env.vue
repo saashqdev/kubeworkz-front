@@ -27,7 +27,7 @@
         >
           <el-input
             v-model="record.key"
-            placeholder="1-64位字母、数字或下划线组成，以字母开头"
+            placeholder="Composed of 1-64 letters, numbers or underscores, starting with a letter"
           />
         </el-form-item>
       </template>
@@ -42,7 +42,7 @@
         >
           <el-input
             v-model="record.value"
-            placeholder="0-2048个 ASCII 字符组成"
+            placeholder="0-2048 ASCII characters"
           />
         </el-form-item>
       </template>

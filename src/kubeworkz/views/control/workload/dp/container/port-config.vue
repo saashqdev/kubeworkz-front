@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form-item
-      label="容器端口"
+      label="Container port"
     >
       <el-switch
         v-model="model.enable"
@@ -12,15 +12,15 @@
           :getDefaultItem="getDataTemplate"
           :columns="[
               {
-                  title: '端口',
+                  title: 'Port',
                   dataIndex: 'containerPort',
               },
               {
-                  title: '名称',
+                  title: 'Name',
                   dataIndex: 'name',
               },
               {
-                  title: '协议',
+                  title: 'Protocol',
                   dataIndex: 'protocol',
               },
           ]"
@@ -41,12 +41,12 @@
             >
               <el-input
                 v-model="record.name"
-                placeholder="1-15位小写字母、数字或中划线组成，以字母开头，字母或数字结尾"
+                placeholder="Composed of 1-15 lowercase letters, numbers or underscores, starting with a letter and ending with a letter or number"
               />
             </el-form-item>
           </template>
           <template v-slot:protocol="{record}">
-            <el-select v-model="record.protocol" placeholder="请选择" filterable>
+            <el-select v-model="record.protocol" placeholder="Please choose" filterable>
               <el-option
                 v-for="item in protocols"
                 :key="item.value"

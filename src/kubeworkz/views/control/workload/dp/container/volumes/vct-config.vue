@@ -5,11 +5,11 @@
       :getDefaultItem="getDataTemplate"
       :columns="[
           {
-              title: '挂载目录',
+              title: 'Mount directory',
               dataIndex: 'mountPath',
           },
           {
-              title: '参数',
+              title: 'Parameter',
               dataIndex: 'name'
           }
       ]"
@@ -30,7 +30,7 @@
         </el-form-item>
       </template>
       <template v-slot:name="{record}">
-          <el-select v-model="record.name" placeholder="请选择" filterable size="huge">
+          <el-select v-model="record.name" placeholder="Please choose" filterable size="huge">
             <el-option
               v-for="item in vcts"
               :key="item.value"

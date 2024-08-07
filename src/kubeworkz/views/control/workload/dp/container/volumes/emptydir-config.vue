@@ -5,21 +5,21 @@
       :getDefaultItem="getDataTemplate"
       :columns="[
           {
-              title: '名称',
+              title: 'Name',
               dataIndex: 'resource',
           },
           {
-              title: '权限',
+              title: 'Permissions',
               dataIndex: 'readOnly'
           },
           {
-              title: '挂载目录',
+              title: 'Mount directory',
               dataIndex: 'mountPath'
           }
       ]"
     >
       <template v-slot:resource="{record}">
-        <el-select v-model="record.resource" placeholder="请选择" filterable>
+        <el-select v-model="record.resource" placeholder="Please choose" filterable>
             <el-option
               v-for="item in volumeResources"
               :key="item.value"
@@ -29,7 +29,7 @@
           </el-select>
       </template>
       <template v-slot:readOnly="{record}">
-        <el-select v-model="record.readOnly" placeholder="请选择" filterable>
+        <el-select v-model="record.readOnly" placeholder="Please choose" filterable>
           <el-option
             v-for="item in readOnlyList"
             :key="item.value"
@@ -56,12 +56,12 @@
       </template>
     </dynamicBlock>
     <div>
-      如需新的EmptyDir，可
+      If you need a new EmptyDir, you can
       <el-link
         type="primary"
         @click="openDialog"
       >
-        创建EmptyDir
+        Create EmptyDir
       </el-link>
     </div>
   </div>

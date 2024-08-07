@@ -5,7 +5,7 @@
       :getDefaultItem="getDataTemplate"
       :columns="[
           {
-              title: 'ConfigMap名称',
+              title: 'ConfigMap name',
               dataIndex: 'resource'
           },
           {
@@ -13,40 +13,40 @@
               dataIndex: 'key'
           },
           {
-              title: '挂载目录',
+              title: 'Mount directory',
               dataIndex: 'mountPath'
           },
           {
-              title: '子路径',
+              title: 'Sub path',
               dataIndex: 'subPath'
           },
           {
-              title: '文件路径',
+              title: 'File path',
               dataIndex: 'filePath'
           },
       ]"
     >
       <template slot="th-key">
-        items
-        <el-tooltip effect="dark" content="通过 Items 将 ConfigMap 中的某个键值的内容挂载在数据卷中某个文件路径下。" placement="right" popper-class="ncs-el-tooltip-popper">
+        Items
+        <el-tooltip effect="dark" content="Mount the contents of a key value in the ConfigMap to a file path in the data volume through Items." placement="right" popper-class="ncs-el-tooltip-popper">
           <i class="el-icon-question"/>
         </el-tooltip>
       </template>
       <template slot="th-mountPath">
-        挂载目录
-        <el-tooltip effect="dark" content="即 MountPath，将数据挂载到指定的路径。如果未指定 subpath，则会将目录下所有的文件/目录覆盖。" placement="right" popper-class="ncs-el-tooltip-popper">
+        Mount directory
+        <el-tooltip effect="dark" content="That is, MountPath, mounts data to the specified path. If subpath is not specified, all files/directories under the directory will be overwritten." placement="right" popper-class="ncs-el-tooltip-popper">
           <i class="el-icon-question"/>
         </el-tooltip>
       </template>
       <template slot="th-subPath">
-        子路径
-        <el-tooltip effect="dark" content="即 subpath，会作为文件/目录放入挂载路径中,不会覆盖挂载路径中的其它文件/目录。" placement="right" popper-class="ncs-el-tooltip-popper">
+        Subpath
+        <el-tooltip effect="dark" content="That is, subpath will be placed in the mount path as a file/directory and will not overwrite other files/directories in the mount path." placement="right" popper-class="ncs-el-tooltip-popper">
           <i class="el-icon-question"/>
         </el-tooltip>
       </template>
       <template slot="th-filePath">
-        文件路径
-        <el-tooltip effect="dark" content="即 Path，用于重命名挂载的文件。" placement="right" popper-class="ncs-el-tooltip-popper">
+        File path
+        <el-tooltip effect="dark" content="That is, Path, used to rename mounted files." placement="right" popper-class="ncs-el-tooltip-popper">
           <i class="el-icon-question"/>
         </el-tooltip>
       </template>
@@ -56,7 +56,7 @@
         </div>
       </template>
       <template v-slot:resource="{record}">
-        <el-select v-model="record.resource" placeholder="请选择" filterable size="huge" @change="record.key = ''">
+        <el-select v-model="record.resource" placeholder="Please choose" filterable size="huge" @change="record.key = ''">
             <el-option
               v-for="item in resources"
               :key="item.value"
@@ -66,7 +66,7 @@
           </el-select>
       </template>
       <template v-slot:key="{record}">
-        <el-select v-model="record.key" placeholder="请选择" filterable>
+        <el-select v-model="record.key" placeholder="Please choose" filterable>
           <el-option
             v-for="item in getConfigMapKeyList(record.resource)"
             :key="item.value"
@@ -103,7 +103,7 @@
             v-model="record.subPath"
             :disabled="!record.resource"
           /> -->
-          <el-select v-model="record.subPath" placeholder="请选择" filterable :disabled="!record.resource" allow-create>
+          <el-select v-model="record.subPath" placeholder="Please choose" filterable :disabled="!record.resource" allow-create>
             <el-option
               v-for="item in getConfigMapKeyList(record.resource)"
               :key="item.value"
@@ -131,12 +131,12 @@
       </template>
     </dynamicBlock>
     <div>
-      如需新的ConfigMap，可
+      If you need a new ConfigMap, you can
       <el-link
         type="primary"
         @click="openNewWindow({ path: '/control/configmaps/list', query: $route.query })"
       >
-        创建ConfigMap
+        Create ConfigMap
       </el-link>
       <i
         style="font-size:16px; margin-left: 8px"
@@ -183,7 +183,7 @@ export default {
             const configmap = this.resources && this.resources.find(r => r.value === resource);
             if (configmap) {
                 return [
-                    { text: '暂不选择', value: '' },
+                    { text: 'Don\'t choose yet', value: '' },
                     ...Object.keys(configmap.data || {}).map(d => ({ text: d, value: d })),
                 ];
             }

@@ -1,8 +1,8 @@
 <template>
   <el-form-item
-    label="配置"
+    label="Configuration"
   >
-    <el-form-item label="基础配置" style="margin-bottom: 22px;" label-width="120px">
+    <el-form-item label="Basic configuration" style="margin-bottom: 22px;" label-width="120px">
       <el-select v-model="model.type">
         <el-option
           :value="0"
@@ -18,7 +18,7 @@
         />
         <el-option
           :value="-1"
-          label="自定义"
+          label="Customize"
         />
       </el-select>
     </el-form-item>
@@ -27,19 +27,19 @@
         <el-input-number v-model="model.cpu" controls-position="right" :min="0.001" style="width: 260px;" :step="0.1" :precision="3"/>
         <span style="margin-left:8px">Cores</span>
       </el-form-item>
-      <el-form-item label="内存" style="margin-bottom: 22px;" label-width="120px">
+      <el-form-item label="Memory" style="margin-bottom: 22px;" label-width="120px">
         <el-input-number v-model="model.memory" controls-position="right" :min="1" style="width: 260px;" :step="128"/>
         <span style="margin-left:8px">MiB</span>
       </el-form-item>
     </template>
-    <el-form-item label="配置上限" style="margin-bottom: 22px;" label-width="120px">
-      <span style="margin-right:8px">基础配置 x</span>
+    <el-form-item label="Placement upper limit" style="margin-bottom: 22px;" label-width="120px">
+      <span style="margin-right:8px">Basic configuration x</span>
       <el-input-number v-model="model.multiple" controls-position="right" :min="1" style="width: 260px;"/>
       <span style="margin-left:8px">{{ (model.cpu * model.multiple).toFixed(3) }}Cores / {{ model.memory * model.multiple }}MiB</span>
     </el-form-item>
-    <el-form-item label="GPU 配置" style="margin-bottom: 22px;" label-width="120px">
+    <el-form-item label="GPU configuration" style="margin-bottom: 22px;" label-width="120px">
       <el-input-number v-model="model.gpu" controls-position="right" :min="0" style="width: 260px;" :step-strictly="true" :step="1"/>
-      <span style="margin-left:8px">颗</span>
+      <span style="margin-left:8px">Cores</span>
     </el-form-item>
   </el-form-item>
 </template>

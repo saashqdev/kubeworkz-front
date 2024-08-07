@@ -31,12 +31,12 @@
         >
           <el-input
             v-model="record.key"
-            placeholder="1-64位字母、数字或下划线组成，以字母开头"
+            placeholder="Composed of 1-64 letters, numbers or underscores, starting with a letter"
           />
         </el-form-item>
       </template>
       <template v-slot:configmap="{record}">
-        <el-select v-model="record.configmap" placeholder="请选择" filterable @change="item.configmapKey = ''">
+        <el-select v-model="record.configmap" placeholder="Please choose" filterable @change="item.configmapKey = ''">
           <el-option
             v-for="item in resources"
             :key="item.value"
@@ -46,7 +46,7 @@
         </el-select>
       </template>
       <template v-slot:configmapKey="{record}">
-        <el-select v-model="record.configmapKey" placeholder="请选择" filterable>
+        <el-select v-model="record.configmapKey" placeholder="Please choose" filterable>
           <el-option
             v-for="item in getKeys(record.configmap)"
             :key="item.value"
