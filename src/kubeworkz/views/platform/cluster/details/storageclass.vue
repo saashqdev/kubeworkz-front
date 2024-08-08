@@ -5,14 +5,14 @@
         type="primary"
         @click="createYAML"
       >
-        YAML方式创建
+        Created using YAML
       </el-button>
       <el-button
         icon="el-icon-refresh-right"
         square
         @click="refresh"
       />
-      <inputSearch placeholder="请输入名称搜索" position="right" @search="onSearch"/>
+      <inputSearch placeholder="Please enter name to search" position="right" @search="onSearch"/>
     </div>
     <x-request
       ref="request"
@@ -30,28 +30,28 @@
         >
           <el-table-column
             prop="metadata.name"
-            label="名称"
+            label="Name"
             :show-overflow-tooltip="true"
             sortable
           />
           <el-table-column
             prop="pool"
-            label="存储集群"
+            label="Storage cluster"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             prop="provisioner"
-            label="类型"
+            label="Type"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             prop="reclaimPolicy"
-            label="释放策略"
+            label="Release strategy"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             prop="operation"
-            label="操作"
+            label="Operation"
             :show-overflow-tooltip="true"
             width="100"
           >
@@ -60,7 +60,7 @@
                 <el-link
                   type="primary"
                   @click="deleteItem(row)"
-                >删除</el-link>
+                >Delete</el-link>
               </qz-link-group>
             </template>
           </el-table-column>
@@ -114,11 +114,11 @@ export default {
             service: workloadService.getStorage,
             selectRows: [],
             // columns: [
-            //     { title: '名称', name: 'metadata.name', sortable: true },
-            //     { title: '存储集群', name: 'pool' },
-            //     { title: '类型', name: 'provisioner' },
-            //     { title: '释放策略', name: 'reclaimPolicy' },
-            //     { title: '操作', name: 'operation', width: '180px' },
+            //     { title: 'Name', name: 'metadata.name', sortable: true },
+            //     { title: 'Storage cluster', name: 'pool' },
+            //     { title: 'Type', name: 'provisioner' },
+            //     { title: 'Release strategy', name: 'reclaimPolicy' },
+            //     { title: 'Operation', name: 'operation', width: '180px' },
             // ],
         };
     },
@@ -142,11 +142,11 @@ export default {
         },
         columns() {
             return [
-                { title: '名称', name: 'metadata.name', sortable: true },
-                { title: '存储集群', name: 'pool' },
-                { title: '类型', name: 'provisioner' },
-                { title: '释放策略', name: 'reclaimPolicy' },
-                { title: '操作', name: 'operation', width: '180px' },
+                { title: 'Name', name: 'metadata.name', sortable: true },
+                { title: 'Storage cluster', name: 'pool' },
+                { title: 'Type', name: 'provisioner' },
+                { title: 'Release strategy', name: 'reclaimPolicy' },
+                { title: 'Operation', name: 'operation', width: '180px' },
             ];
         },
     },
@@ -188,7 +188,7 @@ export default {
             };
             const content = toStorageK8SObject(getStorageDefaultModel());
             this.$editResource({
-                title: '创建存储类别',
+                title: 'Create storage class',
                 content,
                 onSubmit: async content => {
                     await workloadService.createStorage({
@@ -201,8 +201,8 @@ export default {
         },
         deleteItem(item) {
             this.$eConfirm({
-                title: '删除',
-                message: `确认要删除 ${item.metadata.name} 吗？`,
+                title: 'Delete',
+                message: `Confirm to delete ${item.metadata.name}?`,
                 ok: async () => {
                     const reqParam = {
                         pathParams: {

@@ -5,7 +5,7 @@
       :getDefaultItem="getDataTemplate"
       :columns="[
         {
-          title: '例外 CIDR',
+          title: 'Exception CIDR',
           dataIndex: 'cidr',
         },
       ]"

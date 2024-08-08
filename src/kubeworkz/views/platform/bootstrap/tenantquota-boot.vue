@@ -2,7 +2,7 @@
   <div>
     <el-form ref="form" :model="model" label-position="right" label-width="120px">
       <el-form-item
-        label="租户"
+        label="Tenant"
         prop="tenant"
         :rules="[
           validators.required(),
@@ -49,7 +49,7 @@
                   <i v-if="quotaLoading" class="el-icon-loading" style="font-size: 24px"/>
                   <template v-else>
                     <el-form-item
-                      label="集群"
+                      label="Cluster"
                       prop="cluster"
                       :rules="[
                         validators.required(),
@@ -69,7 +69,7 @@
                       <el-input
                         v-else
                         v-bind="$attrs"
-                        placeholder="暂无集群"
+                        placeholder="No cluster yet"
                         disabled
                       />
                     </el-form-item>
@@ -80,7 +80,7 @@
                         :params="quotaParams"
                         :processor="quotaResolver"
                       >
-                        <el-form-item label="共享资源">
+                        <el-form-item label="Share resource">
                           <hard-quota
                             v-model="model.model"
                             :item="model.used"
@@ -98,7 +98,7 @@
         </x-request>
       </template>
       <el-form-item
-        label="存储资源"
+        label="Storage resources"
         prop="model.spec.hard.requestsStorage"
         :rules="[
           validators.required(),
@@ -110,7 +110,7 @@
         <span style="line-height:32px;margin-left:8px">GiB</span>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submit" :loading="submitLoading">确 定</el-button>
+        <el-button type="primary" @click="submit" :loading="submitLoading">OK</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -259,7 +259,7 @@ export default {
         },
 
         async submit() {
-            // 触发校验
+            // Trigger verification
             try {
                 await this.$refs.form.validate();
             } catch (error) {
@@ -286,7 +286,7 @@ export default {
                         data,
                     });
                 }
-                this.$toast.success('创建成功');
+                this.$toast.success('Created successfully');
                 this.$emit('next');
             } catch (error) {
                 console.log(error);

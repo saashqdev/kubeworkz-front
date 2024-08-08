@@ -5,7 +5,7 @@
   >
     <kube-form style="margin-top: 20px">
       <kube-form-item
-        label="租户"
+        label="Tenant"
         required
       >
         <x-request
@@ -32,11 +32,11 @@
         rules="required"
       >
         <kube-form-item
-          label="项目名称"
+          label="Project name"
           required
           :message="errors && errors[0]"
           maxlength="63"
-          maxlength-message="不得超过 63 个字符"
+          maxlength-message="Must not exceed 63 characters"
         >
           <u-input
             v-model="model.model.spec.displayName"
@@ -52,7 +52,7 @@
         rules="required"
       >
         <kube-form-item
-          label="项目标识"
+          label="Project ID"
           required
           :message="errors && errors[0]"
         >
@@ -61,8 +61,8 @@
             size="normal huge"
             :color="errors && errors[0] ? 'error' : ''"
             maxlength="32"
-            maxlength-message="不得超过 32 个字符"
-            placeholder="全局唯一的标识，2-32个小写字母、数字组成、中划线-"
+            maxlength-message="Must not exceed 32 characters"
+            placeholder="A globally unique identifier consisting of 2-32 lowercase letters, numbers, and a dash-"
           />
         </kube-form-item>
       </validation-provider>
@@ -72,7 +72,7 @@
         rules="required"
       >
         <kube-form-item
-          label="项目描述"
+          label="Project description"
           required
           :message="errors && errors[0]"
         >
@@ -80,12 +80,12 @@
             v-model="model.model.spec.description"
             size="normal huge"
             maxlength="32"
-            maxlength-message="不得超过 32 个字符"
+            maxlength-message="Must not exceed 32 characters"
           />
         </kube-form-item>
       </validation-provider>
       <kube-form-item
-        label="项目管理员"
+        label="Project manager"
         required
       >
         <x-request
@@ -116,7 +116,7 @@
                 :icon="scope.submitting ? 'loading' : ''"
                 @click="scope.submit"
               >
-                创建
+                Create
               </u-button>
             </u-linear-layout>
           </template>
@@ -192,7 +192,7 @@ export default {
             });
             const projectCurr = toProjectPlainObject(response.data);
             const tenantCurr = this.tenants.find(t => t.value === this.model.model.tenant).tenant;
-            this.$toast.success('创建成功');
+            this.$toast.success('Created successfully');
             this.$emit('next', tabs => {
                 const namespacemodel = tabs.find(t => t.tab === 'namespace');
                 if (namespacemodel) {

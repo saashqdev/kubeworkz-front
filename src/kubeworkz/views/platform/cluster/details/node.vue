@@ -6,7 +6,7 @@
         @click="$refs.nodedialog.open()"
         icon="el-icon-plus"
       >
-        添加节点
+        Add node
       </el-button>
       <el-button @click="refresh" square icon="el-icon-refresh-right"></el-button>
       <nodeInputSearch
@@ -32,14 +32,14 @@
         >
           <el-table-column
             prop="metadata.name"
-            label="名称"
+            label="Name"
             :show-overflow-tooltip="true"
             sortable
           >
             <template slot-scope="{ row }">
               <div>
-                <el-tooltip v-if="row.metadata.labels.find(i => i.key === 'node-role.kubernetes.io/master')" class="item" effect="dark" content="master 节点" placement="bottom">
-                  <span :class="$style.master_flag">控</span>
+                <el-tooltip v-if="row.metadata.labels.find(i => i.key === 'node-role.kubernetes.io/master')" class="item" effect="dark" content="Master node" placement="bottom">
+                  <span :class="$style.master_flag">Control</span>
                 </el-tooltip>
                 <el-link type="primary" :to="{ path: `/platform/cluster/${instance.clusterName}/${row.metadata.name}` }">
                   {{ row.metadata.name }}
@@ -66,7 +66,7 @@
           </el-table-column>
           <el-table-column
             prop="status.capacity.memory"
-            label="内存"
+            label="Memory"
             :show-overflow-tooltip="true"
             width="80"
           >
@@ -86,7 +86,7 @@
           </el-table-column>
           <el-table-column
             prop="metadata.labels"
-            label="标签"
+            label="Label"
             :show-overflow-tooltip="true"
             width="180"
           >
@@ -96,24 +96,24 @@
           </el-table-column>
           <el-table-column
             prop="spec.type"
-            label="节点类型"
+            label="Node type"
             :show-overflow-tooltip="true"
             width="70"
           >
           </el-table-column>
           <el-table-column
             prop="spec.unschedulable"
-            label="可调度"
+            label="Scheduling"
             :show-overflow-tooltip="true"
             width="60"
           >
             <template slot-scope="{ row }">
-              {{ row.spec.unschedulable ? '不可调度' : '可调度' }}
+              {{ row.spec.unschedulable ? 'Unschedulable' : 'Scheduling' }}
             </template>
           </el-table-column>
           <el-table-column
             prop="status.statusText"
-            label="状态"
+            label="Status"
             :show-overflow-tooltip="true"
             width="60"
           >
@@ -123,7 +123,7 @@
           </el-table-column>
           <el-table-column
             prop="operation"
-            label="操作"
+            label="Operation"
             :show-overflow-tooltip="true"
             width="200"
           >
@@ -133,32 +133,32 @@
                   type="primary"
                   @click="openLabelsModal(row)"
                 >
-                  编辑标签
+                  Edit tag
                 </el-link>
                 <el-link
                   type="primary"
                   @click="schedule(row)"
                 >
-                  {{ !row.spec.unschedulable ? '禁止' : '允许' }}调度
+                  {{ !row.spec.unschedulable ? 'Prohibit' : 'Allow' }} scheduling
                 </el-link>
                 <el-link
                   type="primary"
                   @click="setTaints(row)"
                 >
-                  设置污点
+                  Set taints
                 </el-link>
                 <el-link
                   type="primary"
                   @click="drainItem(row)"
                 >
-                  平滑迁移
+                  Drain item
                 </el-link>
                 <el-link
                   type="primary"
                   :disabled="isDeleteForbidden(row)"
                   @click="deleteItem(row)"
                 >
-                  删除
+                  Delete
                 </el-link>
               </qz-link-group>
             </template>
@@ -214,9 +214,9 @@ const formatter = item => `${item.key}: ${item.value}`;
 import { unitConvertMemory, unitConvertCPU } from 'kubeworkz/utils/functional';
 import nodeInputSearch from './component/node-input-serch.vue';
 const nodeStatusMap = {
-    unscheduled: '维护中',
-    normal: '正常',
-    abnormal: '异常',
+    unscheduled: 'In maintenance',
+    normal: 'Normal',
+    abnormal: 'Abnormal',
 };
 export default {
     components: {
@@ -247,16 +247,16 @@ export default {
             selectRows: [],
             // columns: [
             //     { type: 'selection', width: '60px' },
-            //     { title: '名称', name: 'metadata.name', sortable: true },
+            //     { title: 'Name', name: 'metadata.name', sortable: true },
             //     { title: 'IP', name: 'status.nodeIP', width: '120px', sortable: true },
             //     { title: 'CPU', name: 'status.capacity.cpu', width: '80px' },
-            //     { title: '内存', name: 'status.capacity.memory', width: '80px' },
+            //     { title: 'Memory', name: 'status.capacity.memory', width: '80px' },
             //     { title: 'GPU', name: 'status.capacity["nvidia.com/gpu"]', width: '60px' },
-            //     { title: '标签', name: 'metadata.labels', type: 'tag', width: '180px', cellprops: { hasModal: true, isChip: true, formatter } },
-            //     { title: '节点类型', name: 'spec.type', width: '70px' },
-            //     { title: '可调度', name: 'spec.unschedulable', width: '60px' },
-            //     { title: '状态', name: 'status.statusText', width: '60px' },
-            //     { title: '操作', name: 'operation', width: '180px' },
+            //     { title: 'Label', name: 'metadata.labels', type: 'tag', width: '180px', cellprops: { hasModal: true, isChip: true, formatter } },
+            //     { title: 'Node type', name: 'spec.type', width: '70px' },
+            //     { title: 'Scheduling', name: 'spec.unschedulable', width: '60px' },
+            //     { title: 'Status', name: 'status.statusText', width: '60px' },
+            //     { title: 'Operation', name: 'operation', width: '180px' },
             // ],
         };
     },
@@ -280,16 +280,16 @@ export default {
         },
         columns() {
             return [
-                { title: '名称', name: 'metadata.name', sortable: true },
+                { title: 'Name', name: 'metadata.name', sortable: true },
                 { title: 'IP', name: 'status.nodeIP', width: '120px', sortable: true },
                 { title: 'CPU', name: 'status.capacity.cpu', width: '80px' },
-                { title: '内存', name: 'status.capacity.memory', width: '80px' },
+                { title: 'Memory', name: 'status.capacity.memory', width: '80px' },
                 { title: 'GPU', name: 'status.capacity["nvidia.com/gpu"]', width: '60px' },
-                { title: '标签', name: 'metadata.labels', type: 'tag', width: '180px', cellprops: { hasModal: true, isChip: true, formatter } },
-                { title: '节点类型', name: 'spec.type', width: '70px' },
-                { title: '可调度', name: 'spec.unschedulable', width: '60px' },
-                { title: '状态', name: 'status.statusText', width: '60px' },
-                { title: '操作', name: 'operation', width: '180px' },
+                { title: 'Label', name: 'metadata.labels', type: 'tag', width: '180px', cellprops: { hasModal: true, isChip: true, formatter } },
+                { title: 'Node type', name: 'spec.type', width: '70px' },
+                { title: 'Scheduling', name: 'spec.unschedulable', width: '60px' },
+                { title: 'Status', name: 'status.statusText', width: '60px' },
+                { title: 'Operation', name: 'operation', width: '180px' },
             ];
         },
     },
@@ -331,8 +331,8 @@ export default {
         schedule(item) {
             if (!item.spec.unschedulable) {
                 this.$eConfirm({
-                    message: '确定禁止工作负载调度到该节点吗？',
-                    title: '提示',
+                    message: 'Action Are you sure that workload scheduling to this node is prohibited?',
+                    title: 'Hint',
                     ok: async () => {
                         await this.modifyNode(item, { spec: { unschedulable: true } });
                     },
@@ -357,9 +357,9 @@ export default {
         },
         drainItem(item) {
             this.$eConfirm({
-                message: `确定迁移节点 ${item.metadata.name} 吗？`,
-                subMessage: '平滑迁移会驱逐节点上的所有Pod，请确保有合适的节点可供调度。',
-                title: '平滑迁移',
+                message: `Drain node ${item.metadata.name}?`,
+                subMessage: 'Draining will evict all Pods on the node. Please ensure that there are suitable nodes for scheduling.',
+                title: 'Drain item',
                 ok: async () => {
                     const pods = await workloadService.getResourceListWithoutNamespace({
                         pathParams: {
@@ -408,8 +408,8 @@ export default {
         },
         deleteItem(item) {
             this.$eConfirm({
-                message: `确定删除节点 ${item.metadata.name} 吗？`,
-                title: '删除',
+                message: `Confirm to delete node ${item.metadata.name}?`,
+                title: 'Delete',
                 ok: async () => {
                     await workloadService.deleteResourceWithoutNamespace({
                         pathParams: {

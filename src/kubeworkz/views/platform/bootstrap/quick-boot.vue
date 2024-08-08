@@ -100,7 +100,7 @@ export default {
         const tabs = this.tabs;
         if (this.isProject || this.isTenant || this.isPlatform) {
             tabs.unshift({
-                title: '创建空间',
+                title: 'Create namespace',
                 tab: 'namespace',
                 model: {
                     resource: toResourceQuotaPlainObject(),
@@ -121,7 +121,7 @@ export default {
                 },
             });
             tabs.unshift({
-                title: '添加项目成员',
+                title: 'Add project members',
                 tab: 'member',
                 model: {
                     tenant: null,
@@ -134,7 +134,7 @@ export default {
         }
         if (this.isTenant || this.isPlatform) {
             tabs.unshift({
-                title: '创建项目',
+                title: 'Create project',
                 tab: 'project',
                 model: {
                     model: toProjectPlainObject(),
@@ -142,7 +142,7 @@ export default {
                 },
             });
             tabs.unshift({
-                title: '租户配额',
+                title: 'Tenant quota',
                 tab: 'tenantquota',
                 tenant: null,
                 model: {
@@ -157,7 +157,7 @@ export default {
         }
         if (this.isPlatform) {
             tabs.unshift({
-                title: '创建租户',
+                title: 'Create tenant',
                 tab: 'tenant',
                 model: {
                     model: toTenantPlainObject(),

@@ -6,7 +6,7 @@
   >
     <el-form ref="form" :model="model" label-position="right" label-width="120px">
       <el-form-item
-        label="集群"
+        label="Cluster"
         prop="pipe.cluster"
         :rules="[
           validators.required(),
@@ -18,7 +18,7 @@
         />
       </el-form-item>
       <el-form-item
-        label="空间名称"
+        label="Namespace name"
         prop="pipe.namespace"
         :rules="[
           validators.required(),
@@ -27,11 +27,11 @@
       >
         <el-input
           v-model="model.pipe.namespace"
-          placeholder="1-63位小写字母、数字、或中划线组成，以字母开头，字母或数字结尾"
+          placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"
         />
       </el-form-item>
       <el-form-item
-        label="租户"
+        label="Tenant"
         prop="pipe.tenant"
         :rules="[
           validators.required(),
@@ -42,7 +42,7 @@
         />
       </el-form-item>
       <el-form-item
-        label="关联项目"
+        label="Related projects"
         prop="pipe.project"
         :rules="[
           validators.required(),
@@ -64,7 +64,7 @@
       >
         <template slot-scope="{ loading }">
           <el-form-item
-            label="计算资源"
+            label="Computing resources"
           >
             <i v-if="loading" class="el-icon-loading" style="font-size: 24px"/>
             <hardQuota
@@ -75,7 +75,7 @@
             />
           </el-form-item>
           <el-form-item
-            label="存储资源"
+            label="Storage resources"
             prop="resource.spec.hard.storage"
             :rules="[
               validators.required(),
@@ -92,7 +92,7 @@
         </template>
       </x-request>
       <el-form-item>
-        <el-button type="primary" @click="submit" :loading="submitting">创 建</el-button>
+        <el-button type="primary" @click="submit" :loading="submitting">Create</el-button>
       </el-form-item>
     </el-form>
   </kube-pipe>
@@ -224,7 +224,7 @@ export default {
                         resourceQuota: quotaYaml,
                     },
                 });
-                this.$toast.success('创建成功');
+                this.$toast.success('Created successfully');
                 // this.$refs.request.request();
                 this.$router.push({
                     path: '/platform/nsquota',

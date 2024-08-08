@@ -5,37 +5,37 @@
       style="margin-bottom: 20px"
       @click="viewYAML"
     >
-      查看详细信息
+      Check the detail information
     </el-button>
-    <el-descriptions title="基本信息" :column="1">
-      <el-descriptions-item label="集群名称">
+    <el-descriptions title="Basic Information" :column="1">
+      <el-descriptions-item label="Cluster name">
         {{ instance.annotations && instance.annotations['cluster.kubeworkz.io/cn-name'] }}
       </el-descriptions-item>
-      <el-descriptions-item label="集群标识">
+      <el-descriptions-item label="Cluster ID">
         {{ instance.clusterName }}
       </el-descriptions-item>
-      <el-descriptions-item label="描述">
+      <el-descriptions-item label="Description">
         {{ instance.clusterDescription }}
       </el-descriptions-item>
-      <el-descriptions-item label="状态">
+      <el-descriptions-item label="Status">
         {{ instance.status | clusterStatus }}
       </el-descriptions-item>
-      <el-descriptions-item label="创建时间">
+      <el-descriptions-item label="Creation time">
         {{ instance.createTime | formatLocaleTime }}
       </el-descriptions-item>
-      <el-descriptions-item label="节点数">
+      <el-descriptions-item label="Number of nodes">
         {{ instance.nodeCount }}
       </el-descriptions-item>
       <el-descriptions-item label="CPU">
         {{ instance.totalCpu | clusterCpu }} Cores
       </el-descriptions-item>
-      <el-descriptions-item label="内存">
+      <el-descriptions-item label="Memory">
         {{ instance.totalMem | clusterMemory }} GiB
       </el-descriptions-item>
-      <el-descriptions-item label="集群用途">
-        {{ instance.isMemberCluster ? '业务集群' : '管控集群' }}
+      <el-descriptions-item label="Cluster usage">
+        {{ instance.isMemberCluster ? 'Business cluster' : 'Management and control cluster' }}
       </el-descriptions-item>
-      <el-descriptions-item label="集群网络">
+      <el-descriptions-item label="Cluster network">
         {{ instance.networkType }}
       </el-descriptions-item>
     </el-descriptions>
@@ -66,7 +66,7 @@ export default {
     methods: {
         viewYAML() {
             this.$editResource({
-                title: `${this.instance.clusterName} —— 查看详细信息`,
+                title: `${this.instance.clusterName} —— Check the detail information`,
                 content: this.instance,
                 editorOption: {
                     readOnly: true,

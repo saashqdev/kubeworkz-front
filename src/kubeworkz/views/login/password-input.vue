@@ -13,9 +13,9 @@
       :class="$style.input"
       :color="message ? 'error' : ''"
       :type="pwdFlag ? 'password' : 'text'"
-      placeholder="请输入密码"
+      placeholder="Please enter password"
       maxlength="128"
-      maxlength-message="密码最多输入128个字符"
+      maxlength-message="The password must be up to 128 characters long"
     >
       <i :class="$style.pwd_icon" />
       <i

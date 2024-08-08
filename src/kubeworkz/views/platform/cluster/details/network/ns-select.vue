@@ -2,7 +2,7 @@
     <el-select
         v-if="list.length > 0"
         filterable
-        placeholder="请选择"
+        placeholder="Please choose"
         v-bind="$attrs"
         v-model="model"
     >
@@ -16,7 +16,7 @@
     </el-select>
     <el-input
         v-else
-        placeholder="暂无空间"
+        placeholder="No namespace yet"
         disabled
     />
 </template>

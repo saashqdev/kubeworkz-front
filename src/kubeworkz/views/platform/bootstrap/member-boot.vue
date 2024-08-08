@@ -13,7 +13,7 @@
         style="margin-top:20px"
       >
         <kube-form-item
-          label="所属租户"
+          label="Owned tenant"
           required
         >
           <kube-tenant-select
@@ -22,7 +22,7 @@
           />
         </kube-form-item>
         <kube-form-item
-          label="所属项目"
+          label="It's not run"
         >
           <kube-project-select
             v-model="model.project"
@@ -31,7 +31,7 @@
           />
         </kube-form-item>
         <kube-form-item
-          label="账号"
+          label="Account"
           required
         >
           <x-request
@@ -50,7 +50,7 @@
           </x-request>
         </kube-form-item>
         <kube-form-item
-          label="角色"
+          label="Role"
           required
         >
           <kube-role-select
@@ -72,7 +72,7 @@
                   :icon="scope.submitting ? 'loading' : ''"
                   @click="scope.submit"
                 >
-                  创建
+                  Create
                 </u-button>
               </u-linear-layout>
             </template>
@@ -138,7 +138,7 @@ export default {
             await userService.createRoleBindings({
                 data,
             });
-            this.$toast.success('创建成功');
+            this.$toast.success('Created successfully');
             this.$emit('next');
         },
     },

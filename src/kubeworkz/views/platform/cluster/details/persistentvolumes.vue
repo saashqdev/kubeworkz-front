@@ -3,7 +3,7 @@
     <div
       style="margin-bottom: 12px;overflow:hidden"
     >
-      <inputSearch placeholder="请输入名称搜索" position="right" @search="onSearch"/>
+      <inputSearch placeholder="Please enter name to search" position="right" @search="onSearch"/>
     </div>
     <x-request
       ref="request"
@@ -21,18 +21,18 @@
         >
           <el-table-column
             prop="metadata.name"
-            label="名称"
+            label="Name"
             :show-overflow-tooltip="true"
             sortable
           />
           <el-table-column
             prop="status.phase"
-            label="状态"
+            label="Status"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             prop="type"
-            label="类型"
+            label="Type"
             :show-overflow-tooltip="true"
           >
             <template slot-scope="{ row }">
@@ -41,7 +41,7 @@
           </el-table-column>
           <el-table-column
             prop="provisioner"
-            label="来源"
+            label="Provisioner"
             :show-overflow-tooltip="true"
           >
             <template slot-scope="{ row }">
@@ -50,27 +50,27 @@
           </el-table-column>
           <el-table-column
             prop="spec.accessModes"
-            label="访问模式"
+            label="Access mode"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             prop="spec.storageClassName"
-            label="存储类别"
+            label="Storage class"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             prop="spec.capacity.storage"
-            label="容量"
+            label="Capacity"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             prop="spec.claimRef.name"
-            label="声明"
+            label="Claim Ref"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             prop="operation"
-            label="操作"
+            label="Operation"
             :show-overflow-tooltip="true"
             width="120"
           >
@@ -79,11 +79,11 @@
                 <el-link
                   type="primary"
                   @click="viewYAML(row)"
-                >查看详情</el-link>
+                >Check the details</el-link>
                 <el-link
                   type="primary"
                   @click="deleteItem(row)"
-                >删除</el-link>
+                >Delete</el-link>
               </qz-link-group>
             </template>
           </el-table-column>
@@ -143,15 +143,15 @@ export default {
             service: workloadService.getResourceListWithoutNamespace,
             selectRows: [],
             columns: [
-                { title: '名称', name: 'metadata.name', sortable: true, textwrap: true },
-                { title: '状态', name: 'status.phase' },
-                { title: '类型', name: 'type' },
-                { title: '来源', name: 'provisioner' },
-                { title: '访问模式', name: 'spec.accessModes' },
-                { title: '存储类别', name: 'spec.storageClassName' },
-                { title: '容量', name: 'spec.capacity.storage' },
-                { title: '声明', name: 'spec.claimRef.name', textwrap: true },
-                { title: '操作', name: 'operation', width: '180px' },
+                { title: 'Name', name: 'metadata.name', sortable: true, textwrap: true },
+                { title: 'Status', name: 'status.phase' },
+                { title: 'Type', name: 'type' },
+                { title: 'Provisioner', name: 'provisioner' },
+                { title: 'Access mode', name: 'spec.accessModes' },
+                { title: 'Storage class', name: 'spec.storageClassName' },
+                { title: 'Capacity', name: 'spec.capacity.storage' },
+                { title: 'Claim Ref', name: 'spec.claimRef.name', textwrap: true },
+                { title: 'Operation', name: 'operation', width: '180px' },
             ],
         };
     },
@@ -208,7 +208,7 @@ export default {
             const response = await workloadService.getResourceWithoutNamespace(reqParam);
 
             this.$editResource({
-                title: `${item.metadata.name} —— 查看 YAML`,
+                title: `${item.metadata.name} —— View YAML`,
                 content: response,
                 editorOption: {
                     readOnly: true,
@@ -217,8 +217,8 @@ export default {
         },
         deleteItem(item) {
             this.$eConfirm({
-                title: '删除',
-                message: `确认要删除 ${item.metadata.name} 吗？`,
+                title: 'Delete',
+                message: `Confirm to delete ${item.metadata.name}?`,
                 ok: async () => {
                     const reqParam = {
                         pathParams: {

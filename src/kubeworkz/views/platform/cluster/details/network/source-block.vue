@@ -7,21 +7,21 @@
     >
       <template slot-scope="{ item: dataModel, index: dataIndex }">
         <el-form-item
-          label="IP 段"
+          label="IP segment"
           style="margin-bottom: 24px;"
         >
           <template slot="label">
-            IP 段
+            IP segment
             <el-tooltip effect="dark" placement="right" popper-class="ncs-el-tooltip-popper">
               <div slot="content">
-                ip规则同空间、副本选择规则不可同时设置。
+                IP rules, namespace, and pod selection rules cannot be set at the same time.
               </div>
               <i class="el-icon-question" style="position: absolute;right:4px;top:11px"/>
             </el-tooltip>
           </template>
           <el-radio-group v-model="dataModel.ipBlock.enable" @change="onChangeIp($event, dataModel)">
-            <el-radio :label="false">不设置 IP 段</el-radio>
-            <el-radio :label="true">指定 IP 段</el-radio>
+            <el-radio :label="false">Do not set IP segment</el-radio>
+            <el-radio :label="true">Specify IP segment</el-radio>
           </el-radio-group>
           <div v-if="dataModel.ipBlock.enable">
             <div style="padding-left:8px;color:#909399;">
@@ -45,12 +45,12 @@
           </div>
         </el-form-item>
         <el-form-item
-          label="空间规则"
+          label="Namespace rules"
           style="margin-bottom: 24px;"
         >
           <el-radio-group v-model="dataModel.namespaceSelector.enable" :disabled="dataModel.namespaceSelector.disabled">
-            <el-radio :label="false">所有空间</el-radio>
-            <el-radio :label="true">符合规则的空间</el-radio>
+            <el-radio :label="false">All namespaces</el-radio>
+            <el-radio :label="true">A namespace that complies with the rules</el-radio>
           </el-radio-group>
           <regular-input
             v-if="dataModel.namespaceSelector.enable"
@@ -59,12 +59,12 @@
           />
         </el-form-item>
         <el-form-item
-          label="副本规则"
+          label="Pod rules"
           style="margin-bottom: 24px;"
         >
           <el-radio-group v-model="dataModel.podSelector.enable" :disabled="dataModel.podSelector.disabled">
-            <el-radio :label="false">所有副本</el-radio>
-            <el-radio :label="true">符合规则的副本</el-radio>
+            <el-radio :label="false">All pods</el-radio>
+            <el-radio :label="true">A pod that complies with the rules</el-radio>
           </el-radio-group>
           <regular-input
             v-if="dataModel.podSelector.enable"

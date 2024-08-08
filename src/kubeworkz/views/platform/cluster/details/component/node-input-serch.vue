@@ -5,15 +5,15 @@
   >
     <el-select v-model="valueType" :class="$style.valueTypeInput">
       <el-option
-        label="名称"
+        label="Name"
         value="name"
       />
       <el-option
-        label="标签"
+        label="Label"
         value="label"
       />
       <el-option
-        label="状态"
+        label="Status"
         value="status"
       />
     </el-select>
@@ -34,7 +34,7 @@
       @click="search"
       style="margin-left:12px"
     >
-      搜索
+      Search
     </el-button>
   </div>
 </template>
@@ -56,9 +56,9 @@ export default {
     computed: {
         placeholder() {
             const map = {
-                name: '请输入名称搜索',
-                label: '请输入标签搜索,如:a=a',
-                status: '请输入状态搜索',
+                name: 'Please enter name to search',
+                label: 'Please enter a tag to search, such as: a=a',
+                status: 'Please enter status search',
             };
             return map[this.valueType];
         },

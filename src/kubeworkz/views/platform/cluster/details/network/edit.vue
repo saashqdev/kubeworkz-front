@@ -3,7 +3,7 @@
     <i v-if="loading" class="el-icon-loading" style="font-size: 24px"/>
     <el-form v-else ref="form" :model="model" label-position="right" label-width="120px">
       <el-form-item
-        label="名称"
+        label="Name"
         prop="metadata.name"
         :rules="[
           validators.required(),
@@ -13,11 +13,11 @@
         <el-input
           v-model="model.metadata.name"
           :disabled="isEdit"
-          placeholder="1-63位小写字母、数字、或中划线组成，以字母开头，字母或数字结尾"
+          placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"
         />
       </el-form-item>
       <el-form-item
-        label="空间"
+        label="Namespace"
         prop="metadata.namespace"
         :rules="[
           validators.required()
@@ -30,13 +30,13 @@
         />
       </el-form-item>
       <el-form-item
-        label="访问目标"
+        label="Access target"
       >
         <el-radio-group v-model="selections.target">
-          <el-radio label="all">所有副本</el-radio>
+          <el-radio label="all">All pods</el-radio>
           <el-radio label="regular">
-            符合规则的副本
-            <el-tooltip effect="dark" content="多条规则间是“与”的关系，至少有一条规则" placement="right" popper-class="ncs-el-tooltip-popper">
+            A pod that complies with the rules
+            <el-tooltip effect="dark" content="There is an 'AND' relationship between multiple rules, and there is at least one rule" placement="right" popper-class="ncs-el-tooltip-popper">
               <i class="el-icon-question"/>
             </el-tooltip>
           </el-radio>
@@ -53,17 +53,17 @@
         </template>
       </el-form-item>
       <el-form-item
-        label="入向规则"
+        label="Inbound rules"
       >
         <div>
-          来源限制
+          Source restrictions
         </div>
         <el-radio-group v-model="selections.insource">
-          <el-radio label="all">允许所有入向访问</el-radio>
-          <el-radio label="none">禁止所有入向访问</el-radio>
+          <el-radio label="all">Allow all inbound access</el-radio>
+          <el-radio label="none">Block all inbound access</el-radio>
           <el-radio label="regular">
-            允许符合规则的入向访问
-            <el-tooltip effect="dark" content="多条规则间是“或”的关系，至少有一条规则。当空间和副本规则共存时，两者是“与”的关系筛选来源" placement="right" popper-class="ncs-el-tooltip-popper">
+            Allow inbound access that meets rules
+            <el-tooltip effect="dark" content="here is an 'OR' relationship between multiple rules, and there is at least one rule. When space and copy rules coexist, the two are 'AND' filtered sources" placement="right" popper-class="ncs-el-tooltip-popper">
               <i class="el-icon-question"/>
             </el-tooltip>
           </el-radio>
@@ -74,13 +74,13 @@
             prefixProp="spec.ingress.from"
           />
           <div style="margin-top: 24px">
-            端口限制
+            Port restrictions
           </div>
           <el-radio-group v-model="selections.inport">
-            <el-radio label="all">允许访问所有端口</el-radio>
+            <el-radio label="all">Allow access to all ports</el-radio>
             <el-radio label="regular">
-              允许访问以下端口
-              <el-tooltip effect="dark" content="多条规则间是“或”的关系，至少有一个端口" placement="right" popper-class="ncs-el-tooltip-popper">
+              Allow access to the following ports
+              <el-tooltip effect="dark" content="There is an 'OR' relationship between the rules, and there is at least one port." placement="right" popper-class="ncs-el-tooltip-popper">
                 <i class="el-icon-question"/>
               </el-tooltip>
             </el-radio>
@@ -94,17 +94,17 @@
         </template>
       </el-form-item>
       <el-form-item
-        label="出向规则"
+        label="Outbound rules"
       >
         <div>
-          目标限制
+          Target limit
         </div>
         <el-radio-group v-model="selections.outsource">
-          <el-radio label="all">允许所有出向访问</el-radio>
-          <el-radio label="none">禁止所有出向访问</el-radio>
+          <el-radio label="all">Allow all outbound access</el-radio>
+          <el-radio label="none">Block all outbound access</el-radio>
           <el-radio label="regular">
-            允许符合规则的出向访问
-            <el-tooltip effect="dark" content="多条规则间是“或”的关系，至少有一条规则。当空间和副本规则共存时，两者是“与”的关系筛选目标" placement="right" popper-class="ncs-el-tooltip-popper">
+            Allow rule-compliant outbound access
+            <el-tooltip effect="dark" content="There is an 'OR' relationship between multiple rules, and there is at least one rule. When space and copy rules coexist, the two are 'AND' filter targets" placement="right" popper-class="ncs-el-tooltip-popper">
               <i class="el-icon-question"/>
             </el-tooltip>
           </el-radio>
@@ -115,13 +115,13 @@
             prefixProp="spec.egress.to"
           />
           <div style="margin-top: 24px">
-            端口限制
+            Port restrictions
           </div>
           <el-radio-group v-model="selections.outport">
-            <el-radio label="all">允许访问所有端口</el-radio>
+            <el-radio label="all">Allow access to all ports</el-radio>
             <el-radio label="regular">
-              允许访问以下端口
-              <el-tooltip effect="dark" content="多条规则间是“或”的关系，至少有一个端口" placement="right" popper-class="ncs-el-tooltip-popper">
+              Allow access to the following ports
+              <el-tooltip effect="dark" content="There is an 'OR' relationship between multiple rules, and there is at least one port." placement="right" popper-class="ncs-el-tooltip-popper">
                 <i class="el-icon-question"/>
               </el-tooltip>
             </el-radio>
@@ -140,7 +140,7 @@
           @click="submit"
           :loading="submitLoading"
         >
-          {{ isEdit ? '立即修改' : '立即创建' }}
+          {{ isEdit ? 'Modify' : 'Create' }}
         </el-button>
       </el-form-item>
     </el-form>

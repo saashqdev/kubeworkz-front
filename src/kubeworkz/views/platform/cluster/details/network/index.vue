@@ -10,7 +10,7 @@
           icon="el-icon-plus"
           @click="toCreate"
         >
-          创建网络策略
+          Create a network policy
         </el-button>
 
         <el-button
@@ -18,7 +18,7 @@
           square
           @click="refresh"
         />
-        <inputSearch placeholder="请输入名称搜索" position="right" @search="onSearch"/>
+        <inputSearch placeholder="Please enter name to search" position="right" @search="onSearch"/>
       </div>
       <x-request
         ref="request"
@@ -36,19 +36,19 @@
           >
             <el-table-column
               prop="metadata.name"
-              label="名称"
+              label="Name"
               :show-overflow-tooltip="true"
               sortable
             ></el-table-column>
             <el-table-column
               prop="metadata.namespace"
-              label="空间"
+              label="Namespace"
               :show-overflow-tooltip="true"
               width="200"
             ></el-table-column>
             <el-table-column
               prop="t"
-              label="操作"
+              label="Operation"
               :show-overflow-tooltip="true"
               width="180"
             >
@@ -57,15 +57,15 @@
                   <el-link 
                     type="primary"
                     @click="viewYAML(row)"
-                  >查看详情</el-link>
+                  >Check the details</el-link>
                   <el-link 
                     type="primary"
                     @click="toEdit(row)"
-                  >设置</el-link>
+                  >Set up</el-link>
                   <el-link 
                     type="primary"
                     @click="deleteItem(row)"
-                  >删除</el-link>
+                  >Delete</el-link>
                 </qz-link-group>
               </template>
             </el-table-column>
@@ -109,9 +109,9 @@ export default {
             service: workloadService.getClusterNetworking,
             selectRows: [],
             columns: [
-                { title: '名称', name: 'metadata.name', sortable: true },
-                { title: '空间', name: 'metadata.namespace', width: '200px' },
-                { title: '操作', name: 'operation', width: '180px' },
+                { title: 'Name', name: 'metadata.name', sortable: true },
+                { title: 'Namespace', name: 'metadata.namespace', width: '200px' },
+                { title: 'Operation', name: 'operation', width: '180px' },
             ],
         };
     },
@@ -177,7 +177,7 @@ export default {
             const response = await workloadService.getNetworkingInstance(reqParam);
 
             this.$editResource({
-                title: `${item.metadata.name} —— 查看 YAML`,
+                title: `${item.metadata.name} —— View YAML`,
                 content: response,
                 editorOption: {
                     readOnly: true,
@@ -194,8 +194,8 @@ export default {
                 },
             };
             this.$eConfirm({
-                message: `确定删除网络策略 ${item.metadata.name} 吗？`,
-                title: '删除',
+                message: `Confirm to delete network policy ${item.metadata.name}?`,
+                title: 'Delete',
                 ok: async () => {
                     await workloadService.deleteNetworkingInstance(reqParam);
                     this.refresh();

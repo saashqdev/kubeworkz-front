@@ -1,6 +1,6 @@
 <template>
   <u-modal
-    title="重置密码"
+    title="Reset Password"
     ok-button=""
     cancel-button=""
     :visible.sync="show"
@@ -14,7 +14,7 @@
       <kube-form>
         <template v-if="step === 0">
           <kube-form-item>
-            <b>请输入需要重置密码的账号</b>
+            <b>Please enter the account whose password needs to be reset</b>
           </kube-form-item>
           <validation-provider
             v-slot="{ errors }"
@@ -22,7 +22,7 @@
             rules="required"
           >
             <kube-form-item
-              label="账号"
+              label="Account"
               :message="errors && errors[0]"
               required
             >
@@ -32,9 +32,9 @@
                 :class="$style.input"
                 name="account"
                 :color="errors && errors[0] ? 'error' : ''"
-                placeholder="请输入账号"
+                placeholder="Please input Username"
                 maxlength="128"
-                maxlength-message="账号最多输入128个字符"
+                maxlength-message="The account number can be entered up to 128 characters."
               >
                 <i :class="$style.user_icon" />
                 <i
@@ -58,10 +58,10 @@
                     :icon="scope.submitting ? 'loading' : ''"
                     @click="scope.submit"
                   >
-                    下一步
+                    Next step
                   </u-button>
                   <u-button @click="close">
-                    取消
+                    Cancel
                   </u-button>
                 </u-linear-layout>
               </template>
@@ -81,7 +81,7 @@
           >
             <password-input
               v-model="account.AccountPassword"
-              label="原始密码"
+              label="Original Password"
               :message="errors && errors[0]"
             />
           </validation-provider>
@@ -96,7 +96,7 @@
           >
             <password-input
               v-model="account.newPwd"
-              label="新密码"
+              label="New Password"
               :message="errors && errors[0]"
             />
           </validation-provider>
@@ -109,13 +109,13 @@
               userPassword: true,
               sameAs: {
                 target: account.newPwd,
-                key: '密码'
+                key: 'password'
               }
             }"
           >
             <password-input
               v-model="account.confirmPwd"
-              label="再次输入新密码"
+              label="Enter the new password again"
               :message="errors && errors[0]"
             />
           </validation-provider>
@@ -131,10 +131,10 @@
                     :icon="scope.submitting ? 'loading' : ''"
                     @click="scope.submit"
                   >
-                    下一步
+                    Next step
                   </u-button>
                   <u-button @click="close">
-                    取消
+                    Cancel
                   </u-button>
                 </u-linear-layout>
               </template>
@@ -191,7 +191,7 @@ export default {
                 this.step++;
             } else {
                 throw {
-                    message: '账户名不存在',
+                    message: 'Username does not exist',
                 };
             }
 

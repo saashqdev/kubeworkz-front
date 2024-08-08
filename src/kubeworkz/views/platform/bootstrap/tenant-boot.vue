@@ -2,7 +2,7 @@
   <div>
     <el-form ref="form" :model="model" label-position="right" label-width="120px">
       <el-form-item
-        label="租户名称"
+        label="Tenant name"
         prop="model.spec.displayName"
         :rules="[
           validators.required(),
@@ -13,7 +13,7 @@
         />
       </el-form-item>
       <el-form-item
-        label="租户标识"
+        label="Tenant ID"
         prop="model.metadata.name"
         :rules="[
           validators.required(),
@@ -22,11 +22,11 @@
       >
         <el-input
           v-model="model.model.metadata.name"
-          placeholder="1-63位小写字母、数字、或中划线组成，以字母开头，字母或数字结尾"
+          placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"
         />
       </el-form-item>
       <el-form-item
-        label="租户管理员"
+        label="Tenant Administrator"
         prop="tenantadmin"
         :rules="[
           validators.required(),
@@ -53,7 +53,7 @@
         </x-request>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submit" :loading="submitLoading">创 建</el-button>
+        <el-button type="primary" @click="submit" :loading="submitLoading">Create</el-button>
       </el-form-item>
     </el-form>
     <!-- <validation-observer
@@ -70,11 +70,11 @@
           rules="required"
         >
           <kube-form-item
-            label="租户名称"
+            label="Tenant name"
             required
             :message="errors && errors[0]"
             maxlength="63"
-            maxlength-message="不得超过 63 个字符"
+            maxlength-message="Must not exceed 63 characters"
           >
             <u-input
               v-model="model.model.spec.displayName"
@@ -90,7 +90,7 @@
           rules="required"
         >
           <kube-form-item
-            label="租户标识"
+            label="Tenant ID"
             required
             :message="errors && errors[0]"
           >
@@ -99,14 +99,14 @@
               size="normal huge"
               :color="errors && errors[0] ? 'error' : ''"
               maxlength="32"
-              maxlength-message="不得超过 32 个字符"
-              placeholder="全局唯一的标识，2-32个小写字母、数字、中划线组成"
+              maxlength-message="Must not exceed 32 characters"
+              placeholder="Globally unique identifier, consisting of 2-32 lowercase letters, numbers, and underscores"
             />
           </kube-form-item>
         </validation-provider>
 
         <kube-form-item
-          label="租户管理员"
+          label="Tenant Administrator"
           required
         >
           <x-request
@@ -137,7 +137,7 @@
                   :icon="scope.submitting ? 'loading' : ''"
                   @click="scope.submit"
                 >
-                  创建
+                  Create
                 </u-button>
               </u-linear-layout>
             </template>
@@ -188,7 +188,7 @@ export default {
             return items;
         },
         async submit() {
-            // 触发校验
+            // Trigger verification
             try {
                 await this.$refs.form.validate();
             } catch (error) {
@@ -215,7 +215,7 @@ export default {
                   data,
               }), 3000, 3);
 
-                this.$toast.success('创建成功');
+                this.$toast.success('Created successfully');
                 this.$emit('next', tabs => {
                     const namespacemodel = tabs.find(t => t.tab === 'namespace');
                     if (namespacemodel) {

@@ -6,11 +6,11 @@
       :disabled="disabled"
       :columns="[
         {
-          title: '端口',
+          title: 'Port',
           dataIndex: 'port',
         },
         {
-          title: '协议',
+          title: 'Protocol',
           dataIndex: 'protocol',
         }
       ]"
@@ -34,7 +34,7 @@
         <el-select
           v-model="record.protocol"
           filterable
-          placeholder="请选择"
+          placeholder="Please choose"
         >
           <el-option
             v-for="item in protocols"

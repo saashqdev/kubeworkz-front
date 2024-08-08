@@ -14,7 +14,7 @@
       </div>
       <div :class="$style.inputblock">
         <u-text :class="$style.required">
-          请求时间:
+          Request time:
         </u-text>
 
         <u-date-picker
@@ -33,7 +33,7 @@
       </div>
       <div :class="$style.inputblock">
         <u-button @click="exportAudit">
-          导出
+          Export
         </u-button>
       </div>
     </div>
@@ -72,7 +72,7 @@
             </u-label>
           </template>
           <template #noData>
-            暂无审计信息
+            No audit information yet
           </template>
         </kube-table>
         <u-page
@@ -93,7 +93,7 @@ import auditService from 'kubeworkz/services/audit';
 import PageMixin from 'kubeworkz/mixins/pagenation';
 export default {
     metaInfo: {
-        title: '操作审计 - kubeworkz',
+        title: 'Operational audit - kubeworkz',
     },
     mixins: [ PageMixin ],
     data() {
@@ -103,19 +103,19 @@ export default {
         return {
             service: auditService.getAudit,
             keys: [{
-                title: '账号',
+                title: 'Account',
                 key: 'userName',
             }, {
-                title: 'IP地址',
+                title: 'IP address',
                 key: 'sourceIpAddress',
             }, {
-                title: '资源名称',
+                title: 'Resource name',
                 key: 'resourceName',
             }, {
-                title: '事件名称',
+                title: 'Event name',
                 key: 'eventName',
             }, {
-                title: '响应状态',
+                title: 'Response status',
                 key: 'responseStatus',
             }],
             searchbody: {
@@ -131,12 +131,12 @@ export default {
 
             },
             columns: [
-                { title: '账号', name: 'UserIdentity.AccountId' },
-                { title: '时间', name: 'EventTime', sortable: true },
-                { title: 'IP地址', name: 'SourceIpAddress' },
-                { title: '事件名称', name: 'EventName', textwrap: true },
-                { title: '资源', name: 'ResourceReports', textwrap: true },
-                { title: '状态', name: 'ResponseStatus' },
+                { title: 'Account', name: 'UserIdentity.AccountId' },
+                { title: 'Time', name: 'EventTime', sortable: true },
+                { title: 'IP address', name: 'SourceIpAddress' },
+                { title: 'Event name', name: 'EventName', textwrap: true },
+                { title: 'Resource', name: 'ResourceReports', textwrap: true },
+                { title: 'Status', name: 'ResponseStatus' },
             ],
             debounceonChange: debounce(this.onChange, 300),
         };
@@ -150,7 +150,7 @@ export default {
             return {
                 list: (response.Events || []).map(event => ({
                     ...event,
-                    ResourceReports: (event.ResourceReports || []).map(({ ResourceType, ResourceName, ResourceId }) => `资源类型:${ResourceType}, 资源名称:${ResourceName}, 资源ID:${ResourceId}`).join(','),
+                    ResourceReports: (event.ResourceReports || []).map(({ ResourceType, ResourceName, ResourceId }) => `Resource Type:${ResourceType}, Resource Name:${ResourceName}, Resource ID:${ResourceId}`).join(','),
                 })),
                 total: response.Total,
             };
