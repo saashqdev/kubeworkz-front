@@ -20,7 +20,7 @@
           {{ item.lastTimestamp | formatLocaleTime }}
         </template>
         <template #noData>
-          暂无数据
+          No data
         </template>
       </kube-table>
       <u-page
@@ -55,12 +55,12 @@ export default {
         return {
             eventService: workloadService.getResourceListWithoutNamespace,
             columns: [
-                { title: '消息', name: 'message', textwrap: true },
-                { title: '原因', name: 'reason', width: '120px' },
-                { title: '事件对象fieldPath', name: 'involvedObject.fieldPath', width: '160px' },
-                { title: '首次出现时间', name: 'firstTimestamp', width: '160px' },
-                { title: '上次出现时间', name: 'lastTimestamp', width: '160px' },
-                { title: '计数', name: 'count', width: '50px' },
+                { title: 'Message', name: 'message', textwrap: true },
+                { title: 'Reason', name: 'reason', width: '120px' },
+                { title: 'Event object fieldPath', name: 'involvedObject.fieldPath', width: '160px' },
+                { title: 'First appearance time', name: 'firstTimestamp', width: '160px' },
+                { title: 'Last seen time', name: 'lastTimestamp', width: '160px' },
+                { title: 'Count', name: 'count', width: '50px' },
             ],
             kind: 'Node',
         };

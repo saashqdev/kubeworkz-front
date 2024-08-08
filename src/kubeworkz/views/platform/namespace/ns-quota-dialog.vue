@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    :title="type === 'create' ? '创建空间' : '修改空间'"
+    :title="type === 'create' ? 'Create namespace' : 'Modify namespace'"
     :visible.sync="show"
     @close="close"
     width="900px"
@@ -13,7 +13,7 @@
     >
       <el-form ref="form" :model="model" label-position="right" label-width="120px">
           <el-form-item
-            label="集群"
+            label="Cluster"
             prop="pipe.cluster"
             :rules="[
               validators.required(),
@@ -26,7 +26,7 @@
             />
           </el-form-item>
           <el-form-item
-            label="空间名称"
+            label="Namespace name"
             prop="pipe.namespace"
             :rules="[
               validators.required(),
@@ -36,11 +36,11 @@
             <el-input
               v-model="model.pipe.namespace"
               :disabled="isEdit"
-              placeholder="1-63位小写字母、数字、或中划线组成，以字母开头，字母或数字结尾"
+              placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"
             />
           </el-form-item>
           <el-form-item
-            label="租户"
+            label="Tenant"
             prop="pipe.tenant"
             :rules="[
               validators.required(),
@@ -52,7 +52,7 @@
             />
           </el-form-item>
           <el-form-item
-            label="关联项目"
+            label="Related projects"
             prop="pipe.project"
             :rules="[
               validators.required(),
@@ -75,7 +75,7 @@
           >
             <template slot-scope="{ loading }">
                 <el-form-item
-                label="计算资源"
+                label="Computing resources"
                 >
                 <template v-if="model.pipe.cluster && model.pipe.tenant">
                     <i v-if="loading" class="el-icon-loading" style="font-size: 24px"/>
@@ -88,7 +88,7 @@
                 </template>
                 </el-form-item>
                 <el-form-item
-                label="存储资源"
+                label="Storage resources"
                 prop="resource.spec.hard.storage"
                 :rules="[
                     validators.required(),
@@ -107,8 +107,8 @@
       </el-form>
     </kube-pipe>
     <div slot="footer">
-        <el-button @click="close">取 消</el-button>
-        <el-button type="primary" @click="submit" :loading="submitting">确 定</el-button>
+        <el-button @click="close">Cancel</el-button>
+        <el-button type="primary" @click="submit" :loading="submitting">OK</el-button>
     </div>
   </el-dialog>
 </template>
@@ -218,11 +218,11 @@ export default {
                 },
             };
         },
-        // 已选择的节点的资源信息(cpu、memory、gpu的统和数据)
+        // Resource information of the selected node (total data of cpu, memory, and gpu)
         usedNodeInfo() {
             return getNodeInfo(this.allNodes.filter(item => this.selectedNodes.includes(item.key)));
         },
-        // 可选择的节点的资源信息(cpu、memory、gpu的统和数据)
+        // Resource information of selectable nodes (total data of cpu, memory, and gpu)
         remainNodeInfo() {
             return getNodeInfo(this.allNodes.filter(item => !this.selectedNodes.includes(item.key)));
         },
@@ -307,7 +307,7 @@ export default {
                 const project = this.model.pipe.project.value;
                 const projectNs = this.model.pipe.project.spec.namespace;
                 if (this.type === 'edit') {
-                    // 更新ResourceQuota
+                    // Update ResourceQuota
                     const quota = patchResourceQuotaPK8SObject(
                         this.model.resource
                     );

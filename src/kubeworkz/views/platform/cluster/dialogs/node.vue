@@ -1,6 +1,6 @@
 <template>
   <u-modal
-    title="添加节点"
+    title="Add node"
     ok-button=""
     cancel-button=""
     :visible.sync="show"
@@ -8,13 +8,13 @@
     @close="close"
   >
     <div style="max-width: 580px;color: #999;padding-bottom: 5px;">
-      根据文档完成新节点添加：
+      Complete the new node addition according to the documentation:
       <br>
       <u-link
         target="_blank"
-        href="http://www.kubeworkz.io/docs/installation-guide/add-k8s-node/#向集群添加工作节点"
+        href="http://www.kubeworkz.io/docs/installation-guide/add-k8s-node/#Add worker nodes to the cluster"
       >
-        www.kubeworkz.io/docs/installation-guide/add-k8s-node/#向集群添加工作节点
+        www.kubeworkz.io/docs/installation-guide/add-k8s-node/#Add worker nodes to the cluster
       </u-link>
     </div>
 
@@ -29,11 +29,11 @@
           name="success"
           color="primary"
         />
-        <span v-if="copied">已复制</span>
-        <span v-else>复制</span>
+        <span v-if="copied">Copied</span>
+        <span v-else>Copy</span>
       </u-button>
       <u-button @click="show = false">
-        取消
+        Cancel
       </u-button>
     </u-linear-layout> -->
   </u-modal>

@@ -14,7 +14,7 @@
       <template slot-scope="{ data, loading, error }">
         <u-loading v-if="loading" />
         <div v-else-if="error">
-          加载出错！
+          Loading error!
         </div>
         <template v-else>
           <el-tabs :value="routeName" page="main" @tab-click="(pane) => handleTabClick(pane, tabs)">
@@ -52,10 +52,10 @@ export default {
         },
         tabs() {
             return [
-                { title: '详情', route: { name: 'platform.cluster.nodedetail.info', params: this.$route.params } },
-                { title: '副本', route: { name: 'platform.cluster.nodedetail.pod', params: this.$route.params } },
-                { title: '监控', route: { name: 'platform.cluster.nodedetail.monitor', params: this.$route.params } },
-                { title: '事件', route: { name: 'platform.cluster.nodedetail.event', params: this.$route.params } },
+                { title: 'Details', route: { name: 'platform.cluster.nodedetail.info', params: this.$route.params } },
+                { title: 'Pod', route: { name: 'platform.cluster.nodedetail.pod', params: this.$route.params } },
+                { title: 'Monitor', route: { name: 'platform.cluster.nodedetail.monitor', params: this.$route.params } },
+                { title: 'Event', route: { name: 'platform.cluster.nodedetail.event', params: this.$route.params } },
             ];
         },
         routeName() {

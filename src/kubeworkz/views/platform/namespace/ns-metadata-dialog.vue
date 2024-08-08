@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="修改元信息"
+    title="Modify meta information"
     :visible.sync="show"
     @close="close"
     width="940px"
@@ -8,7 +8,7 @@
   >
     <i v-if="loading" class="el-icon-loading" style="font-size: 24px"/>
     <el-form v-else-if="model" ref="form" :model="model" label-position="right" label-width="120px">
-      <el-form-item label="标签">
+      <el-form-item label="Label">
         <labelEditor
           workload="namespace"
           prefixKey="labels"
@@ -16,7 +16,7 @@
           prefixProp="metadata.labels"
         />
       </el-form-item>
-      <el-form-item label="注释">
+      <el-form-item label="Annotation">
         <labelEditor
           prefixKey="annotations"
           v-model="model.metadata.annotations"
@@ -25,8 +25,8 @@
       </el-form-item>
     </el-form>
     <div slot="footer">
-        <el-button @click="close">取 消</el-button>
-        <el-button type="primary" @click="submit" :loading="submitting">确 定</el-button>
+        <el-button @click="close">Cancel</el-button>
+        <el-button type="primary" @click="submit" :loading="submitting">OK</el-button>
     </div>
   </el-dialog>
 </template>

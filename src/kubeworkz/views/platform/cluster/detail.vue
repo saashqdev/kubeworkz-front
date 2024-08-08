@@ -24,7 +24,7 @@
         <template slot-scope="{ data, loading, error }">
           <i v-if="loading" class="el-icon-loading" style="font-size: 24px"/>
           <div v-else-if="error">
-            加载出错！
+            Loading error!
           </div>
           <template v-else>
             <el-tabs :value="routeName" page="main" @tab-click="(pane) => handleTabClick(pane, getTabs(data))">
@@ -86,12 +86,12 @@ export default {
         getTabs(instance) {
             const isAbnormal = (instance.status !== 'normal');
             return [
-                { title: '详情', path: `/platform/cluster/${this.clusterName}/info` },
-                { title: '节点', path: `/platform/cluster/${this.clusterName}/node`, disabled: isAbnormal },
-                { title: '存储类别', path: `/platform/cluster/${this.clusterName}/storageclass`, disabled: isAbnormal },
-                { title: '持久存储', path: `/platform/cluster/${this.clusterName}/persistentvolumes`, disabled: isAbnormal },
-                { title: '网络策略', path: `/platform/cluster/${this.clusterName}/network`, disabled: isAbnormal },
-                { title: '监控', path: `/platform/cluster/${this.clusterName}/monitor`, disabled: isAbnormal },
+                { title: 'Details', path: `/platform/cluster/${this.clusterName}/info` },
+                { title: 'Node', path: `/platform/cluster/${this.clusterName}/node`, disabled: isAbnormal },
+                { title: 'Storage class', path: `/platform/cluster/${this.clusterName}/storageclass`, disabled: isAbnormal },
+                { title: 'Persistent storage', path: `/platform/cluster/${this.clusterName}/persistentvolumes`, disabled: isAbnormal },
+                { title: 'Network strategy', path: `/platform/cluster/${this.clusterName}/network`, disabled: isAbnormal },
+                { title: 'Monitor', path: `/platform/cluster/${this.clusterName}/monitor`, disabled: isAbnormal },
             ];
         },
         resolver(response) {

@@ -7,17 +7,17 @@
       :showAddBtn="false"
       :columns="[
         {
-          title: '资源配额',
+          title: 'Resource quota',
           dataIndex: 'resource',
           width: '20%',
         },
         {
-          title: '请求',
+          title: 'Request',
           dataIndex: 'request',
           width: '40%',
         },
         {
-          title: '上限',
+          title: 'Upper limit',
           dataIndex: 'limit',
           width: '40%',
         },
@@ -25,11 +25,11 @@
     >
       <template v-slot:resource="{index}">
         <div v-if="index === 0" style="margin-bottom:18px">CPU</div>
-        <div v-if="index === 1" style="margin-bottom:18px">内存</div>
+        <div v-if="index === 1" style="margin-bottom:18px">Memory</div>
         <div v-if="index === 2" style="margin-bottom:18px">GPU</div>
       </template>
       <template v-slot:request="{index}">
-        <!-- 请求 -->
+        <!-- Request -->
         <el-form-item
           v-if="index === 0"
           :prop="`${prefixProp}.spec.hard.cpu`"
@@ -44,7 +44,7 @@
             <el-input v-model="model.spec.hard['cpu']"/>
             <div :class="$style.unitBox">Cores</div>
           </div>
-          <div :class="$style.availableText">可分配 {{ availableCPU }} / {{ availables.cpu }} Cores</div>
+          <div :class="$style.availableText">Available {{ availableCPU }} / {{ availables.cpu }} Cores</div>
         </el-form-item>
         <el-form-item 
           v-if="index === 1"
@@ -66,7 +66,7 @@
               <el-option label="Gi" value="Gi"/>
             </el-select>
           </div>
-          <div :class="$style.availableText">可分配 {{ memoryTransform(availableMemory) }} / {{ memoryTransform(availables.memory) }} {{memoryUnit}}</div>
+          <div :class="$style.availableText">Available {{ memoryTransform(availableMemory) }} / {{ memoryTransform(availables.memory) }} {{memoryUnit}}</div>
         </el-form-item>
         <el-form-item
           v-if="index === 2"
@@ -79,13 +79,13 @@
         >
           <div :class="$style.unitInputWrap">
             <el-input v-model="model.spec.hard['gpu']"/>
-            <div :class="$style.unitBox">颗</div>
+            <div :class="$style.unitBox">Core</div>
           </div>
-          <div :class="$style.availableText">可分配 {{ availableGPU }} / {{ availables.gpu }} 颗</div>
+          <div :class="$style.availableText">Available {{ availableGPU }} / {{ availables.gpu }} Cores</div>
         </el-form-item>
       </template>
       <template v-slot:limit="{index}">
-        <!-- 上限 -->
+        <!-- Upper limit -->
         <el-form-item
           v-if="index === 0"
           :prop="`${prefixProp}.spec.hard.limitsCpu`"
@@ -93,7 +93,7 @@
             validators.required(),
             validators.consistofNumber(),
             validators.greateThen(0),
-            validators.greateThenEqual(model.spec.hard['cpu'], '上限资源应大于等于请求资源'),
+            validators.greateThenEqual(model.spec.hard['cpu'], 'The upper limit resources should be greater than or equal to the requested resources'),
             validators.numberBetween(0, availables.limitsCpu)
           ]"
         >
@@ -101,7 +101,7 @@
             <el-input v-model="model.spec.hard['limitsCpu']"/>
             <div :class="$style.unitBox">Cores</div>
           </div>
-          <div :class="$style.availableText">可分配 {{ availableLimitsCPU }} / {{ availables.limitsCpu }} Cores</div>
+          <div :class="$style.availableText">Available {{ availableLimitsCPU }} / {{ availables.limitsCpu }} Cores</div>
         </el-form-item>
         <el-form-item
           v-if="index === 1"
@@ -110,7 +110,7 @@
             validators.required(),
             validators.consistofNumber(),
             validators.greateThen(0),
-            validators.greateThenEqual(requestsMemory, '上限资源应大于等于请求资源'),
+            validators.greateThenEqual(requestsMemory, 'The upper limit resources should be greater than or equal to the requested resources'),
             validators.numberBetween(0, memoryTransform(availables.limitsMemory))
           ]"
         >
@@ -124,7 +124,7 @@
               <el-option label="Gi" value="Gi"/>
             </el-select>
           </div>
-          <div :class="$style.availableText">可分配 {{ memoryTransform(availableLimitsMemory) }} / {{ memoryTransform(availables.limitsMemory) }} {{memoryUnit}}</div>
+          <div :class="$style.availableText">Available {{ memoryTransform(availableLimitsMemory) }} / {{ memoryTransform(availables.limitsMemory) }} {{memoryUnit}}</div>
         </el-form-item>
         <div v-if="index === 2">
           -

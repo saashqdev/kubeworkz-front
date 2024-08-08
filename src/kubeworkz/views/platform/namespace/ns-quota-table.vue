@@ -1,6 +1,6 @@
 <template>
   <kube-form-item
-    label="共享资源"
+    label="Share resource"
     layout="block"
     required
   >
@@ -12,10 +12,10 @@
       <template slot="head">
         <tr :class="$style.thead">
           <th width="55%">
-            配额
+            Quota
           </th>
           <th width="45%">
-            租户可分配
+            Tenant available
           </th>
         </tr>
       </template>
@@ -66,7 +66,7 @@
           <td>
             <div :class="$style.inlineflex">
               <u-text :class="$style.required">
-                内存
+                Memory
               </u-text>
               <validation-provider
                 v-slot="{ errors }"

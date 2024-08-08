@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-dialog
-      :title="isEdit ? '修改集群': '添加集群'"
+      :title="isEdit ? 'Modify cluster': 'Add cluster'"
       :visible.sync="show"
       width="700px"
       :close-on-click-modal="false"
@@ -14,7 +14,7 @@
         label-width="120px"
       >
         <el-form-item
-          label="集群名称"
+          label="Cluster name"
           prop="clusterDisplayName"
           :rules="[
             validators.required(),
@@ -24,11 +24,11 @@
           <el-input
             v-model="model.clusterDisplayName"
             disabeld
-            placeholder="1-100字符，以中文、字母、数字开头或结尾，支持下划线、中划线"
+            placeholder="1-100 characters, starting or ending with letters, and numbers, supporting underline and center line"
           />
         </el-form-item>
         <el-form-item
-          label="集群标识"
+          label="Cluster ID"
           prop="clusterName"
           :rules="[
             validators.required(),
@@ -41,7 +41,7 @@
           />
         </el-form-item>
         <el-form-item
-          label="描述"
+          label="Description"
           prop="description"
           :rules="[
             validators.lengthBetween(0, 128)
@@ -49,7 +49,7 @@
         >
           <el-input
             v-model="model.description"
-            placeholder="128字符以内"
+            placeholder="Max 128 characters"
           />
         </el-form-item>
         <el-form-item
@@ -73,13 +73,13 @@
               @error="uploadError($event)"
             >
               <el-link type="primary">
-                选择文件
+                Select a document
               </el-link>
             </u-uploader>
           </div>
         </el-form-item>
         <el-form-item
-          label="网络类型"
+          label="Network Type"
           prop="networkType"
           :rules="[
             validators.required(),
@@ -90,13 +90,13 @@
             <el-input
               v-if="otherNetworkType"
               v-model="model.networkType"
-              placeholder="请输入"
+              placeholder="Please enter"
             />
             <el-select
               v-else
               v-model="model.networkType"
               filterable
-              placeholder="请选择"
+              placeholder="Please choose"
             >
               <el-option
                 v-for="item in networkTypes"
@@ -109,7 +109,7 @@
               v-model="otherNetworkType"
               style="margin-left: 8px"
             >
-              其他
+              Other
             </el-checkbox>
           </div>
         </el-form-item>
@@ -119,25 +119,25 @@
         :class="$style.noticeWrap"
       >
         <span :class="$style.textspan">
-          请参照
+          Please refer to
         </span>
-        <el-link type="primary" target="_blank" href="https://www.kubeworkz.io/docs/installation-guide/install-on-k8s/install-member-by-helm/#通过-helm-在计算集群上安装-warden">
-          文档链接
+        <el-link type="primary" target="_blank" href="https://www.kubeworkz.io/docs/installation-guide/install-on-k8s/install-member-by-helm/#Install-warden on the compute cluster via-helm">
+          Documentation link
         </el-link>
         <span :class="$style.textspan">
-          来纳管计算集群。
+          to manage computing clusters.
         </span>
       </div>
       <div v-if="isEdit" slot="footer">
         <el-button @click="close">
-          取 消
+          Cancel
         </el-button>
         <el-button
           type="primary"
           :loading="submitLoading"
           @click="submit"
         >
-          确 定
+          OK
         </el-button>
       </div>
     </el-dialog>
@@ -205,11 +205,11 @@ export default {
         },
         uploadError(e) {
             if (e.name === 'ExtensionError') {
-                this.uploadErrorMsg = `只能上传 ${e.extensions.join(', ')} 类型的文件！`;
+                this.uploadErrorMsg = `Can only upload ${e.extensions.join(', ')} type of file!`;
             } else { this.uploadErrorMsg = e.message; }
         },
         async submit() {
-            // 触发校验
+            // Trigger verification
             try {
                 await this.$refs.form.validate();
             } catch (error) {

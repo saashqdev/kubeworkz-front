@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="编辑标签"
+    title="Edit tag"
     :visible.sync="show"
     width="640px"
     @close="close"
@@ -15,8 +15,8 @@
       </el-form-item>
     </el-form>
     <div slot="footer">
-      <el-button @click="close">取 消</el-button>
-      <el-button type="primary" @click="submit" :loading="submitLoading">确 定</el-button>
+      <el-button @click="close">Cancel</el-button>
+      <el-button type="primary" @click="submit" :loading="submitLoading">OK</el-button>
     </div>
   </el-dialog>
 </template>
@@ -57,7 +57,7 @@ export default {
             this.show = true;
         },
         async submit() {
-            // 触发校验
+            // Trigger verification
             try {
                 await this.$refs.form.validate();
             } catch (error) {

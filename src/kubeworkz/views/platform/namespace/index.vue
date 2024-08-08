@@ -6,7 +6,7 @@
         type="primary"
         @click="openCreateModal"
       >
-        创建空间
+        Create namespace
       </el-button>
       <el-button
         icon="el-icon-refresh-right"
@@ -19,7 +19,7 @@
         graph="tenant"
         @pipestatechange="pipeLoading = $event"
       >
-        <span style="line-height:32px;margin-right:12px">租户</span>
+        <span style="line-height:32px;margin-right:12px">Tenant</span>
         <kubeTenantSelectMultiple v-model="tenant" style="width:300px" @syncTenant="syncTenant"/>
         <!-- <kube-tenant-select v-model="tenant" /> -->
       </kube-pipe>
@@ -44,12 +44,12 @@
         >
           <el-table-column
             prop="namespace"
-            label="空间"
+            label="Namespace"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             prop="cluster"
-            label="集群"
+            label="Cluster"
             :show-overflow-tooltip="true"
           >
             <template slot-scope="{ row }">
@@ -60,37 +60,37 @@
           </el-table-column>
           <el-table-column
             prop="tenant"
-            label="租户"
+            label="Tenant"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             prop="project"
-            label="项目"
+            label="Project"
             :show-overflow-tooltip="true"
           />
           <el-table-column
-            prop="resourceQuato"
-            label="共享资源"
+            prop="resourceQuota"
+            label="Share resource"
             :show-overflow-tooltip="true"
             width="75"
           >
             <template>
               <div>CPU</div>
-              <div>内存</div>
+              <div>Memory</div>
               <div>GPU</div>
             </template>
           </el-table-column>
           <el-table-column
             prop="request"
-            label="已分配请求/请求配额"
+            label="Assigned request/request quota"
             :show-overflow-tooltip="true"
             width="140"
           >
             <template slot-scope="{ row }">
-              <template v-if="row.resourceQuato">
-                <div>{{ row.resourceQuato.used['requests.cpu'] | clusterCpu }} / {{row.resourceQuato.hard['requests.cpu'] | clusterCpu }} Cores</div>
-                <div>{{ row.resourceQuato.used['requests.memory'] | clusterMemory }} / {{ row.resourceQuato.hard['requests.memory'] | clusterMemory }} Gi</div>
-                <div>{{ row.resourceQuato.used['requests.nvidia.com/gpu'] }} / {{ row.resourceQuato.hard['requests.nvidia.com/gpu'] }} Cores</div>
+              <template v-if="row.resourceQuota">
+                <div>{{ row.resourceQuota.used['requests.cpu'] | clusterCpu }} / {{row.resourceQuota.hard['requests.cpu'] | clusterCpu }} Cores</div>
+                <div>{{ row.resourceQuota.used['requests.memory'] | clusterMemory }} / {{ row.resourceQuota.hard['requests.memory'] | clusterMemory }} Gi</div>
+                <div>{{ row.resourceQuota.used['requests.nvidia.com/gpu'] }} / {{ row.resourceQuota.hard['requests.nvidia.com/gpu'] }} Cores</div>
               </template>
               <div v-else>
                 -
@@ -99,14 +99,14 @@
           </el-table-column>
           <el-table-column
             prop="limit"
-            label="已分配上限/上限配额"
+            label="Cap/cap quota assigned"
             :show-overflow-tooltip="true"
             width="140"
           >
             <template slot-scope="{ row }">
-              <template v-if="row.resourceQuato">
-                <div>{{ row.resourceQuato.used['limits.cpu'] | clusterCpu }} / {{row.resourceQuato.hard['limits.cpu'] | clusterCpu }} Cores</div>
-                <div>{{ row.resourceQuato.used['limits.memory'] | clusterMemory }} / {{ row.resourceQuato.hard['limits.memory'] | clusterMemory }} Gi</div>
+              <template v-if="row.resourceQuota">
+                <div>{{ row.resourceQuota.used['limits.cpu'] | clusterCpu }} / {{row.resourceQuota.hard['limits.cpu'] | clusterCpu }} Cores</div>
+                <div>{{ row.resourceQuota.used['limits.memory'] | clusterMemory }} / {{ row.resourceQuota.hard['limits.memory'] | clusterMemory }} Gi</div>
                 <div>-</div>
               </template>
               <div v-else>
@@ -116,32 +116,32 @@
           </el-table-column>
           <el-table-column
             prop="operation"
-            label="操作"
+            label="Operation"
             :show-overflow-tooltip="true"
             width="180"
           >
             <template slot-scope="{ row }">
               <qz-link-group max="3">
                 <el-link
-                  :disabled="!row.resourceQuato && !row.nodeResourceQuato && !row.colocationResourceQuato"
+                  :disabled="!row.resourceQuota && !row.nodeResourceQuato && !row.colocationResourceQuato"
                   type="primary"
                   @click="editItem(row)"
-                >修改配额</el-link>
+                >Modify quota</el-link>
                 <el-link
                   type="primary"
                   @click="editMetadata(row)"
-                >修改元信息</el-link>
-                <el-tooltip v-if="row.isFederateMember" class="item" effect="dark" content="此空间为联邦模式，删除管控集群的联邦空间时会一起删除该空间" placement="left">
+                >Modify meta information</el-link>
+                <el-tooltip v-if="row.isFederateMember" class="item" effect="dark" content="This space is in federated mode. When you delete the federated space of the management cluster, the space will be deleted together." placement="left">
                   <el-link
                     type="primary"
                     disabled
-                  >删除</el-link>
+                  >Delete</el-link>
                 </el-tooltip>
                 <el-link
                   v-else
                   type="primary"
                   @click="deleteItem(row)"
-                >删除</el-link>
+                >Delete</el-link>
               </qz-link-group>
             </template>
           </el-table-column>
@@ -159,22 +159,22 @@
       ref="nsMetadataDialog"
     />
     <el-dialog
-      title="删除空间"
+      title="Delete namespace"
       :visible.sync="showDelCheck"
       @close="showDelCheck = false"
     >
       <div style="margin-bottom:12px">
-        删除空间"{{delNsInfo && delNsInfo.namespace}}"将会删除该空间下的所有资源！
+        Delete namespace "{{delNsInfo && delNsInfo.namespace}}" All resources under this namespace will be deleted!
         <div v-if="delNsInfo && delNsInfo.isFederateMaster">
-          此空间为联邦模式，将会一起删除关联业务集群下的联邦空间!
+          This namespace is in federated mode, and the federated namespace under the associated business cluster will be deleted together!
         </div>
       </div>
       <div style="margin-bottom:20px">
-          <el-input v-model="userInput" placeholder="请输入空间名称进行二次确认"/>
+          <el-input v-model="userInput" placeholder="Please enter the namespace name for secondary confirmation"/>
       </div>
       <div slot="footer">
-        <el-button @click="showDelCheck = false">取 消</el-button>
-        <el-button type="primary" @click="handleDelete" :loading="delLoading" :disabled="userInput !== delNsInfo.namespace">确认删除</el-button>
+        <el-button @click="showDelCheck = false">Cancel</el-button>
+        <el-button type="primary" @click="handleDelete" :loading="delLoading" :disabled="userInput !== delNsInfo.namespace">Confirm deletion</el-button>
     </div>
     </el-dialog>
   </div>
@@ -190,7 +190,7 @@ import kubeTenantSelectMultiple from 'kubeworkz/component/global/common/kube-ten
 import nsMetadataDialog from './ns-metadata-dialog.vue';
 export default {
     metaInfo: {
-        title: '空间管理 - kubeworkz',
+        title: 'Namespace management - kubeworkz',
     },
     components: {
         nsQuotaDialog,
@@ -212,15 +212,15 @@ export default {
             pipeLoading: true,
             quotaService: clusterService.getClusters,
             columns: [
-                { name: 'namespace', title: '空间' },
-                { name: 'cluster', title: '集群' },
-                { name: 'tenant', title: '租户' },
-                { name: 'project', title: '项目' },
-                { name: 'resourceQuato', title: '共享资源', width: '75px' },
-                { name: 'request', title: '已分配配额/请求配额', width: '140px' },
-                { name: 'limit', title: '已分配上限/上限配额', width: '140px' },
-                { name: 'nodeQuato', title: '独占节点（配额)' },
-                { name: 'operation', title: '操作', width: '160px' },
+                { name: 'namespace', title: 'Namespace' },
+                { name: 'cluster', title: 'Cluster' },
+                { name: 'tenant', title: 'Tenant' },
+                { name: 'project', title: 'Project' },
+                { name: 'resourceQuota', title: 'Share resource', width: '75px' },
+                { name: 'request', title: 'Assigned quota/requested quota', width: '140px' },
+                { name: 'limit', title: 'Cap/cap quota assigned', width: '140px' },
+                { name: 'nodeQuato', title: 'Exclusive nodes (quota)' },
+                { name: 'operation', title: 'Operation', width: '160px' },
             ],
             showDelCheck: false,
             delNsInfo: {},
@@ -276,7 +276,7 @@ export default {
             resList.forEach((res, index) => {
                 const ns = response.items[index];
                 if (ns.type === 'shared') {
-                    ns.resourceQuato = res && res.status;
+                    ns.resourceQuota = res && res.status;
                 }
             });
             return response;
@@ -321,8 +321,8 @@ export default {
             this.userInput = '';
             this.showDelCheck = true;
             // this.$confirm({
-            //     title: '删除',
-            //     content: `确认要删除 ${item.namespace} 吗？`,
+            //     title: 'Delete',
+            //     content: `Confirm to delete ${item.namespace}?`,
             //     ok: async () => {
             //         await kubeUltimateService.deleteNameSpace({
             //             params: {

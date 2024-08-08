@@ -1,11 +1,11 @@
 <template>
   <el-dialog
-    title="设置污点"
+    title="Set taint"
     :visible.sync="show"
     width="640px"
     @close="close"
   >
-    <div>污点（taint），只有拥有和 taint 相匹配的 toleration 的 pod 才能够被分配到节点。</div>
+    <div>Taint (taint), only pods with toleration matching the taint can be assigned to the node.</div>
     <el-form v-if="show" ref="form" :model="model" label-position="right">
       <el-form-item>
         <dynamicBlock
@@ -30,9 +30,9 @@
             Effect
             <el-tooltip effect="dark" placement="right" popper-class="ncs-el-tooltip-popper">
               <template slot="content">
-                <div>NoSchedule：POD 不会被调度到标记为 taints 节点。</div>
-                <div>PreferNoSchedule：NoSchedule 的软策略版本。尽量避免将 pod 调度到存在其不能容忍 taint 的节点上</div>
-                <div>NoExecute：该选项意味着一旦 Taint 生效，如该节点内正在运行的 POD 没有对应 Tolerate 设置，会直接被逐出。</div>
+                <div>NoSchedule: POD will not be scheduled to nodes marked as taints.</div>
+                <div>PreferNoSchedule: Soft policy version of NoSchedule. Try to avoid scheduling pods on nodes that cannot tolerate taint</div>
+                <div>NoExecute: This option means that once Taint takes effect, if the POD running in the node does not have a corresponding Tolerate setting, it will be evicted directly.</div>
               </template>
               <i class="el-icon-question"/>
             </el-tooltip>
@@ -60,7 +60,7 @@
           <template v-slot:effect="{record, index}">
             <el-select
               v-model="record.effect"
-              placeholder="请选择"
+              placeholder="Please choose"
               filterable
             >
               <el-option
@@ -75,8 +75,8 @@
       </el-form-item>
     </el-form>
     <div slot="footer">
-      <el-button @click="close">取 消</el-button>
-      <el-button type="primary" @click="submit" :loading="submitLoading">确 定</el-button>
+      <el-button @click="close">Cancel</el-button>
+      <el-button type="primary" @click="submit" :loading="submitLoading">OK</el-button>
     </div>
   </el-dialog>
 </template>
@@ -123,7 +123,7 @@ export default {
             };
         },
         async submit() {
-            // 触发校验
+            // Trigger verification
             try {
                 await this.$refs.form.validate();
             } catch (error) {

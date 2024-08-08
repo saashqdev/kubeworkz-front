@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="集群详情"
+    title="Cluster details"
     :visible.sync="show"
     :close-on-click-modal="false"
     width="640px"
@@ -12,34 +12,34 @@
       label-position="right"
       label-width="120px"
     >
-      <el-form-item label="集群名称">
+      <el-form-item label="Cluster name">
         {{ instance.annotations && instance.annotations['cluster.kubeworkz.io/cn-name'] }}
       </el-form-item>
-      <el-form-item label="集群标识">
+      <el-form-item label="Cluster ID">
         {{ instance.clusterName }}
       </el-form-item>
-      <el-form-item label="描述">
+      <el-form-item label="Description">
         {{ instance.clusterDescription }}
       </el-form-item>
-      <el-form-item label="状态">
+      <el-form-item label="Status">
         {{ instance.status | clusterStatus }}
       </el-form-item>
-      <el-form-item label="创建时间">
+      <el-form-item label="Creation time">
         {{ instance.createTime | formatLocaleTime }}
       </el-form-item>
-      <el-form-item label="节点数">
+      <el-form-item label="Number of nodes">
         {{ instance.nodeCount }}
       </el-form-item>
       <el-form-item label="CPU">
         {{ instance.totalCpu | clusterCpu }} Cores
       </el-form-item>
-      <el-form-item label="内存">
+      <el-form-item label="Memory">
         {{ instance.totalMem | clusterMemory }} GiB
       </el-form-item>
-      <el-form-item label="集群用途">
-        {{ instance.isMemberCluster ? '业务集群' : '管控集群' }}
+      <el-form-item label="Cluster usage">
+        {{ instance.isMemberCluster ? 'Business cluster' : 'Management and control cluster' }}
       </el-form-item>
-      <el-form-item label="集群网络">
+      <el-form-item label="Cluster network">
         {{ instance.networkType }}
       </el-form-item>
     </el-form>

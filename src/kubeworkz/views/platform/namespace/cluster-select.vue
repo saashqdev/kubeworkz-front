@@ -15,7 +15,7 @@
     <el-input
         v-else
         v-bind="$attrs"
-        placeholder="暂无集群"
+        placeholder="No cluster yet"
         disabled
     />
 </template>

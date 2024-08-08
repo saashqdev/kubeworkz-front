@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="定制域名后缀"
+    title="Custom domain name suffix"
     :visible.sync="show"
     width="700px"
     :close-on-click-modal="false"
@@ -13,7 +13,7 @@
       label-width="120px"
     >
       <el-form-item
-        label="Ingress 后缀"
+        label="Ingress suffix"
         prop="domainSuffix"
         :rules="[
           validators.ingressSuffix(),
@@ -24,14 +24,14 @@
     </el-form>
     <div slot="footer">
       <el-button @click="close">
-        取 消
+        Cancel
       </el-button>
       <el-button
         type="primary"
         :loading="submitLoading"
         @click="submit"
       >
-        确 定
+        OK
       </el-button>
     </div>
   </el-dialog>
@@ -55,7 +55,7 @@ export default {
                 domainSuffix: [
                     // { type: 'string', required: true, trigger: 'input+blur', message: '' },
                     { type: 'string', pattern: /^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$/, trigger: 'input', message: '' },
-                    { type: 'string', pattern: /^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$/, trigger: 'blur', message: '请输入合法的 ingress 后缀' },
+                    { type: 'string', pattern: /^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$/, trigger: 'blur', message: 'Please enter a legal ingress suffix' },
                 ],
             },
             submitLoading: false,
@@ -74,7 +74,7 @@ export default {
             this.show = false;
         },
         async submit() {
-            // 触发校验
+            // Trigger verification
             try {
                 await this.$refs.form.validate();
             } catch (error) {

@@ -6,7 +6,7 @@
         icon="el-icon-plus"
         @click="openCreateModal"
       >
-        添加集群
+        Add cluster
       </el-button>
       <el-button
         square
@@ -29,7 +29,7 @@
         >
           <el-table-column
             prop="clusterDisplayName"
-            label="集群名称"
+            label="Cluster name"
             :show-overflow-tooltip="true"
           >
             <template slot-scope="{ row }">
@@ -44,12 +44,12 @@
           </el-table-column>
           <el-table-column
             prop="clusterName"
-            label="集群标识"
+            label="Cluster ID"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             prop="clusterDescription"
-            label="描述"
+            label="Description"
             :show-overflow-tooltip="true"
           >
             <template slot-scope="{ row }">
@@ -58,16 +58,16 @@
           </el-table-column>
           <el-table-column
             prop="isMemberCluster"
-            label="集群用途"
+            label="Cluster usage"
             :show-overflow-tooltip="true"
           >
             <template slot-scope="{ row }">
-              {{ row.isMemberCluster ? '业务集群' : '管控集群' }}
+              {{ row.isMemberCluster ? 'Business cluster' : 'Management and control cluster' }}
             </template>
           </el-table-column>
           <el-table-column
             prop="cpu"
-            label="CPU (已用 / 总计)"
+            label="CPU (used / total)"
             :show-overflow-tooltip="true"
             width="120"
           >
@@ -77,7 +77,7 @@
           </el-table-column>
           <el-table-column
             prop="memory"
-            label="内存 (已用 / 总计)"
+            label="Memory (used / total)"
             :show-overflow-tooltip="true"
             width="120"
           >
@@ -87,17 +87,17 @@
           </el-table-column>
           <el-table-column
             prop="nodeCount"
-            label="节点"
+            label="Node"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             prop="namespaceCount"
-            label="空间"
+            label="Namespace"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             prop="status"
-            label="状态"
+            label="Status"
             :show-overflow-tooltip="true"
           >
             <template slot-scope="{ row }">
@@ -106,7 +106,7 @@
           </el-table-column>
           <el-table-column
             prop="operation"
-            label="操作"
+            label="Operation"
             :show-overflow-tooltip="true"
             width="160"
           >
@@ -116,20 +116,20 @@
                   type="primary"
                   @click="setItem(row)"
                 >
-                  修改集群
+                  Modify cluster
                 </el-link>
                 <el-link
                   type="primary"
                   :disabled="row.clusterName === controlClusterList[0].clusterName || row.status === 'deleting' || row.status === 'processing'"
                   @click="removeItem(row)"
                 >
-                  删除配置
+                  Delete configuration
                 </el-link>
                 <el-link
                   type="primary"
                   @click="editDomainSuffix(row)"
                 >
-                  定制域名后缀
+                  Custom domain name suffix
                 </el-link>
               </qz-link-group>
             </template>
@@ -158,7 +158,7 @@
       @refresh="refresh"
     />
     <el-dialog
-      title="删除集群"
+      title="Delete cluster"
       :visible.sync="showDelete"
       width="700px"
       :close-on-click-modal="false"
@@ -167,17 +167,17 @@
         :class="$style.noticeWrap"
       >
         <span :class="$style.textspan">
-          请参照
+          Please refer to
         </span>
         <el-link
           type="primary"
           target="_blank"
-          href="https://www.kubeworkz.io/docs/installation-guide/install-on-k8s/install-member-by-helm/#卸载计算集群中的-warden"
+          href="https://www.kubeworkz.io/docs/installation-guide/install-on-k8s/install-member-by-helm/#Uninstall-warden in a computing cluster"
         >
-          文档链接
+          Documentation link
         </el-link>
         <span :class="$style.textspan">
-          来移除已纳管的计算集群。
+          to remove a managed computing cluster.
         </span>
       </div>
     </el-dialog>
@@ -198,7 +198,7 @@ import { pagenationMixin } from 'kubeworkz/mixins';
 // } from 'kubeworkz/k8s-resources/scope/cluster';
 export default {
     metaInfo: {
-        title: '集群管理 - kubeworkz',
+        title: 'Cluster management - kubeworkz',
     },
     filters: {
         clusterCpu(cpu) {
@@ -210,13 +210,13 @@ export default {
         statusFilter(val) {
             switch (val) {
                 case 'normal':
-                    return '正常';
+                    return 'Normal';
                 case 'abnormal':
-                    return '不正常';
+                    return 'Abnormal';
                 case 'processing':
-                    return '运行中';
+                    return 'Running';
                 case 'deleting':
-                    return '删除中';
+                    return 'Deleting';
                 default:
                     return '-';
             }
@@ -231,15 +231,15 @@ export default {
         return {
             service: clusterService.getClusters,
             columns: [
-                { name: 'clusterName', title: '名称' },
-                { name: 'clusterDescription', title: '描述' },
-                { name: 'cpu', title: 'CPU (已用 / 总计)' },
-                { name: 'memory', title: '内存 (已用 / 总计)' },
-                { name: 'nodeCount', title: '节点' },
-                { name: 'namespaceCount', title: '空间' },
-                { name: 'status', title: '状态' },
-                // { name: 'metadata.creationTimestamp', title: '创建时间' },
-                { name: 'operation', title: '操作', width: '160px' },
+                { name: 'clusterName', title: 'Name' },
+                { name: 'clusterDescription', title: 'Description' },
+                { name: 'cpu', title: 'CPU (used / total)' },
+                { name: 'memory', title: 'Memory (used / total)' },
+                { name: 'nodeCount', title: 'Node' },
+                { name: 'namespaceCount', title: 'Namespace' },
+                { name: 'status', title: 'Status' },
+                // { name: 'metadata.creationTimestamp', title: 'Creation time' },
+                { name: 'operation', title: 'Operation', width: '160px' },
             ],
             showDelete: false,
         };
