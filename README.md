@@ -1,8 +1,8 @@
-# KubeWorkz-front
+# KubeWorkz-Front
 
 [![License](http://img.shields.io/badge/license-apache%20v2-blue.svg)](https://github.com/saashqdev/kubeworkz/blob/main/LICENSE)
 
-KubeWorkz-front is the front-end project of KubeWorkz.
+KubeWorkz-Front is the front-end project of KubeWorkz.
 ![control](./assets/control.png)
 ![platform](./assets/platform.png)
 ## Features
@@ -89,7 +89,7 @@ module.exports = function() {
 };
 ```
 
-### develop
+### Develop
 ``` shell
 npm run dev 
 ```
