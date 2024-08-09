@@ -4,10 +4,10 @@
       <div class="g-sidebar">
         <u-sidebar collapsible>
           <u-sidebar-header
-            label="用户"
+            label="User"
           />
           <u-sidebar-item :to="{ path: '/metauser/openapi' }">
-            秘钥管理
+            Key management
           </u-sidebar-item>
         </u-sidebar>
       </div>

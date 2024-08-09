@@ -107,7 +107,7 @@ Follow the prompts to open the development address:
 ## License
 
 ```
-Copyright 2021 KubeWorkz Authors
+Copyright 2024 KubeWorkz Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

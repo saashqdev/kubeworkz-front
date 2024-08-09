@@ -7,14 +7,14 @@
           color="primary"
           @click="openCreateModal"
         >
-          新增用户
+          Add new user
         </u-button>
         <u-button
           icon="create"
           color="primary"
           @click="$refs.upload.open()"
         >
-          批量导入
+          Batch import
         </u-button>
         <u-button
           icon="refresh"
@@ -46,19 +46,19 @@
             <template #[`item.operation`]="{item}">
               <u-link-list>
                 <u-link-list-item @click="edit(item)">
-                  修改信息
+                  Modify information
                 </u-link-list-item>
                 <u-link-list-item @click="editPWD(item)">
-                  修改密码
+                  Change password
                 </u-link-list-item>
                 <u-link-list-item @click="editStatus(item)">
-                  {{ item.state === 'normal' ? '禁用' : '启用' }}
+                  {{ item.state === 'normal' ? 'Disable' : 'Enable' }}
                 </u-link-list-item>
               </u-link-list>
             </template>
             <template #error>
-              获取数据失败，请<u-link @click="refresh">
-                重试
+              Failed to obtain data, please<u-link @click="refresh">
+                Try again
               </u-link>
             </template>
           </kube-table>
@@ -107,14 +107,14 @@ export default {
         UserUploadDialog,
     },
     metaInfo: {
-        title: '用户管理 - kubeworkz',
+        title: 'User management - kubeworkz',
     },
     filters: {
         formatStatus(val) {
             if (val === 'normal') {
-                return '启用';
+                return 'Enable';
             }
-            return '禁用';
+            return 'Disable';
 
         },
     },
@@ -123,13 +123,13 @@ export default {
         return {
             userService: userService.getUserList,
             columns: [
-                { name: 'name', title: '登录帐号' },
-                { name: 'displayName', title: '用户名' },
-                { name: 'loginType', title: '类型' },
-                { name: 'lastLoginIP', title: '上次登录 IP' },
-                { name: 'lastLoginTime', title: '上次登录时间', width: '200px' },
-                { name: 'state', title: '状态', width: '100px' },
-                { name: 'operation', title: '操作', width: '200px' },
+                { name: 'name', title: 'Login account' },
+                { name: 'displayName', title: 'Username' },
+                { name: 'loginType', title: 'Type' },
+                { name: 'lastLoginIP', title: 'Last login IP' },
+                { name: 'lastLoginTime', title: 'Last login time', width: '200px' },
+                { name: 'state', title: 'State', width: '100px' },
+                { name: 'operation', title: 'Operation', width: '200px' },
             ],
         };
     },

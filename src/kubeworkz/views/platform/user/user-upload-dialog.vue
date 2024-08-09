@@ -1,6 +1,6 @@
 <template>
   <u-modal
-    title="批量导入"
+    title="Batch import"
     ok-button=""
     cancel-button=""
     :visible.sync="show"
@@ -11,7 +11,7 @@
       <u-form-item
         ref="file"
         label-size="small"
-        label="模板文件"
+        label="Template file"
         placement="bottom"
       >
         <u-input
@@ -25,7 +25,7 @@
           @before-send="onUpload($event)"
           @error="uploadError($event)"
         >
-          <u-link>选择文件</u-link>
+          <u-link>Select file</u-link>
         </u-uploader>
       </u-form-item>
       <u-form-item
@@ -35,7 +35,7 @@
         placement="bottom"
       >
         <u-link @click="download">
-          下载模板
+          Download template
         </u-link>
       </u-form-item>
       <u-form-item
@@ -43,8 +43,8 @@
         label=""
       >
         <div>
-          <span>成功: {{ response.successCount }}</span>
-          <span>失败: {{ response.failedCount }}</span>
+          <span>Success: {{ response.successCount }}</span>
+          <span>Fail: {{ response.failedCount }}</span>
         </div>
         <ul>
           <li
@@ -69,10 +69,10 @@
               :icon="scope.submitting ? 'loading' : ''"
               @click="scope.submit"
             >
-              上传
+              Upload
             </u-button>
             <u-button @click="show = false">
-              取消
+              Cancel
             </u-button>
           </u-linear-layout>
         </template>
@@ -113,7 +113,7 @@ export default {
         },
         onUpload(event) {
             event.preventDefault();
-            // 重置
+            // Reset
             const ref = this.$refs.file;
             ref.color = '';
 
@@ -125,7 +125,7 @@ export default {
             const ref = this.$refs.file;
             ref.color = 'error';
             if (e.name === 'ExtensionError') {
-                ref.currentMessage = `只能上传 ${e.extensions.join(', ')} 类型的文件！`;
+                ref.currentMessage = `Can only upload ${e.extensions.join(', ')} type of file!`;
             } else { ref.currentMessage = e.message; }
         },
         async download() {
@@ -136,7 +136,7 @@ export default {
             if (!this.model.userInfoFile) {
                 const ref = this.$refs.file;
                 ref.color = 'error';
-                ref.currentMessage = '需要选择文件';
+                ref.currentMessage = 'Need to select file';
             } else {
                 this.loading = true;
                 const formData = new FormData();

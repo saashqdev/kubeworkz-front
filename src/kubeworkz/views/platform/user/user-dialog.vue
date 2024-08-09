@@ -1,6 +1,6 @@
 <template>
   <u-modal
-    :title="isEdit ? '编辑用户' : (isPwd ? '修改密码' : '新增用户')"
+    :title="isEdit ? 'Edit user' : (isPwd ? 'Change password' : 'Add new user')"
     ok-button=""
     cancel-button=""
     :visible.sync="show"
@@ -19,7 +19,7 @@
           rules="required"
         >
           <kube-form-item
-            label="登录账号"
+            label="Login account"
             required
             :message="errors && errors[0]"
           >
@@ -31,7 +31,7 @@
           </kube-form-item>
         </validation-provider>
         <kube-form-item
-          label="用户名"
+          label="Username"
         >
           <u-input
             v-model="model.displayName"
@@ -46,7 +46,7 @@
           rules="required"
         >
           <kube-form-item
-            label="用户名"
+            label="Username"
             required
             :message="errors && errors[0]"
           >
@@ -69,7 +69,7 @@
         >
           <kube-form-item
             v-if="!isEdit"
-            label="密码"
+            label="Password"
             required
             :message="errors && errors[0]"
           >
@@ -96,7 +96,7 @@
           rules="phone"
         >
           <kube-form-item
-            label="电话"
+            label="Telephone"
             :message="errors && errors[0]"
           >
             <u-input
@@ -136,10 +136,10 @@
                 :icon="scope.submitting ? 'loading' : ''"
                 @click="scope.submit"
               >
-                确定
+                OK
               </u-button>
               <u-button @click="close">
-                取消
+                Cancel
               </u-button>
             </u-linear-layout>
           </template>

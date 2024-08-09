@@ -22,7 +22,7 @@
         >
           <el-table-column
             prop="name"
-            label="组件名称"
+            label="Component name"
             :show-overflow-tooltip="true"
           >
             <template slot-scope="{ row }">
@@ -42,13 +42,13 @@ import monitorService from 'kubeworkz/services/monitor';
 import { get } from 'vuex-pathify';
 export default {
     metaInfo: {
-        title: '组件监控 - kubeworkz',
+        title: 'Component monitoring - kubeworkz',
     },
     data() {
         return {
             service: monitorService.getInnerDashboardByQuery,
             columns: [
-                { name: 'metadata.name', title: '组件名称' },
+                { name: 'metadata.name', title: 'Component name' },
             ],
         };
     },

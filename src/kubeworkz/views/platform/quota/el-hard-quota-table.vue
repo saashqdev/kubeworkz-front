@@ -7,32 +7,32 @@
       :showAddBtn="false"
       :columns="[
         {
-          title: '资源',
+          title: 'Resource',
           dataIndex: 'resource',
           width: '8%',
         },
         {
-          title: '请求',
+          title: 'Request',
           dataIndex: 'request',
           width: '22%',
         },
         {
-          title: '上限',
+          title: 'Upper limit',
           dataIndex: 'limit',
           width: '22%',
         },
         {
-          title: '集群可分配',
+          title: 'Cluster assignable',
           dataIndex: 'quota',
           width: '16%',
         },
         {
-          title: '租户已分配请求',
+          title: 'Tenant assigned request',
           dataIndex: 'usedRequest',
           width: '16%',
         },
         {
-          title: '租户已分配上限',
+          title: 'Tenant has reached cap',
           dataIndex: 'usedLimit',
           width: '16%',
         }
@@ -40,18 +40,18 @@
     >
       <template v-slot:resource="{index}">
         <div v-if="index === 0">CPU</div>
-        <div v-if="index === 1">内存</div>
+        <div v-if="index === 1">Memory</div>
         <div v-if="index === 2">GPU</div>
       </template>
       <template v-slot:request="{index}">
-        <!-- 请求 -->
+        <!-- Request -->
         <el-form-item
           v-if="index === 0"
           :prop="`${prefixKey}spec.hard.requestsCpu`"
           :rules="[
             validators.required(),
             validators.consistofNumber(),
-            validators.lessThenEqual(model.spec.hard.limitsCpu, '请求资源应小于等于上限资源'),
+            validators.lessThenEqual(model.spec.hard.limitsCpu, 'The requested resources should be less than or equal to the upper limit resources'),
             validators.numberBetween(0, availables.cpu),
           ]"
         >
@@ -66,7 +66,7 @@
           :rules="[
             validators.required(),
             validators.consistofNumber(),
-            validators.lessThenEqual(limitsMemory, '请求资源应小于等于上限资源'),
+            validators.lessThenEqual(limitsMemory, 'The requested resources should be less than or equal to the upper limit resources'),
             validators.numberBetween(0, memoryTransform(availables.memory)),
           ]"
         >
@@ -97,14 +97,14 @@
         </el-form-item>
       </template>
       <template v-slot:limit="{index}">
-        <!-- 上限 -->
+        <!-- Upper limit -->
         <el-form-item
           v-if="index === 0"
           :prop="`${prefixKey}spec.hard.limitsCpu`"
           :rules="[
             validators.required(),
             validators.consistofNumber(),
-            validators.greateThenEqual(model.spec.hard['requestsCpu'], '上限资源应大于等于请求资源'),
+            validators.greateThenEqual(model.spec.hard['requestsCpu'], 'The upper limit resources should be greater than or equal to the requested resources'),
             validators.numberBetween(0),
             validators.lengthBetween(1, 20)
           ]"
@@ -120,7 +120,7 @@
           :rules="[
             validators.required(),
             validators.consistofNumber(),
-            validators.greateThenEqual(requestsMemory, '上限资源应大于等于请求资源'),
+            validators.greateThenEqual(requestsMemory, 'The upper limit resources should be greater than or equal to the requested resources'),
             validators.numberBetween(0),
             validators.lengthBetween(1, memoryUnit === 'Gi' ? 17 : 20)
           ]"
@@ -141,7 +141,7 @@
         </div>
       </template>
       <template v-slot:quota="{index}">
-        <!-- 集群可分配 -->
+        <!-- Cluster assignable -->
         <div v-if="index === 0">
           {{ availableCPU }}  Cores
         </div>
@@ -149,11 +149,11 @@
           {{ memoryTransform(availableMemory) }} {{memoryUnit}}
         </div>
         <div v-if="index === 2">
-          {{ availableGPU }} 颗
+          {{ availableGPU }} Cores
         </div>
       </template>
       <template v-slot:usedRequest="{index}">
-        <!-- 租户已分配请求 -->
+        <!-- Tenant assigned request -->
         <div v-if="index === 0">
           {{ item.usedCpu }} Cores
         </div>
@@ -161,11 +161,11 @@
           {{ memoryTransform(item.usedMemory) }} {{memoryUnit}}
         </div>
         <div v-if="index === 2">
-          {{ item.usedGpu }} 颗
+          {{ item.usedGpu }} Cores
         </div>
       </template>
       <template v-slot:usedLimit="{index}">
-        <!-- 租户已分配上限 -->
+        <!-- Tenant has reached cap -->
         <div v-if="index === 0">
           {{ item.usedLimitsCpu }} Cores
         </div>

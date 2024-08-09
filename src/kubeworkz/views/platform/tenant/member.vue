@@ -7,7 +7,7 @@
           color="primary"
           @click="addMember"
         >
-          添加成员
+          Add member
         </u-button>
         <u-button
           icon="refresh"
@@ -22,14 +22,14 @@
           direction="horizontal"
           @pipestatechange="pipeLoading = $event"
         >
-          <u-text>租户</u-text>
+          <u-text>Tenant</u-text>
           <kube-tenant-select v-model="tenant" />
-          <u-text>项目</u-text>
+          <u-text>Project</u-text>
           <kube-project-select
             v-model="project"
             :tenant="tenant && tenant.value"
           />
-          <u-text>角色</u-text>
+          <u-text>Role</u-text>
           <kube-role-select
             v-model="role"
             :tenant="tenant"
@@ -59,22 +59,22 @@
             <template #[`item.operation`]="{item}">
               <u-link-list>
                 <!-- <u-link-list-item @click="modify(item)">
-                  修改权限
+                  Modify permissions
                 </u-link-list-item> -->
                 <u-link-list-item @click="remove(item)">
-                  移除成员
+                  Remove member
                 </u-link-list-item>
               </u-link-list>
             </template>
             <template #noData>
-              还没有任何 成员 , 现在就
+              There are no members yet, so
               <u-link @click="addMember">
-                立即创建
+                Create now
               </u-link>
-              一个吧。
+              Just one.
             </template>
             <template #error>
-              未选择任何租户项目
+              No tenant items selected
             </template>
           </kube-table>
           <u-page
@@ -117,7 +117,7 @@ export default {
         // UserUploadDialog,
     },
     metaInfo: {
-        title: '成员 - kubeworkz',
+        title: 'Member - kubeworkz',
     },
     mixins: [ PageMixin ],
     data() {
@@ -128,12 +128,12 @@ export default {
             pipeLoading: true,
             service: roleBindingService.getRoleBindings,
             columns: [
-                { name: 'user', title: '账号' },
-                { name: 'role', title: '角色' },
-                { name: 'tenant', title: '所属租户' },
-                { name: 'project', title: '所属项目' },
-                { name: 'metadata.creationTimestamp', title: '创建时间', width: '200px' },
-                { name: 'operation', title: '操作', width: '160px' },
+                { name: 'user', title: 'Account' },
+                { name: 'role', title: 'Role' },
+                { name: 'tenant', title: 'Owned tenant' },
+                { name: 'project', title: 'Project' },
+                { name: 'metadata.creationTimestamp', title: 'Creation time', width: '200px' },
+                { name: 'operation', title: 'Operation', width: '160px' },
             ],
             list: [],
         };
@@ -199,8 +199,8 @@ export default {
         },
         remove(item) {
             this.$confirm({
-                title: '删除',
-                content: `确认要删除 ${item.metadata.name} 吗？`,
+                title: 'Delete',
+                content: `Confirm to delete ${item.metadata.name}?`,
                 ok: async () => {
                     await userService.deleteRoleBinding({
                         params: {

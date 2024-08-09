@@ -22,7 +22,7 @@ import {
 } from 'kubeworkz';
 export default {
     metaInfo: {
-        title: 'role - kubeworkz',
+        title: 'Role - kubeworkz',
     },
     data() {
         return {
@@ -45,28 +45,28 @@ export default {
         tabs() {
             const tabs = [
                 {
-                    title: '平台角色', path: '/platform/role/platform',
+                    title: 'Platform role', path: '/platform/role/platform',
                 },
                 {
-                    title: '租户角色', path: '/platform/role/tenant',
+                    title: 'Tenant role', path: '/platform/role/tenant',
                 },
                 {
-                    title: '项目角色', path: '/platform/role/project',
+                    title: 'Project role', path: '/platform/role/project',
                 },
             ];
             // if (this.isPlatform) {
             //     tabs.push({
-            //         title: '平台角色', path: '/platform/role/platform',
+            //         title: 'Platform role', path: '/platform/role/platform',
             //     });
             // }
             // if (this.isTenant) {
             //     tabs.push({
-            //         title: '租户角色', path: '/platform/role/tenant',
+            //         title: 'Tenant role', path: '/platform/role/tenant',
             //     });
             // }
             // if (this.isProject) {
             //     tabs.push({
-            //         title: '项目角色', path: '/platform/role/project',
+            //         title: 'Project role', path: '/platform/role/project',
             //     });
             // }
             return tabs;

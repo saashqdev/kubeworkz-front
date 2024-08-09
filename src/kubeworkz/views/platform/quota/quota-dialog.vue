@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="调整配额"
+    title="Adjust quota"
     :visible.sync="show"
     width="1000px"
     :close-on-click-modal="false"
@@ -13,13 +13,13 @@
         :processor="resolver"
       >
         <el-form ref="form" :model="model" label-position="right" label-width="120px">
-          <el-form-item label="集群名称">
+          <el-form-item label="Cluster name">
             {{ item.clusterDisplayName }}
           </el-form-item>
-          <el-form-item label="集群标识">
+          <el-form-item label="Cluster ID">
             {{ item.clusterName }}
           </el-form-item>
-          <el-form-item label="共享资源">
+          <el-form-item label="Shared resources">
             <hardQuota
               v-model="model"
               :item="used"
@@ -27,7 +27,7 @@
             />
           </el-form-item>
           <el-form-item
-            label="存储资源"
+            label="Storage resources"
             prop="spec.hard.requestsStorage"
             :rules="[
               validators.required(),
@@ -42,8 +42,8 @@
       </x-request>
     </template>
     <div slot="footer">
-      <el-button @click="show = false">取 消</el-button>
-      <el-button type="primary" @click="submit" :loading="submitLoading">确 定</el-button>
+      <el-button @click="show = false">Cancel</el-button>
+      <el-button type="primary" @click="submit" :loading="submitLoading">OK</el-button>
     </div>
   </el-dialog>
 </template>
@@ -142,7 +142,7 @@ export default {
             this.item = item;
         },
         async submit() {
-            // 触发校验
+            // Trigger verification
             try {
                 await this.$refs.form.validate();
             } catch (error) {

@@ -1,14 +1,14 @@
 <template>
   <u-linear-layout direction="vertical">
     <u-linear-layout>
-      <u-text>集群</u-text>
+      <u-text>Cluster</u-text>
       <cluster-selector v-model="cluster" style="width:200px" />
       <u-button
         icon="create"
         color="primary"
         @click="toCreate"
       >
-        创建告警规则
+        Create alert rules
       </u-button>
     </u-linear-layout>
     <x-request
@@ -43,26 +43,26 @@
             <u-linear-layout gap="small">
               <u-link-list>
                 <u-link-list-item @click="editItem(item)">
-                  设置
+                  Set up
                 </u-link-list-item>
                 <u-link-list-item @click="deleteItem(item)">
-                  删除
+                  Delete
                 </u-link-list-item>
                 <!-- <u-link-list-item @click="editYAML(item)">
-                  YAML 设置
+                  YAML settings
                 </u-link-list-item> -->
               </u-link-list>
             </u-linear-layout>
           </template>
           <template #noData>
             <template v-if="pagenation.selector">
-              没有搜索到相关内容，可调整关键词重新搜索
+              If no relevant content is found, you can adjust the keywords and search again.
             </template>
             <template v-else>
-              还没有任何 告警策略组 现在就 <u-link @click="toCreate">
-                立即创建
+              There are no alert policy groups yet <u-link @click="toCreate">
+                Create now
               </u-link>
-              一个吧
+              Just one
             </template>
           </template>
           <template #expand="{ data }">
@@ -89,8 +89,8 @@
             </div>
           </template>
           <template #error>
-            获取数据失败，请<u-link @click="refresh">
-              重试
+            Failed to obtain data, please<u-link @click="refresh">
+              Try again
             </u-link>
           </template>
         </kube-table>
@@ -149,20 +149,20 @@ export default {
     },
     metaInfo() {
         return {
-            title: '告警规则 - kubeworkz',
+            title: 'Alert rules - kubeworkz',
         };
     },
     data() {
         return {
             cluster: this.$route.query.cluster ? { value: this.$route.query.cluster, clusterName: this.$route.query.cluster } : null,
             columns: [
-                { title: '告警名称', name: 'metadata.name' },
-                // { title: '告警规则', name: 'spec.rule.expr' },
-                // { title: '告警策略组', name: 'spec.rule.ams' },
-                // { title: '告警程度', name: 'spec.rule.severity' },
-                { title: '规则数量', name: 'regularnum', width: '100px' },
-                { title: '创建时间', name: 'metadata.creationTimestamp', width: '180px' },
-                { title: '操作', name: 'operation', width: '100px' },
+                { title: 'Alert name', name: 'metadata.name' },
+                // { title: 'Alert rules', name: 'spec.rule.expr' },
+                // { title: 'Alert policy group', name: 'spec.rule.ams' },
+                // { title: 'Alert level', name: 'spec.rule.severity' },
+                { title: 'Number of rules', name: 'regularnum', width: '100px' },
+                { title: 'Creation time', name: 'metadata.creationTimestamp', width: '180px' },
+                { title: 'Operation', name: 'operation', width: '100px' },
             ],
             alertcolumns: [
                 { title: 'state', width: '180px', name: 'metric.alertstate' },
@@ -238,8 +238,8 @@ export default {
         },
         deleteItem(item) {
             this.$confirm({
-                title: '删除',
-                content: `确认要删除 ${item.metadata.name} 吗？`,
+                title: 'Delete',
+                content: `Confirm to delete ${item.metadata.name}?`,
                 ok: async () => {
                     const reqParam = {
                         pathParams: {

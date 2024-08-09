@@ -1,6 +1,6 @@
 <template>
   <u-modal
-    title="添加成员"
+    title="Add member"
     ok-button=""
     cancel-button=""
     :visible.sync="show"
@@ -13,7 +13,7 @@
     >
       <kube-form ref="form">
         <kube-form-item
-          label="所属租户"
+          label="Owned tenant"
           required
         >
           <kube-tenant-select
@@ -23,7 +23,7 @@
           />
         </kube-form-item>
         <kube-form-item
-          label="所属项目"
+          label="Project"
         >
           <kube-project-select
             v-model="project"
@@ -32,7 +32,7 @@
           />
         </kube-form-item>
         <kube-form-item
-          label="用户名"
+          label="Username"
           required
         >
           <x-request
@@ -52,7 +52,7 @@
           </x-request>
         </kube-form-item>
         <kube-form-item
-          label="角色"
+          label="Role"
           required
         >
           <kube-role-select
@@ -75,10 +75,10 @@
                 :icon="scope.submitting ? 'loading' : ''"
                 @click="scope.submit"
               >
-                确定
+                OK
               </u-button>
               <u-button @click="close">
-                取消
+                Cancel
               </u-button>
             </u-linear-layout>
           </template>
@@ -89,7 +89,7 @@
 </template>
 
 <script>
-// 账号的身份
+// Account identity
 import { Modal } from '@micro-app/common/mixins';
 import { get } from 'lodash';
 import userService from 'kubeworkz/services/user';

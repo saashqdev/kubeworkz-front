@@ -1,6 +1,6 @@
 <template>
   <u-modal
-    title="新建角色"
+    title="Create new role"
     ok-button=""
     cancel-button=""
     :visible.sync="show"
@@ -18,7 +18,7 @@
           rules="required"
         >
           <kube-form-item
-            label="名称"
+            label="Name"
             required
             :message="errors && errors[0]"
           >
@@ -31,22 +31,22 @@
         </validation-provider>
 
         <kube-form-item
-          label="角色层级"
+          label="Role hierarchy"
           required
         >
           <u-text>{{ curLevel }} </u-text>
         </kube-form-item>
 
         <kube-form-item
-          label="新建方式"
+          label="New method"
           required
         >
           <u-radios v-model="mode">
             <u-radio label="simple">
-              自定义
+              Customize
             </u-radio>
             <u-radio label="extend">
-              继承已有
+              Inherit existing
             </u-radio>
           </u-radios>
         </kube-form-item>
@@ -63,10 +63,10 @@
                 :icon="scope.submitting ? 'loading' : ''"
                 @click="scope.submit"
               >
-                确定
+                OK
               </u-button>
               <u-button @click="close">
-                取消
+                Cancel
               </u-button>
             </u-linear-layout>
           </template>
@@ -77,7 +77,7 @@
 </template>
 
 <script>
-// 账号的身份
+// Account identity
 import { Modal } from '@micro-app/common/mixins';
 import { get } from 'lodash';
 import userService from 'kubeworkz/services/user';
@@ -101,11 +101,11 @@ export default {
         curLevel() {
             switch (this.identity) {
                 case 'platform':
-                    return '平台';
+                    return 'Platform';
                 case 'tenant':
-                    return '租户';
+                    return 'Tenant';
                 case 'project':
-                    return '项目';
+                    return 'Project';
                 default:
                     return '';
             }

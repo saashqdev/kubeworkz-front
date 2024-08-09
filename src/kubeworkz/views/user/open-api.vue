@@ -7,7 +7,7 @@
           color="primary"
           @click="create"
         >
-          添加密钥
+          Add key
         </u-button>
         <u-button
           icon="refresh"
@@ -36,21 +36,21 @@
             <template #[`item.operation`]="{item}">
               <u-linear-layout>
                 <u-linear-layout gap="small">
-                  <span>properties 格式</span>
+                  <span>Properties format</span>
                   <u-easy-copy :text="'accessKey=' + item.metadata.name + '\n' + 'secretKey=' + item.spec.secretKey" />
                 </u-linear-layout>
                 <u-linear-layout gap="small">
-                  <span>yaml 格式</span>
+                  <span>yaml format</span>
                   <u-easy-copy :text="'accessKey: ' + item.metadata.name + '\n' + 'secretKey: ' + item.spec.secretKey" />
                 </u-linear-layout>
                 <u-link @click="remove(item)">
-                  删除
+                  Delete
                 </u-link>
               </u-linear-layout>
             </template>
             <template #error>
-              获取数据失败，请<u-link @click="refresh">
-                重试
+              Failed to obtain data, please<u-link @click="refresh">
+                Try agaain
               </u-link>
             </template>
           </kube-table>
@@ -77,17 +77,17 @@ export default {
         // UserUploadDialog,
     },
     metaInfo: {
-        title: 'user - kubeworkz',
+        title: 'User - kubeworkz',
     },
     mixins: [ PageMixin ],
     data() {
         return {
             service: userService.getUserKey,
             columns: [
-                { name: 'metadata.name', title: 'accessKey' },
-                { name: 'spec.secretKey', title: 'secretKey' },
-                { name: 'metadata.creationTimestamp', title: '创建时间', width: '180px' },
-                { name: 'operation', title: '操作', width: '180px' },
+                { name: 'metadata.name', title: 'AccessKey' },
+                { name: 'spec.secretKey', title: 'SecretKey' },
+                { name: 'metadata.creationTimestamp', title: 'Creation time', width: '180px' },
+                { name: 'operation', title: 'Operation', width: '180px' },
             ],
         };
     },
@@ -113,8 +113,8 @@ export default {
         },
         async remove(item) {
             this.$confirm({
-                title: '删除',
-                content: `确认要删除${item.metadata.name}吗？`,
+                title: 'Delete',
+                content: `Confirm to delete ${item.metadata.name}?`,
                 ok: async () => {
                     await userService.removeUserKey({
                         params: {

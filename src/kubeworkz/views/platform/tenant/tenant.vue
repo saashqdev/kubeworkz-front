@@ -10,7 +10,7 @@
           color="primary"
           @click="openCreateModal"
         >
-          新增租户
+          Add new tenant
         </u-button>
         <u-button
           icon="refresh"
@@ -43,27 +43,27 @@
             <template #[`item.operation`]="{item}">
               <u-link-list>
                 <u-link-list-item @click="addMember(item)">
-                  添加成员
+                  Add member
                 </u-link-list-item>
                 <u-link-list-item @click="addProject(item)">
-                  添加项目
+                  Add item
                 </u-link-list-item>
                 <u-link-list-item @click="editInfo(item)">
-                  修改名称
+                  Modify name
                 </u-link-list-item>
               </u-link-list>
             </template>
             <template #error>
-              获取数据失败，请<u-link @click="refresh">
-                重试
+              Failed to obtain data, please<u-link @click="refresh">
+                Try again
               </u-link>
             </template>
             <template #noData>
-              还没有任何 租户 , 现在就
+              There are no tenants yet, right now
               <u-link @click="openCreateModal">
-                立即创建
+                Create now
               </u-link>
-              一个吧。
+              Just one.
             </template>
           </kube-table>
           <u-page
@@ -128,17 +128,17 @@ export default {
         memberDialog,
     },
     metaInfo: {
-        title: '租客 - kubeworkz',
+        title: 'Tenant - kubeworkz',
     },
     mixins: [ PageMixin ],
     data() {
         return {
             service: userService.getUserTenants,
             columns: [
-                { name: 'spec.displayName', title: '名称' },
-                { name: 'metadata.name', title: '标识' },
-                { name: 'metadata.creationTimestamp', title: '创建时间' },
-                { name: 'operation', title: '操作', width: '200px' },
+                { name: 'spec.displayName', title: 'Name' },
+                { name: 'metadata.name', title: 'Logo' },
+                { name: 'metadata.creationTimestamp', title: 'Creation time' },
+                { name: 'operation', title: 'Operation', width: '200px' },
             ],
             list: [],
         };

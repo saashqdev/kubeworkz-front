@@ -6,7 +6,7 @@
       graph="tenant"
       @pipestatechange="pipeLoading = $event"
     >
-      <span style="margin-right:8px;line-height:32px">租户</span>
+      <span style="margin-right:8px;line-height:32px">Tenant</span>
       <kubeTenantSelectMultiple v-model="tenant" style="width:300px"/>
     </kube-pipe>
     <x-request
@@ -32,35 +32,35 @@
         >
           <el-table-column
             prop="clusterDisplayName"
-            label="集群名称"
+            label="Cluster name"
             :show-overflow-tooltip="true"
           />
 
           <el-table-column
             prop="clusterName"
-            label="集群标识"
+            label="Cluster ID"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             prop="tenantDisplayName"
-            label="租户"
+            label="Tenant"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             prop="kuberesourcequota"
-            label="共享资源"
+            label="Shared resources"
             :show-overflow-tooltip="true"
             width="75"
           >
             <template slot-scope="{ row }">
               <div>CPU</div>
-              <div>内存</div>
+              <div>Memory</div>
               <div>GPU</div>
             </template>
           </el-table-column>
           <el-table-column
             prop="request"
-            label="已分配请求/请求配额"
+            label="Assigned request/request quota"
             :show-overflow-tooltip="true"
             width="140"
           >
@@ -77,7 +77,7 @@
           </el-table-column>
           <el-table-column
             prop="limit"
-            label="已分配上限/上限配额"
+            label="Cap/cap quota assigned"
             :show-overflow-tooltip="true"
             width="140"
           >
@@ -94,7 +94,7 @@
           </el-table-column>
           <el-table-column
             prop="operation"
-            label="操作"
+            label="Operation"
             :show-overflow-tooltip="true"
             width="120"
           >
@@ -104,7 +104,7 @@
                 :disabled="row.status !== 'normal'"
                 @click="editItem(row)"
               >
-                调整配额
+                Adjust quota
               </el-link>
             </template>
           </el-table-column>
@@ -134,7 +134,7 @@ import userService from 'kubeworkz/services/user';
 
 export default {
     metaInfo: {
-        title: '租户配额 - kubeworkz',
+        title: 'Tenant quota - kubeworkz',
     },
     components: {
         quotaDialog,
@@ -155,16 +155,16 @@ export default {
             pipeLoading: true,
             tenantClusterService: clusterService.getClusterByScope,
             columns: [
-                { name: 'clusterDisplayName', title: '集群名称' },
-                { name: 'clusterName', title: '集群标识' },
-                // { name: 'tenant', title: '租户标识' },
-                { name: 'tenantDisplayName', title: '租户' },
-                // { name: 'resource', title: '共享资源（已分配请求配额/已分配上限配额/请求配额/上限配额）', width: '370px' },
-                { name: 'kuberesourcequota', title: '共享资源', width: '75px'},
-                { name: 'request', title: '已分配配额/请求配额', width: '140px'},
-                { name: 'limit', title: '已分配上限/上限配额', width: '140px'},
-                // { name: 'memory', title: '持久存储（已分配/配额）' },
-                { name: 'operation', title: '操作', width: '160px' },
+                { name: 'clusterDisplayName', title: 'Cluster name' },
+                { name: 'clusterName', title: 'Cluster ID' },
+                // { name: 'tenant', title: 'Tenant ID' },
+                { name: 'tenantDisplayName', title: 'Tenant' },
+                // { name: 'resource', title: 'Shared resources (request quota allocated/cap quota allocated/request quota/cap quota)', width: '370px' },
+                { name: 'kuberesourcequota', title: 'Shared resources', width: '75px'},
+                { name: 'request', title: 'Assigned quota/requested quota', width: '140px'},
+                { name: 'limit', title: 'Cap/cap quota assigned', width: '140px'},
+                // { name: 'memory', title: 'Persistent storage (allocated/quota)' },
+                { name: 'operation', title: 'Operation', width: '160px' },
             ],
         };
     },

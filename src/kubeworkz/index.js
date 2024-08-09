@@ -12,7 +12,7 @@ import ILineAwesome from 'i-line-awesome.vue';
 Vue.component(ILineAwesome);
 // Vue.mixin(docTitle);
 install(Components, Vue);
-// 注册项目中的全局组件
+// Register global components in the project
 installFilters(filters, Vue);
 installDirectives(directives, Vue);
 

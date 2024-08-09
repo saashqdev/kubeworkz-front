@@ -1,12 +1,12 @@
 <template>
     <el-dialog
-      title="定制域名后缀"
+      title="Custom domain name suffix"
       :visible.sync="show"
       width="800px"
       :close-on-click-modal="false"
     >
       <div>
-        该配置信息用于负载均衡（Ingress）转发规则所用的域名后缀
+        This configuration information is used for the domain name suffix used by load balancing (Ingress) forwarding rules.
       </div>
       <el-form ref="form" :model="model">
         <el-form-item label="">
@@ -27,7 +27,7 @@
           >
             <template v-slot:order="{index}">
               <div style="text-align: right">
-                域名后缀{{ index + 1 }}:
+                Domain name suffix {{ index + 1 }}:
               </div>
             </template>
             <template v-slot:name="{record, index}">
@@ -48,8 +48,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer">
-        <el-button @click="close">取 消</el-button>
-        <el-button type="primary" @click="submit" :loading="commitLoading">确 定</el-button>
+        <el-button @click="close">Cancel</el-button>
+        <el-button type="primary" @click="submit" :loading="commitLoading">OK</el-button>
       </div>
     </el-dialog>
 </template>
@@ -74,8 +74,8 @@ export default {
                 domainSuffix: [
                     { type: 'string', required: true, trigger: 'input+blur', message: '' },
                     { type: 'string', pattern: /^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$/, trigger: 'input', message: '' },
-                    { type: 'string', pattern: /^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$/, trigger: 'blur', message: '请输入合法的 ingress 后缀' },
-                    { type: 'string', trigger: 'input+blur', message: '域名后缀重复', validator: (rule, value, callback) => {
+                    { type: 'string', pattern: /^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$/, trigger: 'blur', message: 'Please enter a legal ingress suffix' },
+                    { type: 'string', trigger: 'input+blur', message: 'Duplicate domain name suffix', validator: (rule, value, callback) => {
                         const targets = this.model.domainSuffixList.filter(item => item.name).filter(item => item.name === value);
                         if (targets.length > 1) { callback(new Error()); } else { callback(); }
                     } },

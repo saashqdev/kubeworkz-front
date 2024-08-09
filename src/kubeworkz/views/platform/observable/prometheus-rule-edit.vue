@@ -4,7 +4,7 @@
     v-slot="{ invalid }"
   >
     <kube-form>
-      <kube-form-item label="集群">
+      <kube-form-item label="Cluster">
         {{ cluster }}
       </kube-form-item>
       <kube-name-input
@@ -13,10 +13,10 @@
         :rules="{
           ConsistoLetterNumbersUnderscores: false,
         }"
-        label="告警名称"
+        label="Alert name"
       />
       <kube-form-item
-        label="告警组"
+        label="Alert group"
         layout="block"
       >
         <kube-tab
@@ -37,7 +37,7 @@
                 }"
               />
               <kube-form-item
-                label="告警组配置"
+                label="Alert group configuration"
                 layout="list"
               >
                 <kube-dynamic-block
@@ -47,7 +47,7 @@
                   :row-comp="blockRowLayout"
                   :column-comp="null"
                   :data-template="getDefaultRule"
-                  button-name="添加"
+                  button-name="Add to"
                   style="width: 580px"
                 >
                   <template slot-scope="{ model: ruleModel, index: ruleErrorPrefix }">
@@ -58,7 +58,7 @@
                         rules="required"
                       >
                         <kube-form-item
-                          label="表达式"
+                          label="Expression"
                           layout="list"
                           required
                           :message="errors && errors[0]"
@@ -83,17 +83,17 @@
                       <kube-form-item
                         v-if="ruleModel.hideAdvanced ? ruleModel.severity : true"
                         layout="list"
-                        label="告警程度"
+                        label="Alert level"
                       >
                         <u-radios v-model="ruleModel.severity">
                           <u-radio label="info">
-                            轻微
+                            Info
                           </u-radio>
                           <u-radio label="warning">
-                            一般
+                            Warning
                           </u-radio>
                           <u-radio label="critical">
-                            紧急
+                            Urgent
                           </u-radio>
                         </u-radios>
                       </kube-form-item>
@@ -105,7 +105,7 @@
                       <kube-form-item
                         v-if="ruleModel.hideAdvanced ? ruleModel.summary : true"
                         layout="list"
-                        label="摘要"
+                        label="Summary"
                       >
                         <u-textarea
                           v-model="ruleModel.summary"
@@ -115,7 +115,7 @@
                       <kube-form-item
                         v-if="ruleModel.hideAdvanced ? ruleModel.description : true"
                         layout="list"
-                        label="描述信息"
+                        label="Description information"
                       >
                         <u-textarea
                           v-model="ruleModel.description"
@@ -157,7 +157,7 @@
                         label=""
                       >
                         <u-link @click="ruleModel.hideAdvanced = !ruleModel.hideAdvanced">
-                          {{ ruleModel.hideAdvanced ? '展开更多配置' : '收起未填配置' }}
+                          {{ ruleModel.hideAdvanced ? 'Expand more configurations' : 'Close unfilled configuration' }}
                         </u-link>
                       </kube-form-item>
                     </kube-form>
@@ -181,7 +181,7 @@
                 :icon="scope.submitting ? 'loading' : ''"
                 @click="scope.submit"
               >
-                {{ isEdit ? '立即修改' : '立即创建' }}
+                {{ isEdit ? 'Modify' : 'Create' }}
               </u-button>
             </u-linear-layout>
           </template>
@@ -207,7 +207,7 @@ import blockRowLayout from 'kubeworkz/component/common/kube-dynamic-block-layout
 export default {
     metaInfo() {
         return {
-            title: `${this.isEdit ? '设置' : '创建'}告警规则 - kubeworkz`,
+            title: `${this.isEdit ? 'Set up' : 'Create'} alert rules - kubeworkz`,
         };
     },
     props: {

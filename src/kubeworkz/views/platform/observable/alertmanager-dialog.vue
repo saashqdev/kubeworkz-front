@@ -1,6 +1,6 @@
 <template>
   <u-modal
-    :title="isEdit ? '编辑告警配置' : '创建告警配置'"
+    :title="isEdit ? 'Edit alert configuration' : 'Create alert configuration'"
     ok-button=""
     cancel-button=""
     :visible.sync="show"
@@ -11,7 +11,7 @@
       v-if="model"
       :value="step"
     >
-      <u-step title="全局配置">
+      <u-step title="Global configuration">
         <kube-form label-size="large">
           <kube-form-item label="resolve_timeout">
             <u-input
@@ -67,13 +67,13 @@
                 color="primary"
                 @click="step+=1"
               >
-                下一步
+                Next step
               </u-button>
             </u-linear-layout>
           </kube-form-item>
         </kube-form>
       </u-step>
-      <u-step title="通知方式">
+      <u-step title="Notification method">
         <validation-observer
           v-slot="{ invalid }"
         >
@@ -96,7 +96,7 @@
                     }"
                   >
                     <kube-form-item
-                      label="通知方式"
+                      label="Notification method"
                       :message="errors && errors[0]"
                       name="storage"
                       layout="block"
@@ -138,7 +138,7 @@
                             :class="$style.group"
                           >
                             <div :class="$style.header">
-                              <span>状态：</span>
+                              <span>Status:</span>
                               <u-switch
                                 v-model="inputsModel.enable"
                                 :with-text="true"
@@ -153,12 +153,12 @@
                               :row-comp="blockRowLayout"
                               :column-comp="null"
                               :data-template="() => getDataTemplate(inputsModel.receiver)"
-                              button-name="添加"
+                              button-name="Add to"
                             >
                               <template slot-scope="{ model: row, index }">
                                 <kube-form v-if="inputsModel.receiver === 'wechatConfigs'">
                                   <kube-form-item
-                                    label="是否接受告警恢复通知"
+                                    label="Whether to accept alert recovery notification"
                                     label-size="large"
                                   >
                                     <u-checkbox
@@ -175,7 +175,7 @@
                                     }"
                                   >
                                     <kube-form-item
-                                      label="企业微信用户名"
+                                      label="Enterprise WeChat username"
                                       layout="list"
                                       :message="row.to_user && errors && errors[0]"
                                     >
@@ -186,7 +186,7 @@
                                       />
                                     </kube-form-item>
                                     <kube-form-item
-                                      label="企业微信用户组"
+                                      label="Enterprise WeChat User Group"
                                       layout="list"
                                       :message="row.to_party && errors && errors[0]"
                                     >
@@ -197,7 +197,7 @@
                                       />
                                     </kube-form-item>
                                     <kube-form-item
-                                      label="企业微信用户标签"
+                                      label="Enterprise WeChat user label"
                                       layout="list"
                                       :message="row.to_tag && errors && errors[0]"
                                     >
@@ -211,7 +211,7 @@
                                 </kube-form>
                                 <kube-form v-if="inputsModel.receiver === 'webhookConfigs'">
                                   <kube-form-item
-                                    label="是否接受告警恢复通知"
+                                    label="Whether to accept alert recovery notification"
                                     label-size="large"
                                   >
                                     <u-checkbox
@@ -248,7 +248,7 @@
 
                                 <kube-form v-if="inputsModel.receiver === 'emailConfigs'">
                                   <kube-form-item
-                                    label="是否接受告警恢复通知"
+                                    label="Whether to accept alert recovery notification"
                                     label-size="large"
                                   >
                                     <u-checkbox
@@ -260,7 +260,7 @@
                                     :name="`${errorPrefix}-emailConfigs-${index}-to`"
                                   >
                                     <kube-form-item
-                                      label="收件人邮箱"
+                                      label="Recipient email"
                                       layout="list"
                                       :message="errors && errors[0]"
                                     >
@@ -289,21 +289,21 @@
                 <u-button
                   @click="step-=1"
                 >
-                  上一步
+                  Previous
                 </u-button>
                 <u-button
                   color="primary"
                   :disabled="invalid"
                   @click="step+=1"
                 >
-                  下一步
+                  Next step
                 </u-button>
               </u-linear-layout>
             </kube-form-item>
           </kube-form>
         </validation-observer>
       </u-step>
-      <u-step title="告警通知策略">
+      <u-step title="Alert notification strategy">
         <validation-observer
           v-slot="{ invalid }"
         >
@@ -382,14 +382,14 @@
                 <u-button
                   @click="step-=1"
                 >
-                  上一步
+                  Previous
                 </u-button>
                 <u-button
                   color="primary"
                   :disbled="invalid"
                   @click="submit"
                 >
-                  确定
+                  OK
                 </u-button>
               </u-linear-layout>
             </kube-form-item>

@@ -1,6 +1,6 @@
 <template>
   <u-modal
-    title="添加项目"
+    title="Add item"
     ok-button=""
     cancel-button=""
     :visible.sync="show"
@@ -14,7 +14,7 @@
       <kube-form ref="form">
         <kube-form-item
           v-if="!isEdit && type !== 'createInTenant'"
-          label="所属租户"
+          label="Owned tenant"
           required
         >
           <x-request
@@ -42,11 +42,11 @@
           rules="required"
         >
           <kube-form-item
-            label="项目名称"
+            label="Project name"
             required
             :message="errors && errors[0]"
             maxlength="63"
-            maxlength-message="不得超过 63 个字符"
+            maxlength-message="Must not exceed 63 characters"
           >
             <u-input
               v-model="model.spec.displayName"
@@ -63,7 +63,7 @@
         >
           <kube-form-item
             v-if="!isEdit"
-            label="项目标识"
+            label="Project ID"
             required
             :message="errors && errors[0]"
           >
@@ -72,8 +72,8 @@
               size="normal huge"
               :color="errors && errors[0] ? 'error' : ''"
               maxlength="32"
-              maxlength-message="不得超过 32 个字符"
-              placeholder="全局唯一的标识，2-32个小写字母、数字组成、中划线-"
+              maxlength-message="Must not exceed 32 characters"
+              placeholder="A globally unique identifier consisting of 2-32 lowercase letters, numbers, and a dash-"
             />
           </kube-form-item>
         </validation-provider>
@@ -85,7 +85,7 @@
         >
           <kube-form-item
             v-if="!isEdit"
-            label="项目描述"
+            label="Project description"
             required
             :message="errors && errors[0]"
           >
@@ -94,7 +94,7 @@
               size="normal huge"
               :color="errors && errors[0] ? 'error' : ''"
               maxlength="32"
-              maxlength-message="不得超过 32 个字符"
+              maxlength-message="Must not exceed 32 characters"
             />
           </kube-form-item>
         </validation-provider>
@@ -111,10 +111,10 @@
                 :icon="scope.submitting ? 'loading' : ''"
                 @click="scope.submit"
               >
-                确定
+                OK
               </u-button>
               <u-button @click="close">
-                取消
+                Cancel
               </u-button>
             </u-linear-layout>
           </template>

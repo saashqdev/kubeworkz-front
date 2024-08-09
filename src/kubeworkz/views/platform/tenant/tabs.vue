@@ -33,14 +33,14 @@ export default {
         tabs() {
             if (!this.userRole[ROLES.PLATFORM_ADMIN] && !this.userRole[ROLES.TENANT_ADMIN]) {
                 return [
-                    { title: '项目', path: '/platform/tenant/project' },
-                    { title: '成员', path: '/platform/tenant/member' },
+                    { title: 'Project', path: '/platform/tenant/project' },
+                    { title: 'Member', path: '/platform/tenant/member' },
                 ];
             }
             return [
-                { title: '租户', path: '/platform/tenant/tenant' },
-                { title: '项目', path: '/platform/tenant/project' },
-                { title: '成员', path: '/platform/tenant/member' },
+                { title: 'Tenant', path: '/platform/tenant/tenant' },
+                { title: 'Project', path: '/platform/tenant/project' },
+                { title: 'Member', path: '/platform/tenant/member' },
             ];
         },
     },

@@ -1,6 +1,6 @@
 <template>
   <u-modal
-    :title="type === 'edit' ? '修改名称': '添加租户'"
+    :title="type === 'edit' ? 'Modify name': 'Add tenant'"
     ok-button=""
     cancel-button=""
     :visible.sync="show"
@@ -18,11 +18,11 @@
           rules="required"
         >
           <kube-form-item
-            label="租户名称"
+            label="Tenant name"
             required
             :message="errors && errors[0]"
             maxlength="63"
-            maxlength-message="不得超过 63 个字符"
+            maxlength-message="Must not exceed 63 characters"
           >
             <u-input
               v-model="model.spec.displayName"
@@ -39,7 +39,7 @@
         >
           <kube-form-item
             v-if="!isEdit"
-            label="租户标识"
+            label="Tenant ID"
             required
             :message="errors && errors[0]"
           >
@@ -48,8 +48,8 @@
               size="normal huge"
               :color="errors && errors[0] ? 'error' : ''"
               maxlength="32"
-              maxlength-message="不得超过 32 个字符"
-              placeholder="全局唯一的标识，2-32个小写字母、数字组成、中划线-"
+              maxlength-message="Must not exceed 32 characters"
+              placeholder="A globally unique identifier consisting of 2-32 lowercase letters, numbers, and a dash-"
             />
           </kube-form-item>
         </validation-provider>
@@ -67,10 +67,10 @@
                 :icon="scope.submitting ? 'loading' : ''"
                 @click="scope.submit"
               >
-                确定
+                OK
               </u-button>
               <u-button @click="close">
-                取消
+                Cancel
               </u-button>
             </u-linear-layout>
           </template>

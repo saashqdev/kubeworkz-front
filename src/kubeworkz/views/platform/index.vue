@@ -4,93 +4,93 @@
       <div class="g-sidebar">
         <u-sidebar collapsible>
           <u-sidebar-header
-            label="运维管理"
+            label="Operation and maintenance management"
           />
 
           <u-sidebar-group
             class="m-sidebar-group"
           >
-            <span slot="title"><u-icons name="member" />组织管理</span>
+            <span slot="title"><u-icons name="member" />Organizational management</span>
             <u-sidebar-item
               v-if="isPlatform"
               :to="{ path: '/platform/user' }"
             >
-              用户管理
+              User management
             </u-sidebar-item>
             <u-sidebar-item :to="{ path: '/platform/role' }">
-              角色管理
+              Role management
             </u-sidebar-item>
             <u-sidebar-item :to="{ path: '/platform/bootstrap' }">
-              快速向导
+              Quick guide
             </u-sidebar-item>
             <u-sidebar-item
               v-if="isPlatform || isTenant"
               :to="{ path: '/platform/tenant' }"
             >
-              租户管理
+              Tenant management
             </u-sidebar-item>
             <u-sidebar-item
               v-if="(isTenant || isProject) && !isPlatform"
               :to="{ path: '/platform/tenant/project' }"
             >
-              项目管理
+              Project management
             </u-sidebar-item>
           </u-sidebar-group>
           <u-sidebar-group
             class="m-sidebar-group"
           >
-            <span slot="title"><u-icons name="ncs" />资源管理</span>
+            <span slot="title"><u-icons name="ncs" />Resource management</span>
             <u-sidebar-item
               v-if="isPlatform"
               :to="{ path: '/platform/quota' }"
             >
-              租户配额
+              Tenant quota
             </u-sidebar-item>
             <u-sidebar-item :to="{ path: '/platform/cluster' }">
-              集群管理
+              Cluster management
             </u-sidebar-item>
             <u-sidebar-item :to="{ path: '/platform/nsquota' }">
-              空间管理
+              Namespace management
             </u-sidebar-item>
           </u-sidebar-group>
           <u-sidebar-group
             v-if="isPlatform && showControlOperation"
             class="m-sidebar-group"
           >
-            <span slot="title"><u-icons name="cluster" />管控运维</span>
+            <span slot="title"><u-icons name="cluster" />Control operation and maintenance</span>
             <!-- <u-sidebar-item>
-              组件监控
+              Component monitoring
             </u-sidebar-item>
             <u-sidebar-item>
-              组件告警
+              Component alert
             </u-sidebar-item>
             <u-sidebar-item>
-              组件日志
+              Component log
             </u-sidebar-item> -->
             <u-sidebar-item
               v-if="auditFeature && auditEnable"
               :to="{ path: '/platform/audit' }"
             >
-              操作审计
+              Operational audit
             </u-sidebar-item>
           </u-sidebar-group>
           <u-sidebar-item :to="{ path: '/platform/monitor' }">
-            <u-icons name="monitor" />组件监控
+            <u-icons name="monitor" />Component monitoring
           </u-sidebar-item>
           <u-sidebar-group
             v-if="isPlatform"
             class="m-sidebar-group"
           >
-            <span slot="title"><u-icons name="config" />告警</span>
+            <span slot="title"><u-icons name="config" />Alert</span>
             <u-sidebar-item
               :to="{ path: '/platform/PrometheusRule' }"
             >
-              告警规则
+              Alert rules
             </u-sidebar-item>
             <u-sidebar-item
               :to="{ path: '/platform/AlertmanagerConfig' }"
             >
-              全局告警配置
+              Global alert configuration
             </u-sidebar-item>
           </u-sidebar-group>
         </u-sidebar>
@@ -115,7 +115,7 @@ import {
 
 export default {
     metaInfo: {
-        title: '运维管理 - kubeworkz',
+        title: 'Operation and maintenance management - kubeworkz',
     },
 
     components: {

@@ -8,7 +8,7 @@
     }"
   >
     <kube-form-item
-      label="存储资源"
+      label="Storage resources"
       :message="errors && errors[0]"
     >
       <u-input

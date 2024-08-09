@@ -7,7 +7,7 @@
         :disabled="!isPlatform"
         @click="addRole"
       >
-        添加角色
+        Add role
       </u-button>
     </u-linear-layout>
 
@@ -21,9 +21,9 @@
         <div :class="$style.wrapper">
           <u-loading v-if="loading" />
           <template v-else-if="error">
-            获取数据失败，请
+            Failed to obtain data, please
             <u-link @click="refresh">
-              重试
+              Try again
             </u-link>
           </template>
           <template v-else>
@@ -42,7 +42,7 @@
               <kube-tree
                 v-model="curIdent.rules"
                 :disabled="!isPlatform || curIdent.metadata.name === `${identity}-admin`"
-                title="资源权限"
+                title="Resource permissions"
               />
             </div>
             <u-button
@@ -51,7 +51,7 @@
               :disabled="!isPlatform || curIdent.metadata.name === `${identity}-admin`"
               @click="modifyRole"
             >
-              修改
+              Modify
             </u-button>
           </template>
         </div>
@@ -85,13 +85,13 @@ export default {
         let current = '';
         switch (this.$route.params.identity) {
             case 'platform':
-                current = '平台角色';
+                current = 'Platform role';
                 break;
             case 'tenant':
-                current = '租户角色';
+                current = 'Tenant role';
                 break;
             case 'project':
-                current = '项目角色';
+                current = 'Project role';
                 break;
             default:
         }

@@ -21,24 +21,24 @@
                   :disabled="item.cluster.status !== 'normal'"
                   @click="editItem(item)"
                 >
-                  {{ item.config ? '设置': '创建' }}
+                  {{ item.config ? 'Set up': 'Create' }}
                 </u-link-list-item>
                 <u-link-list-item
                   v-if="item.config"
                   :disabled="item.cluster.status !== 'normal'"
                   @click="deleteItem(item)"
                 >
-                  删除
+                  Delete
                 </u-link-list-item>
               </u-link-list>
             </u-linear-layout>
           </template>
           <template #noData>
-            还没有任何 告警策略组 请先创建集群，再创建告警策略组
+            There is no alarm policy group yet. Please create a cluster first and then create an alert policy group.
           </template>
           <template #error>
-            获取数据失败，请<u-link @click="refresh">
-              重试
+            Failed to obtain data, please<u-link @click="refresh">
+              Retry
             </u-link>
           </template>
         </kube-table>
@@ -56,7 +56,7 @@ import { get as geFunc } from 'lodash';
 import workloadService from 'kubeworkz/services/k8s-resource';
 import clusterService from 'kubeworkz/services/cluster';
 import { toPlainObject as toGlobalAlertPlainObject } from 'kubeworkz/k8s-resources/alarmmanagerconfigspec/global.js';
-import editDialog from './alermanager-dialog.vue';
+import editDialog from './alertmanager-dialog.vue';
 const SECRET_NAMESPACE = 'kubeworkz-monitoring';
 
 
@@ -66,15 +66,15 @@ export default {
     },
     metaInfo() {
         return {
-            title: '全局告警配置 - kubeworkz',
+            title: 'Global alert configuration - kubeworkz',
         };
     },
     data() {
         return {
             columns: [
-                { title: '集群', name: 'cluster.clusterName' },
-                { title: '告警配置', name: 'config.metadata.name' },
-                { title: '操作', name: 'operation', width: '180px' },
+                { title: 'Cluster', name: 'cluster.clusterName' },
+                { title: 'Alert configuration', name: 'config.metadata.name' },
+                { title: 'Operation', name: 'operation', width: '180px' },
             ],
         };
     },
@@ -141,8 +141,8 @@ export default {
         },
         deleteItem(item) {
             this.$confirm({
-                title: '删除',
-                content: `确认要删除 ${item.cluster.clusterName} 的全局告警配置吗？`,
+                title: 'Delete',
+                content: `Confirm to delete ${item.cluster.clusterName} global alert configuration?`,
                 ok: async () => {
                     const reqParam = {
                         pathParams: {
