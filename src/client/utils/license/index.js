@@ -8,8 +8,7 @@ const Toast = {
 
 Vue.nextTick(() => {
     const Ctor = Vue.component('u-toast');
-    if (!Ctor)
-        return;
+    if (!Ctor) { return; }
 
     const $toast = new Ctor();
 
@@ -24,7 +23,7 @@ Vue.nextTick(() => {
 });
 
 export default Object.assign({
-    check: function() {
+    check() {
         licenseService.status().then((status = {}) => {
             if (!status) return;
             if (status.modules_usage) { // for v2
@@ -39,7 +38,7 @@ export default Object.assign({
                     const currentModule = config.getCurrModule();
                     if (currentModule) {
                         if (modules_usage[currentModule.key]) {
-                            Toast.show(`License Abnormal, please contact the platform administrator`, 1000 * 6);
+                            Toast.show('License Abnormal, please contact the platform administrator', 1000 * 6);
                         }
                     }
                 }
@@ -47,5 +46,5 @@ export default Object.assign({
                 Toast.show('License Abnormal, please contact the platform administrator', 1000 * 6);
             }
         });
-    }
+    },
 }, Toast);

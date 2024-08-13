@@ -1,103 +1,131 @@
 <template>
-  <div :class="$style.root" @click="handleClick">
-    <div v-for="(item, index) in chipList" :key="index" :class="$style.chipItem">
-      {{item}}
-      <i :class="['el-icon-close', $style.deleteBtn]" @click.stop="handleRemoveItem(index)"/>
+  <div
+    :class="$style.root"
+    @click="handleClick"
+  >
+    <div
+      v-for="(item, index) in chipList"
+      :key="index"
+      :class="$style.chipItem"
+    >
+      {{ item }}
+      <i
+        :class="['el-icon-close', $style.deleteBtn]"
+        @click.stop="handleRemoveItem(index)"
+      />
     </div>
     <div :class="$style.inputWrap">
-      <input v-model="inputValue" :class="$style.input" v-show="showInput" ref="input" type="text" @blur="handleInputBlur" @keyup="handleKeyUp"/>
-      <div v-if="errorMessage" :class="$style.inputErrorMessage">{{errorMessage}}</div>
+      <input
+        v-show="showInput"
+        ref="input"
+        v-model="inputValue"
+        :class="$style.input"
+        type="text"
+        @blur="handleInputBlur"
+        @keyup="handleKeyUp"
+      >
+      <div
+        v-if="errorMessage"
+        :class="$style.inputErrorMessage"
+      >
+        {{ errorMessage }}
+      </div>
     </div>
-    
-    <div v-if="chipList.length === 0 && !showInput" :class="$style.placeholder">{{placeholder}}</div>
+
+    <div
+      v-if="chipList.length === 0 && !showInput"
+      :class="$style.placeholder"
+    >
+      {{ placeholder }}
+    </div>
   </div>
 </template>
 <script>
 export default {
-  props: {
-    prefixProp: {
-      type: String,
-      default: ''
-    },
-    placeholder: {
-      type: String,
-      default: ''
-    },
-    value: {
-      type: Array,
-      default: () => ([])
-    },
-    rules: {
-      type: Array,
-      default: () => ([])
-    }
-  },
-  inject: [ 'elForm' ],
-  data() {
-    return {
-      showInput: false,
-      chipList: this.value,
-      inputValue: '',
-      errorMessage: '',
-    }
-  },
-  watch: {
-    value(val) {
-      this.chipList = val;
-    },
-    inputValue(val) {
-      if(val.trim()) {
-        let res = this.rules.find(item => !item.validator(val.trim(), this.value))
-        this.errorMessage = res ? res.message : ''
-      } else {
-        this.errorMessage = ''
-      }
-    },
-    chipList: {
-        handler(val) {
-          this.$emit('input', val);
-          this.$nextTick(() => {
-            this.elForm.validateField(this.prefixProp);
-          });
+    inject: [ 'elForm' ],
+    props: {
+        prefixProp: {
+            type: String,
+            default: '',
         },
-        deep: true,
+        placeholder: {
+            type: String,
+            default: '',
+        },
+        value: {
+            type: Array,
+            default: () => ([]),
+        },
+        rules: {
+            type: Array,
+            default: () => ([]),
+        },
     },
-  },
-  methods: {
-    handleClick() {
-      this.showInput = true;
-      this.$nextTick(() => {
-        this.$refs.input.focus();
-      });
+    data() {
+        return {
+            showInput: false,
+            chipList: this.value,
+            inputValue: '',
+            errorMessage: '',
+        };
     },
-    handleInputBlur() {
-      if(this.errorMessage) {
-        return
-      }
-      if (!this.inputValue) {
-        this.showInput = false;
-      } else {
-        this.chipList.push(this.inputValue)
-        this.inputValue = '';
-        this.showInput = false;
-      }
+    watch: {
+        value(val) {
+            this.chipList = val;
+        },
+        inputValue(val) {
+            if (val.trim()) {
+                const res = this.rules.find(item => !item.validator(val.trim(), this.value));
+                this.errorMessage = res ? res.message : '';
+            } else {
+                this.errorMessage = '';
+            }
+        },
+        chipList: {
+            handler(val) {
+                this.$emit('input', val);
+                this.$nextTick(() => {
+                    this.elForm.validateField(this.prefixProp);
+                });
+            },
+            deep: true,
+        },
     },
-    handleRemoveItem(index) {
-      this.chipList.splice(index, 1);
+    methods: {
+        handleClick() {
+            this.showInput = true;
+            this.$nextTick(() => {
+                this.$refs.input.focus();
+            });
+        },
+        handleInputBlur() {
+            if (this.errorMessage) {
+                return;
+            }
+            if (!this.inputValue) {
+                this.showInput = false;
+            } else {
+                this.chipList.push(this.inputValue);
+                this.inputValue = '';
+                this.showInput = false;
+            }
+        },
+        handleRemoveItem(index) {
+            this.chipList.splice(index, 1);
+        },
+        handleKeyUp(event) {
+            console.log(event);
+            if (event.key === ' ') {
+                if (this.errorMessage) {
+                    this.inputValue = this.inputValue.trim();
+                    return;
+                }
+                this.chipList.push(this.inputValue.trim());
+                this.inputValue = '';
+            }
+        },
     },
-    handleKeyUp(event) {
-      console.log(event);
-      if (event.key === ' ') {
-        if(this.errorMessage) {
-          this.inputValue = this.inputValue.trim();
-          return
-        }
-        this.chipList.push(this.inputValue.trim());
-        this.inputValue = '';
-      }
-    }
-  }
-}
+};
 </script>
 <style module>
 .root {

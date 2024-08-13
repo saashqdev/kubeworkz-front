@@ -10,23 +10,23 @@ import {
 } from 'kubeworkz/utils/functional';
 
 const defaultHard = {
-    'requestsCpu': '', // request cpu
-    'limitsCpu': '', // upper limit cpu
-    'requestsMemory': '', // Request memory
-    'limitsMemory': '', // Upper limit memory
-    'requestsNvidiaGpu': '', // Request gpu
-    'requestsStorage': '', // Request storage
+    requestsCpu: '', // request cpu
+    limitsCpu: '', // upper limit cpu
+    requestsMemory: '', // Request memory
+    limitsMemory: '', // Upper limit memory
+    requestsNvidiaGpu: '', // Request gpu
+    requestsStorage: '', // Request storage
 };
 export function toPlainObject(model) {
     const obj = toConfigPlainObject(model);
     const g = getFromModel(model);
     const hard = {
-        'limitsCpu': g('spec.hard["limits.cpu"]') ? unitConvertCPU(g('spec.hard["limits.cpu"]')) : 0, // request cpu
-        'requestsCpu': g('spec.hard["requests.cpu"]') ? unitConvertCPU(g('spec.hard["requests.cpu"]')) : 0, // upper limit cpu
-        'limitsMemory': g('spec.hard["limits.memory"]') ? unitConvertMemory(g('spec.hard["limits.memory"]')) : 0, // Request memory
-        'requestsMemory': g('spec.hard["requests.memory"]') ? unitConvertMemory(g('spec.hard["requests.memory"]')) : 0, // Upper limit memory
-        'requestsNvidiaGpu': g('spec.hard["requests.nvidia.com/gpu"]') ? unitConvertCPU(g('spec.hard["requests.nvidia.com/gpu"]')) : 0, // Request gpu
-        'requestsStorage': g('spec.hard["requests.storage"]') ? unitConvertMemory(g('spec.hard["requests.storage"]'), 'Gi') : 0, // Request storage
+        limitsCpu: g('spec.hard["limits.cpu"]') ? unitConvertCPU(g('spec.hard["limits.cpu"]')) : 0, // request cpu
+        requestsCpu: g('spec.hard["requests.cpu"]') ? unitConvertCPU(g('spec.hard["requests.cpu"]')) : 0, // upper limit cpu
+        limitsMemory: g('spec.hard["limits.memory"]') ? unitConvertMemory(g('spec.hard["limits.memory"]')) : 0, // Request memory
+        requestsMemory: g('spec.hard["requests.memory"]') ? unitConvertMemory(g('spec.hard["requests.memory"]')) : 0, // Upper limit memory
+        requestsNvidiaGpu: g('spec.hard["requests.nvidia.com/gpu"]') ? unitConvertCPU(g('spec.hard["requests.nvidia.com/gpu"]')) : 0, // Request gpu
+        requestsStorage: g('spec.hard["requests.storage"]') ? unitConvertMemory(g('spec.hard["requests.storage"]'), 'Gi') : 0, // Request storage
     };
     return {
         ...obj,

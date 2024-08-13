@@ -13,16 +13,15 @@ export default class Validator {
         this.options = options;
         this.validator = this.init(options);
     }
-    
+
     init(options) {
         const { key, rules } = options;
-        if(!key || !rules)
-            throw new Error('Please enter the corresponding parameters');
+        if (!key || !rules) { throw new Error('Please enter the corresponding parameters'); }
 
         return new AsyncValidator({ [key]: rules });
     }
     // field value, callback function
     validate(value, callback) {
-        this.validator.validate({[this.options.key]: value}, { firstFields: true }, callback);
+        this.validator.validate({ [this.options.key]: value }, { firstFields: true }, callback);
     }
 }

@@ -1,10 +1,13 @@
 <template>
-    <u-tooltip :placement="placement" :size="size">
-        <i :class="$style.help"></i>
-        <div slot="content">
-            <slot></slot>
-        </div>
-    </u-tooltip>
+  <u-tooltip
+    :placement="placement"
+    :size="size"
+  >
+    <i :class="$style.help" />
+    <div slot="content">
+      <slot />
+    </div>
+  </u-tooltip>
 </template>
 <style module>
 .help {
@@ -21,7 +24,7 @@
 // Hover up to show the simple components explained by the tooltip.
 
 export default {
-    name: "u-note",
+    name: 'UNote',
     props: {
         // The orientation of the tooltip display
         placement: { type: String, default: 'right' },
@@ -32,5 +35,5 @@ export default {
 
         };
     },
-}
+};
 </script>

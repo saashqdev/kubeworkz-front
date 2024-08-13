@@ -3,29 +3,37 @@
     <el-dialog
       :title="title"
       :visible.sync="show"
-      @close="close"
       width="800px"
       :close-on-click-modal="false"
+      @close="close"
     >
       <div
         v-if="!fullScreen"
         :class="$style.editor"
       >
         <div :class="$style.header">
-            <div @click="handleChangeFullScreen">
-              <i style="cursor: pointer" :class="fullScreen ? 'el-icon-close' : 'el-icon-full-screen'"/>
-            </div>
+          <div @click="handleChangeFullScreen">
+            <i
+              style="cursor: pointer"
+              :class="fullScreen ? 'el-icon-close' : 'el-icon-full-screen'"
+            />
+          </div>
         </div>
         <qz-editor
-          style="border: 1px solid #E1E8ED"
           ref="yamlEdit"
+          style="border: 1px solid #E1E8ED"
           :value="yamlContent"
           theme="vs"
           language="yaml"
           @change="handleEditorChange"
         />
       </div>
-      <div v-if="yamlErrorTip" :class="$style.messageBox">{{yamlErrorTip}}</div>
+      <div
+        v-if="yamlErrorTip"
+        :class="$style.messageBox"
+      >
+        {{ yamlErrorTip }}
+      </div>
       <!-- <div>
         <u-submit-button
           v-if="!readOnly"
@@ -50,20 +58,38 @@
           </template>
         </u-submit-button>
       </div> -->
-      <div v-if="!readOnly" slot="footer">
-        <el-button @click="close">Cancel</el-button>
-        <el-button :disabled="!!yamlErrorTip" type="primary" @click="submit" :loading="commitLoading">OK</el-button>
+      <div
+        v-if="!readOnly"
+        slot="footer"
+      >
+        <el-button @click="close">
+          Cancel
+        </el-button>
+        <el-button
+          :disabled="!!yamlErrorTip"
+          type="primary"
+          :loading="commitLoading"
+          @click="submit"
+        >
+          OK
+        </el-button>
       </div>
     </el-dialog>
-    <div v-if="fullScreen" :class="$style.fullScreenEditor">
+    <div
+      v-if="fullScreen"
+      :class="$style.fullScreenEditor"
+    >
       <div :class="$style.header">
-          <div @click="handleChangeFullScreen">
-            <i style="cursor: pointer" :class="fullScreen ? 'el-icon-close' : 'el-icon-full-screen'"/>
-          </div>
+        <div @click="handleChangeFullScreen">
+          <i
+            style="cursor: pointer"
+            :class="fullScreen ? 'el-icon-close' : 'el-icon-full-screen'"
+          />
+        </div>
       </div>
       <qz-editor
-        style="border: 1px solid #E1E8ED"
         ref="yamlEdit"
+        style="border: 1px solid #E1E8ED"
         :value="yamlContent"
         theme="vs"
         language="yaml"
@@ -96,7 +122,7 @@ export default {
     },
     methods: {
         handleChangeFullScreen() {
-            console.log('handleChangeFullScreen')
+            console.log('handleChangeFullScreen');
             this.fullScreen = !this.fullScreen;
         },
         handleEditorChange(value) {

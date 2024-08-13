@@ -1,21 +1,40 @@
 <template>
-    <div :class="$style.card">
-        <div :class="$style.head">
-            <u-checkbox :disabled="data.length===0" v-model="allChecked">Select all</u-checkbox>
-        </div>
-        <div :class="$style.body">
-            <u-checkboxes v-if="data.length > 0" v-model="checkedList">
-                <div v-for="item in data" :key="item.value" :class="$style.item">
-                    <u-checkbox :label="item.value" :title="item.text" :disabled="!!item.disabled">
-                        {{item.text}}
-                    </u-checkbox>
-                </div>
-            </u-checkboxes>
-            <p :class="$style.placeholder" v-else>
-                {{placeholder}}
-            </p>
-        </div>
+  <div :class="$style.card">
+    <div :class="$style.head">
+      <u-checkbox
+        v-model="allChecked"
+        :disabled="data.length===0"
+      >
+        Select all
+      </u-checkbox>
     </div>
+    <div :class="$style.body">
+      <u-checkboxes
+        v-if="data.length > 0"
+        v-model="checkedList"
+      >
+        <div
+          v-for="item in data"
+          :key="item.value"
+          :class="$style.item"
+        >
+          <u-checkbox
+            :label="item.value"
+            :title="item.text"
+            :disabled="!!item.disabled"
+          >
+            {{ item.text }}
+          </u-checkbox>
+        </div>
+      </u-checkboxes>
+      <p
+        v-else
+        :class="$style.placeholder"
+      >
+        {{ placeholder }}
+      </p>
+    </div>
+  </div>
 </template>
 <style module>
 .card{
@@ -59,8 +78,8 @@
 import Field from 'proto-ui.vusion/src/u-field.vue';
 
 export default {
-    name: 'u-checkbox-card',
-    mixins: [Field],
+    name: 'UCheckboxCard',
+    mixins: [ Field ],
     props: {
         data: {
             type: Array,
@@ -88,21 +107,17 @@ export default {
         allChecked: {
             set(checked) {
                 if (checked) {
-                    this.checkedList = this.data.map((item) => item.value);
+                    this.checkedList = this.data.map(item => item.value);
                 } else {
-                    this.checkedList = this.data.filter((item) => item.disabled).map((item) => item.value);
+                    this.checkedList = this.data.filter(item => item.disabled).map(item => item.value);
                 }
             },
             get() {
                 if (this.data.length === 0) {
                     return false;
                 }
-                if (this.checkedList.length === this.data.length)
-                    return true;
-                else if (this.checkedList.length === 0)
-                    return false;
-                else
-                    return null;
+                if (this.checkedList.length === this.data.length) { return true; } else if (this.checkedList.length === 0) { return false; }
+                return null;
             },
         },
     },
@@ -137,7 +152,7 @@ export default {
         //         this.allChecked = null;
         // },
         getCheckList() {
-            return [...this.checkedList];
+            return [ ...this.checkedList ];
         },
     },
 };

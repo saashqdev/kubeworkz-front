@@ -18,8 +18,7 @@ export default {
     },
     watch: {
         currentVisible(val) {
-            if (!val)
-                this.dialogVisible = val;
+            if (!val) { this.dialogVisible = val; }
         },
     },
     methods: {
@@ -31,8 +30,7 @@ export default {
             this.$emit('before-close', {
                 preventDefault: () => cancel = true,
             });
-            if (cancel)
-                return;
+            if (cancel) { return; }
 
             this.currentVisible = false;
 

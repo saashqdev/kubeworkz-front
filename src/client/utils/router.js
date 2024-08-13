@@ -4,8 +4,7 @@
  */
 export function customRouter(router) {
     function getLeaveConfirm(to) {
-        if (!to)
-            return undefined;
+        if (!to) { return undefined; }
         const meta = to.meta;
         return meta.leaveConfirm === true ? router.defaultConfirm : meta.leaveConfirm;
     }
@@ -17,15 +16,12 @@ export function customRouter(router) {
                 refreshBase = meta.refreshBase === true ? item.path : meta.refreshBase;
             }
         }
-        if (typeof refreshBase === 'string')
-            refreshBase = { path: refreshBase };
+        if (typeof refreshBase === 'string') { refreshBase = { path: refreshBase }; }
         return refreshBase;
     }
     function getValueStr(value) {
-        if (typeof value === 'string')
-            return value;
-        else
-            return JSON.stringify(value);
+        if (typeof value === 'string') { return value; }
+        return JSON.stringify(value);
     }
     router.defaultConfirm = {
         title: 'Hint',
@@ -33,7 +29,7 @@ export function customRouter(router) {
         subContent: 'The information edited on this page will be cleared after you leave.',
     };
     // Whether the same path is refreshed, fixed parameters that need to be monitored, each module overrides or adds according to the needs of its own project
-    router.compareQuerys = ['projectId'];
+    router.compareQuerys = [ 'projectId' ];
     router.compareCallBack = () => ({});
     // Because a pop-up window is required for confirmation on the edit page, changing the tenant will trigger beforeEach (tenantId and projectId of the chain reaction) twice, and two pop-up windows will appear.
     // So here is a switch needConfirm, which defaults to true. When the tenant is changed on the edit page, set it to false. After the tenantId and projectId in u-head.vue are changed. Revert to true.
@@ -48,8 +44,7 @@ export function customRouter(router) {
             let newParams = to.query;
             // The same page will not be refreshed if the path is not equal, and the jump to the page if the path is not equal will not be regarded as a switch.
             if (from.path !== to.path || isChecked) {
-                if (from.path !== to.path && isChecked)
-                    forceRefresh = false;
+                if (from.path !== to.path && isChecked) { forceRefresh = false; }
                 next();
                 return;
             }
@@ -79,8 +74,7 @@ export function customRouter(router) {
                     path,
                     query: Object.assign({}, extraQuery, query),
                 });
-            } else
-                next();
+            } else { next(); }
         }
         if (leaveConfirm && !hiddenConfirm && router.needConfirm) {
             hiddenConfirm = true;
@@ -124,7 +118,7 @@ export function customRouter(router) {
     const _push = router.push;
     router.push = (option, onComplete, onAbort) => {
         hiddenConfirm = option instanceof Object ? option.noConfirm : false;
-        _push.apply(router, [option, onComplete, onAbort]);
+        _push.apply(router, [ option, onComplete, onAbort ]);
     };
     router.refresh = () => {
         // Refresh requires component copying, and the external party determines the parts that need to be refreshed.

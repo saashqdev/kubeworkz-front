@@ -1,40 +1,73 @@
 <template>
-    <div :class="$style.chartWrapper">
-        <div v-show="nodata" :class="$style.empty"></div>
-        <x-echarts
-            :class="$style.echartWrapper"
-            :style="`height:${height}px`"
-            v-show="!nodata"
-            ref="chart"
-            :options="chartOption" autoresize></x-echarts>
-        <div v-show="!nodata" :class="$style.tablewrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th style="text-align: left;"></th>
-                        <th :class="$style.pointer" @click="sortLegend">current
-                            <svg v-if="sorted" style="display: inline-block;font-size: 85%;vertical-align: text-top;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="css-sr6nr"><path d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59A1,1,0,0,0,17,9.17Z"></path></svg>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody :style="`height:${height - 40}px`">
-                    <tr v-for="lg in legends">
-                        <td style="text-align: left;" @click="selectLegend(lg)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                :fill="lg.color"
-                                style="vertical-align: text-top;"><path d="M19,11H5a1,1,0,0,0,0,2H19a1,1,0,0,0,0-2Z"></path></svg>
-                            <a :class="[$style.pointer, $style.truncate]"
-                                :active="lg.active"
-                                :title="lg.name">
-                                {{ lg.name }}
-                            </a>
-                        </td>
-                        <td :class="$style['graph-legend-value']">{{ lg.data }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+  <div :class="$style.chartWrapper">
+    <div
+      v-show="nodata"
+      :class="$style.empty"
+    />
+    <x-echarts
+      v-show="!nodata"
+      ref="chart"
+      :class="$style.echartWrapper"
+      :style="`height:${height}px`"
+      :options="chartOption"
+      autoresize
+    />
+    <div
+      v-show="!nodata"
+      :class="$style.tablewrapper"
+    >
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: left;" />
+            <th
+              :class="$style.pointer"
+              @click="sortLegend"
+            >
+              current
+              <svg
+                v-if="sorted"
+                style="display: inline-block;font-size: 85%;vertical-align: text-top;"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="css-sr6nr"
+              ><path d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59A1,1,0,0,0,17,9.17Z" /></svg>
+            </th>
+          </tr>
+        </thead>
+        <tbody :style="`height:${height - 40}px`">
+          <tr v-for="lg in legends">
+            <td
+              style="text-align: left;"
+              @click="selectLegend(lg)"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                :fill="lg.color"
+                style="vertical-align: text-top;"
+              ><path d="M19,11H5a1,1,0,0,0,0,2H19a1,1,0,0,0,0-2Z" /></svg>
+              <a
+                :class="[$style.pointer, $style.truncate]"
+                :active="lg.active"
+                :title="lg.name"
+              >
+                {{ lg.name }}
+              </a>
+            </td>
+            <td :class="$style['graph-legend-value']">
+              {{ lg.data }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+  </div>
 </template>
 
 <script>

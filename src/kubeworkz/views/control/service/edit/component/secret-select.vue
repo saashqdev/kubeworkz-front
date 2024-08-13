@@ -6,7 +6,12 @@
       ...(visible ? [ validators.required() ] : []),
     ]"
   >
-    <div v-if="description" style="color: #999">{{description}}</div>
+    <div
+      v-if="description"
+      style="color: #999"
+    >
+      {{ description }}
+    </div>
     <x-request
       ref="request"
       :service="service"
@@ -22,7 +27,7 @@
         <div v-if="visible">
           <el-select
             v-if="(data || []).length > 0"
-            v-model="model" 
+            v-model="model"
             filterable
             placeholder="Please choose"
           >
@@ -95,12 +100,12 @@ export default {
         initVisible: Boolean,
         prefixProp: {
             type: String,
-            default: ''
+            default: '',
         },
         description: {
             type: String,
-            default: ''
-        }
+            default: '',
+        },
     },
     data() {
         return {
@@ -134,7 +139,7 @@ export default {
             window.open(url, '_blank');
         },
         resolver(response) {
-            const list = (response.items || []).filter(item => item.type === "kubernetes.io/tls").map(toMetadataPlainObject).map(metadata => {
+            const list = (response.items || []).filter(item => item.type === 'kubernetes.io/tls').map(toMetadataPlainObject).map(metadata => {
                 return {
                     text: metadata.name,
                     value: metadata.name,
@@ -151,7 +156,7 @@ export default {
             return list;
         },
         setVisible(val) {
-            console.log(val)
+            console.log(val);
             this.visible = val;
         },
         refresh() {

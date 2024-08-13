@@ -121,14 +121,21 @@
         <span :class="$style.textspan">
           Please refer to
         </span>
-        <el-link type="primary" target="_blank" href="https://www.kubeworkz.io/docs/installation-guide/install-on-k8s/install-member-by-helm/#Install-warden on the compute cluster via-helm">
+        <el-link
+          type="primary"
+          target="_blank"
+          href="https://www.kubeworkz.io/docs/installation-guide/install-on-k8s/install-member-by-helm/#Install-warden on the compute cluster via-helm"
+        >
           Documentation link
         </el-link>
         <span :class="$style.textspan">
           to manage computing clusters.
         </span>
       </div>
-      <div v-if="isEdit" slot="footer">
+      <div
+        v-if="isEdit"
+        slot="footer"
+      >
         <el-button @click="close">
           Cancel
         </el-button>

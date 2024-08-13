@@ -1,37 +1,46 @@
 <template>
   <div>
     <template v-if="workload === 'pods'">
-      <div :class="$style.line_layout" style="margin-bottom: 12px">
+      <div
+        :class="$style.line_layout"
+        style="margin-bottom: 12px"
+      >
         <div style="display: inline-block">
-            <span style="margin-right:8px;line-height:32px">Container</span>
-            <el-select
-                v-if="containers.length"
-                key="contianerlist"
-                v-model="containerName"
-                placeholder="Please choose"
-                style="width: 200px"
-            >
-                <el-option
-                    v-for="item in containers"
-                    :key="item.value"
-                    :label="item.text"
-                    :value="item.value"
-                    :title="item.text"
-                />
-            </el-select>
-            <el-input
-              v-else
-              style="width:200px"
-              placeholder="No Container yet"
-              :disabled="true"
+          <span style="margin-right:8px;line-height:32px">Container</span>
+          <el-select
+            v-if="containers.length"
+            key="contianerlist"
+            v-model="containerName"
+            placeholder="Please choose"
+            style="width: 200px"
+          >
+            <el-option
+              v-for="item in containers"
+              :key="item.value"
+              :label="item.text"
+              :value="item.value"
+              :title="item.text"
             />
+          </el-select>
+          <el-input
+            v-else
+            style="width:200px"
+            placeholder="No Container yet"
+            :disabled="true"
+          />
         </div>
         <el-checkbox v-model="autoRefresh">
-            Auto Refresh
+          Auto Refresh
         </el-checkbox>
-        <span @click="switchSetting" :class="$style.switchButton">
-            <span style="margin-right: 8px">Switch background</span>
-            <i :class="$style.themeIcon" :theme="theme"></i>
+        <span
+          :class="$style.switchButton"
+          @click="switchSetting"
+        >
+          <span style="margin-right: 8px">Switch background</span>
+          <i
+            :class="$style.themeIcon"
+            :theme="theme"
+          />
         </span>
       </div>
     </template>
@@ -46,57 +55,63 @@
     >
       <template slot-scope="{ data }">
         <div style="display: inline-block">
-            <span style="margin-right:8px;line-height:32px">Instance</span>
-            <el-select
-                v-if="data && data.length"
-                v-model="podName"
-                placeholder="Please choose"
-                style="width: 200px"
-            >
-                <el-option
-                    v-for="item in data"
-                    :key="item.value"
-                    :label="item.text"
-                    :value="item.value"
-                    :title="item.text"
-                />
-            </el-select>
-            <el-input
-              v-else
-              style="width:200px"
-              placeholder="No instance yet"
-              :disabled="true"
+          <span style="margin-right:8px;line-height:32px">Instance</span>
+          <el-select
+            v-if="data && data.length"
+            v-model="podName"
+            placeholder="Please choose"
+            style="width: 200px"
+          >
+            <el-option
+              v-for="item in data"
+              :key="item.value"
+              :label="item.text"
+              :value="item.value"
+              :title="item.text"
             />
+          </el-select>
+          <el-input
+            v-else
+            style="width:200px"
+            placeholder="No instance yet"
+            :disabled="true"
+          />
         </div>
         <div style="display: inline-block">
-            <span style="margin-right:8px;line-height:32px">Container</span>
-            <el-select
-                v-if="containers.length"
-                v-model="containerName"
-                placeholder="Please choose"
-                style="width: 200px"
-            >
-                <el-option
-                    v-for="item in containers"
-                    :key="item.value"
-                    :label="item.text"
-                    :value="item.value"
-                    :title="item.text"
-                />
-            </el-select>
-            <el-input
-              v-else
-              style="width:200px"
-              placeholder="No Container yet"
-              :disabled="true"
+          <span style="margin-right:8px;line-height:32px">Container</span>
+          <el-select
+            v-if="containers.length"
+            v-model="containerName"
+            placeholder="Please choose"
+            style="width: 200px"
+          >
+            <el-option
+              v-for="item in containers"
+              :key="item.value"
+              :label="item.text"
+              :value="item.value"
+              :title="item.text"
             />
+          </el-select>
+          <el-input
+            v-else
+            style="width:200px"
+            placeholder="No Container yet"
+            :disabled="true"
+          />
         </div>
         <el-checkbox v-model="autoRefresh">
           Auto Refresh
         </el-checkbox>
-        <span @click="switchSetting" :class="$style.switchButton">
-            <span style="margin-right: 8px">Switch background</span>
-            <i :class="$style.themeIcon" :theme="theme"></i>
+        <span
+          :class="$style.switchButton"
+          @click="switchSetting"
+        >
+          <span style="margin-right: 8px">Switch background</span>
+          <i
+            :class="$style.themeIcon"
+            :theme="theme"
+          />
         </span>
       </template>
     </x-request>
@@ -104,7 +119,7 @@
       <logContext
         :container-name="containerName"
         :pod-name="podName"
-        :autoRefresh.sync="autoRefresh"
+        :auto-refresh.sync="autoRefresh"
         :theme="theme"
       />
     </template>
@@ -123,18 +138,16 @@ import {
     toPlainObject as toPodPlainObject,
 } from 'kubeworkz/k8s-resources/pod/index.js';
 import logContext from './component/log-context.vue';
-function formatStartTime(val){
-    if(!val)
-        return Date.now() - 3600 * 24 * 1000;
+function formatStartTime(val) {
+    if (!val) { return Date.now() - 3600 * 24 * 1000; }
     return val;
 }
-function formatEndTime(val){
-    if(!val)
-        return Date.now();
+function formatEndTime(val) {
+    if (!val) { return Date.now(); }
     return val;
 }
-function formatFilters(filters){
-    return encodeURIComponent(JSON.stringify(filters))
+function formatFilters(filters) {
+    return encodeURIComponent(JSON.stringify(filters));
 }
 export default {
     components: {
@@ -182,7 +195,7 @@ export default {
                 },
                 params: {
                     // labelSelector: this.instance.spec.matchLabels.map(l => `${l.key}=${l.value}`).join(','),
-                    selector: `metadata.ownerReferences.uid=${this.instance.metadata.uid}`
+                    selector: `metadata.ownerReferences.uid=${this.instance.metadata.uid}`,
                     // selector: this.instance.spec.matchLabels.map(l => `metadata.labels.${l.key}=${l.value}`).join(','),
                 },
             };

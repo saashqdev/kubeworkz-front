@@ -1,19 +1,52 @@
 <template>
-  <div v-if="showTerminal" :class="$style.root" :minimized="minimized" ref="root">
+  <div
+    v-if="showTerminal"
+    ref="root"
+    :class="$style.root"
+    :minimized="minimized"
+  >
     <div :class="$style.mainWrap">
-      <div v-show="!minimized" :class="$style.main" :maximized="maximized">
+      <div
+        v-show="!minimized"
+        :class="$style.main"
+        :maximized="maximized"
+      >
         <div :class="$style.head">
           <div :class="$style.buttonWrap">
-            <span @click.stop="handleMinimize" :class="$style.btn"><i :class="$style.minimize"></i></span>
-            <span @click.stop="handleMaximize" :class="$style.btn"><i :class="$style.maximize" :maximized="maximized"></i></span>
-            <span @click.stop="handleClose" :class="$style.btn"><i :class="$style.close"></i></span>
+            <span
+              :class="$style.btn"
+              @click.stop="handleMinimize"
+            ><i :class="$style.minimize" /></span>
+            <span
+              :class="$style.btn"
+              @click.stop="handleMaximize"
+            ><i
+              :class="$style.maximize"
+              :maximized="maximized"
+            /></span>
+            <span
+              :class="$style.btn"
+              @click.stop="handleClose"
+            ><i :class="$style.close" /></span>
           </div>
         </div>
-        <div :class="$style.content" @dblclick.stop :style="{ height: contentHeight + 'px', width: width + 'px' }">
-          <div ref="terminal" :class="$style.terminal"></div>
+        <div
+          :class="$style.content"
+          :style="{ height: contentHeight + 'px', width: width + 'px' }"
+          @dblclick.stop
+        >
+          <div
+            ref="terminal"
+            :class="$style.terminal"
+          />
         </div>
       </div>
-      <div v-show="minimized" ref="min" :class="$style.min" @dblclick.stop="cancelMinimize"></div>
+      <div
+        v-show="minimized"
+        ref="min"
+        :class="$style.min"
+        @dblclick.stop="cancelMinimize"
+      />
     </div>
   </div>
 </template>
@@ -46,7 +79,7 @@ const DEFAULT_THEME = {
 };
 const INIT_HEAD_HEIGHT = 40;
 export default {
-    name: 'qz-terminal',
+    name: 'QzTerminal',
     props: {
         show: { type: Boolean, default: false },
         height: { type: [ Number ], default: 400 },

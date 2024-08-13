@@ -1,17 +1,20 @@
 <template>
-    <div :class="$style.bread">
-        <u-link v-if="link" :to="link">
-            <i :class="$style.back"></i>
-        </u-link>
-        <slot>
-            <span>{{name}}</span>
-        </slot>
-    </div>
+  <div :class="$style.bread">
+    <u-link
+      v-if="link"
+      :to="link"
+    >
+      <i :class="$style.back" />
+    </u-link>
+    <slot>
+      <span>{{ name }}</span>
+    </slot>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'u-bread',
+    name: 'UBread',
     props: {
         link: String,
         name: String,

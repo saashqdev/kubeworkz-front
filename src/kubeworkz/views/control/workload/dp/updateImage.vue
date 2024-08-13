@@ -6,16 +6,32 @@
       label-position="right"
       label-width="160px"
     >
-      <div :class="$style.title">Basic Information</div>
+      <div :class="$style.title">
+        Basic Information
+      </div>
       <table :class="$style.table">
         <thead>
           <tr>
-            <th width="200px">Container name</th><th width="600px">Container image</th>
+            <th width="200px">
+              Container name
+            </th><th width="600px">
+              Container image
+            </th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(container, index) in instance.containers" :key="index" style="padding-bottom:8px">
-            <td style="padding: 0 0 20px;" :title="container.containerName" :class="$style.eclipse">{{ container.containerName || '-' }}</td>
+          <tr
+            v-for="(container, index) in instance.containers"
+            :key="index"
+            style="padding-bottom:8px"
+          >
+            <td
+              style="padding: 0 0 20px;"
+              :title="container.containerName"
+              :class="$style.eclipse"
+            >
+              {{ container.containerName || '-' }}
+            </td>
             <td style="padding: 0 0 20px;">
               <div style="display:flex">
                 <el-form-item
@@ -27,14 +43,23 @@
                     validators.required(),
                   ]"
                 >
-                  <el-input v-model="container.image" placeholder="Please enter" style="width:450px"/>
+                  <el-input
+                    v-model="container.image"
+                    placeholder="Please enter"
+                    style="width:450px"
+                  />
                 </el-form-item>
               </div>
             </td>
           </tr>
         </tbody>
       </table>
-      <div :class="$style.title" style="margin-bottom:20px">Update strategy</div>
+      <div
+        :class="$style.title"
+        style="margin-bottom:20px"
+      >
+        Update strategy
+      </div>
       <el-form-item
         prop="spec.strategy.minReadySeconds"
         :rules="[
@@ -44,13 +69,25 @@
       >
         <template slot="label">
           Minimum ready time
-          <el-tooltip effect="dark" content="Minimum readiness time: After a newly created copy is ready, it needs to remain normal before it is considered available, unit (seconds)" placement="right" popper-class="ncs-el-tooltip-popper">
-            <i class="el-icon-question" style="position: absolute;right:4px;top:11px"/>
+          <el-tooltip
+            effect="dark"
+            content="Minimum readiness time: After a newly created copy is ready, it needs to remain normal before it is considered available, unit (seconds)"
+            placement="right"
+            popper-class="ncs-el-tooltip-popper"
+          >
+            <i
+              class="el-icon-question"
+              style="position: absolute;right:4px;top:11px"
+            />
           </el-tooltip>
         </template>
-        <el-input :disabled="!hasImageChange" v-model="instance.spec.strategy.minReadySeconds" placeholder="Please enter an integer from 5-300"/>
+        <el-input
+          v-model="instance.spec.strategy.minReadySeconds"
+          :disabled="!hasImageChange"
+          placeholder="Please enter an integer from 5-300"
+        />
       </el-form-item>
-      <el-form-item 
+      <el-form-item
         prop="spec.strategy.maxSurge"
         :rules="[
           validators.consistofNumberOrPercentage(false)
@@ -58,11 +95,23 @@
       >
         <template slot="label">
           Maximum number of copies beyond expectations
-          <el-tooltip effect="dark" content="Maximum number of copies beyond expected: The maximum number or percentage of copies that can be created that exceeds the number of copies required" placement="right" popper-class="ncs-el-tooltip-popper">
-            <i class="el-icon-question" style="position: absolute;right:4px;top:11px"/>
+          <el-tooltip
+            effect="dark"
+            content="Maximum number of copies beyond expected: The maximum number or percentage of copies that can be created that exceeds the number of copies required"
+            placement="right"
+            popper-class="ncs-el-tooltip-popper"
+          >
+            <i
+              class="el-icon-question"
+              style="position: absolute;right:4px;top:11px"
+            />
           </el-tooltip>
         </template>
-        <el-input :disabled="!hasImageChange" v-model="instance.spec.strategy.maxSurge" placeholder="Fill in the percentage or integer"/>
+        <el-input
+          v-model="instance.spec.strategy.maxSurge"
+          :disabled="!hasImageChange"
+          placeholder="Fill in the percentage or integer"
+        />
       </el-form-item>
       <el-form-item
         prop="spec.strategy.maxUnavailable"
@@ -72,14 +121,33 @@
       >
         <template slot="label">
           Maximum number of unusable copies
-          <el-tooltip effect="dark" content="Maximum number of unavailable replicas: the upper limit number or percentage of replicas that cannot be used during the update process" placement="right" popper-class="ncs-el-tooltip-popper">
-            <i class="el-icon-question" style="position: absolute;right:4px;top:11px"/>
+          <el-tooltip
+            effect="dark"
+            content="Maximum number of unavailable replicas: the upper limit number or percentage of replicas that cannot be used during the update process"
+            placement="right"
+            popper-class="ncs-el-tooltip-popper"
+          >
+            <i
+              class="el-icon-question"
+              style="position: absolute;right:4px;top:11px"
+            />
           </el-tooltip>
         </template>
-        <el-input :disabled="!hasImageChange" v-model="instance.spec.strategy.maxUnavailable" placeholder="Fill in the percentage or integer"/>
+        <el-input
+          v-model="instance.spec.strategy.maxUnavailable"
+          :disabled="!hasImageChange"
+          placeholder="Fill in the percentage or integer"
+        />
       </el-form-item>
       <el-form-item>
-        <el-button :disabled="!hasImageChange" type="primary" @click="submit" :loading="commitLoading">Renew</el-button>
+        <el-button
+          :disabled="!hasImageChange"
+          type="primary"
+          :loading="commitLoading"
+          @click="submit"
+        >
+          Renew
+        </el-button>
       </el-form-item>
     </el-form>
   </div>

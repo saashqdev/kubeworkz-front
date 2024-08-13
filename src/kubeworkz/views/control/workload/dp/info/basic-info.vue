@@ -1,42 +1,90 @@
 <template>
   <div>
-    <el-form ref="form" :model="model" :rules="rules" label-position="right" label-width="160px">
+    <el-form
+      ref="form"
+      :model="model"
+      :rules="rules"
+      label-position="right"
+      label-width="160px"
+    >
       <el-form-item label="Cluster">
         {{ cluster }}
       </el-form-item>
       <el-form-item label="Namespace">
         {{ namespace }}
       </el-form-item>
-      <el-form-item label="Name" prop="metadata.name">
-        <el-input v-model="model.metadata.name" :disabled="isEdit" placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"/>
+      <el-form-item
+        label="Name"
+        prop="metadata.name"
+      >
+        <el-input
+          v-model="model.metadata.name"
+          :disabled="isEdit"
+          placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"
+        />
       </el-form-item>
       <template v-if="workload === 'daemonsets'">
         <el-form-item label="Level">
-          <el-radio-group v-model="model.spec.level.ind" :disabled="isEdit">
-            <el-radio label="platform">Platform level</el-radio>
-            <el-radio label="tenant">Tenant level</el-radio>
+          <el-radio-group
+            v-model="model.spec.level.ind"
+            :disabled="isEdit"
+          >
+            <el-radio label="platform">
+              Platform level
+            </el-radio>
+            <el-radio label="tenant">
+              Tenant level
+            </el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="Tenant" v-if="model.spec.level.ind === 'tenant'" prop="spec.level.tenant">
-          <tenant-select v-model="model.spec.level.tenant" :disabled="isEdit"/>
+        <el-form-item
+          v-if="model.spec.level.ind === 'tenant'"
+          label="Tenant"
+          prop="spec.level.tenant"
+        >
+          <tenant-select
+            v-model="model.spec.level.tenant"
+            :disabled="isEdit"
+          />
         </el-form-item>
       </template>
-      <el-form-item label="Number of replicas" v-if="!['cronjobs', 'jobs', 'daemonsets'].includes(workload)">
-        <el-input-number v-model="model.spec.replicas" controls-position="right" :min="0" style="width: 300px;"/>
+      <el-form-item
+        v-if="!['cronjobs', 'jobs', 'daemonsets'].includes(workload)"
+        label="Number of replicas"
+      >
+        <el-input-number
+          v-model="model.spec.replicas"
+          controls-position="right"
+          :min="0"
+          style="width: 300px;"
+        />
         <span style="margin-left:8px">Replica</span>
       </el-form-item>
       <template v-if="workload === 'statefulsets'">
-        <el-form-item label="Service Name" prop="spec.serviceName">
-          <el-input v-model="model.spec.serviceName" :disabled="isEdit" placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"/>
+        <el-form-item
+          label="Service Name"
+          prop="spec.serviceName"
+        >
+          <el-input
+            v-model="model.spec.serviceName"
+            :disabled="isEdit"
+            placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"
+          />
         </el-form-item>
         <storage-config v-model="model.spec.volumeClaimTemplates" />
       </template>
       <el-form-item label="Time zone synchronization">
-        <el-switch v-model="model.timeSync"/>
+        <el-switch v-model="model.timeSync" />
         <span style="margin-left:8px;color:#aaa">After opening, the container and the node use the same time zone (the time zone synchronization function relies on the local disk mounted in the container, please do not modify or delete it)</span>
       </el-form-item>
-      <el-form-item label="" v-if="['deployments', 'daemonsets'].includes(workload)">
-        <el-link type="primary" @click="advanced = !advanced">
+      <el-form-item
+        v-if="['deployments', 'daemonsets'].includes(workload)"
+        label=""
+      >
+        <el-link
+          type="primary"
+          @click="advanced = !advanced"
+        >
           {{ advanced ? 'Close': 'Expand' }} More configurations
         </el-link>
       </el-form-item>
@@ -45,7 +93,12 @@
         v-model="model.spec.strategy"
       />
       <el-form-item>
-        <el-button type="primary" @click="handleNextStep">Next step</el-button>
+        <el-button
+          type="primary"
+          @click="handleNextStep"
+        >
+          Next step
+        </el-button>
       </el-form-item>
     </el-form>
   </div>

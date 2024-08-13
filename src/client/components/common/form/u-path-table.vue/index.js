@@ -17,16 +17,14 @@ export default {
         const Children = this.info.Children || [];
         const branchMap = {};
         const branchNames = [];
-        Children.forEach((item) => {
+        Children.forEach(item => {
             const name = item.AppName;
             const type = item.TxType;
             if (type === 'txMsg') {
                 branchNames.push(name);
                 branchMap[item.BranchId] = branchNames.length - 1 + 2;
             } else {
-                if (branchNames.includes(name))
-                    branchMap[item.BranchId] = branchNames.indexOf(name) + 2;
-                else {
+                if (branchNames.includes(name)) { branchMap[item.BranchId] = branchNames.indexOf(name) + 2; } else {
                     branchNames.push(name);
                     branchMap[item.BranchId] = branchNames.length - 1 + 2;
                 }
@@ -39,7 +37,7 @@ export default {
                 [GTXSId]: 1,
                 ...branchMap,
             },
-            pointWidths: [STAGE2START_WIDTH, START2SERVER_WIDTH, SERVER2BRANCH_WIDTH].concat(Children.map(() => BRANCH2BRANCH_WIDTH)),
+            pointWidths: [ STAGE2START_WIDTH, START2SERVER_WIDTH, SERVER2BRANCH_WIDTH ].concat(Children.map(() => BRANCH2BRANCH_WIDTH)),
             branchNames,
             fail: this.info.Status === 5 || this.info.Status === 8 || this.info.Status === 9, // confirm || cancel failed || initialization timeout
         };
@@ -58,10 +56,8 @@ export default {
         },
         getWidth(startIndex, endIndex) {
             return this.pointWidths.reduce((acc, item, index) => {
-                if (startIndex > endIndex && index <= startIndex && index > endIndex)
-                    acc -= item;
-                if (startIndex < endIndex && index <= endIndex && index > startIndex)
-                    acc += item;
+                if (startIndex > endIndex && index <= startIndex && index > endIndex) { acc -= item; }
+                if (startIndex < endIndex && index <= endIndex && index > startIndex) { acc += item; }
                 return acc;
             }, 0);
         },
@@ -73,29 +69,26 @@ export default {
             const startIndex = this.getIndex(isInstanceName ? ParentId : FromXid);
             const endIndex = this.getIndex(isInstanceName ? BranchId : ToXid);
 
-            if (isInstanceName && !ParentId)
-                return;
+            if (isInstanceName && !ParentId) { return; }
             return {
                 start: this.getWidth(0, startIndex) + STAGE2START_WIDTH,
                 width: this.getWidth(startIndex, endIndex),
                 text: isInstanceName ? InstanceName : DisplayContent,
-                isFail: phase === 1 ? Status === 2 : [5, 8, 9].includes(Status),
+                isFail: phase === 1 ? Status === 2 : [ 5, 8, 9 ].includes(Status),
             };
         },
         getList(data = {}) {
             const { Xid, OnePhaseEvents, TwoPhaseEvents, Children } = data;
-            const onePhaseEvents = OnePhaseEvents.map((item) => this.formatEvent(item, 1));
-            const twoPhaseEvents = TwoPhaseEvents.map((item) => this.formatEvent(item, 2));
+            const onePhaseEvents = OnePhaseEvents.map(item => this.formatEvent(item, 1));
+            const twoPhaseEvents = TwoPhaseEvents.map(item => this.formatEvent(item, 2));
 
-            if (!Xid)
-                return [];
+            if (!Xid) { return []; }
 
-            onePhaseEvents.push(...Children.map((item) => this.formatEvent(item, 1)).filter((item) => item));
+            onePhaseEvents.push(...Children.map(item => this.formatEvent(item, 1)).filter(item => item));
 
-            Children.forEach((item) => {
-                item.OnePhaseEvents && onePhaseEvents.push(...item.OnePhaseEvents.map((item) => this.formatEvent(item, 1)));
-                if (TwoPhaseEvents && TwoPhaseEvents.length > 0 && item.TwoPhaseEvents)
-                    twoPhaseEvents.push(...item.TwoPhaseEvents.map((item) => this.formatEvent(item, 2)));
+            Children.forEach(item => {
+                item.OnePhaseEvents && onePhaseEvents.push(...item.OnePhaseEvents.map(item => this.formatEvent(item, 1)));
+                if (TwoPhaseEvents && TwoPhaseEvents.length > 0 && item.TwoPhaseEvents) { twoPhaseEvents.push(...item.TwoPhaseEvents.map(item => this.formatEvent(item, 2))); }
             });
 
             const list = [

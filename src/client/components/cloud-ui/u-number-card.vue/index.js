@@ -5,7 +5,7 @@ export default {
     extends: Link,
     props: {
         title: String,
-        value: [String, Number],
+        value: [ String, Number ],
         unit: String,
     },
     computed: {

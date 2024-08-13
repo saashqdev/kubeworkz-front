@@ -6,14 +6,18 @@
       :height="400"
       :width="600"
       :option="{}"
-      :beforeCloseCheck="beforeCloseCheck"
+      :before-close-check="beforeCloseCheck"
       @onOpenCallback="onOpenCallback"
       @onResizeCallback="onResizeCallback"
       @onInputCallback="onInputCallback"
       @onDestroyCallback="onDestroyCallback"
     />
-    <el-button @click="handleOpen">open</el-button>
-    <el-button @click="handleClose">close</el-button>
+    <el-button @click="handleOpen">
+      open
+    </el-button>
+    <el-button @click="handleClose">
+      close
+    </el-button>
   </div>
 </template>
 <script>

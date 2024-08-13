@@ -1,7 +1,20 @@
 <template>
-    <u-input ref="input" :type="type" :value="value" :class="$style.input" @focus="onFocus" @blur="onBlur" v-bind="$attrs" v-on="$listeners">
-        <i :class="$style.icon" :name="icon" :focus="isFocus"></i>
-    </u-input>
+  <u-input
+    ref="input"
+    :type="type"
+    :value="value"
+    :class="$style.input"
+    v-bind="$attrs"
+    @focus="onFocus"
+    @blur="onBlur"
+    v-on="$listeners"
+  >
+    <i
+      :class="$style.icon"
+      :name="icon"
+      :focus="isFocus"
+    />
+  </u-input>
 </template>
 
 <style module>
@@ -33,7 +46,7 @@
 
 <script>
 export default {
-    name: 'u-icon-input',
+    name: 'UIconInput',
     props: {
         icon: {
             type: String,

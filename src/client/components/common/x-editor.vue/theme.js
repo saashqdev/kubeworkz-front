@@ -1,3 +1,3 @@
-export default function (theme) {
+export default function(theme) {
     return require(`brace/theme/${theme}`);
 }

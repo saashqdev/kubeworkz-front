@@ -2,24 +2,24 @@
   <div>
     <dynamicBlock
       v-model="model"
-      :getDefaultItem="getDataTemplate"
+      :get-default-item="getDataTemplate"
       :columns="[
-          {
-              title: 'Key',
-              dataIndex: 'key',
-          },
-          {
-              title: 'Resource',
-              dataIndex: 'resource',
-          },
-          {
-              title: 'ResourceKey',
-              dataIndex: 'resoueceKey'
-          },
+        {
+          title: 'Key',
+          dataIndex: 'key',
+        },
+        {
+          title: 'Resource',
+          dataIndex: 'resource',
+        },
+        {
+          title: 'ResourceKey',
+          dataIndex: 'resoueceKey'
+        },
       ]"
     >
-      <template v-slot:key="{record, index}">
-        <el-form-item 
+      <template #key="{record, index}">
+        <el-form-item
           label=""
           :prop="`${prefixKey}.${index}.key`"
           :rules="[
@@ -35,24 +35,31 @@
           />
         </el-form-item>
       </template>
-      <template v-slot:resource="{record}">
-        <el-select v-model="record.resource" placeholder="Please choose" filterable>
+      <template #resource="{record}">
+        <el-select
+          v-model="record.resource"
+          placeholder="Please choose"
+          filterable
+        >
           <el-option
             v-for="item in containerNames"
             :key="item.value"
             :label="item.text"
-            :value="item.value">
-          </el-option>
+            :value="item.value"
+          />
         </el-select>
       </template>
-      <template v-slot:resoueceKey="{record}">
-        <el-select v-model="record.resoueceKey" placeholder="Please choose">
+      <template #resoueceKey="{record}">
+        <el-select
+          v-model="record.resoueceKey"
+          placeholder="Please choose"
+        >
           <el-option
             v-for="item in RESOURCE_DATA"
             :key="item.value"
             :label="item.text"
-            :value="item.value">
-          </el-option>
+            :value="item.value"
+          />
         </el-select>
       </template>
     </dynamicBlock>

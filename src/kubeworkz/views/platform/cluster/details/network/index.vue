@@ -18,7 +18,11 @@
           square
           @click="refresh"
         />
-        <inputSearch placeholder="Please enter name to search" position="right" @search="onSearch"/>
+        <inputSearch
+          placeholder="Please enter name to search"
+          position="right"
+          @search="onSearch"
+        />
       </div>
       <x-request
         ref="request"
@@ -39,13 +43,13 @@
               label="Name"
               :show-overflow-tooltip="true"
               sortable
-            ></el-table-column>
+            />
             <el-table-column
               prop="metadata.namespace"
               label="Namespace"
               :show-overflow-tooltip="true"
               width="200"
-            ></el-table-column>
+            />
             <el-table-column
               prop="t"
               label="Operation"
@@ -54,33 +58,39 @@
             >
               <template slot-scope="{ row }">
                 <qz-link-group max="3">
-                  <el-link 
+                  <el-link
                     type="primary"
                     @click="viewYAML(row)"
-                  >Check the details</el-link>
-                  <el-link 
+                  >
+                    Check the details
+                  </el-link>
+                  <el-link
                     type="primary"
                     @click="toEdit(row)"
-                  >Set up</el-link>
-                  <el-link 
+                  >
+                    Set up
+                  </el-link>
+                  <el-link
                     type="primary"
                     @click="deleteItem(row)"
-                  >Delete</el-link>
+                  >
+                    Delete
+                  </el-link>
                 </qz-link-group>
               </template>
             </el-table-column>
           </el-table>
           <el-pagination
-            style="float:right;margin-top:12px"
             v-if="data && calculatePages(data.total) > 0"
-            @size-change="pageSizeChange"
-            @current-change="pageNumChange"
+            style="float:right;margin-top:12px"
             :current-page="pagenation.pageNum"
             :page-sizes="[10, 20, 30, 40, 50, 100]"
             :page-size="pagenation.pageSize"
             layout="total, sizes, prev, pager, next"
             :total="data.total"
             background
+            @size-change="pageSizeChange"
+            @current-change="pageNumChange"
           />
         </template>
       </x-request>

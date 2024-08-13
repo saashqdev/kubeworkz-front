@@ -14,22 +14,22 @@
           v-model="model.nodeAffinity"
           type="nodeAffinity"
           :required="hostNetworkSupport"
-          :prefixProp="`${prefixProp}.nodeAffinity`"
+          :prefix-prop="`${prefixProp}.nodeAffinity`"
         />
         <affinity-config
           v-model="model.podAffinity"
           type="podAffinity"
-          :prefixProp="`${prefixProp}.podAffinity`"
+          :prefix-prop="`${prefixProp}.podAffinity`"
         />
         <affinity-config
           v-model="model.podAntiAffinity"
           type="podAntiAffinity"
           :required="hostNetworkSupport"
-          :prefixProp="`${prefixProp}.podAntiAffinity`"
+          :prefix-prop="`${prefixProp}.podAntiAffinity`"
         />
         <toleration-config
           v-model="model.tolerations"
-          :prefixProp="`${prefixProp}.tolerations`"
+          :prefix-prop="`${prefixProp}.tolerations`"
         />
       </template>
     </el-form-item>

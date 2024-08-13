@@ -123,7 +123,10 @@
             Operation and Maintenance Center
           </div>
         </div>
-        <u-sidebar-group v-if="logseerFeatures" class="m-sidebar-group">
+        <u-sidebar-group
+          v-if="logseerFeatures"
+          class="m-sidebar-group"
+        >
           <span slot="title"><u-icons name="config" />Logs</span>
           <u-sidebar-item
             :to="{ path: '/control/logconfigs' }"

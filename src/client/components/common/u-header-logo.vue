@@ -1,23 +1,38 @@
 <template>
-    <div :class="$style.root" :size="size">
-        <div :class="$style.logo" :size="size">
-            <template v-if="name && name.length > 2">{{ name.substring(0,2).toUpperCase() }}</template>
-            <template v-else>{{ name }}</template>
-        </div>
-        <div :class="$style.cont">
-            <div :class="$style.title" :title="name">
-                <div :class="$style.name">{{ name }}</div>
-                <slot name="icon"></slot>
-                <slot name="label"></slot>
-            </div>
-            <slot name="info"></slot>
-        </div>
+  <div
+    :class="$style.root"
+    :size="size"
+  >
+    <div
+      :class="$style.logo"
+      :size="size"
+    >
+      <template v-if="name && name.length > 2">
+        {{ name.substring(0,2).toUpperCase() }}
+      </template>
+      <template v-else>
+        {{ name }}
+      </template>
     </div>
+    <div :class="$style.cont">
+      <div
+        :class="$style.title"
+        :title="name"
+      >
+        <div :class="$style.name">
+          {{ name }}
+        </div>
+        <slot name="icon" />
+        <slot name="label" />
+      </div>
+      <slot name="info" />
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'u-header-logo',
+    name: 'UHeaderLogo',
     props: {
         name: String,
         size: String,

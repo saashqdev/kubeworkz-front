@@ -2,7 +2,7 @@
   <div>
     <dynamicBlock
       v-model="model"
-      :getDefaultItem="getDataTemplate"
+      :get-default-item="getDataTemplate"
       :disabled="disabled"
       :columns="[
         {
@@ -15,8 +15,8 @@
         }
       ]"
     >
-      <template v-slot:port="{record, index}">
-        <el-form-item 
+      <template #port="{record, index}">
+        <el-form-item
           label=""
           :prop="`${prefixProp}.${index}.port`"
           :rules="[
@@ -30,7 +30,7 @@
           />
         </el-form-item>
       </template>
-      <template v-slot:protocol="{record}">
+      <template #protocol="{record}">
         <el-select
           v-model="record.protocol"
           filterable

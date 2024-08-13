@@ -2,23 +2,23 @@
   <div>
     <dynamicBlock
       v-model="model"
-      :getDefaultItem="getDataTemplate"
+      :get-default-item="getDataTemplate"
       :columns="[
-          {
-              title: 'Node path',
-              dataIndex: 'path',
-          },
-          {
-              title: 'Model',
-              dataIndex: 'pathType'
-          },
-          {
-              title: 'Mount directory',
-              dataIndex: 'mountPath'
-          }
+        {
+          title: 'Node path',
+          dataIndex: 'path',
+        },
+        {
+          title: 'Model',
+          dataIndex: 'pathType'
+        },
+        {
+          title: 'Mount directory',
+          dataIndex: 'mountPath'
+        }
       ]"
     >
-      <template v-slot:path="{record, index}">
+      <template #path="{record, index}">
         <el-form-item
           label=""
           :prop="`${prefixKey}.${index}.path`"
@@ -32,17 +32,21 @@
           />
         </el-form-item>
       </template>
-      <template v-slot:pathType="{record}">
-        <el-select v-model="record.pathType" placeholder="Please choose" filterable>
+      <template #pathType="{record}">
+        <el-select
+          v-model="record.pathType"
+          placeholder="Please choose"
+          filterable
+        >
           <el-option
             v-for="item in pathTypeList"
             :key="item.value"
             :label="item.text"
-            :value="item.value">
-          </el-option>
+            :value="item.value"
+          />
         </el-select>
       </template>
-      <template v-slot:mountPath="{record, index}">
+      <template #mountPath="{record, index}">
         <el-form-item
           label=""
           :prop="`${prefixKey}.${index}.mountPath`"

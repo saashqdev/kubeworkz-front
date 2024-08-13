@@ -2,20 +2,20 @@
   <div>
     <dynamicBlock
       v-model="model"
-      :getDefaultItem="getDataTemplate"
+      :get-default-item="getDataTemplate"
       :columns="[
-          {
-              title: 'Mount directory',
-              dataIndex: 'mountPath',
-          },
-          {
-              title: 'Parameter',
-              dataIndex: 'name'
-          }
+        {
+          title: 'Mount directory',
+          dataIndex: 'mountPath',
+        },
+        {
+          title: 'Parameter',
+          dataIndex: 'name'
+        }
       ]"
     >
-      <template v-slot:mountPath="{record, index}">
-        <el-form-item 
+      <template #mountPath="{record, index}">
+        <el-form-item
           label=""
           :prop="`${prefixKey}.${index}.mountPath`"
           :rules="[
@@ -29,16 +29,21 @@
           />
         </el-form-item>
       </template>
-      <template v-slot:name="{record}">
-          <el-select v-model="record.name" placeholder="Please choose" filterable size="huge">
-            <el-option
-              v-for="item in vcts"
-              :key="item.value"
-              :label="item.text"
-              :value="item.value">
-            </el-option>
-          </el-select>
-        </template>
+      <template #name="{record}">
+        <el-select
+          v-model="record.name"
+          placeholder="Please choose"
+          filterable
+          size="huge"
+        >
+          <el-option
+            v-for="item in vcts"
+            :key="item.value"
+            :label="item.text"
+            :value="item.value"
+          />
+        </el-select>
+      </template>
     </dynamicBlock>
   </div>
 </template>

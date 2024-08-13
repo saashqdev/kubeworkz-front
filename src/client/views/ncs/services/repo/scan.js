@@ -2,7 +2,7 @@ import Service from '@micro-app/common/services/service.js';
 const apis = {
     scan: {
         method: 'post',
-        path: '/{clusterId}/repositories/scan'
+        path: '/{clusterId}/repositories/scan',
     },
     loads: {
         method: 'get',
@@ -10,7 +10,7 @@ const apis = {
     },
     loadLog: {
         method: 'get',
-        path: '/{clusterId}/repositories/scanLog'
+        path: '/{clusterId}/repositories/scanLog',
     },
 };
 

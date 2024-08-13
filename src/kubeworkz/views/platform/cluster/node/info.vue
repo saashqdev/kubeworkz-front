@@ -8,7 +8,10 @@
         Check the detail information
       </el-button>
     </div>
-    <el-descriptions title="Basic Information" :column="1">
+    <el-descriptions
+      title="Basic Information"
+      :column="1"
+    >
       <el-descriptions-item label="Node name">
         {{ instance.metadata.name }}
       </el-descriptions-item>
@@ -20,21 +23,45 @@
       </el-descriptions-item>
       <el-descriptions-item label="Label">
         <div :class="$style.tagWrap">
-          <el-tag type="info" v-for="label in instance.metadata.labels" :key="label.key" :title="label.key + ':' + label.value">{{ label.key }}: {{ label.value }}</el-tag>
+          <el-tag
+            v-for="label in instance.metadata.labels"
+            :key="label.key"
+            type="info"
+            :title="label.key + ':' + label.value"
+          >
+            {{ label.key }}: {{ label.value }}
+          </el-tag>
         </div>
       </el-descriptions-item>
       <el-descriptions-item label="Annotation">
         <div :class="$style.tagWrap">
-          <el-tag type="info" v-for="label in instance.metadata.annotations" :key="label.key" :title="label.key + ':' + label.value">{{ label.key }}: {{ label.value }}</el-tag>
+          <el-tag
+            v-for="label in instance.metadata.annotations"
+            :key="label.key"
+            type="info"
+            :title="label.key + ':' + label.value"
+          >
+            {{ label.key }}: {{ label.value }}
+          </el-tag>
         </div>
       </el-descriptions-item>
       <el-descriptions-item label="Taint">
         <div :class="$style.tagWrap">
-          <el-tag type="info" v-for="(taint, idx) in instance.spec.taints" :key="idx" :title="`effect=${taint.effect}, ${taint.key}=${taint.value}`">{{ `effect=${taint.effect}, ${taint.key}=${taint.value}` }}</el-tag>
+          <el-tag
+            v-for="(taint, idx) in instance.spec.taints"
+            :key="idx"
+            type="info"
+            :title="`effect=${taint.effect}, ${taint.key}=${taint.value}`"
+          >
+            {{ `effect=${taint.effect}, ${taint.key}=${taint.value}` }}
+          </el-tag>
         </div>
       </el-descriptions-item>
     </el-descriptions>
-    <el-descriptions title="Operating environment" :column="1">
+    <el-descriptions
+      title="Operating environment"
+      :column="1"
+    >
       <el-descriptions-item label="Kernel version">
         {{ instance.status.nodeInfo.kernelVersion }}
       </el-descriptions-item>

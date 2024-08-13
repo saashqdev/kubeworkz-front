@@ -1,22 +1,40 @@
 <template>
-    <span :class="$style.tag" ref="tag" :empty="type==='empty'" 
-        tabindex="-1" hidefocus="true" @blur="resetStatus" @click="showDefaultInput"
-        @mousedown="updateStatus" :selected="!!tag.selecting" :edit="!!tag.edit"
-        :style="[$style.tag]">
-        <template v-if="type==='empty'">
-            <span :class="$style.tagInner" >
-                <i :class="$style.circle"></i><i :class="$style.circle"></i><i :class="$style.circle"> </i>
-            </span>
-        </template>
-        <template v-else>
-            <span :class="$style.tagInner" :title="tag.showValueLock">
-                {{tag.showValueLock}}
-            </span>
-            <span :class="$style.tagClose" @mousedown.stop.prevent="removeTag($event)">
-                <u-icon name="close" size="small"></u-icon>
-            </span>
-        </template>
-    </span>
+  <span
+    ref="tag"
+    :class="$style.tag"
+    :empty="type==='empty'"
+    tabindex="-1"
+    hidefocus="true"
+    :selected="!!tag.selecting"
+    :edit="!!tag.edit"
+    :style="[$style.tag]"
+    @blur="resetStatus"
+    @click="showDefaultInput"
+    @mousedown="updateStatus"
+  >
+    <template v-if="type==='empty'">
+      <span :class="$style.tagInner">
+        <i :class="$style.circle" /><i :class="$style.circle" /><i :class="$style.circle" />
+      </span>
+    </template>
+    <template v-else>
+      <span
+        :class="$style.tagInner"
+        :title="tag.showValueLock"
+      >
+        {{ tag.showValueLock }}
+      </span>
+      <span
+        :class="$style.tagClose"
+        @mousedown.stop.prevent="removeTag($event)"
+      >
+        <u-icon
+          name="close"
+          size="small"
+        />
+      </span>
+    </template>
+  </span>
 </template>
 <style module>
 .tag {
@@ -78,7 +96,7 @@
         padding-right: 0;
         font-size: 12px;
     }
-    
+
 }
 .tagInner:after {
     content: ' ';
@@ -116,7 +134,7 @@
 </style>
 <script>
 export default {
-    name: 'searchTagItem',
+    name: 'SearchTagItem',
     props: {
         tag: {
             type: Object,
@@ -136,7 +154,7 @@ export default {
                 }
             },
         },
-        'tag.selecting'(selecting) {
+        'tag.selecting': function(selecting) {
             selecting && this.$refs.tag && this.$refs.tag.focus();
         },
     },
@@ -164,6 +182,6 @@ export default {
             }
         },
     },
-}
+};
 </script>
 

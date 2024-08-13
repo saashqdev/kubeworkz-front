@@ -159,8 +159,8 @@ export default {
                 }).then(({ Permissions }) => {
                     if (Permissions && Array.isArray(Permissions)) {
                         const map = {};
-                        const UIPermissions = Permissions.find((p) => p.ResourceType === 'UI');
-                        UIPermissions && UIPermissions.OperationTypes.forEach((res) => map[res] = true);
+                        const UIPermissions = Permissions.find(p => p.ResourceType === 'UI');
+                        UIPermissions && UIPermissions.OperationTypes.forEach(res => map[res] = true);
                         this.PlatformPermission = Object.assign({
                             hasBranchView: true,
                         }, PlatformPermission, Object.keys(map).reduce((obj, key) => {

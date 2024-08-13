@@ -1,9 +1,26 @@
 <template>
-    <u-input :size="size" :disabled="disabled" :class="$style.root" :type="show ? 'text' : 'password'" v-model="currentValue" :placeholder="placeholder" :maxlength="maxlength">
-        <i :class="$style.password_icon"></i>
-        <i :class="$style.reset" :show="!!currentValue && !disabled" @click="!disabled && (currentValue = '')"></i>
-        <i :class="$style.eye" :disabled="disabled" :show="show" @click="!disabled && (show = !show)"></i>
-    </u-input>
+  <u-input
+    v-model="currentValue"
+    :size="size"
+    :disabled="disabled"
+    :class="$style.root"
+    :type="show ? 'text' : 'password'"
+    :placeholder="placeholder"
+    :maxlength="maxlength"
+  >
+    <i :class="$style.password_icon" />
+    <i
+      :class="$style.reset"
+      :show="!!currentValue && !disabled"
+      @click="!disabled && (currentValue = '')"
+    />
+    <i
+      :class="$style.eye"
+      :disabled="disabled"
+      :show="show"
+      @click="!disabled && (show = !show)"
+    />
+  </u-input>
 </template>
 <style module>
 .root[class]{
@@ -43,7 +60,7 @@ import { mapComponents } from '@micro-app/common/utils';
 import { service } from '@micro-app/common/views/ncs/services';
 
 export default {
-    name: 'u-password-input',
+    name: 'UPasswordInput',
     components: mapComponents([]),
     props: {
         value: String,
@@ -59,7 +76,7 @@ export default {
         };
     },
     computed: {
-        
+
     },
     watch: {
         currentValue(value) {
@@ -72,5 +89,5 @@ export default {
     },
     methods: {
     },
-}
+};
 </script>

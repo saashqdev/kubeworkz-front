@@ -15,7 +15,10 @@
           <operateList>
             <template v-if="workload !== 'jobs'">
               <template v-if="['deployments', 'statefulsets'].includes(workload)">
-                <operateButtonOption @click="toResize" :disabled="isReview">
+                <operateButtonOption
+                  :disabled="isReview"
+                  @click="toResize"
+                >
                   Adjust the number of pods
                 </operateButtonOption>
               </template>
@@ -26,27 +29,47 @@
                 Rolling update
               </operateButtonOption>
               <template v-if="['deployments', 'statefulsets'].includes(workload)">
-                <operateButtonOption @click="restart" :disabled="isReview">
+                <operateButtonOption
+                  :disabled="isReview"
+                  @click="restart"
+                >
                   Rebuild
                 </operateButtonOption>
               </template>
-              <operateButtonOption @click="deleteItem" :disabled="isReview">
+              <operateButtonOption
+                :disabled="isReview"
+                @click="deleteItem"
+              >
                 Delete
               </operateButtonOption>
-              <operateButtonOption v-if="['deployments', 'statefulsets', 'daemonsets', 'cronjobs', 'configmaps', 'secrets', 'services', 'ingresses'].includes(workload)" @click="editItem" :disabled="isReview">
+              <operateButtonOption
+                v-if="['deployments', 'statefulsets', 'daemonsets', 'cronjobs', 'configmaps', 'secrets', 'services', 'ingresses'].includes(workload)"
+                :disabled="isReview"
+                @click="editItem"
+              >
                 Set up
               </operateButtonOption>
               <template v-if="workload === 'persistentvolumeclaims'">
-                <operateButtonOption @click="editYAML" :disabled="isReview || (instanceInfo && instanceInfo.status.phase !== 'Bound')">
+                <operateButtonOption
+                  :disabled="isReview || (instanceInfo && instanceInfo.status.phase !== 'Bound')"
+                  @click="editYAML"
+                >
                   YAML settings
                 </operateButtonOption>
               </template>
-              <operateButtonOption v-else @click="editYAML" :disabled="isReview">
+              <operateButtonOption
+                v-else
+                :disabled="isReview"
+                @click="editYAML"
+              >
                 YAML settings
               </operateButtonOption>
             </template>
             <template v-else>
-              <operateButtonOption @click="deleteItem" :disabled="isReview">
+              <operateButtonOption
+                :disabled="isReview"
+                @click="deleteItem"
+              >
                 Delete
               </operateButtonOption>
             </template>
@@ -60,7 +83,11 @@
         :processor="resolver"
       >
         <template slot-scope="{ data, loading, error }">
-          <i v-if="loading" class="el-icon-loading" style="font-size: 24px"/>
+          <i
+            v-if="loading"
+            class="el-icon-loading"
+            style="font-size: 24px"
+          />
           <div v-else-if="error">
             Loading error!
           </div>
@@ -68,7 +95,11 @@
             <router-view :instance="data" />
           </template>
           <template v-else>
-            <el-tabs :value="routeName" page="main" @tab-click="(pane) => handleTabClick(pane, getTabs(data))">
+            <el-tabs
+              :value="routeName"
+              page="main"
+              @tab-click="(pane) => handleTabClick(pane, getTabs(data))"
+            >
               <el-tab-pane
                 v-for="(item, index) in getTabs(data)"
                 :key="index"

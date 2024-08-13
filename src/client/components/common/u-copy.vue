@@ -1,18 +1,29 @@
 <template>
-    <div :class="$style.root">
-        <div :class="$style.success" v-show="success" :placement="placement">
-            <u-status-icon name="success">
-                <span style="color:#999">{{ successText }}</span>
-            </u-status-icon>
-        </div>
-        <u-link v-show="!success" ref="copyBtn" :data-clipboard-text="message" :disabled="disabled">{{ text }}</u-link>
+  <div :class="$style.root">
+    <div
+      v-show="success"
+      :class="$style.success"
+      :placement="placement"
+    >
+      <u-status-icon name="success">
+        <span style="color:#999">{{ successText }}</span>
+      </u-status-icon>
     </div>
+    <u-link
+      v-show="!success"
+      ref="copyBtn"
+      :data-clipboard-text="message"
+      :disabled="disabled"
+    >
+      {{ text }}
+    </u-link>
+  </div>
 </template>
 <script>
 import Clipboard from 'clipboard';
 
 export default {
-    name: 'u-copy',
+    name: 'UCopy',
     props: {
         message: String,
         placement: String,
@@ -28,7 +39,7 @@ export default {
         };
     },
     mounted() {
-        this.clipboard = new Clipboard(this.$refs.copyBtn.$el).on('success', (e) => {
+        this.clipboard = new Clipboard(this.$refs.copyBtn.$el).on('success', e => {
             this.success = true;
             clearTimeout(this.timeoutId);
             this.timeoutId = setTimeout(() => {

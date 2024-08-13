@@ -22,32 +22,32 @@ const ncsapis = {
     loadSecrets: {
         method: 'get',
         path: '/clusters/{clusterId}/namespaces/{namespace}/secrets',
-        process: (result) =>
+        process: result =>
             // Do not expose secrets of this type kubernetes.io/service-account-token
             (result.items || [])
-                .filter((item) => item.type !== 'kubernetes.io/service-account-token')
-                .map((item) => normalizeSecret(item))
+                .filter(item => item.type !== 'kubernetes.io/service-account-token')
+                .map(item => normalizeSecret(item))
         ,
     },
     loadConfigMap: {
         method: 'get',
         path: '/clusters/{clusterId}/namespaces/{namespace}/configmaps',
-        process: (result) => (result.items || []).map((item) => normalizeConfigMap(item)),
+        process: result => (result.items || []).map(item => normalizeConfigMap(item)),
     },
     loadServices: {
         method: 'get',
         path: '/extends/clusters/{clusterId}/namespaces/{namespace}/services',
-        process: (result) => {
+        process: result => {
             return {
                 total: result.total || 0,
-                list: (result.services || []).map((item) => normalizeService(item)),
+                list: (result.services || []).map(item => normalizeService(item)),
             };
         },
     },
     loadAllInfo: {
         method: 'get',
         path: '/extends/monitor/query',
-        process: (result) => result.data,
+        process: result => result.data,
     },
 };
 
@@ -59,7 +59,7 @@ const clusterapis = {
         process: (result = {}) => {
             const clusterInfoList = result.clusterInfoList || [];
             return {
-                clusterInfoList: clusterInfoList.filter((item) => !item.isControlCluster)
+                clusterInfoList: clusterInfoList.filter(item => !item.isControlCluster),
             };
         },
     },

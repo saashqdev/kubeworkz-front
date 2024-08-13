@@ -1,5 +1,5 @@
 // cpu related conversion map
-const SPEC_MAP = ['small', 'medium', 'large', 'xlarge', '2xlarge', '4xlarge'];
+const SPEC_MAP = [ 'small', 'medium', 'large', 'xlarge', '2xlarge', '4xlarge' ];
 
 const TYPE_MAP = [
     { text: 'GPU computing type gnpc1', value: 'gnpc1' },
@@ -71,9 +71,9 @@ const CONTAINER_STATUS_MAP = {
 // A set of states in which relevant actions can be performed
 const OPERATE_MAP = {
     // All operations in running state can be performed
-    pending: ['!bind'],
-    abnormal: ['!bind'],
-    arrear: ['delete', 'unbind'],
+    pending: [ '!bind' ],
+    abnormal: [ '!bind' ],
+    arrear: [ 'delete', 'unbind' ],
     // All operations in the loading state cannot be executed
     // setting: ['running', 'Running', 'Abnormal'],
     // delete: ['CreateFail', 'Running', 'Abnormal'],
@@ -87,9 +87,9 @@ const OPERATE_MAP = {
     // unbind: ['Creating', 'CreateFail', 'Running', 'Updating', 'Abnormal'],
 };
 
-const OPERATES = ['setting', 'delete', 'resize', 'updateMirror', 'changeSpec', 'redeploy', 'bind', 'unbind'];
+const OPERATES = [ 'setting', 'delete', 'resize', 'updateMirror', 'changeSpec', 'redeploy', 'bind', 'unbind' ];
 // Default labels
-const DEFAULT_LABELS = ['name', 'zone', 'pod-template-hash'];
+const DEFAULT_LABELS = [ 'name', 'zone', 'pod-template-hash' ];
 
 const CLUSTER_STATUS_MAP = {
     health: 'normal',
@@ -135,8 +135,8 @@ const RECLAIM_POLICY_MAP = {
 };
 
 const WORKLOAD_TEXT_MAP = {
-    deployment: "Deployment",
-    statefulset: "StatefulSet",
+    deployment: 'Deployment',
+    statefulset: 'StatefulSet',
 };
 
 const POLICY_TRIGGER_MAP = {
@@ -158,7 +158,7 @@ const SEVERITY_TEXT_MAP = {
     4: 'medium',
     3: 'lower',
     2: 'unknown',
-    1: 'unknown'
+    1: 'unknown',
 };
 
 const MIDDLE_STATUS_LIST = [ 'pending', 'running' ];
@@ -170,9 +170,9 @@ const RELEASE_STATUS_MAP = {
     superseded: 'deprecated',
     failed: 'deployment failed and abandoned',
     deleting: 'deleting',
-    'pending_install': 'deploying',
-    'pending_upgrade': 'updating',
-    'pending_rollback': 'rolling back'
+    pending_install: 'deploying',
+    pending_upgrade: 'updating',
+    pending_rollback: 'rolling back',
 };
 
 export {

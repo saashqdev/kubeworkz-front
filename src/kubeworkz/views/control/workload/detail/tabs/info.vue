@@ -7,7 +7,10 @@
     >
       Check the detail information
     </el-button>
-    <el-descriptions title="Basic Information" :column="1">
+    <el-descriptions
+      title="Basic Information"
+      :column="1"
+    >
       <el-descriptions-item label="Cluster name">
         {{ cluster }}
       </el-descriptions-item>
@@ -45,13 +48,27 @@
       </template>
       <el-descriptions-item label="Label">
         <div :class="$style.tagWrap">
-          <el-tag type="info" v-for="label in instance.metadata.labels" :key="label.key" :title="label.key + ':' + label.value">{{ label.key }}: {{ label.value }}</el-tag>
+          <el-tag
+            v-for="label in instance.metadata.labels"
+            :key="label.key"
+            type="info"
+            :title="label.key + ':' + label.value"
+          >
+            {{ label.key }}: {{ label.value }}
+          </el-tag>
         </div>
       </el-descriptions-item>
       <!-- ??? -->
       <el-descriptions-item label="Annotation">
         <div :class="$style.tagWrap">
-          <el-tag type="info" v-for="label in instance.metadata.annotations" :key="label.key" :title="label.key + ':' + label.value">{{ label.key }}: {{ label.value }}</el-tag>
+          <el-tag
+            v-for="label in instance.metadata.annotations"
+            :key="label.key"
+            type="info"
+            :title="label.key + ':' + label.value"
+          >
+            {{ label.key }}: {{ label.value }}
+          </el-tag>
         </div>
       </el-descriptions-item>
       <el-descriptions-item
@@ -75,12 +92,22 @@
         :column="1"
       >
         <div :class="$style.tagWrap">
-          <el-tag type="info" v-for="label in instance.spec.matchLabels" :key="label.key" :title="label.key + ':' + label.value">{{ label.key }}: {{ label.value }}</el-tag>
+          <el-tag
+            v-for="label in instance.spec.matchLabels"
+            :key="label.key"
+            type="info"
+            :title="label.key + ':' + label.value"
+          >
+            {{ label.key }}: {{ label.value }}
+          </el-tag>
         </div>
       </el-descriptions-item>
-      <el-descriptions-item label="Level" v-if="workload === 'daemonsets'">
-        {{instance.spec.level.ind === 'platform' ? 'platform level' : ''}}
-        {{instance.spec.level.ind === 'tenant' ? instance.spec.level.tenant : ''}}
+      <el-descriptions-item
+        v-if="workload === 'daemonsets'"
+        label="Level"
+      >
+        {{ instance.spec.level.ind === 'platform' ? 'platform level' : '' }}
+        {{ instance.spec.level.ind === 'tenant' ? instance.spec.level.tenant : '' }}
       </el-descriptions-item>
       <el-descriptions-item
         v-if="workload === 'deployments'"
@@ -104,7 +131,7 @@
 
       <template v-if="workload === 'jobs'">
         <el-descriptions-item label="Status">
-          <statusIcon :name="instance.status.runningStatus | getJobStatusIcon"/> {{ instance.status.runningStatus | getJobStatusText }}
+          <statusIcon :name="instance.status.runningStatus | getJobStatusIcon" /> {{ instance.status.runningStatus | getJobStatusText }}
         </el-descriptions-item>
         <el-descriptions-item label="Expected number of successful executions">
           {{ instance.spec.completions }}
@@ -120,13 +147,23 @@
         </el-descriptions-item>
       </template>
     </el-descriptions>
-    <el-descriptions title="Deploy template" :column="1">
+    <el-descriptions
+      title="Deploy template"
+      :column="1"
+    >
       <el-descriptions-item label="Container">
         {{ instance.containers.map(c => c.containerName).join(',') }}
       </el-descriptions-item>
       <el-descriptions-item label="Label">
         <div :class="$style.tagWrap">
-          <el-tag type="info" v-for="label in instance.podTemplate.metadata.labels" :key="label.key" :title="label.key + ':' + label.value">{{ label.key }}: {{ label.value }}</el-tag>
+          <el-tag
+            v-for="label in instance.podTemplate.metadata.labels"
+            :key="label.key"
+            type="info"
+            :title="label.key + ':' + label.value"
+          >
+            {{ label.key }}: {{ label.value }}
+          </el-tag>
         </div>
       </el-descriptions-item>
       <el-descriptions-item label="Restart strategy">
@@ -134,7 +171,10 @@
       </el-descriptions-item>
     </el-descriptions>
     <template v-if="workload !== 'cronjobs'">
-      <el-descriptions title="Condition" :column="1" />
+      <el-descriptions
+        title="Condition"
+        :column="1"
+      />
       <el-table
         :data="instance.status.conditions"
         style="width: 100%"

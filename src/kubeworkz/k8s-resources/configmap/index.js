@@ -33,7 +33,7 @@ export function toK8SObject(model) {
         return {
             key: item.key,
             value: item.value ? item.value.replaceAll('\r', '') : item.value,
-        }
+        };
     }), 'key', 'value'); // data key-value
     const annotations = getFun(obj, 'metadata.annotations', {});
     if (model.isJoinImage && model.joinImage) {

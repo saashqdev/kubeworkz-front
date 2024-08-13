@@ -102,11 +102,11 @@ export default {
             }
             if (stepData.values) {
                 if (Array.isArray(stepData.values)) {
-                    stepData.values.forEach((value) => {
+                    stepData.values.forEach(value => {
                         value.selecting = false;
                     });
                 } else {
-                    Object.keys(stepData.values).forEach((value) => {
+                    Object.keys(stepData.values).forEach(value => {
                         stepData.values[value].selecting = false;
                     });
                 }
@@ -124,7 +124,7 @@ export default {
                 const stepData = this.stepData = current.datas[current.values.length];
                 if (stepData && stepData.remote) {
                     if (!stepData.isCache || (stepData.isCache && !stepData.values)) {
-                        stepData.remote().then((data) => {
+                        stepData.remote().then(data => {
                             this.$set(stepData, 'values', data);
                         });
                     }
@@ -150,7 +150,7 @@ export default {
             if (this.timer) {
                 clearTimeout(this.timer);
             }
-            this.timer = this.$nextTick(function () {
+            this.timer = this.$nextTick(function() {
                 this.$refs && this.$refs.defalutValue && this.$refs.defalutValue[isFoucs ? 'focus' : 'blur']();
             }, 0);
         },
@@ -215,17 +215,17 @@ export default {
                 }
                 item.selecting = false;
             });
-            const isDisabeld = (typeIndex) => {
+            const isDisabeld = typeIndex => {
                 if (isRoot) {
                     const cur = this.tagTypes[typeIndex];
-                    return cur.unique && this.info.tags.filter((item) => cur.type === item.type).length;
+                    return cur.unique && this.info.tags.filter(item => cur.type === item.type).length;
                 }
                 const selected = this.info.selected;
                 const current = this.current;
                 const currentSelected = (selected[current.type] || {})[current.values.length];
                 return currentSelected && tagTypes[typeIndex].unique && currentSelected.indexOf(tagTypes[typeIndex].type) !== -1;
             };
-            const getNext = function (typeIndex) {
+            const getNext = function(typeIndex) {
                 if (typeIndex === -1) {
                     typeIndex = arrow === 'down' ? startIndex : lastIndex;
                 } else if (arrow === 'down') {
@@ -269,11 +269,11 @@ export default {
         // Clear a type selected with the keyboard
         clearSelectingTagType() {
             const tagTypes = this.tagTypes;
-            tagTypes.forEach((item) => {
+            tagTypes.forEach(item => {
                 item.selecting = false;
             });
             const datas = (this.current || {}).datas;
-            (datas || []).forEach((item) => {
+            (datas || []).forEach(item => {
                 if (item.type === 'select') {
                     item.selecting = false;
                 }
@@ -286,10 +286,10 @@ export default {
                 tagTypes = stepData.values;
             }
             if (tagTypes && !Array.isArray(tagTypes)) {
-                tagTypes = Object.keys(tagTypes).map((item) => tagTypes[item]);
+                tagTypes = Object.keys(tagTypes).map(item => tagTypes[item]);
             }
             return tagTypes;
         },
-        },
-}
+    },
+};
 </script>

@@ -23,8 +23,8 @@ export function toPlainObject(model) {
             const status = g('status');
             let cpuUsage = 0;
             let memoryUsage = 0;
-            const tempContainers = containers.filter(item => item.type === 'normal')
-            const tempInitContainers = containers.filter(item => item.type === 'init')
+            const tempContainers = containers.filter(item => item.type === 'normal');
+            const tempInitContainers = containers.filter(item => item.type === 'init');
             tempContainers.forEach(i => {
                 cpuUsage += get(i, 'resources.cpu', 0);
                 memoryUsage += get(i, 'resources.memory', 0);

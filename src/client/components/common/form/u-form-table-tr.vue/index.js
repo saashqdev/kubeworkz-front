@@ -12,7 +12,7 @@ export default {
         isEmpty: { type: Function }, // How to judge whether it is an invalid array item
         global: { type: Boolean, default: true }, // Whether to throw events to u-form
     },
-    mixins: [uFromItems],
+    mixins: [ uFromItems ],
     created() {
         this.dispatch('u-form-table', 'add-item-tr', this);
     },
@@ -31,10 +31,9 @@ export default {
         },
         currentIndex() {
             if (this.table) {
-                const index = this.table.trList.findIndex((item) => item === this);
+                const index = this.table.trList.findIndex(item => item === this);
                 return index > -1 ? index : 0;
-            } else
-                return 0;
+            } return 0;
         },
         isEmptyValid() {
             return (this.table && this.table.trList.length === 1 && !this.canBeEmpty && this.isEmpty) ? !this.isEmpty() : true;
@@ -42,17 +41,16 @@ export default {
     },
     methods: {
         removeTr() {
-            if (this.disabled)
-                return;
+            if (this.disabled) { return; }
             this.$emit('remove');
         },
         validate(trigger = 'submit', silent = false) {
             this.dispatch('u-form-table', 'change-item-tr', true);
             this.state = 'validating';
-            const validateAll = this.fieldVMs.filter((fieldVM) => fieldVM.$attrs.name).map((fieldVM, i) => {
+            const validateAll = this.fieldVMs.filter(fieldVM => fieldVM.$attrs.name).map((fieldVM, i) => {
                 let rules = this.currentRules[fieldVM.$attrs.name];
                 fieldVM.currentColor = undefined;
-                rules = rules && rules.filter((rule) => (rule.trigger + '+submit').includes(trigger)).filter((item) => !item.ignore);
+                rules = rules && rules.filter(rule => (rule.trigger + '+submit').includes(trigger)).filter(item => !item.ignore);
                 if (!rules || !rules.length) {
                     this.dispatch('u-form-table', 'validate-item-tr', true);
                     this.global && this.dispatch('u-form', 'validate-item-vm', true);
@@ -73,8 +71,7 @@ export default {
                         if (errors) {
                             !silent && (fieldVM.currentColor = 'error');
                             reject(errors);
-                        } else
-                            resolve();
+                        } else { resolve(); }
                     });
                 });
             });
@@ -85,7 +82,7 @@ export default {
                 }
                 this.dispatch('u-form-table', 'validate-item-tr', true);
                 this.global && this.dispatch('u-form', 'validate-item-vm');
-            }).catch((errors) => {
+            }).catch(errors => {
                 this.state = 'error';
                 if (!silent) {
                     this.currentMessage = errors.length && errors[0].message;

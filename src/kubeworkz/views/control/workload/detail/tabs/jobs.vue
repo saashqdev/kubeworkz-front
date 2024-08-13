@@ -6,11 +6,11 @@
         style="width: 200px"
       >
         <el-option
-            v-for="item in statusList"
-            :key="item.value"
-            :label="item.text"
-            :value="item.value"
-            :title="item.text"
+          v-for="item in statusList"
+          :key="item.value"
+          :label="item.text"
+          :value="item.value"
+          :title="item.text"
         />
       </el-select>
       <!-- <u-select
@@ -35,8 +35,7 @@
           <el-table-column
             prop="metadata.name"
             label="Name"
-          >
-          </el-table-column>
+          />
           <el-table-column
             prop="status.runningStatus"
             label="Status"
@@ -70,7 +69,10 @@
             width="100"
           >
             <template slot-scope="{ row }">
-              <el-link type="primary" @click="deleteItem(row)">
+              <el-link
+                type="primary"
+                @click="deleteItem(row)"
+              >
                 Delete
               </el-link>
             </template>
@@ -174,7 +176,7 @@ export default {
                     await workloadService.deleteBatchInstance(reqParam);
                     this.$refs.request.request();
                 },
-            })
+            });
         },
     },
 };

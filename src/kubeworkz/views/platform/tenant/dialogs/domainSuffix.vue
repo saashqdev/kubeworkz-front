@@ -1,57 +1,68 @@
 <template>
-    <el-dialog
-      title="Custom domain name suffix"
-      :visible.sync="show"
-      width="800px"
-      :close-on-click-modal="false"
+  <el-dialog
+    title="Custom domain name suffix"
+    :visible.sync="show"
+    width="800px"
+    :close-on-click-modal="false"
+  >
+    <div>
+      This configuration information is used for the domain name suffix used by load balancing (Ingress) forwarding rules.
+    </div>
+    <el-form
+      ref="form"
+      :model="model"
     >
-      <div>
-        This configuration information is used for the domain name suffix used by load balancing (Ingress) forwarding rules.
-      </div>
-      <el-form ref="form" :model="model">
-        <el-form-item label="">
-          <dynamicBlock
-            v-model="model.domainSuffixList"
-            :getDefaultItem="getDataTemplate"
-            :columns="[
-              {
-                title: '',
-                dataIndex: 'order',
-                width: '120px'
-              },
-              {
-                title: '',
-                dataIndex: 'name',
-              },
-            ]"
-          >
-            <template v-slot:order="{index}">
-              <div style="text-align: right">
-                Domain name suffix {{ index + 1 }}:
-              </div>
-            </template>
-            <template v-slot:name="{record, index}">
-              <el-form-item 
-                label=""
-                :prop="`domainSuffixList.${index}.name`"
-                :rules="[
-                  validators.ingressSuffix(),
-                  validators.noRedundance(existSuffixs)
-                ]"
-              >
-                <el-input
-                  v-model="record.name"
-                />
-              </el-form-item>
-            </template>
-          </dynamicBlock>
-        </el-form-item>
-      </el-form>
-      <div slot="footer">
-        <el-button @click="close">Cancel</el-button>
-        <el-button type="primary" @click="submit" :loading="commitLoading">OK</el-button>
-      </div>
-    </el-dialog>
+      <el-form-item label="">
+        <dynamicBlock
+          v-model="model.domainSuffixList"
+          :get-default-item="getDataTemplate"
+          :columns="[
+            {
+              title: '',
+              dataIndex: 'order',
+              width: '120px'
+            },
+            {
+              title: '',
+              dataIndex: 'name',
+            },
+          ]"
+        >
+          <template #order="{index}">
+            <div style="text-align: right">
+              Domain name suffix {{ index + 1 }}:
+            </div>
+          </template>
+          <template #name="{record, index}">
+            <el-form-item
+              label=""
+              :prop="`domainSuffixList.${index}.name`"
+              :rules="[
+                validators.ingressSuffix(),
+                validators.noRedundance(existSuffixs)
+              ]"
+            >
+              <el-input
+                v-model="record.name"
+              />
+            </el-form-item>
+          </template>
+        </dynamicBlock>
+      </el-form-item>
+    </el-form>
+    <div slot="footer">
+      <el-button @click="close">
+        Cancel
+      </el-button>
+      <el-button
+        type="primary"
+        :loading="commitLoading"
+        @click="submit"
+      >
+        OK
+      </el-button>
+    </div>
+  </el-dialog>
 </template>
 <script>
 import k8sResourceService from 'kubeworkz/services/k8s-resource';

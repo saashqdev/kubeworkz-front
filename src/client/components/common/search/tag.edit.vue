@@ -1,35 +1,46 @@
 <template>
-    <div :class="$style.wrap1">
-        <div :class="$style.wrap" ref="wrap" >
-            <textarea type="text" 
-            :class="[$style.defaultInput]" 
-            edit
-            v-textareaAuto rows="1" 
-            ref="defalutValue"
-            @focus="updateStatus(true)"
-            @keyup.backspace.stop.prevent="clearInput($event)"
-            @keyup.delete-origin.stop.prevent="stopPropagation($event)"
-            @input="checkInput($event)"
-            @keyup.up.stop.prevent="stepSelectingTagType($event, 'up')"
-            @keyup.down.stop.prevent="stepSelectingTagType($event, 'down')"
-            @keyup.left.stop.prevent="focusTag($event)"
-            @keyup.right.stop.prevent="stopPropagation($event)"
-            v-model="current.value"
-            @keyup.enter.stop.prevent="updateTag(false,$event)"
-            @blur.stop.prevent="updateTag(true,$event)"
-            v-autoScroll="true" 
-            ></textarea>
-            <span :mutil="!!info.tags.length" :class="[$style.textareaShadow]" ref="shadow" >
-                {{(current.value || '') + 'zw'}}
-                <!-- zw is used for placeholder -->
-            </span>
-        </div>
-
-        <searchTagType 
-            v-if="stepData && stepData.type === 'select' && stepData.values" 
-            :tagTypes="stepData.values" @select="stepDataSelectFunc($event)" 
-            :selected="info.selected[current.type][current.values.length]"></searchTagType>
+  <div :class="$style.wrap1">
+    <div
+      ref="wrap"
+      :class="$style.wrap"
+    >
+      <textarea
+        ref="defalutValue"
+        v-model="current.value"
+        v-textareaAuto
+        v-autoScroll="true"
+        type="text"
+        :class="[$style.defaultInput]"
+        edit
+        rows="1"
+        @focus="updateStatus(true)"
+        @keyup.backspace.stop.prevent="clearInput($event)"
+        @keyup.delete-origin.stop.prevent="stopPropagation($event)"
+        @input="checkInput($event)"
+        @keyup.up.stop.prevent="stepSelectingTagType($event, 'up')"
+        @keyup.down.stop.prevent="stepSelectingTagType($event, 'down')"
+        @keyup.left.stop.prevent="focusTag($event)"
+        @keyup.right.stop.prevent="stopPropagation($event)"
+        @keyup.enter.stop.prevent="updateTag(false,$event)"
+        @blur.stop.prevent="updateTag(true,$event)"
+      />
+      <span
+        ref="shadow"
+        :mutil="!!info.tags.length"
+        :class="[$style.textareaShadow]"
+      >
+        {{ (current.value || '') + 'zw' }}
+        <!-- zw is used for placeholder -->
+      </span>
     </div>
+
+    <searchTagType
+      v-if="stepData && stepData.type === 'select' && stepData.values"
+      :tag-types="stepData.values"
+      :selected="info.selected[current.type][current.values.length]"
+      @select="stepDataSelectFunc($event)"
+    />
+  </div>
 </template>
 
 
@@ -37,7 +48,7 @@
 import tagEditBase from './tag.edit.base.vue';
 import _ from 'lodash';
 export default {
-    name: 'searchTagItemEdit',
+    name: 'SearchTagItemEdit',
     extends: tagEditBase,
     props: {
         placeholder: String,
@@ -52,7 +63,7 @@ export default {
         current.isEmpty = true;
         return {
             defaultTypeIndex: 0,
-            
+
             typeIndex: undefined,
             stepData: null,
             stepDataSelect: false,
@@ -81,15 +92,15 @@ export default {
             const show = current.show();
             const inputShow = current.value || '';
             const stepData = this.stepData;
-            const currentStepIsInput = function () {
+            const currentStepIsInput = function() {
                 return !stepData || stepData.type === 'input';
             };
             // Subset
-            const isSub = function () {
+            const isSub = function() {
                 return show.indexOf(inputShow) !== -1;
             };
             // Mako collection
-            const isTrueSub = function () {
+            const isTrueSub = function() {
                 return isSub() && show !== inputShow;
             };
             const resetCurrent = () => {
@@ -145,7 +156,7 @@ export default {
         },
         updateTag(isBlur, $event) {
             this.stopPropagation($event);
-            let currentOrigin = this.current;
+            const currentOrigin = this.current;
             const current = Object.assign({}, currentOrigin);
             current.values = [].concat(currentOrigin.values);
             const typeIndex = this.typeIndex;
@@ -167,8 +178,8 @@ export default {
                     } else {
                         this.$emit('tagdone', {
                             $event: {
-                                mute: true
-                            }
+                                mute: true,
+                            },
                         });
                     }
                 }
@@ -199,6 +210,6 @@ export default {
             }
         },
     },
-}
+};
 </script>
 

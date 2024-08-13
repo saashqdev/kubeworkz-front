@@ -1,23 +1,27 @@
 <template>
-    <i v-if="loading" class="el-icon-loading" style="font-size: 24px"/>
-    <el-select
-        v-else-if="list.length > 0"
-        v-bind="$attrs"
-        v-model="modelValue"
-    >
-        <el-option
-            v-for="optionItem in (list || [])"
-            :key="optionItem.value"
-            :label="optionItem.text"
-            :value="optionItem.value">
-        </el-option>
-    </el-select>
-    <el-input
-        v-else
-        v-bind="$attrs"
-        placeholder="No cluster yet"
-        disabled
+  <i
+    v-if="loading"
+    class="el-icon-loading"
+    style="font-size: 24px"
+  />
+  <el-select
+    v-else-if="list.length > 0"
+    v-model="modelValue"
+    v-bind="$attrs"
+  >
+    <el-option
+      v-for="optionItem in (list || [])"
+      :key="optionItem.value"
+      :label="optionItem.text"
+      :value="optionItem.value"
     />
+  </el-select>
+  <el-input
+    v-else
+    v-bind="$attrs"
+    placeholder="No cluster yet"
+    disabled
+  />
 </template>
 
 <script>

@@ -24,7 +24,7 @@ export default {
         current = current || this.current;
         const selected = this.info.selected[current.type];
         if (selected) {
-            Object.keys(selected).forEach((item) => {
+            Object.keys(selected).forEach(item => {
                 this.updateSelected(current.type, current.values[item], item, true);
             });
         }

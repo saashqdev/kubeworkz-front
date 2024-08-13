@@ -3,11 +3,11 @@
     <el-form-item label="Environment variables">
       <dynamicTab
         :value="tabs"
-        :showAddBtn="false"
-        :showDeleteBtn="false"
+        :show-add-btn="false"
+        :show-delete-btn="false"
       >
-        <template v-slot:tabNav="{item}">
-          {{item.title}}
+        <template #tabNav="{item}">
+          {{ item.title }}
           <span
             v-if="item.tab === 'value' && valueLength"
             :class="$style.indicator"
@@ -38,39 +38,42 @@
           >
             {{ resourceLength }}
           </span>
-          <i v-if="hasError(item.tab, validateStatus)" :class="['el-icon-warning', $style.errorIcon]"/>
+          <i
+            v-if="hasError(item.tab, validateStatus)"
+            :class="['el-icon-warning', $style.errorIcon]"
+          />
         </template>
         <template slot-scope="{item}">
           <value-config
             v-if="item.tab === 'value'"
             v-model="model.value"
             :prefix-key="`${errorPrefix}.${item.tab}`"
-            :existKeys="existKeys"
+            :exist-keys="existKeys"
           />
           <secret-config
             v-if="item.tab === 'secretKeyRef'"
             v-model="model.secretKeyRef"
             :prefix-key="`${errorPrefix}.${item.tab}`"
-            :existKeys="existKeys"
+            :exist-keys="existKeys"
           />
           <configmap-config
             v-if="item.tab === 'configMapKeyRef'"
             v-model="model.configMapKeyRef"
-            :existKeys="existKeys"
+            :exist-keys="existKeys"
             :prefix-key="`${errorPrefix}.${item.tab}`"
           />
           <field-config
             v-if="item.tab === 'fieldRef'"
             v-model="model.fieldRef"
             :prefix-key="`${errorPrefix}.${item.tab}`"
-            :existKeys="existKeys"
+            :exist-keys="existKeys"
           />
           <resource-config
             v-if="item.tab === 'resourceFieldRef'"
             v-model="model.resourceFieldRef"
             :containers="containers"
             :prefix-key="`${errorPrefix}.${item.tab}`"
-            :existKeys="existKeys"
+            :exist-keys="existKeys"
           />
         </template>
       </dynamicTab>
@@ -94,11 +97,11 @@ export default {
         resourceConfig,
     },
     mixins: [ makeVModelMixin ],
+    inject: [ 'elForm' ],
     props: {
         errorPrefix: String,
         containers: Array,
     },
-    inject: [ 'elForm' ],
     data() {
         return {
             tabs: [
@@ -108,22 +111,15 @@ export default {
                 { tab: 'fieldRef', title: 'Field' },
                 { tab: 'resourceFieldRef', title: 'Resource' },
             ],
-            validateStatus: {}
-        }
-    },
-    watch: {
-        model: {
-            handler() {
-                this.validateStatus = {};
-            },
-        },
+            validateStatus: {},
+        };
     },
     computed: {
         existKeys() {
-            const typeKeys = Object.keys(this.model)
+            const typeKeys = Object.keys(this.model);
             const res = [];
             typeKeys.forEach(type => {
-                res.push(...(this.model[type] || []).map(i => i.key))
+                res.push(...(this.model[type] || []).map(i => i.key));
             });
             return res.filter(i => i);
         },
@@ -141,6 +137,13 @@ export default {
         },
         resourceLength() {
             return this.model.resourceFieldRef.filter(p => p.key && p.resource && p.resoueceKey).length;
+        },
+    },
+    watch: {
+        model: {
+            handler() {
+                this.validateStatus = {};
+            },
         },
     },
     mounted() {

@@ -1,25 +1,33 @@
 <template>
-    <div :class="$style.code">
-        <div class="f-tac" v-if="loading"><u-loading></u-loading></div>
-        <div :class="$style.content" v-else>
-            <pre :class="$style.text">{{code}}</pre>
-        </div>
+  <div :class="$style.code">
+    <div
+      v-if="loading"
+      class="f-tac"
+    >
+      <u-loading />
     </div>
+    <div
+      v-else
+      :class="$style.content"
+    >
+      <pre :class="$style.text">{{ code }}</pre>
+    </div>
+  </div>
 </template>
 <script>
 export default {
-    name: 'u-code-text',
+    name: 'UCodeText',
     props: {
         code: {
             type: String,
-            default: ''
+            default: '',
         },
         loading: {
             type: Boolean,
             default: false,
-        }
-    }
-}
+        },
+    },
+};
 </script>
 <style module>
 .code{

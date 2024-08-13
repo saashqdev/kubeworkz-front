@@ -1,15 +1,40 @@
 <template>
-    <div :class="$style.cardWrap">
-        <div :class="$style.cardHeader">
-            <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" :disabled="disabled || options.length === 0">Select all</el-checkbox>
-        </div>
-        <div :class="$style.cardBody">
-            <el-checkbox-group v-if="options.length" v-model="checkedItems" :class="$style.checkboxGroup" :disabled="disabled">
-                <el-checkbox v-for="item in options" :label="item.value" :key="item.value" :class="$style.checkboxItem" :disabled="disabled || !!options.disabled" :title="item.text">{{item.text}}</el-checkbox>
-            </el-checkbox-group>
-            <div v-else :class="$style.emptyMesasge">{{placeholder}}</div>
-        </div>
+  <div :class="$style.cardWrap">
+    <div :class="$style.cardHeader">
+      <el-checkbox
+        v-model="checkAll"
+        :indeterminate="isIndeterminate"
+        :disabled="disabled || options.length === 0"
+      >
+        Select all
+      </el-checkbox>
     </div>
+    <div :class="$style.cardBody">
+      <el-checkbox-group
+        v-if="options.length"
+        v-model="checkedItems"
+        :class="$style.checkboxGroup"
+        :disabled="disabled"
+      >
+        <el-checkbox
+          v-for="item in options"
+          :key="item.value"
+          :label="item.value"
+          :class="$style.checkboxItem"
+          :disabled="disabled || !!options.disabled"
+          :title="item.text"
+        >
+          {{ item.text }}
+        </el-checkbox>
+      </el-checkbox-group>
+      <div
+        v-else
+        :class="$style.emptyMesasge"
+      >
+        {{ placeholder }}
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 export default {
@@ -28,21 +53,13 @@ export default {
         },
         placeholder: {
             type: String,
-            default: 'No options available yet'
-        }
+            default: 'No options available yet',
+        },
     },
     data() {
         return {
             checkedItems: this.value || [],
         };
-    },
-    watch: {
-        value(val) {
-            this.checkedItems = val;
-        },
-        checkedItems(val) {
-            this.$emit('input', val);
-        },
     },
     computed: {
         isIndeterminate() {
@@ -61,6 +78,14 @@ export default {
             set(newValue) {
                 this.checkedItems = newValue ? this.options.map(item => item.value) : [];
             },
+        },
+    },
+    watch: {
+        value(val) {
+            this.checkedItems = val;
+        },
+        checkedItems(val) {
+            this.$emit('input', val);
         },
     },
     methods: {

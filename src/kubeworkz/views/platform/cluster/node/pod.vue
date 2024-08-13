@@ -1,8 +1,12 @@
 <template>
   <div>
     <div style="margin-bottom:12px;overflow:hidden">
-      <inputSearch placeholder="Please enter name to search" position="right" @search="onSearch"/>
-     </div>
+      <inputSearch
+        placeholder="Please enter name to search"
+        position="right"
+        @search="onSearch"
+      />
+    </div>
     <x-request
       ref="request"
       :service="service"
@@ -22,30 +26,26 @@
             label="Pod name"
             :show-overflow-tooltip="true"
             sortable
-          >
-          </el-table-column>
+          />
           <el-table-column
             prop="status.podIP"
             label="IP"
             :show-overflow-tooltip="true"
             width="100"
-          >
-          </el-table-column>
+          />
           <el-table-column
             prop="status.phase"
             label="Replica status"
             :show-overflow-tooltip="true"
             sortable
             width="120"
-          >
-          </el-table-column>
+          />
           <el-table-column
             prop="status.restartCount"
             label="Number of restarts"
             :show-overflow-tooltip="true"
             width="70"
-          >
-          </el-table-column>
+          />
           <el-table-column
             prop="status.cpuUsage"
             label="CPU usage"
@@ -63,7 +63,7 @@
             width="100"
           >
             <template slot-scope="{ row }">
-              {{ row.status.memoryUsage && row.status.memoryUsage.toFixed(2)  }} Mi
+              {{ row.status.memoryUsage && row.status.memoryUsage.toFixed(2) }} Mi
             </template>
           </el-table-column>
           <el-table-column
@@ -71,8 +71,7 @@
             label="Namespace"
             :show-overflow-tooltip="true"
             width="100"
-          >
-          </el-table-column>
+          />
           <el-table-column
             prop="metadata.creationTimestamp"
             label="Creation time"
@@ -92,23 +91,33 @@
           >
             <template slot-scope="{ row }">
               <qz-link-group max="3">
-                <el-link type="primary" @click="viewYAML(row)">Check the details</el-link>
-                <el-link type="primary" @click="deleteItem(row)">Delete</el-link>
+                <el-link
+                  type="primary"
+                  @click="viewYAML(row)"
+                >
+                  Check the details
+                </el-link>
+                <el-link
+                  type="primary"
+                  @click="deleteItem(row)"
+                >
+                  Delete
+                </el-link>
               </qz-link-group>
             </template>
           </el-table-column>
         </el-table>
         <el-pagination
-          style="float:right;margin-top:12px"
           v-if="data && calculatePages(data.total) > 0"
-          @size-change="pageSizeChange"
-          @current-change="pageNumChange"
+          style="float:right;margin-top:12px"
           :current-page="pagenation.pageNum"
           :page-sizes="[10, 20, 30, 40, 50, 100]"
           :page-size="pagenation.pageSize"
           layout="total, sizes, prev, pager, next"
           :total="data.total"
           background
+          @size-change="pageSizeChange"
+          @current-change="pageNumChange"
         />
       </template>
     </x-request>
@@ -126,10 +135,10 @@ export default {
         title: 'kubeworkz',
         titleTemplate: '%s - Pod',
     },
-    mixins: [ PageMixin ],
     components: {
         inputSearch,
     },
+    mixins: [ PageMixin ],
     data() {
         return {
             service: workloadService.getResourceListWithoutNamespace,
@@ -184,9 +193,9 @@ export default {
             this.pagenation.sortFunc = name === 'creationTimestamp' ? 'time' : 'string';
         },
         onSearch(content) {
-            let temp = content ? `metadata.name~${content}` : undefined;
-            if(this.pagenation.selector === temp) {
-                this.refresh()
+            const temp = content ? `metadata.name~${content}` : undefined;
+            if (this.pagenation.selector === temp) {
+                this.refresh();
             }
             this.pagenation.selector = temp;
         },

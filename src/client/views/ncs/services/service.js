@@ -8,10 +8,10 @@ const apis = {
     loads: {
         method: 'get',
         path: '/extends/clusters/{clusterId}/namespaces/{namespace}/services',
-        process: (result) => {
+        process: result => {
             return {
                 total: result.total || 0,
-                list: (result.items || []).map((item) => normalizeService(item)),
+                list: (result.items || []).map(item => normalizeService(item)),
             };
         },
     },
@@ -19,17 +19,17 @@ const apis = {
         method: 'get',
         path: '/extends/clusters/{clusterId}/namespaces/{namespace}/services',
         limit: 1000,
-        process: (result) => {
+        process: result => {
             return {
                 total: result.total || 0,
-                list: (result.items || []).map((item) => normalizeService(item)),
+                list: (result.items || []).map(item => normalizeService(item)),
             };
         },
     },
     load: {
         method: 'get',
         path: '/extends/clusters/{clusterId}/namespaces/{namespace}/services/{name}',
-        process: (result) => {
+        process: result => {
             return normalizeService(result);
         },
     },

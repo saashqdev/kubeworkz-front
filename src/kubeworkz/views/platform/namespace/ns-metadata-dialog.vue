@@ -2,31 +2,49 @@
   <el-dialog
     title="Modify meta information"
     :visible.sync="show"
-    @close="close"
     width="940px"
     :close-on-click-modal="false"
+    @close="close"
   >
-    <i v-if="loading" class="el-icon-loading" style="font-size: 24px"/>
-    <el-form v-else-if="model" ref="form" :model="model" label-position="right" label-width="120px">
+    <i
+      v-if="loading"
+      class="el-icon-loading"
+      style="font-size: 24px"
+    />
+    <el-form
+      v-else-if="model"
+      ref="form"
+      :model="model"
+      label-position="right"
+      label-width="120px"
+    >
       <el-form-item label="Label">
         <labelEditor
-          workload="namespace"
-          prefixKey="labels"
           v-model="model.metadata.labels"
-          prefixProp="metadata.labels"
+          workload="namespace"
+          prefix-key="labels"
+          prefix-prop="metadata.labels"
         />
       </el-form-item>
       <el-form-item label="Annotation">
         <labelEditor
-          prefixKey="annotations"
           v-model="model.metadata.annotations"
-          prefixProp="metadata.annotations"
+          prefix-key="annotations"
+          prefix-prop="metadata.annotations"
         />
       </el-form-item>
     </el-form>
     <div slot="footer">
-        <el-button @click="close">Cancel</el-button>
-        <el-button type="primary" @click="submit" :loading="submitting">OK</el-button>
+      <el-button @click="close">
+        Cancel
+      </el-button>
+      <el-button
+        type="primary"
+        :loading="submitting"
+        @click="submit"
+      >
+        OK
+      </el-button>
     </div>
   </el-dialog>
 </template>

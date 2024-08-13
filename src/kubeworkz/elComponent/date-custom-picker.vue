@@ -1,10 +1,25 @@
 <template>
   <div>
     <template v-if="currentType === 'quick'">
-      <el-radio-group  v-model="quickValue" @change="handleQuickValueChange">
-        <el-radio-button v-for="(item, index) in quickOptions" :key="index" :label="item.value">{{item.text}}</el-radio-button>
+      <el-radio-group
+        v-model="quickValue"
+        @change="handleQuickValueChange"
+      >
+        <el-radio-button
+          v-for="(item, index) in quickOptions"
+          :key="index"
+          :label="item.value"
+        >
+          {{ item.text }}
+        </el-radio-button>
       </el-radio-group>
-      <el-link style="margin-left:8px" type="primary" @click="handleChangeCurrentType('custom')">Customize</el-link>
+      <el-link
+        style="margin-left:8px"
+        type="primary"
+        @click="handleChangeCurrentType('custom')"
+      >
+        Customize
+      </el-link>
     </template>
     <template
       v-else
@@ -22,12 +37,24 @@
         placeholder="End Time"
         :clearable="false"
       />
-      <el-button style="margin-left:8px" type="primary" @click="handleOk">OK</el-button>
-      <el-link style="margin-left:8px" type="primary" @click="handleChangeCurrentType('quick')">Return to default</el-link>
+      <el-button
+        style="margin-left:8px"
+        type="primary"
+        @click="handleOk"
+      >
+        OK
+      </el-button>
+      <el-link
+        style="margin-left:8px"
+        type="primary"
+        @click="handleChangeCurrentType('quick')"
+      >
+        Return to default
+      </el-link>
     </template>
 
     <!-- <el-date-picker
-      
+
       v-model="timeRange"
       type="datetimerange"
       range-separator="to"
@@ -38,100 +65,100 @@
 </template>
 <script>
 export default {
-  props: {
-    quickOptions: {
-      type: Array,
-      default: () => {
-        return [
-          { text: 'nearly 30 minutes', value: 30 * 60 * 1000 },
-          { text: 'nearly 6 hours', value: 360 * 60 * 1000 },
-          { text: 'last 1 day', value: 1440 * 60 * 1000 },
-        ]
-      }
+    props: {
+        quickOptions: {
+            type: Array,
+            default: () => {
+                return [
+                    { text: 'nearly 30 minutes', value: 30 * 60 * 1000 },
+                    { text: 'nearly 6 hours', value: 360 * 60 * 1000 },
+                    { text: 'last 1 day', value: 1440 * 60 * 1000 },
+                ];
+            },
+        },
+        date: {
+            type: Object,
+            default: () => ({}),
+        },
     },
-    date: {
-      type: Object,
-      default: () => ({})
-    }
-  },
-  data() {
-   return {
-    currentType: 'quick', // quick custom
-    quickValue: '',
-    startTime: new Date(this.date.startTime),
-    endTime: new Date(this.date.endTime),
-    customStartTime: new Date(this.date.startTime),
-    customEndTime: new Date(this.date.endTime),
-   }
-  },
-  computed: {
-    st() {
-      return this.startTime.getTime()
+    data() {
+        return {
+            currentType: 'quick', // quick custom
+            quickValue: '',
+            startTime: new Date(this.date.startTime),
+            endTime: new Date(this.date.endTime),
+            customStartTime: new Date(this.date.startTime),
+            customEndTime: new Date(this.date.endTime),
+        };
     },
-    et() {
-      return this.endTime.getTime()
+    computed: {
+        st() {
+            return this.startTime.getTime();
+        },
+        et() {
+            return this.endTime.getTime();
+        },
+        timeRange() {
+            return { startTime: this.st, endTime: this.et, type: this.currentType, quickValue: this.quickValue };
+        },
     },
-    timeRange() {
-      return { startTime: this.st, endTime: this.et, type: this.currentType, quickValue: this.quickValue}
-    }
-  },
-  created() {
-    this.initTime();
-  },
-  watch: {
-    quickOptions(val) {
-      this.initTime();
+    watch: {
+        quickOptions(val) {
+            this.initTime();
+        },
+        timeRange(val) {
+            this.$emit('update', val);
+        },
+        customStartTime(val) {
+            if (val.getTime() > this.customEndTime.getTime()) {
+                this.customEndTime = new Date(val.getTime());
+            }
+        },
+        customEndTime(val) {
+            if (val.getTime() < this.customStartTime.getTime()) {
+                this.customStartTime = new Date(val.getTime());
+            }
+        },
     },
-    timeRange(val) {
-      this.$emit('update', val);
-    },
-    customStartTime(val) {
-      if(val.getTime() > this.customEndTime.getTime()) {
-        this.customEndTime = new Date(val.getTime())
-      }
-    },
-    customEndTime(val) {
-      if(val.getTime() < this.customStartTime.getTime()) {
-        this.customStartTime = new Date(val.getTime())
-      }
-    }
-  },
-  methods: {
-    initTime() {
-      this.quickValue = this.quickOptions[0] ? this.quickOptions[0].value : '';
-      this.currentType = 'quick';
-      const start = new Date();
-      const end = new Date();
-      start.setTime(start.getTime() - this.quickValue);
-      this.startTime = start;
-      this.endTime = end;
-    },
-    handleOk() {
-      const start = new Date(this.customStartTime.getTime());
-      const end = new Date(this.customEndTime.getTime());
-      this.startTime = start;
-      this.endTime = end;
-    },
-    handleChangeCurrentType(val) {
-      if (val === 'quick') {
+    created() {
         this.initTime();
-        this.currentType = val;
-      } else {
-        this.currentType = val;
-        const start = new Date(this.startTime.getTime());
-        const end = new Date(this.endTime.getTime());
-        this.customStartTime = start;
-        this.customEndTime = end;
-      }
     },
-    handleQuickValueChange(val) {
-      console.log(val);
-      const start = new Date();
-      const end = new Date();
-      start.setTime(start.getTime() - val);
-      this.startTime = start;
-      this.endTime = end;
-    }
-  }
-}
+    methods: {
+        initTime() {
+            this.quickValue = this.quickOptions[0] ? this.quickOptions[0].value : '';
+            this.currentType = 'quick';
+            const start = new Date();
+            const end = new Date();
+            start.setTime(start.getTime() - this.quickValue);
+            this.startTime = start;
+            this.endTime = end;
+        },
+        handleOk() {
+            const start = new Date(this.customStartTime.getTime());
+            const end = new Date(this.customEndTime.getTime());
+            this.startTime = start;
+            this.endTime = end;
+        },
+        handleChangeCurrentType(val) {
+            if (val === 'quick') {
+                this.initTime();
+                this.currentType = val;
+            } else {
+                this.currentType = val;
+                const start = new Date(this.startTime.getTime());
+                const end = new Date(this.endTime.getTime());
+                this.customStartTime = start;
+                this.customEndTime = end;
+            }
+        },
+        handleQuickValueChange(val) {
+            console.log(val);
+            const start = new Date();
+            const end = new Date();
+            start.setTime(start.getTime() - val);
+            this.startTime = start;
+            this.endTime = end;
+        },
+    },
+};
 </script>

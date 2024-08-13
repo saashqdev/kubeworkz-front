@@ -50,12 +50,9 @@ function search(op) {
 }
 
 export default function normalizeOperation(op, vm) {
-    if (op.type === 'create')
-        return create(op);
-    if (op.type === 'refresh')
-        return refresh(op, vm);
-    if (op.type === 'search')
-        return search(op);
+    if (op.type === 'create') { return create(op); }
+    if (op.type === 'refresh') { return refresh(op, vm); }
+    if (op.type === 'search') { return search(op); }
 
     return op;
 }

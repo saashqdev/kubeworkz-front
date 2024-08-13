@@ -2,38 +2,53 @@
   <div>
     <dynamicBlock
       v-model="model"
-      :getDefaultItem="getDataTemplate"
+      :get-default-item="getDataTemplate"
       :columns="[
-          {
-              title: 'Parameter',
-              dataIndex: 'resource',
-          },
-          {
-              title: 'Mount directory',
-              dataIndex: 'mountPath'
-          },
-          {
-              title: 'Subpath',
-              dataIndex: 'subPath'
-          }
+        {
+          title: 'Parameter',
+          dataIndex: 'resource',
+        },
+        {
+          title: 'Mount directory',
+          dataIndex: 'mountPath'
+        },
+        {
+          title: 'Subpath',
+          dataIndex: 'subPath'
+        }
       ]"
     >
-      <template v-slot:resource="{record}">
-        <el-select v-model="record.resource" placeholder="Please choose" filterable>
+      <template #resource="{record}">
+        <el-select
+          v-model="record.resource"
+          placeholder="Please choose"
+          filterable
+        >
           <el-option
             v-for="item in resources"
             :key="item.value"
             :label="item.text"
-            :value="item.value">
-            <el-tooltip class="item" effect="dark" content="pending" placement="left" popper-class="ncs-el-tooltip-popper">
-              <i class="el-icon-warning-outline" v-if="item.status.phase === 'Pending'" style="color: #FFA136"/>
+            :value="item.value"
+          >
+            <el-tooltip
+              class="item"
+              effect="dark"
+              content="pending"
+              placement="left"
+              popper-class="ncs-el-tooltip-popper"
+            >
+              <i
+                v-if="item.status.phase === 'Pending'"
+                class="el-icon-warning-outline"
+                style="color: #FFA136"
+              />
             </el-tooltip>
-            {{item.text}}
+            {{ item.text }}
           </el-option>
         </el-select>
       </template>
-      <template v-slot:mountPath="{record, index}">
-        <el-form-item 
+      <template #mountPath="{record, index}">
+        <el-form-item
           label=""
           :prop="`${prefixKey}.${index}.mountPath`"
           :rules="[
@@ -48,8 +63,8 @@
           />
         </el-form-item>
       </template>
-      <template v-slot:subPath="{record, index}">
-        <el-form-item 
+      <template #subPath="{record, index}">
+        <el-form-item
           label=""
           :prop="`${prefixKey}.${index}.subPath`"
           :rules="[

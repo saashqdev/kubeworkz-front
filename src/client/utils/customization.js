@@ -3,7 +3,7 @@ const config = {
         if (window && window.MicroApp) {
             this._customizationConfig = window.MicroApp.get('customization');
             if (this._customizationConfig) {
-                Object.keys(this._customizationConfig).forEach((key) => {
+                Object.keys(this._customizationConfig).forEach(key => {
                     if (/Switch$/g.test(key)) { // Uniform and organized switches
                         this[key] = this._customizationConfig[key] === 'open';
                     } else {

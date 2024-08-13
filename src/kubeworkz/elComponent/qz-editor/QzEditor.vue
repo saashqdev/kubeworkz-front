@@ -1,6 +1,8 @@
 <template>
-    <div :class="$style.root" :style="style">
-    </div>
+  <div
+    :class="$style.root"
+    :style="style"
+  />
 </template>
 
 <script>
@@ -8,7 +10,7 @@ import debounce from 'lodash.debounce';
 import defaultOptions from './defaultOptions';
 import * as monaco from 'monaco-editor';
 export default {
-    name: 'qz-editor',
+    name: 'QzEditor',
     model: {
         prop: 'value',
         event: 'change',
@@ -91,7 +93,7 @@ export default {
             if (!oV && nV !== oV) { // This is only processed when value is empty, otherwise the cursor will remain out of focus.
                 // Update text in editor
                 this.editor.setValue(nV);
-                this.editor.setPosition({column: Infinity, lineNumber: Infinity});
+                this.editor.setPosition({ column: Infinity, lineNumber: Infinity });
             }
         },
         originalValue(nV, oV) {
@@ -103,6 +105,12 @@ export default {
                 return this.originalEditor.setValue(nV);
             }
         },
+    },
+    mounted() {
+        this.createMonaco();
+    },
+    destroyed() {
+        this.destroyMonaco();
     },
     methods: {
         highlightLines(lines) {
@@ -178,12 +186,6 @@ export default {
             }
             return this.editor.setValue(nV); // Reset text in editor
         },
-    },
-    mounted() {
-        this.createMonaco();
-    },
-    destroyed() {
-        this.destroyMonaco();
     },
 };
 </script>

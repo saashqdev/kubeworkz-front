@@ -2,15 +2,24 @@
   <div>
     <div style="margin-bottom:12px">
       <el-button
-          type="primary"
-          :disabled="isReview"
-          @click="toCreate"
-          icon="el-icon-plus"
-        >
-          Create {{ workloadLiteral }}
-        </el-button>
-      <el-button @click="refresh" square icon="el-icon-refresh-right"></el-button>
-      <inputSearch v-model="filterName" placeholder="Please enter name to search" position="right" @search="onSearch"/>
+        type="primary"
+        :disabled="isReview"
+        icon="el-icon-plus"
+        @click="toCreate"
+      >
+        Create {{ workloadLiteral }}
+      </el-button>
+      <el-button
+        square
+        icon="el-icon-refresh-right"
+        @click="refresh"
+      />
+      <inputSearch
+        v-model="filterName"
+        placeholder="Please enter name to search"
+        position="right"
+        @search="onSearch"
+      />
     </div>
     <x-request
       ref="request"
@@ -35,8 +44,11 @@
             sortable
           >
             <template slot-scope="{ row }">
-              <el-link type="primary" :to="{ path: `/control/${workload}/${row.metadata.name}`, query: $route.query }">
-                {{row.metadata.name}}
+              <el-link
+                type="primary"
+                :to="{ path: `/control/${workload}/${row.metadata.name}`, query: $route.query }"
+              >
+                {{ row.metadata.name }}
               </el-link>
             </template>
           </el-table-column>
@@ -46,7 +58,7 @@
             label="Type"
             :show-overflow-tooltip="true"
             width="240"
-          ></el-table-column>
+          />
           <el-table-column
             prop="metadata.creationTimestamp"
             label="Creation time"
@@ -54,7 +66,7 @@
             sortable
           >
             <template slot-scope="{ row }">
-            {{ row.metadata.creationTimestamp | formatLocaleTime }}
+              {{ row.metadata.creationTimestamp | formatLocaleTime }}
             </template>
           </el-table-column>
           <el-table-column
@@ -64,24 +76,42 @@
           >
             <template slot-scope="{ row }">
               <qz-link-group max="3">
-                <el-link type="primary" :disabled="!SECRET_TYPES.includes(row.type) || isReview" @click="editItem(row)">Set up</el-link>
-                <el-link type="primary" :disabled="isReview || (row.metadata.pureLabels || {})['system/defaultImagePullSecret'] === 'true'" @click="deleteItem(row)">Delete</el-link>
-                <el-link type="primary" :disabled="isReview" @click="editYAML(row)">YAML Settings</el-link>
+                <el-link
+                  type="primary"
+                  :disabled="!SECRET_TYPES.includes(row.type) || isReview"
+                  @click="editItem(row)"
+                >
+                  Set up
+                </el-link>
+                <el-link
+                  type="primary"
+                  :disabled="isReview || (row.metadata.pureLabels || {})['system/defaultImagePullSecret'] === 'true'"
+                  @click="deleteItem(row)"
+                >
+                  Delete
+                </el-link>
+                <el-link
+                  type="primary"
+                  :disabled="isReview"
+                  @click="editYAML(row)"
+                >
+                  YAML Settings
+                </el-link>
               </qz-link-group>
             </template>
           </el-table-column>
         </el-table>
         <el-pagination
-          style="float:right;margin-top:12px"
           v-if="data && calculatePages(data.total) > 0"
-          @size-change="pageSizeChange"
-          @current-change="pageNumChange"
+          style="float:right;margin-top:12px"
           :current-page="pagenation.pageNum"
           :page-sizes="[10, 20, 30, 40, 50, 100]"
           :page-size="pagenation.pageSize"
           layout="total, sizes, prev, pager, next"
           :total="data.total"
           background
+          @size-change="pageSizeChange"
+          @current-change="pageNumChange"
         />
       </template>
     </x-request>

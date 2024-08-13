@@ -1,13 +1,16 @@
 <template>
-    <div>
-        <pre id="display" style="height: 400px;overflow: scroll;"></pre>
-    </div>
+  <div>
+    <pre
+      id="display"
+      style="height: 400px;overflow: scroll;"
+    />
+  </div>
 </template>
 
 <script>
 import * as Diff from 'diff';
 export default {
-    name: 'u-yaml-diff',
+    name: 'UYamlDiff',
     props: {
         original: String,
         target: String,
@@ -31,7 +34,7 @@ export default {
                 const display = document.getElementById('display');
                 const fragment = document.createDocumentFragment();
 
-                diff.forEach((part) => {
+                diff.forEach(part => {
                     if (part.removed) {
                         part.value = '-' + part.value;
                         node = document.createElement('del');

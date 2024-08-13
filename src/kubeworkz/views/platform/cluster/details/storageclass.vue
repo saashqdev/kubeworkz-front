@@ -12,7 +12,11 @@
         square
         @click="refresh"
       />
-      <inputSearch placeholder="Please enter name to search" position="right" @search="onSearch"/>
+      <inputSearch
+        placeholder="Please enter name to search"
+        position="right"
+        @search="onSearch"
+      />
     </div>
     <x-request
       ref="request"
@@ -60,7 +64,9 @@
                 <el-link
                   type="primary"
                   @click="deleteItem(row)"
-                >Delete</el-link>
+                >
+                  Delete
+                </el-link>
               </qz-link-group>
             </template>
           </el-table-column>

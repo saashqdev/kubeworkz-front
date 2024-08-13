@@ -8,4 +8,4 @@ export default {
         path: prefixV1 + '/userGuide/javaAgentInstallation',
         method: 'get',
     },
-}
+};

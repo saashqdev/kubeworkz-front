@@ -1,38 +1,57 @@
 <template>
-<div :class="$style.wrap1">
-    <div :class="$style.wrap" ref="wrap">
-        <textarea type="text" v-if="showInput" :edit="!!current.value"
-            :class="[$style.defaultInput]" 
-            :placeholder="info.tags.length ? '' : placeholder"
-            v-textareaAuto rows="1" 
-            ref="defalutValue" 
-            @input="checkInput($event)"
-            @focus="updateStatus(true)"
-            @keyup.delete.stop.prevent="clearInput($event)"
-            @mousedown="foucsInput"
-            @keyup.up.stop.prevent="selectingTagType('up', $event)"
-            @keyup.down.stop.prevent="selectingTagType('down', $event)"
-            @keyup.left.stop.prevent="focusTag($event)"
-            @keyup.right.stop.prevent="stopPropagation($event)"
-            @keyup.enter.stop.prevent="addTag(false, $event)"
-            v-model="current.value"
-            v-autoScroll="true" 
-            @blur.stop.prevent="addTag(true, $event)"></textarea>
-        <span :mutil="!!info.tags.length" :class="[$style.textareaShadow]" ref="shadow" v-if="showInput">
-            {{(current.value || '') + 'zw'}}
-            <!-- zw is used for placeholder -->
-        </span>
+  <div :class="$style.wrap1">
+    <div
+      ref="wrap"
+      :class="$style.wrap"
+    >
+      <textarea
+        v-if="showInput"
+        ref="defalutValue"
+        v-model="current.value"
+        v-textareaAuto
+        v-autoScroll="true"
+        type="text"
+        :edit="!!current.value"
+        :class="[$style.defaultInput]"
+        :placeholder="info.tags.length ? '' : placeholder"
+        rows="1"
+        @input="checkInput($event)"
+        @focus="updateStatus(true)"
+        @keyup.delete.stop.prevent="clearInput($event)"
+        @mousedown="foucsInput"
+        @keyup.up.stop.prevent="selectingTagType('up', $event)"
+        @keyup.down.stop.prevent="selectingTagType('down', $event)"
+        @keyup.left.stop.prevent="focusTag($event)"
+        @keyup.right.stop.prevent="stopPropagation($event)"
+        @keyup.enter.stop.prevent="addTag(false, $event)"
+        @blur.stop.prevent="addTag(true, $event)"
+      />
+      <span
+        v-if="showInput"
+        ref="shadow"
+        :mutil="!!info.tags.length"
+        :class="[$style.textareaShadow]"
+      >
+        {{ (current.value || '') + 'zw' }}
+        <!-- zw is used for placeholder -->
+      </span>
     </div>
-    <searchTagType v-if="stepData && stepData.type === 'select'"  
-    :tagTypes="stepData.values" @select="stepDataSelectFunc($event)" 
-    :selected="(info.selected[current.type] || [])[current.values.length]"></searchTagType>
-    
-    <searchTagType v-if="showType"
-        type="default" ref="searchTagType" 
-        :tagTypes="tagTypes" 
-        @select="selectTagTypeFunc($event)" 
-        :selected="getAllSelected()"></searchTagType>
-</div>
+    <searchTagType
+      v-if="stepData && stepData.type === 'select'"
+      :tag-types="stepData.values"
+      :selected="(info.selected[current.type] || [])[current.values.length]"
+      @select="stepDataSelectFunc($event)"
+    />
+
+    <searchTagType
+      v-if="showType"
+      ref="searchTagType"
+      type="default"
+      :tag-types="tagTypes"
+      :selected="getAllSelected()"
+      @select="selectTagTypeFunc($event)"
+    />
+  </div>
 </template>
 
 <script>
@@ -40,13 +59,13 @@ import tagEditBase from './tag.edit.base.vue';
 import util from './util';
 import _ from 'lodash';
 export default {
-    name: 'searchTagItemDefault',
+    name: 'SearchTagItemDefault',
+    extends: tagEditBase,
     props: {
         tagTypes: Object,
         info: Object,
         placeholder: String,
     },
-    extends: tagEditBase,
 
     data() {
         return {
@@ -55,22 +74,6 @@ export default {
             stepData: null,
             stepDataSelect: false,
         };
-    },
-    watch: {
-        'current.edit'(status) {
-            this.toggleInput(status);
-        },
-        'info.active'(active) {
-            if (!active) {
-                this.clearSelectingTagType();
-            }
-        },
-        'info.focusInput': {
-            immediate: true,
-            handler(showInput) {
-                this.toggleInput(showInput);
-            },
-        },
     },
     computed: {
         showInput() {
@@ -82,6 +85,22 @@ export default {
         showType() {
             const current = this.current;
             return current.edit && !current.type && !current.value;
+        },
+    },
+    watch: {
+        'current.edit': function(status) {
+            this.toggleInput(status);
+        },
+        'info.active': function(active) {
+            if (!active) {
+                this.clearSelectingTagType();
+            }
+        },
+        'info.focusInput': {
+            immediate: true,
+            handler(showInput) {
+                this.toggleInput(showInput);
+            },
         },
     },
     methods: {
@@ -106,12 +125,12 @@ export default {
             };
         },
         getAllSelected() {
-            return Array.from(new Set((this.info.tags || []).map((item) => {
+            return Array.from(new Set((this.info.tags || []).map(item => {
                 return item.type;
             })));
         },
         addTag(isBlur, $event) {
-            let currentOrigin = this.current;
+            const currentOrigin = this.current;
             const current = Object.assign({}, currentOrigin);
             current.values = [].concat(currentOrigin.values);
             const typeIndex = this.typeIndex;
@@ -177,15 +196,15 @@ export default {
             const show = current.show();
             const inputShow = current.value || '';
             const stepData = this.stepData;
-            const currentStepIsInput = function () {
+            const currentStepIsInput = function() {
                 return !stepData || stepData.type === 'input';
             };
             // Subset
-            const isSub = function () {
+            const isSub = function() {
                 return show.indexOf(inputShow) !== -1;
             };
             // Mako collection
-            const isTrueSub = function () {
+            const isTrueSub = function() {
                 return isSub() && show !== inputShow;
             };
             const resetCurrent = () => {
@@ -215,7 +234,7 @@ export default {
                     } else {
                         this.selectTagType = false;
                         this.$emit('blurTag', {
-                            selectLast: true
+                            selectLast: true,
                         });
                     }
                 }
@@ -232,7 +251,7 @@ export default {
                 }
             }
         },
-        
+
         // Select type using keyboard
         selectingTagType(arrow, $event) {
             const current = this.current;
@@ -247,7 +266,7 @@ export default {
                     this.stepSelectingTagType($event, arrow);
                 }
             }
-            
+
         },
         // Selected type
         selectTagTypeFunc($event) {
@@ -259,7 +278,7 @@ export default {
                 return;
             }
             this.selectTagType = true;
-            const selectTagType = this.tagTypes.filter((item) => item.type === type)[0];
+            const selectTagType = this.tagTypes.filter(item => item.type === type)[0];
             this.current = Object.assign(this.defaultCurrent(), selectTagType);
             this.current.isEmpty = true;
             this.current.value = this.current.show();
@@ -271,7 +290,6 @@ export default {
             this.$emit('inputfocus');
         },
     },
-}
+};
 </script>
-
 

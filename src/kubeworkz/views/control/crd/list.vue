@@ -21,14 +21,12 @@
             prop="metadata.name"
             label="Name"
             :show-overflow-tooltip="true"
-          >
-          </el-table-column>
+          />
           <el-table-column
             prop="group"
             label="Group"
             :show-overflow-tooltip="true"
-          >
-          </el-table-column>
+          />
           <el-table-column
             prop="versions"
             label="Version"
@@ -42,7 +40,7 @@
                 :to="{ path: `/control/crd/${level}/${row.metadata.name}/${version}`, query: $route.query }"
                 style="margin-right: 8px"
               >
-                {{version}}
+                {{ version }}
               </el-link>
             </template>
           </el-table-column>
@@ -50,16 +48,15 @@
         <el-pagination
           v-if="data && calculatePages(data.total) > 0"
           style="float:right;margin-top:12px"
-          @size-change="pageSizeChange"
-          @current-change="pageNumChange"
           :current-page="pagenation.pageNum"
           :page-sizes="[10, 20, 30, 40, 50, 100]"
           :page-size="pagenation.pageSize"
           layout="total, sizes, prev, pager, next"
           :total="data.total"
           background
+          @size-change="pageSizeChange"
+          @current-change="pageNumChange"
         />
-
 
 
         <!-- <kube-table

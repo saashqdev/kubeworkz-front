@@ -4,7 +4,7 @@ import { Field } from 'cloud-ui.vusion';
 
 export default {
     name: 'x-editor',
-    mixins: [Field],
+    mixins: [ Field ],
     props: {
         width: String,
         height: String,
@@ -23,8 +23,7 @@ export default {
     },
     watch: {
         value(val) {
-            if (this.content !== val)
-                this.editor.setValue(val, 1);
+            if (this.content !== val) { this.editor.setValue(val, 1); }
         },
         theme(value) {
             this.getRequires();
@@ -93,21 +92,17 @@ export default {
         },
         getRequires() {
             const importList = [];
-            if (this.lang !== 'text')
-                importList.push(import(/* webpackChunkName: "braceConfigLang" */`./lang`).then((result) => { result.default instanceof Function && result.default(this.lang); }).catch((error) => { console.error(error); }));
-            if (this.theme !== 'textmate')
-                importList.push(import(/* webpackChunkName: "braceConfigTheme" */`./theme`).then((result) => { result.default instanceof Function && result.default(this.theme); }).catch((error) => { console.error(error); }));
+            if (this.lang !== 'text') { importList.push(import(/* webpackChunkName: "braceConfigLang" */'./lang').then(result => { result.default instanceof Function && result.default(this.lang); }).catch(error => { console.error(error); })); }
+            if (this.theme !== 'textmate') { importList.push(import(/* webpackChunkName: "braceConfigTheme" */'./theme').then(result => { result.default instanceof Function && result.default(this.theme); }).catch(error => { console.error(error); })); }
             return Promise.all(importList);
         },
         validateJson(json) {
-            if (!json)
-                return true;
+            if (!json) { return true; }
 
             try {
                 JSON.parse(json);
             } catch (error) {
-                if (error)
-                    return false;
+                if (error) { return false; }
             }
             return true;
         },

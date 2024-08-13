@@ -3,10 +3,10 @@
     :title="isEdit ? 'Edit storage statement' : 'Create a storage claim'"
     :visible.sync="show"
     width="800px"
-    @close="close"
     ok-button=""
     cancel-button=""
     :close-on-click-modal="false"
+    @close="close"
   >
     <x-request
       v-if="show"
@@ -16,102 +16,132 @@
       :processor="storageResolver"
     >
       <template slot-scope="{ data, loading }">
-          <i v-if="loading" class="el-icon-loading" style="font-size: 24px"/>
-          <el-form
-            v-else
-            :model="model"
-            ref="form"
-            label-width="120px"
+        <i
+          v-if="loading"
+          class="el-icon-loading"
+          style="font-size: 24px"
+        />
+        <el-form
+          v-else
+          ref="form"
+          :model="model"
+          label-width="120px"
+        >
+          <el-form-item
+            label="Storage class"
+            :rules="[
+              validators.required(),
+            ]"
+            prop="spec.storageClassName"
           >
-            <el-form-item
-              label="Storage class"
-              :rules="[
-                validators.required(),
-              ]"
-              prop="spec.storageClassName"
+            <el-select
+              v-if="(data || []).length"
+              v-model="model.spec.storageClassName"
+              filterable
+              placeholder="Select storage class"
+              :disabled="isEdit"
             >
-              <el-select
-                v-if="(data || []).length"
-                v-model="model.spec.storageClassName" 
-                filterable
-                placeholder="Select storage class"
-                :disabled="isEdit"
-              >
-                <el-option
-                  v-for="item in data"
-                  :key="item.value"
-                  :label="item.text"
-                  :value="item.value"
-                  :title="item.text"
-                />
-              </el-select>
-              <el-input
-                v-else
-                disabled
-                placeholder="No storage class yet"
+              <el-option
+                v-for="item in data"
+                :key="item.value"
+                :label="item.text"
+                :value="item.value"
+                :title="item.text"
               />
-            </el-form-item>
-            <el-form-item
-              label="Name"
-              :rules="[
-                validators.required(),
-                validators.k8sResourceNameValidator()
-              ]"
-              prop="metadata.name"
+            </el-select>
+            <el-input
+              v-else
+              disabled
+              placeholder="No storage class yet"
+            />
+          </el-form-item>
+          <el-form-item
+            label="Name"
+            :rules="[
+              validators.required(),
+              validators.k8sResourceNameValidator()
+            ]"
+            prop="metadata.name"
+          >
+            <el-input
+              v-model="model.metadata.name"
+              :disabled="isEdit"
+              placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"
+            />
+          </el-form-item>
+          <el-form-item
+            label="Capacity"
+            :rules="[
+              validators.required(),
+              validators.consistofFloatNumber(false),
+              validators.numberBiggerThen(0, false)
+            ]"
+            prop="spec.storage"
+          >
+            <el-input
+              v-model="model.spec.storage"
             >
-              <el-input v-model="model.metadata.name" :disabled="isEdit" placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"/>
-            </el-form-item>
-            <el-form-item 
-              label="Capacity"
-              :rules="[
-                validators.required(),
-                validators.consistofFloatNumber(false),
-                validators.numberBiggerThen(0, false)
-              ]"
-              prop="spec.storage"
-            >
-              <el-input
-                v-model="model.spec.storage"
-              >
-                <template slot="append">GiB</template>
-              </el-input>
-            </el-form-item>
-            <el-form-item
-              label="Model"
-              :rules="[
-                validators.required(),
-              ]"
-              prop="spec.accessMode"
-            >
-              <template slot="label">
-                Model
-                <el-tooltip effect="dark" placement="bottom-start" popper-class="ncs-el-tooltip-popper">
-                  <template slot="content">
-                    Depending on the storage provider, select the supported access mode. For specific rules, refer to
-                    <el-link type="primary" @click="handleJump('https://kubernetes.io/en-us/docs/concepts/storage/persistent-volumes/#access-modes')">link</el-link>
-                  </template>
-                  <i class="el-icon-question" style="position: absolute;right:4px;top:11px"/>
-                </el-tooltip>
+              <template slot="append">
+                GiB
               </template>
-              <el-select
-                v-model="model.spec.accessMode"
-                :disabled="isEdit"
+            </el-input>
+          </el-form-item>
+          <el-form-item
+            label="Model"
+            :rules="[
+              validators.required(),
+            ]"
+            prop="spec.accessMode"
+          >
+            <template slot="label">
+              Model
+              <el-tooltip
+                effect="dark"
+                placement="bottom-start"
+                popper-class="ncs-el-tooltip-popper"
               >
-                <el-option
-                  v-for="item in getModes(data)"
-                  :key="item.value"
-                  :label="item.text"
-                  :value="item.value"
-                  :title="item.text"
+                <template slot="content">
+                  Depending on the storage provider, select the supported access mode. For specific rules, refer to
+                  <el-link
+                    type="primary"
+                    @click="handleJump('https://kubernetes.io/en-us/docs/concepts/storage/persistent-volumes/#access-modes')"
+                  >
+                    link
+                  </el-link>
+                </template>
+                <i
+                  class="el-icon-question"
+                  style="position: absolute;right:4px;top:11px"
                 />
-              </el-select>
-            </el-form-item>
-          </el-form>
+              </el-tooltip>
+            </template>
+            <el-select
+              v-model="model.spec.accessMode"
+              :disabled="isEdit"
+            >
+              <el-option
+                v-for="item in getModes(data)"
+                :key="item.value"
+                :label="item.text"
+                :value="item.value"
+                :title="item.text"
+              />
+            </el-select>
+          </el-form-item>
+        </el-form>
       </template>
     </x-request>
     <div slot="footer">
-      <el-button @click="close">Cancel</el-button>
-      <el-button type="primary" @click="submit" :loading="commitLoading">OK</el-button>
+      <el-button @click="close">
+        Cancel
+      </el-button>
+      <el-button
+        type="primary"
+        :loading="commitLoading"
+        @click="submit"
+      >
+        OK
+      </el-button>
     </div>
   </el-dialog>
 </template>
@@ -221,7 +251,7 @@ export default {
             try {
                 if (this.isEdit) {
                     const yaml = cloneDeep(this.model.puresource);
-                    yaml.spec.resources.requests.storage = `${this.model.spec.storage}Gi`
+                    yaml.spec.resources.requests.storage = `${this.model.spec.storage}Gi`;
                     await workloadService.modifyAPIV1Instance({
                         pathParams: {
                             cluster: this.cluster,

@@ -1,24 +1,34 @@
 <template>
   <div>
-    <el-form ref="form" :model="model" label-position="right" label-width="120px" style="width:80%">
-      <el-form-item 
-        label="Name" 
+    <el-form
+      ref="form"
+      :model="model"
+      label-position="right"
+      label-width="120px"
+      style="width:80%"
+    >
+      <el-form-item
+        label="Name"
         prop="metadata.name"
         :rules="[
           validators.required(),
           validators.k8sResourceNameValidator()
         ]"
       >
-        <el-input v-model="model.metadata.name" :disabled="isEdit" placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"/>
+        <el-input
+          v-model="model.metadata.name"
+          :disabled="isEdit"
+          placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"
+        />
       </el-form-item>
-      <el-form-item 
-        label="Type" 
+      <el-form-item
+        label="Type"
         prop="type"
         :rules="[
           validators.required()
         ]"
       >
-        <el-select 
+        <el-select
           v-model="model.type"
           :disabled="isEdit"
         >
@@ -32,15 +42,18 @@
         </el-select>
       </el-form-item>
       <template v-if="model.type === 'Opaque'">
-        <el-form-item 
-          label="Data" 
+        <el-form-item
+          label="Data"
           prop="type"
         >
-          <opaque-input v-model="model.data" prefixProp="data"/>
+          <opaque-input
+            v-model="model.data"
+            prefix-prop="data"
+          />
         </el-form-item>
       </template>
       <template v-if="model.type === 'kubernetes.io/tls'">
-        <el-form-item 
+        <el-form-item
           label="Certificate content"
         >
           <el-input
@@ -56,11 +69,13 @@
             @before-send="onUpload($event, 'tls.crt')"
             @error="uploadError($event, 'tls.crt')"
           >
-            <el-link type="primary">Upload files</el-link>
+            <el-link type="primary">
+              Upload files
+            </el-link>
           </u-uploader>
-          <span ref="tls.crt"></span>
+          <span ref="tls.crt" />
         </el-form-item>
-        <el-form-item 
+        <el-form-item
           label="Private key"
         >
           <el-input
@@ -76,24 +91,29 @@
             @before-send="onUpload($event, 'tls.key')"
             @error="uploadError($event, 'tls.key')"
           >
-            <el-link type="primary">Upload files</el-link>
+            <el-link type="primary">
+              Upload files
+            </el-link>
           </u-uploader>
-          <span ref="tls.key"></span>
+          <span ref="tls.key" />
         </el-form-item>
       </template>
       <template v-if="model.type === 'kubernetes.io/dockerconfigjson'">
-        <el-form-item 
-          label="Data" 
+        <el-form-item
+          label="Data"
           prop="type"
         >
-          <docker-config v-model="model.dockerData" prefixProp="dockerData"/>
+          <docker-config
+            v-model="model.dockerData"
+            prefix-prop="dockerData"
+          />
         </el-form-item>
       </template>
       <el-form-item>
         <el-button
           type="primary"
-          @click="submit"
           :loading="submitLoading"
+          @click="submit"
         >
           {{ isEdit ? 'Modify now' : 'Create now' }}
         </el-button>
@@ -200,7 +220,7 @@ export default {
             this.submitLoading = false;
         },
         handleValidate() {
-          this.$refs.observer.validate();
+            this.$refs.observer.validate();
         },
     },
 };

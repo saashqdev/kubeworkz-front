@@ -7,7 +7,10 @@
     >
       Check the detail information
     </el-button>
-    <el-descriptions title="Basic Information" :column="1">
+    <el-descriptions
+      title="Basic Information"
+      :column="1"
+    >
       <el-descriptions-item label="Service name">
         {{ instance.metadata.name }}
       </el-descriptions-item>
@@ -22,17 +25,38 @@
       </el-descriptions-item>
       <el-descriptions-item label="Label">
         <div :class="$style.tagWrap">
-          <el-tag type="info" v-for="label in instance.metadata.labels" :key="label.key" :title="label.key + ':' + label.value">{{ label.key }}: {{ label.value }}</el-tag>
+          <el-tag
+            v-for="label in instance.metadata.labels"
+            :key="label.key"
+            type="info"
+            :title="label.key + ':' + label.value"
+          >
+            {{ label.key }}: {{ label.value }}
+          </el-tag>
         </div>
       </el-descriptions-item>
       <el-descriptions-item label="Annotate">
         <div :class="$style.tagWrap">
-          <el-tag type="info" v-for="label in instance.metadata.annotations" :key="label.key" :title="label.key + ':' + label.value">{{ label.key }}: {{ label.value }}</el-tag>
+          <el-tag
+            v-for="label in instance.metadata.annotations"
+            :key="label.key"
+            type="info"
+            :title="label.key + ':' + label.value"
+          >
+            {{ label.key }}: {{ label.value }}
+          </el-tag>
         </div>
       </el-descriptions-item>
       <el-descriptions-item label="Tag selector">
         <div :class="$style.tagWrap">
-          <el-tag type="info" v-for="label in instance.spec.matchLabels" :key="label.key" :title="label.key + ':' + label.value">{{ label.key }}: {{ label.value }}</el-tag>
+          <el-tag
+            v-for="label in instance.spec.matchLabels"
+            :key="label.key"
+            type="info"
+            :title="label.key + ':' + label.value"
+          >
+            {{ label.key }}: {{ label.value }}
+          </el-tag>
         </div>
       </el-descriptions-item>
       <el-descriptions-item label="Type">
@@ -57,10 +81,13 @@
         v-if="instance.spec.type === 'ClusterIP' && instance.spec.template === 'external'"
         label="External IP"
       >
-        {{(instance.spec.externalIPs || []).join(', ')}}
+        {{ (instance.spec.externalIPs || []).join(', ') }}
       </el-descriptions-item>
     </el-descriptions>
-    <el-descriptions title="Service details" :column="1">
+    <el-descriptions
+      title="Service details"
+      :column="1"
+    >
       <el-descriptions-item label="Domain name">
         {{ instance.spec.host }}
       </el-descriptions-item>
@@ -72,28 +99,31 @@
           <el-table-column
             prop="targetPort"
             label="Target port"
-          ></el-table-column>
+          />
           <el-table-column
             prop="protocol"
             label="Protocol"
-          ></el-table-column>
+          />
           <el-table-column
             prop="port"
             label="Service port"
-          ></el-table-column>
+          />
           <el-table-column
             v-if="instance.spec.type === 'NodePort'"
             prop="nodePort"
             label="NodePort"
-          ></el-table-column>
+          />
           <el-table-column
             prop="name"
             label="Name"
-          ></el-table-column>
+          />
         </el-table>
       </el-descriptions-item>
     </el-descriptions>
-    <el-descriptions title="Copy" :column="1"/>
+    <el-descriptions
+      title="Copy"
+      :column="1"
+    />
     <x-request
       ref="request"
       :service="podService"
@@ -105,14 +135,17 @@
           v-loading="loading"
           :data="data || []"
           style="width: 100%"
-        > 
+        >
           <el-table-column
             prop="metadata.name"
             label="Copy name"
             :show-overflow-tooltip="true"
           >
             <template slot-scope="{ row }">
-              <el-link type="primary" :to="{path: `/control/pods/${row.metadata.name}/info`, query: $route.query}">
+              <el-link
+                type="primary"
+                :to="{path: `/control/pods/${row.metadata.name}/info`, query: $route.query}"
+              >
                 {{ row.metadata.name }}
               </el-link>
             </template>
@@ -122,13 +155,13 @@
             label="Replica status"
             width="80"
             :show-overflow-tooltip="true"
-          ></el-table-column>
+          />
           <el-table-column
             prop="status.podIP"
             label="IP"
             width="100"
             :show-overflow-tooltip="true"
-          ></el-table-column>
+          />
           <el-table-column
             prop="creationTimestamp"
             label="Creation time"
@@ -146,7 +179,10 @@
             :show-overflow-tooltip="true"
           >
             <template slot-scope="{ row }">
-              <el-link type="primary" :to="{ path: `/control/services/${instance.metadata.name}/event`, query: { ...$route.query, kind: 'pod', pod: row.metadata.name } }">
+              <el-link
+                type="primary"
+                :to="{ path: `/control/services/${instance.metadata.name}/event`, query: { ...$route.query, kind: 'pod', pod: row.metadata.name } }"
+              >
                 View events
               </el-link>
             </template>
@@ -220,7 +256,7 @@ export default {
                     items: [],
                 };
             }
-            const res = await workloadExtendService.getWorkloads(params)
+            const res = await workloadExtendService.getWorkloads(params);
             return res;
         },
         podResolver(response) {

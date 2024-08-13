@@ -1,16 +1,32 @@
 <template>
-    <div>
-        <div :class="[$style.wrap, 'f-toe']" :showMoreButton="showMoreButton">
-            <span v-if="isEmpty">-</span>
-            <span v-else v-for="(item, index) in briefList" :class="[$style.item, isChip ? 'u-chip' : '']" :key="index" :title="isString ? item : item.text">{{ isString ? item : item.text }}</span>
-        </div>
-        <u-tooltip v-if="showMoreButton">
-            <u-link style="padding-left: 5px;">More</u-link>
-            <div slot="content">
-                <div v-for="(item, index) in list" :key="index">{{ isString ? item : item.text }}</div>
-            </div>
-        </u-tooltip>
+  <div>
+    <div
+      :class="[$style.wrap, 'f-toe']"
+      :showMoreButton="showMoreButton"
+    >
+      <span v-if="isEmpty">-</span>
+      <span
+        v-for="(item, index) in briefList"
+        v-else
+        :key="index"
+        :class="[$style.item, isChip ? 'u-chip' : '']"
+        :title="isString ? item : item.text"
+      >{{ isString ? item : item.text }}</span>
     </div>
+    <u-tooltip v-if="showMoreButton">
+      <u-link style="padding-left: 5px;">
+        More
+      </u-link>
+      <div slot="content">
+        <div
+          v-for="(item, index) in list"
+          :key="index"
+        >
+          {{ isString ? item : item.text }}
+        </div>
+      </div>
+    </u-tooltip>
+  </div>
 </template>
 
 <style module>
@@ -35,11 +51,16 @@
  *              Each item in the array is an object (the object has a text field to display) || String
  */
 export default {
-    name: 'u-table-cell-items',
+    name: 'UTableCellItems',
     props: {
         max: { type: Number, default: 1 },
         list: { type: Array, default: () => [] },
         isChip: { type: Boolean, default: false }, // Whether it is the style of the unit of u-chips component
+    },
+    data() {
+        return {
+
+        };
     },
     computed: {
         length() {
@@ -59,10 +80,5 @@ export default {
             return !this.list.length;
         },
     },
-    data() {
-        return {
-
-        };
-    },
-}
+};
 </script>

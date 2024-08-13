@@ -1,9 +1,15 @@
 <template>
-    <div :class="$style.root" :color="color">
-        <u-status-icon :name="icon" size="18">
-            <slot></slot>
-        </u-status-icon>
-    </div>
+  <div
+    :class="$style.root"
+    :color="color"
+  >
+    <u-status-icon
+      :name="icon"
+      size="18"
+    >
+      <slot />
+    </u-status-icon>
+  </div>
 </template>
 
 <style module>
@@ -34,7 +40,7 @@
 </style>
 <script>
 export default {
-    name: 'u-notice',
+    name: 'UNotice',
     props: {
         icon: String,
         color: { type: String, default: 'warning' },

@@ -7,17 +7,34 @@
       <div style="margin-bottom: 12px;">
         <el-button
           type="primary"
-          @click="createCRD"
           icon="el-icon-plus"
           :disabled="isReview"
+          @click="createCRD"
         >
           Create custom resources
         </el-button>
-        <el-button @click="doRefresh" square icon="el-icon-refresh-right"></el-button>
-        <inputSearch placeholder="Please enter name to search" position="right" @search="onSearch"/>
+        <el-button
+          square
+          icon="el-icon-refresh-right"
+          @click="doRefresh"
+        />
+        <inputSearch
+          placeholder="Please enter name to search"
+          position="right"
+          @search="onSearch"
+        />
       </div>
-      <el-tabs :value="activeTab" page="main" @tab-click="habdleTabClick">
-        <el-tab-pane v-for="item in tabs" :key="item.value" :label="item.title" :name="item.value"/>
+      <el-tabs
+        :value="activeTab"
+        page="main"
+        @tab-click="habdleTabClick"
+      >
+        <el-tab-pane
+          v-for="item in tabs"
+          :key="item.value"
+          :label="item.title"
+          :name="item.value"
+        />
       </el-tabs>
       <!-- <u-tabs router>
         <u-tab
@@ -64,7 +81,7 @@ export default {
         cluster: get('scope/cluster@value'),
         userResourcesPermission: get('scope/userResourcesPermission'),
         isReview() {
-            return !this.userResourcesPermission['customresourcedefinitions'];
+            return !this.userResourcesPermission.customresourcedefinitions;
         },
         reqParam() {
             return {

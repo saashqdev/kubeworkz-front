@@ -3,38 +3,50 @@
     title="Configure EmptyDir"
     :visible.sync="show"
     width="800px"
-    @close="close"
     :close-on-click-modal="false"
+    @close="close"
   >
-    <el-alert title="Please set a reasonable size EmptyDir to avoid affecting other workloads on the same node." type="warning" show-icon :closable="false"/>
-    <el-form ref="form" :model="model" label-position="right" label-width="120px">
+    <el-alert
+      title="Please set a reasonable size EmptyDir to avoid affecting other workloads on the same node."
+      type="warning"
+      show-icon
+      :closable="false"
+    />
+    <el-form
+      ref="form"
+      :model="model"
+      label-position="right"
+      label-width="120px"
+    >
       <el-form-item label="EmptyDir">
-        <div style="color: #999;">It is suitable for scenarios such as sharing data generated during runtime and temporary data storage. Operations such as restarting and deleting the load will cause the temporary path to be deleted.</div>
+        <div style="color: #999;">
+          It is suitable for scenarios such as sharing data generated during runtime and temporary data storage. Operations such as restarting and deleting the load will cause the temporary path to be deleted.
+        </div>
         <dynamicBlock
           v-model="model.emptyDirs"
-          :getDefaultItem="getDataTemplate"
+          :get-default-item="getDataTemplate"
           :columns="[
-              {
-                  title: 'EmptyDir name',
-                  dataIndex: 'name',
-              },
-              {
-                  title: 'Medium',
-                  dataIndex: 'medium'
-              },
-              {
-                  title: 'Size',
-                  dataIndex: 'sizeLimit'
-              },
-              {
-                  title: '',
-                  dataIndex: 'unit',
-                  width: '60px'
-              }
+            {
+              title: 'EmptyDir name',
+              dataIndex: 'name',
+            },
+            {
+              title: 'Medium',
+              dataIndex: 'medium'
+            },
+            {
+              title: 'Size',
+              dataIndex: 'sizeLimit'
+            },
+            {
+              title: '',
+              dataIndex: 'unit',
+              width: '60px'
+            }
           ]"
         >
-          <template v-slot:name="{record, index}">
-            <el-form-item 
+          <template #name="{record, index}">
+            <el-form-item
               label=""
               :prop="`emptyDirs.${index}.name`"
               :rules="[
@@ -49,19 +61,27 @@
               />
             </el-form-item>
           </template>
-          <template v-slot:medium="{record}">
-            <el-select v-model="record.medium" placeholder="Please choose" filterable>
+          <template #medium="{record}">
+            <el-select
+              v-model="record.medium"
+              placeholder="Please choose"
+              filterable
+            >
               <el-option
                 v-for="item in mediums"
                 :key="item.value"
                 :label="item.text"
-                :value="item.value">
-              </el-option>
+                :value="item.value"
+              />
             </el-select>
           </template>
-          <template v-slot:sizeLimit="{record}">
+          <template #sizeLimit="{record}">
             <div style="display: flex">
-              <el-input-number v-model="record.sizeLimit" controls-position="right" :min="1"/>
+              <el-input-number
+                v-model="record.sizeLimit"
+                controls-position="right"
+                :min="1"
+              />
             </div>
           </template>
           <template slot="unit">
@@ -71,8 +91,15 @@
       </el-form-item>
     </el-form>
     <div slot="footer">
-      <el-button @click="close">Cancel</el-button>
-      <el-button type="primary" @click="submit">OK</el-button>
+      <el-button @click="close">
+        Cancel
+      </el-button>
+      <el-button
+        type="primary"
+        @click="submit"
+      >
+        OK
+      </el-button>
     </div>
   </el-dialog>
 </template>

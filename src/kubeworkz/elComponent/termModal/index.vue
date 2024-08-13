@@ -6,7 +6,7 @@
       :height="height"
       :width="width"
       :options="options"
-      :beforeCloseCheck="beforeCloseCheck"
+      :before-close-check="beforeCloseCheck"
       @onOpenCallback="onOpenCallback"
       @onResizeCallback="onResizeCallback"
       @onInputCallback="onInputCallback"

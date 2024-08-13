@@ -6,16 +6,16 @@ const userService = Service({
     apis: {
         login: {
             url: '/login',
-            method: 'post',  
+            method: 'post',
         },
         getUserList: {
             url: '/user',
-            method: 'get', 
-            withCredentials: true, 
+            method: 'get',
+            withCredentials: true,
         },
         createUser: {
             url: '/user',
-            method: 'post',  
+            method: 'post',
             withCredentials: true,
         },
         modifyUser: {
@@ -28,25 +28,25 @@ const userService = Service({
             method: 'get',
             responseType: 'blob',
             headers: {
-                'Accept': 'application/octet-stream'
+                Accept: 'application/octet-stream',
             },
         },
         batchCreateUser: {
             url: '/user/createUserByCsv',
             method: 'post',
-        }
-        
-    }
+        },
+
+    },
 });
 
 userInterceptor(userService.axiosInstance);
 
 export default userService;
-/* 
+/*
 export async function login(data){
     return await userService.request({
         url: '/login',
-        method: 'post',  
+        method: 'post',
         data,
     });
 }
@@ -87,7 +87,7 @@ export async function getUserTemplate() {
             'Accept': 'application/octet-stream'
         }
     });
-    jsFileDownload(response.data, 'UserTemplate.csv');  
+    jsFileDownload(response.data, 'UserTemplate.csv');
 }
 
 export async function batchCreateUser(data) {

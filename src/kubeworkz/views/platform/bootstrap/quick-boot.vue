@@ -1,37 +1,41 @@
 <template>
-    <div>
-        <el-tabs :value="activeInfo.tab" page="main" @tab-click="(pane) => handleTabClick(pane, tabs)">
-            <el-tab-pane
-                v-for="(item, index) in tabs"
-                :label="item.title"
-                :key="index"
-                :name="item.tab"
-            />
-        </el-tabs>
-        <tenantBoot
-            v-if="activeInfo.tab === 'tenant'"
-            v-model="activeInfo.model"
-            @next="next($event)"
-        />
-        <tenantQuotaBoot
-            v-if="activeInfo.tab === 'tenantquota'"
-            v-model="activeInfo.model"
-            @next="next()"
-        />
-        <project-boot
-            v-if="activeInfo.tab === 'project'"
-            v-model="activeInfo.model"
-            @next="next($event)"
-        />
-        <member-boot
-            v-if="activeInfo.tab === 'member'"
-            v-model="activeInfo.model"
-            @next="next($event)"
-        />
-        <namespace-boot
-            v-if="activeInfo.tab === 'namespace'"
-            v-model="activeInfo.model"
-        />
+  <div>
+    <el-tabs
+      :value="activeInfo.tab"
+      page="main"
+      @tab-click="(pane) => handleTabClick(pane, tabs)"
+    >
+      <el-tab-pane
+        v-for="(item, index) in tabs"
+        :key="index"
+        :label="item.title"
+        :name="item.tab"
+      />
+    </el-tabs>
+    <tenantBoot
+      v-if="activeInfo.tab === 'tenant'"
+      v-model="activeInfo.model"
+      @next="next($event)"
+    />
+    <tenantQuotaBoot
+      v-if="activeInfo.tab === 'tenantquota'"
+      v-model="activeInfo.model"
+      @next="next()"
+    />
+    <project-boot
+      v-if="activeInfo.tab === 'project'"
+      v-model="activeInfo.model"
+      @next="next($event)"
+    />
+    <member-boot
+      v-if="activeInfo.tab === 'member'"
+      v-model="activeInfo.model"
+      @next="next($event)"
+    />
+    <namespace-boot
+      v-if="activeInfo.tab === 'namespace'"
+      v-model="activeInfo.model"
+    />
   </div>
 </template>
 

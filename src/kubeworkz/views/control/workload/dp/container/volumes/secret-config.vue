@@ -2,34 +2,38 @@
   <div>
     <dynamicBlock
       v-model="model"
-      :getDefaultItem="getDataTemplate"
+      :get-default-item="getDataTemplate"
       :columns="[
-          {
-              title: 'Secret name',
-              dataIndex: 'resource',
-          },
-          {
-              title: 'Mount directory',
-              dataIndex: 'mountPath'
-          },
-          {
-              title: 'Subpath',
-              dataIndex: 'subPath'
-          }
+        {
+          title: 'Secret name',
+          dataIndex: 'resource',
+        },
+        {
+          title: 'Mount directory',
+          dataIndex: 'mountPath'
+        },
+        {
+          title: 'Subpath',
+          dataIndex: 'subPath'
+        }
       ]"
     >
-      <template v-slot:resource="{record}">
-        <el-select v-model="record.resource" placeholder="Please choose" filterable>
-            <el-option
-              v-for="item in resources"
-              :key="item.value"
-              :label="item.text"
-              :value="item.value">
-            </el-option>
-          </el-select>
+      <template #resource="{record}">
+        <el-select
+          v-model="record.resource"
+          placeholder="Please choose"
+          filterable
+        >
+          <el-option
+            v-for="item in resources"
+            :key="item.value"
+            :label="item.text"
+            :value="item.value"
+          />
+        </el-select>
       </template>
-      <template v-slot:mountPath="{record, index}">
-        <el-form-item 
+      <template #mountPath="{record, index}">
+        <el-form-item
           label=""
           :prop="`${prefixKey}.${index}.mountPath`"
           :rules="[
@@ -44,8 +48,8 @@
           />
         </el-form-item>
       </template>
-      <template v-slot:subPath="{record, index}">
-        <el-form-item 
+      <template #subPath="{record, index}">
+        <el-form-item
           label=""
           :prop="`${prefixKey}.${index}.subPath`"
           :rules="[
@@ -59,7 +63,7 @@
         </el-form-item>
       </template>
     </dynamicBlock>
-     <div>
+    <div>
       If you need a new Secret, you can
       <el-link
         type="primary"

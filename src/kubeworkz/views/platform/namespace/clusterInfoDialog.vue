@@ -6,7 +6,11 @@
     width="640px"
     @close="show = false"
   >
-    <i v-if="loading" class="el-icon-loading" style="font-size: 24px"/>
+    <i
+      v-if="loading"
+      class="el-icon-loading"
+      style="font-size: 24px"
+    />
     <el-form
       v-else
       label-position="right"

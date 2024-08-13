@@ -1,6 +1,11 @@
 <template>
   <div>
-    <el-form ref="form" :model="model" label-position="right" label-width="120px">
+    <el-form
+      ref="form"
+      :model="model"
+      label-position="right"
+      label-width="120px"
+    >
       <el-form-item
         label="Name"
         prop="metadata.name"
@@ -12,36 +17,48 @@
         <div style="color: rgb(153, 153, 153);">
           Access associated workload instances through Layer 4 load balancing
         </div>
-        <el-input v-model="model.metadata.name" :disabled="isEdit" placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"/>
+        <el-input
+          v-model="model.metadata.name"
+          :disabled="isEdit"
+          placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"
+        />
       </el-form-item>
       <el-form-item label="Type">
         <el-radio-group
           v-model="type"
           :disabled="isEdit && model.spec.template === 'headless'"
         >
-          <el-radio label="ClusterIP">ClusterIP</el-radio>
-          <el-radio label="nodePort">NodePort</el-radio>
+          <el-radio label="ClusterIP">
+            ClusterIP
+          </el-radio>
+          <el-radio label="nodePort">
+            NodePort
+          </el-radio>
         </el-radio-group>
         <div style="color: rgb(153, 153, 153);">
           {{ typeDescription }}
         </div>
       </el-form-item>
       <el-form-item
-        label="Usage"
         v-if="type === 'ClusterIP'"
+        label="Usage"
       >
         <el-radio-group
           v-model="model.spec.template"
           :disabled="isEdit && model.spec.template === 'headless'"
         >
-          <el-radio label="normal">Regular services</el-radio>
+          <el-radio label="normal">
+            Regular services
+          </el-radio>
           <el-radio
             label="headless"
             :disabled="isEdit && model.spec.template !== 'headless'"
           >
             Headless service
           </el-radio>
-          <el-radio label="external">External services</el-radio>
+          <el-radio label="external">
+            External services
+          </el-radio>
         </el-radio-group>
         <div style="color: rgb(153, 153, 153);">
           {{ templateDescription }}
@@ -52,45 +69,47 @@
         layout="block"
       >
         <label-editor
-          :workload="'services'"
-          prefixKey="labels"
-          :projectName="project"
-          :instanceName="model.metadata.name"
           v-model="model.metadata.labels"
-          prefixProp="metadata.labels"
-          :insertNsfLabel.sync="insertNsfLabel"
+          :workload="'services'"
+          prefix-key="labels"
+          :project-name="project"
+          :instance-name="model.metadata.name"
+          prefix-prop="metadata.labels"
+          :insert-nsf-label.sync="insertNsfLabel"
           @insertNsfLabelChange="handleInsertNsfLabelChange"
         />
       </el-form-item>
       <deploymentStatefulsetsInput
         ref="deploymentStatefulsetsInput"
-        :insertNsfLabel="insertNsfLabel"
-        prop="spec.matchLabels"
         v-model="model.spec.matchLabels"
-        :showSwitch="model.spec.template === 'headless'"
-        :switchStatus.sync="model.spec.enableSelecter"
-        :showModeRadio="true"
+        :insert-nsf-label="insertNsfLabel"
+        prop="spec.matchLabels"
+        :show-switch="model.spec.template === 'headless'"
+        :switch-status.sync="model.spec.enableSelecter"
+        :show-mode-radio="true"
         :is-edit="isEdit"
         :required="!(model.spec.template === 'headless' && !model.spec.enableSelecter)"
-        :showResource="model.spec.template !== 'headless' ? [ 'deployments', 'statefulsets' ] : [ 'statefulsets' ]"
-        :serviceName="model.metadata.name"
+        :show-resource="model.spec.template !== 'headless' ? [ 'deployments', 'statefulsets' ] : [ 'statefulsets' ]"
+        :service-name="model.metadata.name"
       />
       <portsEditor
-        prefixProp="spec.ports"
         v-model="model.spec.ports"
+        prefix-prop="spec.ports"
         :is-node-port="model.spec.template === 'nodePort'"
         :required="model.spec.template !== 'headless' || (model.spec.template === 'headless' && !model.spec.enableSelecter && !!model.endpoints.length)"
-        :isEdit="isEdit"
+        :is-edit="isEdit"
       />
       <el-form-item
         v-if="model.spec.template === 'headless' && !model.spec.enableSelecter"
         label="Endpoints"
         prop="endpoints"
       >
-        <div style="color: rgb(153, 153, 153);">Please enter an IP address. Multiple IP addresses should be separated by spaces. Entering the following IP addresses is not supported: 127.0.0.0/8, 169.254.0.0/16, 224.0.0.0/24.</div>
+        <div style="color: rgb(153, 153, 153);">
+          Please enter an IP address. Multiple IP addresses should be separated by spaces. Entering the following IP addresses is not supported: 127.0.0.0/8, 169.254.0.0/16, 224.0.0.0/24.
+        </div>
         <chipsInput
-          prefixProp="endpoints"
-          v-model="model.endpoints" 
+          v-model="model.endpoints"
+          prefix-prop="endpoints"
           :rules="chipRules"
           placeholder="需填写正确的 IP 地址，多个 IP 地址以空格分隔"
         />
@@ -103,10 +122,12 @@
           validators.required()
         ]"
       >
-        <div style="color: rgb(153, 153, 153);">Please enter an IP address. Multiple IP addresses should be separated by spaces. Entering the following IP addresses is not supported: 127.0.0.0/8, 169.254.0.0/16, 224.0.0.0/24.</div>
+        <div style="color: rgb(153, 153, 153);">
+          Please enter an IP address. Multiple IP addresses should be separated by spaces. Entering the following IP addresses is not supported: 127.0.0.0/8, 169.254.0.0/16, 224.0.0.0/24.
+        </div>
         <chipsInput
-          prefixProp="spec.externalIPs"
-          v-model="model.spec.externalIPs" 
+          v-model="model.spec.externalIPs"
+          prefix-prop="spec.externalIPs"
           :rules="chipRules"
           placeholder="The correct IP address needs to be filled in. Multiple IP addresses should be separated by spaces."
         />
@@ -115,13 +136,13 @@
         v-if="model.spec.template !== 'headless'"
         label="Session persistence"
       >
-        <el-switch v-model="serviceSessionSwitch"></el-switch>
+        <el-switch v-model="serviceSessionSwitch" />
       </el-form-item>
       <el-form-item>
         <el-button
           type="primary"
-          @click="submit"
           :loading="submitLoading"
+          @click="submit"
         >
           {{ isEdit ? 'Modify now' : 'Create now' }}
         </el-button>

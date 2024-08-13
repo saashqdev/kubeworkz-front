@@ -1,34 +1,90 @@
 <template>
-    <u-modal :class="$style.root" @close="close" :title="title" ok-button="" cancel-button="" :visible.sync="show" size="auto">
-        <u-linear-layout justify="center" :class="$style.searchWrap">
-            <u-input :class="$style.search" size="large" v-model="keyword" @input="search"></u-input>
-        </u-linear-layout>
-        <u-tabs v-model="type" :class="$style.listview">
-            <u-tab v-for="(tab, index) in tabs" :key="index" :value="tab.value" :title="tab.text"></u-tab>
-        </u-tabs>
+  <u-modal
+    :class="$style.root"
+    :title="title"
+    ok-button=""
+    cancel-button=""
+    :visible.sync="show"
+    size="auto"
+    @close="close"
+  >
+    <u-linear-layout
+      justify="center"
+      :class="$style.searchWrap"
+    >
+      <u-input
+        v-model="keyword"
+        :class="$style.search"
+        size="large"
+        @input="search"
+      />
+    </u-linear-layout>
+    <u-tabs
+      v-model="type"
+      :class="$style.listview"
+    >
+      <u-tab
+        v-for="(tab, index) in tabs"
+        :key="index"
+        :value="tab.value"
+        :title="tab.text"
+      />
+    </u-tabs>
 
-        <div :class="$style.content">
-            <u-linear-layout justify="center" v-if="loading" :class="$style.wrap">
-                <u-loading size="large"></u-loading>
-            </u-linear-layout>
-            <u-linear-layout justify="center" v-else-if="loadFail" :class="$style.wrap">
-                Requesting data failed
-            </u-linear-layout>
-            <u-linear-layout justify="center" v-else-if="!currentList.length" :class="$style.wrap">
-                No data
-            </u-linear-layout>
-            <u-grid-layout v-else>
-                <u-grid-layout-row>
-                    <u-grid-layout-column :span="6" :class="$style.column" v-for="item in currentList" :key="item.id">
-                        <u-repo-panel :info="item" :clusterId="clusterId" :selected="(item.images || []).includes(image)" :image="image" @select="onSelectImage"></u-repo-panel>
-                    </u-grid-layout-column>
-                </u-grid-layout-row>
-                <u-linear-layout style="margin: 20px 10px 0 0;" justify="end" direction="vertical" v-if="totalPage>1">
-                    <u-pagination :total="totalPage" :page="page" @select="changePage"></u-pagination>
-                </u-linear-layout>
-            </u-grid-layout>
-        </div>
-    </u-modal>
+    <div :class="$style.content">
+      <u-linear-layout
+        v-if="loading"
+        justify="center"
+        :class="$style.wrap"
+      >
+        <u-loading size="large" />
+      </u-linear-layout>
+      <u-linear-layout
+        v-else-if="loadFail"
+        justify="center"
+        :class="$style.wrap"
+      >
+        Requesting data failed
+      </u-linear-layout>
+      <u-linear-layout
+        v-else-if="!currentList.length"
+        justify="center"
+        :class="$style.wrap"
+      >
+        No data
+      </u-linear-layout>
+      <u-grid-layout v-else>
+        <u-grid-layout-row>
+          <u-grid-layout-column
+            v-for="item in currentList"
+            :key="item.id"
+            :span="6"
+            :class="$style.column"
+          >
+            <u-repo-panel
+              :info="item"
+              :cluster-id="clusterId"
+              :selected="(item.images || []).includes(image)"
+              :image="image"
+              @select="onSelectImage"
+            />
+          </u-grid-layout-column>
+        </u-grid-layout-row>
+        <u-linear-layout
+          v-if="totalPage>1"
+          style="margin: 20px 10px 0 0;"
+          justify="end"
+          direction="vertical"
+        >
+          <u-pagination
+            :total="totalPage"
+            :page="page"
+            @select="changePage"
+          />
+        </u-linear-layout>
+      </u-grid-layout>
+    </div>
+  </u-modal>
 </template>
 
 <style module>
@@ -84,14 +140,14 @@ import { Modal } from '@micro-app/common/base/mixins';
 import service from '@micro-app/common/services/ncs.js';
 
 export default {
-    name: 'u-select-image',
-    mixins: [Modal],
+    name: 'USelectImage',
+    mixins: [ Modal ],
     props: {
         title: { type: String, default: 'See more' },
         image: { type: String, default: '' },
         projectName: String,
         tenantName: String,
-        clusterId: [String, Number],
+        clusterId: [ String, Number ],
     },
     data() {
         return {
@@ -118,8 +174,7 @@ export default {
     },
     watch: {
         show(value) {
-            if (!value)
-                return;
+            if (!value) { return; }
             this.loadImages();
         },
         type(value) {
@@ -154,14 +209,14 @@ export default {
             service.loadImages(params).then(({ list, harbor, total }) => {
                 // Prevent the content of other tabs from being displayed under a certain tab. Example: From Private -> All -> Private. All and private interfaces will be called successively, and all normal interfaces will be called before returning.
                 if (type === this.type) {
-                    this.currentList = this.list = list.map((item) => Object.assign(item, {
+                    this.currentList = this.list = list.map(item => Object.assign(item, {
                         image: harbor + '/' + item.name + ':' + item.tags[0],
-                        images: item.tags.map((tag) => harbor + '/' + item.name + ':' + tag),
+                        images: item.tags.map(tag => harbor + '/' + item.name + ':' + tag),
                     }));
                     this.totalPage = Math.ceil(total / pageSize);
                     this.loading = false;
                 }
-            }).catch((err) => {
+            }).catch(err => {
                 this.loading = false;
                 this.loadFail = true;
             });

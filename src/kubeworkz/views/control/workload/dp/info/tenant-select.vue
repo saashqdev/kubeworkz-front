@@ -9,7 +9,11 @@
     :processor="resolver"
   >
     <template slot-scope="{ data, loading }">
-      <i v-if="loading" class="el-icon-loading" style="font-size:24px"/>
+      <i
+        v-if="loading"
+        class="el-icon-loading"
+        style="font-size:24px"
+      />
       <el-select
         v-else
         v-model="model"
@@ -19,8 +23,8 @@
           v-for="item in data"
           :key="item.value"
           :label="item.text"
-          :value="item.value">
-        </el-option>
+          :value="item.value"
+        />
       </el-select>
     </template>
   </x-request>

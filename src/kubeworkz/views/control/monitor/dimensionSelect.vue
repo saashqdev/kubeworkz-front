@@ -1,24 +1,46 @@
 <template>
   <div :class="$style.wrap">
-    <el-button type="primary" @click="handleOpen">Dimension selection</el-button>
+    <el-button
+      type="primary"
+      @click="handleOpen"
+    >
+      Dimension selection
+    </el-button>
     <el-dialog
       title="Dimension selection"
       :visible="dialogVisible"
       width="600px"
-      @close="close"
       :close-on-click-modal="false"
+      @close="close"
     >
-      <div v-for="(row, rowIndex) in localData" :class="$style.row" :key="rowIndex">
+      <div
+        v-for="(row, rowIndex) in localData"
+        :key="rowIndex"
+        :class="$style.row"
+      >
         <div :class="$style.title">
-          {{row.name}}
+          {{ row.name }}
         </div>
         <div :class="$style.content">
-          <el-checkbox v-for="(panel, panelIndex) in row.panels" :key="panelIndex" v-model="panel.showPanel">{{panel.title}}</el-checkbox>
+          <el-checkbox
+            v-for="(panel, panelIndex) in row.panels"
+            :key="panelIndex"
+            v-model="panel.showPanel"
+          >
+            {{ panel.title }}
+          </el-checkbox>
         </div>
       </div>
       <div slot="footer">
-        <el-button @click="close">Cancel</el-button>
-        <el-button type="primary" @click="submit">OK</el-button>
+        <el-button @click="close">
+          Cancel
+        </el-button>
+        <el-button
+          type="primary"
+          @click="submit"
+        >
+          OK
+        </el-button>
       </div>
     </el-dialog>
   </div>

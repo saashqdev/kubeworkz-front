@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <slot :displayData="displayData"></slot>
-    </div>
+  <div>
+    <slot :displayData="displayData" />
+  </div>
 </template>
 
 <script>

@@ -35,7 +35,7 @@ export const toPlainObject = model => {
 export const toK8SObject = model => {
     const g = getFromModel(model);
     const obj = {};
-    const minReadySeconds = toNumber(g('spec.strategy.minReadySeconds'));  // Minimum ready time
+    const minReadySeconds = toNumber(g('spec.strategy.minReadySeconds')); // Minimum ready time
     const maxSurge = toNumber(g('spec.strategy.maxSurge')); // Maximum number of copies beyond expectations
     const maxUnavailable = toNumber(g('spec.strategy.maxUnavailable')); // Maximum number of unusable copies
     if (minReadySeconds || minReadySeconds === 0 || maxSurge || maxUnavailable) {

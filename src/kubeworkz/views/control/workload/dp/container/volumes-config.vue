@@ -1,14 +1,16 @@
 <template>
   <div>
     <el-form-item label="Mount data volume">
-      <div style="color: #999;">RWO type storage statement does not support multiple copy mounting. Please set the number of copies to 1.</div>
+      <div style="color: #999;">
+        RWO type storage statement does not support multiple copy mounting. Please set the number of copies to 1.
+      </div>
       <dynamicTab
         :value="tabs"
-        :showAddBtn="false"
-        :showDeleteBtn="false"
+        :show-add-btn="false"
+        :show-delete-btn="false"
       >
-        <template v-slot:tabNav="{item}">
-          {{item.title}}
+        <template #tabNav="{item}">
+          {{ item.title }}
           <span
             v-if="item.tab === 'pvc' && pvcLength"
             :class="$style.indicator"
@@ -45,32 +47,35 @@
           >
             {{ vctLength }}
           </span>
-          <i v-if="hasError(item.tab, validateStatus)" :class="['el-icon-warning', $style.errorIcon]"/>
+          <i
+            v-if="hasError(item.tab, validateStatus)"
+            :class="['el-icon-warning', $style.errorIcon]"
+          />
         </template>
         <template slot-scope="{item}">
           <pvc-config
             v-if="item.tab === 'pvc'"
             v-model="model.pvc"
             :volume="model"
-            :prefixKey="`${errorPrefix}.${item.tab}`"
+            :prefix-key="`${errorPrefix}.${item.tab}`"
           />
           <configmap-config
             v-if="item.tab === 'configmap'"
             v-model="model.configmap"
-            :prefixKey="`${errorPrefix}.${item.tab}`"
+            :prefix-key="`${errorPrefix}.${item.tab}`"
             :volume="model"
             :image="image"
           />
           <secret-config
             v-if="item.tab === 'secret'"
             v-model="model.secret"
-            :prefixKey="`${errorPrefix}.${item.tab}`"
+            :prefix-key="`${errorPrefix}.${item.tab}`"
             :volume="model"
           />
           <empty-dir-config
             v-if="item.tab === 'emptyDir'"
             v-model="model.emptyDir"
-            :prefixKey="`${errorPrefix}.${item.tab}`"
+            :prefix-key="`${errorPrefix}.${item.tab}`"
             :volume="model"
             :pod-volumes="podVolumes"
             :open-dialog="openDialog"
@@ -78,13 +83,13 @@
           <host-path-config
             v-if="item.tab === 'hostpath'"
             v-model="model.hostpath"
-            :prefixKey="`${errorPrefix}.${item.tab}`"
+            :prefix-key="`${errorPrefix}.${item.tab}`"
             :volume="model"
           />
           <vct-config
             v-if="item.tab === 'vct'"
             v-model="model.vct"
-            :prefixKey="`${errorPrefix}.${item.tab}`"
+            :prefix-key="`${errorPrefix}.${item.tab}`"
             :storage="storage"
             :volume="model"
           />
@@ -133,13 +138,6 @@ export default {
             validateStatus: {},
         };
     },
-    watch: {
-        model: {
-            handler() {
-                this.validateStatus = {};
-            },
-        },
-    },
     computed: {
         tabs() {
             if (this.storage && this.storage.length > 0) {
@@ -172,6 +170,13 @@ export default {
         },
         vctLength() {
             return this.model.vct.filter(p => p.mountPath && p.name).length;
+        },
+    },
+    watch: {
+        model: {
+            handler() {
+                this.validateStatus = {};
+            },
         },
     },
     mounted() {

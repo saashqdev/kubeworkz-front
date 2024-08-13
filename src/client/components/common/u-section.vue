@@ -1,8 +1,12 @@
 <template>
-    <div :class="$style.root">
-        <div :class="$style.title">{{ title }}</div>
-        <div :class="$style.content"><slot></slot></div>
+  <div :class="$style.root">
+    <div :class="$style.title">
+      {{ title }}
     </div>
+    <div :class="$style.content">
+      <slot />
+    </div>
+  </div>
 </template>
 
 <style module>
@@ -20,7 +24,7 @@
 </style>
 <script>
 export default {
-    name: 'u-section',
+    name: 'USection',
     props: {
         title: String,
     },

@@ -39,13 +39,11 @@ export default {
         },
         getListVm(children) {
             for (const vm of children) {
-                if (vm.$options.name === 'u-block-list')
-                    return vm;
-                else {
-                    const res = this.getListVm(vm.$children);
-                    if (res)
-                        return res;
-                }
+                if (vm.$options.name === 'u-block-list') { return vm; }
+
+                const res = this.getListVm(vm.$children);
+                if (res) { return res; }
+
             }
         },
     },

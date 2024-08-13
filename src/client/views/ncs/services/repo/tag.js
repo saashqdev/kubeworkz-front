@@ -9,7 +9,7 @@ const apis = {
     load: {
         method: 'get',
         path: '/{clusterId}/repositories/getTag',
-        process: (result) => {
+        process: result => {
             return normalizeTag(result.tag || {});
         },
     },

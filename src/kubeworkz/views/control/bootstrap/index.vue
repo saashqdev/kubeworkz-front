@@ -6,8 +6,7 @@
       description="Can manage authorized resources"
       show-icon
       :closable="false"
-    >
-    </el-alert>
+    />
     <section :class="$style.section">
       <div :class="$style.title">
         1. Confirm that the kubectl client has been installed locally (adapted to version 1.9 and above)

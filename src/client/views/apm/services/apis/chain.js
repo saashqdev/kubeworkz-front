@@ -10,5 +10,5 @@ export default {
     callChain: {
         path: prefixV1 + '/callTree/{transId}',
         method: 'get',
-    }
+    },
 };

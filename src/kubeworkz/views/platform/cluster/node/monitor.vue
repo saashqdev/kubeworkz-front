@@ -1,13 +1,13 @@
 <template>
   <div>
-      monitor
+    monitor
   </div>
 </template>
 
 <script>
 export default {
 
-}
+};
 </script>
 
 <style>

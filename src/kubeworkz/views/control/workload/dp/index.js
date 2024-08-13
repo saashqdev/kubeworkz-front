@@ -29,5 +29,5 @@ export default {
     filters,
     listColumns,
     service,
-    resolver
+    resolver,
 };

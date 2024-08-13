@@ -26,7 +26,7 @@ import uAppBreadCrumbs from 'kubeworkz/component/global/u-app-bread-cumbs.vue';
 export default {
     components: {
         uAppBreadCrumbs,
-    }
+    },
 };
 </script>
 

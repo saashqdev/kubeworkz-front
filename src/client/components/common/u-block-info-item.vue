@@ -1,13 +1,21 @@
 <template>
-    <div :class="$style.root" :style="{ width }">
-        <slot>
-            <u-linear-layout gap="none">
-                <span :class="$style.value" :size="size">{{ currentValue }}</span>
-                <span :class="$style.unit"> {{ currentUnit }}</span>
-            </u-linear-layout>
-            <p :class="$style.text">{{ currentText }}</p>
-        </slot>
-    </div>
+  <div
+    :class="$style.root"
+    :style="{ width }"
+  >
+    <slot>
+      <u-linear-layout gap="none">
+        <span
+          :class="$style.value"
+          :size="size"
+        >{{ currentValue }}</span>
+        <span :class="$style.unit"> {{ currentUnit }}</span>
+      </u-linear-layout>
+      <p :class="$style.text">
+        {{ currentText }}
+      </p>
+    </slot>
+  </div>
 </template>
 
 <style module>
@@ -35,14 +43,14 @@
 import { Emitter } from 'cloud-ui.vusion';
 
 export default {
-    name: 'u-block-info-item',
+    name: 'UBlockInfoItem',
     parentName: 'u-block-info',
-    mixins: [Emitter],
+    mixins: [ Emitter ],
     props: {
         size: { type: String, default: '' },
         text: { type: String, default: '' },
         unit: { type: String, default: '' },
-        value: { type: [String, Number], default: '' },
+        value: { type: [ String, Number ], default: '' },
     },
     data() {
         return {

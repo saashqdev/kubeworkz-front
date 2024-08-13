@@ -9,26 +9,31 @@
       <template v-if="model.enable">
         <dynamicBlock
           v-model="model.configs"
-          :getDefaultItem="getDataTemplate"
+          :get-default-item="getDataTemplate"
           :columns="[
-              {
-                  title: 'Port',
-                  dataIndex: 'containerPort',
-              },
-              {
-                  title: 'Name',
-                  dataIndex: 'name',
-              },
-              {
-                  title: 'Protocol',
-                  dataIndex: 'protocol',
-              },
+            {
+              title: 'Port',
+              dataIndex: 'containerPort',
+            },
+            {
+              title: 'Name',
+              dataIndex: 'name',
+            },
+            {
+              title: 'Protocol',
+              dataIndex: 'protocol',
+            },
           ]"
         >
-          <template v-slot:containerPort="{record}">
-            <el-input-number v-model="record.containerPort" :min="1" :max="65535" controls-position="right"/>
+          <template #containerPort="{record}">
+            <el-input-number
+              v-model="record.containerPort"
+              :min="1"
+              :max="65535"
+              controls-position="right"
+            />
           </template>
-          <template v-slot:name="{record, index}">
+          <template #name="{record, index}">
             <el-form-item
               label=""
               :prop="`${prefixKey}.configs.${index}.name`"
@@ -45,14 +50,18 @@
               />
             </el-form-item>
           </template>
-          <template v-slot:protocol="{record}">
-            <el-select v-model="record.protocol" placeholder="Please choose" filterable>
+          <template #protocol="{record}">
+            <el-select
+              v-model="record.protocol"
+              placeholder="Please choose"
+              filterable
+            >
               <el-option
                 v-for="item in protocols"
                 :key="item.value"
                 :label="item.text"
-                :value="item.value">
-              </el-option>
+                :value="item.value"
+              />
             </el-select>
           </template>
         </dynamicBlock>

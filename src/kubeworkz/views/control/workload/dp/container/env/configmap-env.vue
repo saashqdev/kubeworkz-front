@@ -2,7 +2,7 @@
   <div>
     <dynamicBlock
       v-model="model"
-      :getDefaultItem="getDataTemplate"
+      :get-default-item="getDataTemplate"
       :columns="[
         {
           title: 'Key',
@@ -18,7 +18,7 @@
         },
       ]"
     >
-      <template v-slot:key="{record, index}">
+      <template #key="{record, index}">
         <el-form-item
           label=""
           :prop="`${prefixKey}.${index}.key`"
@@ -35,24 +35,33 @@
           />
         </el-form-item>
       </template>
-      <template v-slot:configmap="{record}">
-        <el-select v-model="record.configmap" placeholder="Please choose" filterable @change="item.configmapKey = ''">
+      <template #configmap="{record}">
+        <el-select
+          v-model="record.configmap"
+          placeholder="Please choose"
+          filterable
+          @change="item.configmapKey = ''"
+        >
           <el-option
             v-for="item in resources"
             :key="item.value"
             :label="item.text"
-            :value="item.value">
-          </el-option>
+            :value="item.value"
+          />
         </el-select>
       </template>
-      <template v-slot:configmapKey="{record}">
-        <el-select v-model="record.configmapKey" placeholder="Please choose" filterable>
+      <template #configmapKey="{record}">
+        <el-select
+          v-model="record.configmapKey"
+          placeholder="Please choose"
+          filterable
+        >
           <el-option
             v-for="item in getKeys(record.configmap)"
             :key="item.value"
             :label="item.text"
-            :value="item.value">
-          </el-option>
+            :value="item.value"
+          />
         </el-select>
       </template>
     </dynamicBlock>

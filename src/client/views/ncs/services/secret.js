@@ -9,27 +9,27 @@ const apis = {
     load: {
         method: 'get',
         path: '/clusters/{clusterId}/namespaces/{namespace}/secrets/{name}',
-        process: (result) => normalizeSecret(result),
+        process: result => normalizeSecret(result),
     },
     // common
     loads: {
         method: 'get',
         path: '/clusters/{clusterId}/namespaces/{namespace}/secrets',
-        process: (result) =>
+        process: result =>
             // Do not expose secrets of this type kubernetes.io/service-account-token
-             (result.items || [])
-                .filter((item) => item.type !== 'kubernetes.io/service-account-token')
-                .map((item) => normalizeSecret(item))
+            (result.items || [])
+                .filter(item => item.type !== 'kubernetes.io/service-account-token')
+                .map(item => normalizeSecret(item))
         ,
     },
     loadsWithPage: {
         method: 'get',
         path: '/extends/clusters/{clusterId}/namespaces/{namespace}/secrets',
-        process: (result) => {
+        process: result => {
             // Do not expose secrets of this type kubernetes.io/service-account-token
             const list = (result.secrets || [])
-                .filter((item) => item.type !== 'kubernetes.io/service-account-token')
-                .map((item) => normalizeSecret(item));
+                .filter(item => item.type !== 'kubernetes.io/service-account-token')
+                .map(item => normalizeSecret(item));
             return {
                 list,
                 total: result.total || 0,

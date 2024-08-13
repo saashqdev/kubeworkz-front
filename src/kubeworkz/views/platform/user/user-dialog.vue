@@ -74,8 +74,8 @@
             :message="errors && errors[0]"
           >
             <u-input
-              :type="pwdFlag ? 'password' : 'text'"
               v-model="model.password"
+              :type="pwdFlag ? 'password' : 'text'"
               size="normal huge"
               :color="errors && errors[0] ? 'error' : ''"
               :readonly="readonlyPassword"

@@ -7,7 +7,10 @@
     >
       Check the detail information
     </el-button>
-    <el-descriptions title="Basic Information" :column="1">
+    <el-descriptions
+      title="Basic Information"
+      :column="1"
+    >
       <el-descriptions-item label="Cluster name">
         {{ instance.annotations && instance.annotations['cluster.kubeworkz.io/cn-name'] }}
       </el-descriptions-item>

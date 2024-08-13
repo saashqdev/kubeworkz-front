@@ -9,7 +9,7 @@ const apis = {
     loads: {
         method: 'post',
         path: '/{clusterId}/policies/list',
-        process: (result) => {
+        process: result => {
             return {
                 list: result.policies,
                 total: result.total,
@@ -31,7 +31,7 @@ const apis = {
     run: {
         method: 'post',
         path: '/{clusterId}/policies/{policyId}/run',
-    }
+    },
 };
 
 const service = new Service(apis, '/repo/proxy/api/v1/harborproxy');

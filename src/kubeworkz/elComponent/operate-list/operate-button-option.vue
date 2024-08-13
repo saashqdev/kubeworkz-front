@@ -1,13 +1,16 @@
 <template>
-    <el-button v-on="$listeners" v-bind="$attrs">
-        <slot name="default"></slot>
-    </el-button>
+  <el-button
+    v-bind="$attrs"
+    v-on="$listeners"
+  >
+    <slot name="default" />
+  </el-button>
 </template>
 <script>
 export default {
-    name: 'operateButtonOption',
+    name: 'OperateButtonOption',
     data() {
-        return {}
-    }
-}
+        return {};
+    },
+};
 </script>

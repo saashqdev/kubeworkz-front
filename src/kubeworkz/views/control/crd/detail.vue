@@ -8,10 +8,16 @@
       </div>
       <div slot="act">
         <operateList>
-          <operateButtonOption @click="editYAML" :disabled="isReview">
+          <operateButtonOption
+            :disabled="isReview"
+            @click="editYAML"
+          >
             YAML settings
           </operateButtonOption>
-          <operateButtonOption @click="deleteCrd" :disabled="isReview">
+          <operateButtonOption
+            :disabled="isReview"
+            @click="deleteCrd"
+          >
             Delete
           </operateButtonOption>
         </operateList>
@@ -24,21 +30,35 @@
       :processor="crdResolver"
     >
       <template slot-scope="{ data, loading }">
-        <i v-if="loading" class="el-icon-loading" style="font-size: 24px"/>
+        <i
+          v-if="loading"
+          class="el-icon-loading"
+          style="font-size: 24px"
+        />
         <template v-else>
-          <el-tabs value="instance" page="main">
-            <el-tab-pane label="Example" name="instance"/>
+          <el-tabs
+            value="instance"
+            page="main"
+          >
+            <el-tab-pane
+              label="Example"
+              name="instance"
+            />
           </el-tabs>
           <div>
-            <el-button 
+            <el-button
               type="primary"
-              @click="toCreate(data)"
               icon="el-icon-plus"
               :disabled="isReview"
+              @click="toCreate(data)"
             >
               Create {{ data.names.plural }}
             </el-button>
-            <el-button @click="refresh" square icon="el-icon-refresh-right"></el-button>
+            <el-button
+              square
+              icon="el-icon-refresh-right"
+              @click="refresh"
+            />
           </div>
           <x-request
             ref="request"
@@ -67,15 +87,14 @@
                   prop="metadata.name"
                   label="Name"
                   :show-overflow-tooltip="true"
-                >
-                </el-table-column>
+                />
                 <el-table-column
                   prop="metadata.creationTimestamp"
                   label="Creation time"
                   width="170"
                 >
                   <template slot-scope="{ row }">
-                  {{ row.metadata.creationTimestamp | formatLocaleTime }}
+                    {{ row.metadata.creationTimestamp | formatLocaleTime }}
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -85,8 +104,18 @@
                 >
                   <template slot-scope="{ row }">
                     <qz-link-group max="3">
-                      <el-link type="primary" @click="editItem(data, row)">YAML settings</el-link>
-                      <el-link type="primary" @click="deleteItem(data, row)">Delete</el-link>
+                      <el-link
+                        type="primary"
+                        @click="editItem(data, row)"
+                      >
+                        YAML settings
+                      </el-link>
+                      <el-link
+                        type="primary"
+                        @click="deleteItem(data, row)"
+                      >
+                        Delete
+                      </el-link>
                     </qz-link-group>
                   </template>
                 </el-table-column>
@@ -94,14 +123,14 @@
               <el-pagination
                 v-if="crData && calculatePages(crData.total) > 0"
                 style="float:right;margin-top:12px"
-                @size-change="pageSizeChange"
-                @current-change="pageNumChange"
                 :current-page="pagenation.pageNum"
                 :page-sizes="[10, 20, 30, 40, 50, 100]"
                 :page-size="pagenation.pageSize"
                 layout="total, sizes, prev, pager, next"
                 :total="crData.total"
                 background
+                @size-change="pageSizeChange"
+                @current-change="pageNumChange"
               />
             </template>
           </x-request>
@@ -147,7 +176,7 @@ export default {
         namespace: get('scope/namespace@value'),
         userResourcesPermission: get('scope/userResourcesPermission'),
         isReview() {
-            return !this.userResourcesPermission['customresourcedefinitions'];
+            return !this.userResourcesPermission.customresourcedefinitions;
         },
         reqParam() {
             return {
@@ -285,8 +314,8 @@ export default {
                 message: `Confirm to delete ${this.name}?`,
                 ok: async () => {
                     await workloadService.deleteCRDInstance({
-                        ...this.crdParam
-                    })
+                        ...this.crdParam,
+                    });
                     this.$router.push({
                         name: 'crd.list',
                         params: {

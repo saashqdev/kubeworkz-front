@@ -13,7 +13,7 @@ export default {
         readonly: Boolean,
         disabled: Boolean,
         // There will be problems if the data passed in by the parent component is directly converted.
-        list: { type: [Array, Object], default: () => [] },
+        list: { type: [ Array, Object ], default: () => [] },
         needSortValue: { type: Boolean, default: false },
         canBeEmpty: { type: Boolean, default: true }, // Whether the value can be empty (no legal value)
         needCompare: { type: Boolean, default: false }, // [todo] Do you need to compare data changes?
@@ -37,12 +37,9 @@ export default {
     // enhancement: Modified v-if -> v-show of u-multi-add.vue component. Collapse and expansion will no longer reset internal components.
     // That is: u-inputs will only be created once, no judgment is required. Expand Collapse || Initialization Distinction
     created() {
-        if (!this.loadBeforeCreated)
-            return;
-        if (!this.normalize)
-            console.error('error: Please define the normalize function in the component');
-        if (!this.getDefault)
-            console.error('error: Please define the getDefault function within the component');
+        if (!this.loadBeforeCreated) { return; }
+        if (!this.normalize) { console.error('error: Please define the normalize function in the component'); }
+        if (!this.getDefault) { console.error('error: Please define the getDefault function within the component'); }
         // The intermediate value saved by u-containers-config must be an array (the initial value when setting may be an object)
         // const keys = Object.keys((this.list.length && this.list[0]) || {});
         // Do not place this.defaults inside the data() function, because the variables used inside the function may also be initialized in the data phase. Will cause unexpected errors
@@ -60,10 +57,7 @@ export default {
     },
     methods: {
         initialize(list) {
-            if (list.length || Object.keys(list).length)
-                this.sortList = this.normalize(list);
-            else if (this.needInit)
-                this.add();
+            if (list.length || Object.keys(list).length) { this.sortList = this.normalize(list); } else if (this.needInit) { this.add(); }
         },
         add() {
             this.sortList.push(this.getDefault());
@@ -104,11 +98,11 @@ export default {
         // However, in some special cases, the default item is legal. At this time, you need to specifically specify that the isDefaultTrue parameter is true.
         getLegalList(list, isDefaultTrue = false) {
             const tmp = list || this.sortList;
-            return isDefaultTrue ? tmp : tmp.filter((item) => !isEqual(item, this.defaults));
+            return isDefaultTrue ? tmp : tmp.filter(item => !isEqual(item, this.defaults));
         },
         $reset() {
             this.states = [];
-            this.sortList = [this.getDefault(true)];
+            this.sortList = [ this.getDefault(true) ];
         },
         /**
          * Valid when the value of canBeEmpty is false, determine whether the only item left in this.sortList is an invalid value. If it is invalid, an illegal valid result is thrown to u-form.
@@ -116,10 +110,10 @@ export default {
          * inputs only implements a general logical judgment here, that is, when this.sortList[0] has an empty attribute, it will judge that the current value is invalid.
          * If you need to implement customized logic in the u-inputs-xx component, you can directly override this method.
          *
-         * @returns {Boolean} - Is it an invalid value?
+         * @return {Boolean} - Is it an invalid value?
          */
         isEmpty() {
-            return this.sortList.length === 1 && Object.values(this.sortList[0]).some((value) => !value);
+            return this.sortList.length === 1 && Object.values(this.sortList[0]).some(value => !value);
         },
     },
 };

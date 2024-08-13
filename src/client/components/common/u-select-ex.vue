@@ -1,23 +1,54 @@
 <template>
-    <u-suggest ref="suggest" v-if="suggest" :disabled="disabled" :value="current" :placeholder="placeholder" @input="onInput" v-bind="suggestAttrs" v-on="$listeners" @change="onChange" :dataSource="dataSource" strict><slot></slot></u-suggest>
-    <span v-else :class="$style.root">
-        <u-select ref="selectVM" :value="current" :disabled="disabled" @input="onInput" v-bind="normalAttrs" v-on="$listeners">
-            <slot>
-                <u-select-item v-for="(item, index) in data" :key="`${item.vaule}_${index}`" :value="item.value">
-                    {{ item.text }}
-                </u-select-item>
-            </slot>
-        </u-select>
-        <span v-if="notValue && placeholder" :class="$style.placeholder">{{ placeholder }}</span>
-    </span>
+  <u-suggest
+    v-if="suggest"
+    ref="suggest"
+    :disabled="disabled"
+    :value="current"
+    :placeholder="placeholder"
+    v-bind="suggestAttrs"
+    :data-source="dataSource"
+    strict
+    @input="onInput"
+    v-on="$listeners"
+    @change="onChange"
+  >
+    <slot />
+  </u-suggest>
+  <span
+    v-else
+    :class="$style.root"
+  >
+    <u-select
+      ref="selectVM"
+      :value="current"
+      :disabled="disabled"
+      v-bind="normalAttrs"
+      @input="onInput"
+      v-on="$listeners"
+    >
+      <slot>
+        <u-select-item
+          v-for="(item, index) in data"
+          :key="`${item.vaule}_${index}`"
+          :value="item.value"
+        >
+          {{ item.text }}
+        </u-select-item>
+      </slot>
+    </u-select>
+    <span
+      v-if="notValue && placeholder"
+      :class="$style.placeholder"
+    >{{ placeholder }}</span>
+  </span>
 </template>
 
 <script>
 import _ from 'lodash';
 export default {
-    name: 'u-select-ex',
+    name: 'USelectEx',
     props: {
-        value: [String, Number],
+        value: [ String, Number ],
         placeholder: String,
         suggest: Boolean,
         disabled: Boolean,
@@ -28,11 +59,6 @@ export default {
         return {
             current: this.value || '',
         };
-    },
-    watch: {
-        value(val) {
-            this.current = val || '';
-        },
     },
     computed: {
         normalAttrs() {
@@ -48,6 +74,11 @@ export default {
         },
         notValue() {
             return !this.current;
+        },
+    },
+    watch: {
+        value(val) {
+            this.current = val || '';
         },
     },
     methods: {
@@ -67,8 +98,7 @@ export default {
             }
         },
         fixFetchData() {
-            if (!this.suggest)
-                return;
+            if (!this.suggest) { return; }
             const that = this.$refs.suggest;
             if (that) {
                 that.filterText = that.currentText || '';

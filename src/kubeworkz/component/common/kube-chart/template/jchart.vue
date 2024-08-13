@@ -23,7 +23,10 @@
       v-if="loading"
       :class="$style.loading"
     >
-      <i class="el-icon-loading" style="font-size: 24px"/>
+      <i
+        class="el-icon-loading"
+        style="font-size: 24px"
+      />
     </div>
   </div>
 </template>
@@ -160,7 +163,7 @@ export default {
                 end: this.et,
                 step: `${step}s`,
                 ...(enhanceOption || {}),
-            }
+            };
             const promise = Promise.all(this.query.map(q =>
                 monitorService.queryRange({
                     params: {

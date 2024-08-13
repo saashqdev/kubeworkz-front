@@ -1,25 +1,50 @@
 <template>
-    <div :class="$style.root">
-        <div :class="[$style.wrap, 'f-toe']" :showMoreButton="showMoreButton">
-            <span v-if="isEmpty">-</span>
-            <slot v-else name="display">
-                <span v-for="(item, index) in briefList" :class="[$style.item, isChip ? 'u-chip' : '']" :key="index" :title="isString ? item : item.text">{{ isString ? item : item.text }}</span>
-            </slot>
-        </div>
-        <u-popup v-if="showMoreButton" :trigger="trigger" :placement="placement">
-            <slot name="more">
-                <u-link style="padding-left: 5px; vertical-align: middle;">More</u-link>
-            </slot>
-            <div slot="title"><span style="margin-right: 32px;"><slot name="title">{{ title }}</slot></span> <span :class="$style.titleNum"><slot name="count"><template v-if="length">{{ length }} individual</template></slot></span></div>
-            <div slot="content">
-                <div :class="$style.popupBox">
-                    <slot>
-                        <div :class="$style.popupItem" v-for="(item, index) in list" :key="index">{{ isString ? item : item.text }}</div>
-                    </slot>
-                </div>
-            </div>
-        </u-popup>
+  <div :class="$style.root">
+    <div
+      :class="[$style.wrap, 'f-toe']"
+      :showMoreButton="showMoreButton"
+    >
+      <span v-if="isEmpty">-</span>
+      <slot
+        v-else
+        name="display"
+      >
+        <span
+          v-for="(item, index) in briefList"
+          :key="index"
+          :class="[$style.item, isChip ? 'u-chip' : '']"
+          :title="isString ? item : item.text"
+        >{{ isString ? item : item.text }}</span>
+      </slot>
     </div>
+    <u-popup
+      v-if="showMoreButton"
+      :trigger="trigger"
+      :placement="placement"
+    >
+      <slot name="more">
+        <u-link style="padding-left: 5px; vertical-align: middle;">
+          More
+        </u-link>
+      </slot>
+      <div slot="title">
+        <span style="margin-right: 32px;"><slot name="title">{{ title }}</slot></span> <span :class="$style.titleNum"><slot name="count"><template v-if="length">{{ length }} individual</template></slot></span>
+      </div>
+      <div slot="content">
+        <div :class="$style.popupBox">
+          <slot>
+            <div
+              v-for="(item, index) in list"
+              :key="index"
+              :class="$style.popupItem"
+            >
+              {{ isString ? item : item.text }}
+            </div>
+          </slot>
+        </div>
+      </div>
+    </u-popup>
+  </div>
 </template>
 
 <script>
@@ -28,7 +53,7 @@
  *              Each item in the array is an object (the object has a text field to display) || String
  */
 export default {
-    name: 'u-table-cell-mores',
+    name: 'UTableCellMores',
     props: {
         title: String,
         max: { type: Number, default: 1 },
@@ -42,6 +67,11 @@ export default {
             type: String,
             default: 'hover',
         },
+    },
+    data() {
+        return {
+
+        };
     },
     computed: {
         length() {
@@ -58,15 +88,9 @@ export default {
             return this.length > this.max;
         },
         isEmpty() {
-            if (this.max < 0)
-                return false;
+            if (this.max < 0) { return false; }
             return !this.list.length;
         },
-    },
-    data() {
-        return {
-
-        };
     },
 };
 </script>

@@ -55,7 +55,7 @@ export function toPlainObject(model) {
                 limitsMemory: g('status.used["limits.memory"]') ? unitConvertMemory(g('status.used["limits.memory"]')) : 0,
                 gpu: g('status.used["requests.nvidia.com/gpu"]') ? unitConvertCPU(g('status.used["requests.nvidia.com/gpu"]')) : 0,
                 storage: g('status.used["requests.storage"]') ? unitConvertMemory(g('status.used["requests.storage"]'), 'Gi') : 0,
-            }
+            },
         },
         requestsMemory: '',
         limitsMemory: '',

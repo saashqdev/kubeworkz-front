@@ -1,9 +1,18 @@
 <template>
-    <div :class="$style.chips">
-        <span :class="$style.chip" @click="$emit('disable', !state)">{{state ? 'Take effect' :'Invalid'}}</span>
-        <span :class="$style.chip" @click="$emit('edit')">Edit</span>
-        <span :class="$style.chip" @click="$emit('remove')">Delete</span>
-    </div>
+  <div :class="$style.chips">
+    <span
+      :class="$style.chip"
+      @click="$emit('disable', !state)"
+    >{{ state ? 'Take effect' :'Invalid' }}</span>
+    <span
+      :class="$style.chip"
+      @click="$emit('edit')"
+    >Edit</span>
+    <span
+      :class="$style.chip"
+      @click="$emit('remove')"
+    >Delete</span>
+  </div>
 </template>
 
 <script>

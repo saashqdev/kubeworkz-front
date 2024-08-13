@@ -2,7 +2,7 @@ import MonitorChart from '@necfe/cloud-ui-internal/src/u-monitor-chart.vue';
 import { getApmJvm, getNcsMonitor, getApmDb, getZipkinMonitor, getApmService } from './services/apm.js';
 export default {
     name: 'u-monitor-chart',
-    mixins: [MonitorChart],
+    mixins: [ MonitorChart ],
     props: {
         filters: Object,
     },

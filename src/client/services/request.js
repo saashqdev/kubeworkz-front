@@ -145,19 +145,19 @@ request.fetch = (url, options = {}) => {
                         res.headers.get('content-type');
                         return res.text();
                 }
-            } else if (/^3/.test(res.status)) { 
+            } else if (/^3/.test(res.status)) {
                 console.log(res);
             } else if (res.status === 401) {
                 return res.json().then(data => ({ code: 401, data }));
             } else if (res.status === 406) { // If you are not logged in, jump to the login page.
                 window.location.href = customConfig.yun163loginUrl ? customConfig.yun163loginUrl : `/public/login.html#/?redirect=${encodeURIComponent(window.location.href)}`;
-            } else if (res.status === 403) { 
+            } else if (res.status === 403) {
                 return res.json();
-            } else if (res.status === 404) { 
-                return res.json().then(text => text || {}); 
+            } else if (res.status === 404) {
+                return res.json().then(text => text || {});
             } else {
-                if (res.status === 502 || res.status === 504) { 
-                    Toast.error('Component exception'); 
+                if (res.status === 502 || res.status === 504) {
+                    Toast.error('Component exception');
                 }
                 console.log("Looks like the response wasn't perfect, got status", res.status);
                 if (options.type === 'json') {
@@ -167,20 +167,20 @@ request.fetch = (url, options = {}) => {
 
             }
         }).then(data => {
-            if (+data.code === 200 || (data.result && +data.result.Code === 200) || +data.Code === 200 || data.Code === 'success') { 
-                return data.result || data.params || data.list || data; 
-            } else if (data.status === 400) { 
-                throw data; 
-            } else if (typeof (data) === 'string' && options.type === 'text') { 
-                return data; 
-            } else if (typeof (data) === 'string' || data.Error) { 
-                throw data; 
-            } else if (!data.code && !data.Code && data.status !== 406 && data.status !== 403) { 
-                return data; 
-            } else if (data.Code === 'Success' || data.code === 'Success') { 
-                return data; 
-            } else { 
-                throw data; 
+            if (+data.code === 200 || (data.result && +data.result.Code === 200) || +data.Code === 200 || data.Code === 'success') {
+                return data.result || data.params || data.list || data;
+            } else if (data.status === 400) {
+                throw data;
+            } else if (typeof (data) === 'string' && options.type === 'text') {
+                return data;
+            } else if (typeof (data) === 'string' || data.Error) {
+                throw data;
+            } else if (!data.code && !data.Code && data.status !== 406 && data.status !== 403) {
+                return data;
+            } else if (data.Code === 'Success' || data.code === 'Success') {
+                return data;
+            } else {
+                throw data;
             }
         })
         .catch(error => {
@@ -200,7 +200,6 @@ request.fetch = (url, options = {}) => {
                 // If you are not logged in, jump to the login page.
                 window.location.href = customConfig.yun163loginUrl ? customConfig.yun163loginUrl : `/public/login.html#/?redirect=${encodeURIComponent(window.location.href)}`;
             } else {
-                const data = error || {};
                 if (message === ERROR_CODE.REQUEST_ERROR || /^5/.test(error.code)) {
                     Toast.error('There was a problem with the network or browser, please try again later.');
                 }

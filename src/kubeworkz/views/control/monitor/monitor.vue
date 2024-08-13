@@ -2,7 +2,11 @@
   <div>
     <!-- <u-info-list-group :title="`${title} monitor`" /> -->
     <div style="margin-bottom: 20px">
-      <i v-if="loading" class="el-icon-loading" style="font-size: 24px"/>
+      <i
+        v-if="loading"
+        class="el-icon-loading"
+        style="font-size: 24px"
+      />
       <div v-else-if="rows.length === 0">
         No monitoring items yet
       </div>
@@ -15,9 +19,15 @@
               @update="updateTime"
             />
           </div>
-          <div v-if="selectshowable" style="margin-right:8px;display:flex;">
+          <div
+            v-if="selectshowable"
+            style="margin-right:8px;display:flex;"
+          >
             <span style="margin-right:8px;line-height:32px">Monitoring dimensions:</span>
-            <dimensionSelect :value="rows" @change="handleAsyncPanelShow"/>
+            <dimensionSelect
+              :value="rows"
+              @change="handleAsyncPanelShow"
+            />
           </div>
         </div>
         <kube-pipe
@@ -44,17 +54,17 @@
                   <div>
                     <span :class="$style.occupation">{{ findLongest(sources[v.name]) }}</span>
                     <el-select
-                        v-model="variableSelected[v.name]" 
-                        placeholder="Please choose"
-                        style="width: 100%"
-                        :class="$style.selector"
+                      v-model="variableSelected[v.name]"
+                      placeholder="Please choose"
+                      style="width: 100%"
+                      :class="$style.selector"
                     >
-                        <el-option
-                            v-for="item in sources[v.name]"
-                            :key="item.value"
-                            :label="item.text"
-                            :value="item.value"
-                        />
+                      <el-option
+                        v-for="item in sources[v.name]"
+                        :key="item.value"
+                        :label="item.text"
+                        :value="item.value"
+                      />
                     </el-select>
                   </div>
                 </template>
@@ -74,59 +84,59 @@
     <template v-if="!pipeLoading && startTime && endTime">
       <template v-for="row in rows">
         <div
-            v-if="selectshowable ? row.panels.find(panel => panel.showPanel) : true"
-            :key="row.name"
+          v-if="selectshowable ? row.panels.find(panel => panel.showPanel) : true"
+          :key="row.name"
         >
-            <div :class="$style.rowTitle">
-                <span>{{row.name}}</span>
-            </div>
-            <div :class="$style.container">
-                <template v-for="panel in row.panels">
-                    <div
-                        v-if="selectshowable ? panel.showPanel : true"
-                        :key="panel.name"
-                        :is-table="panel.type === 'table'"
-                        :class="[$style.block, $style[`block-${panel.span}`]]"
-                    >
-                        <kube-chart
-                            v-if="panel.type === 'graph'"
-                            :title="panel.title"
-                            :meta="panel"
-                            :scope="scope"
-                            :query="panel.targets.map(t => t.query({...variableSelected, ...scope}))"
-                            :legend-template="panel.targets.map(t => t.legendTemplate)"
-                            :start-time="startTime"
-                            :end-time="endTime"
-                            :isQuickTime="timeType === 'quick'"
-                            :quickTime="quickValue"
-                            :period-list="periodList"
-                            height="270px"
-                        />
-                        <kube-data-table
-                            v-if="panel.type === 'table'"
-                            :query="panel.targets.map(t => ({
+          <div :class="$style.rowTitle">
+            <span>{{ row.name }}</span>
+          </div>
+          <div :class="$style.container">
+            <template v-for="panel in row.panels">
+              <div
+                v-if="selectshowable ? panel.showPanel : true"
+                :key="panel.name"
+                :is-table="panel.type === 'table'"
+                :class="[$style.block, $style[`block-${panel.span}`]]"
+              >
+                <kube-chart
+                  v-if="panel.type === 'graph'"
+                  :title="panel.title"
+                  :meta="panel"
+                  :scope="scope"
+                  :query="panel.targets.map(t => t.query({...variableSelected, ...scope}))"
+                  :legend-template="panel.targets.map(t => t.legendTemplate)"
+                  :start-time="startTime"
+                  :end-time="endTime"
+                  :is-quick-time="timeType === 'quick'"
+                  :quick-time="quickValue"
+                  :period-list="periodList"
+                  height="270px"
+                />
+                <kube-data-table
+                  v-if="panel.type === 'table'"
+                  :query="panel.targets.map(t => ({
                                 ...t,
                                 query: t.query({...variableSelected, ...scope})
-                            }))"
-                            :scope="scope"
-                            :meta="panel"
-                            :start-time="startTime"
-                            :end-time="endTime"
-                        />
-                        <kube-data-board
-                            v-if="panel.type === 'singleStat'"
-                            :query="panel.targets.map(t => ({
+                  }))"
+                  :scope="scope"
+                  :meta="panel"
+                  :start-time="startTime"
+                  :end-time="endTime"
+                />
+                <kube-data-board
+                  v-if="panel.type === 'singleStat'"
+                  :query="panel.targets.map(t => ({
                                 ...t,
                                 query: t.query({...variableSelected, ...scope})
-                            }))"
-                            :meta="panel"
-                            :scope="scope"
-                            :start-time="startTime"
-                            :end-time="endTime"
-                        />
-                    </div>
-                </template>
-            </div>
+                  }))"
+                  :meta="panel"
+                  :scope="scope"
+                  :start-time="startTime"
+                  :end-time="endTime"
+                />
+              </div>
+            </template>
+          </div>
         </div>
       </template>
     </template>
@@ -258,8 +268,8 @@ export default {
             this.rows.forEach((row, rowIndex) => {
                 row.panels.forEach((panel, panelIndex) => {
                     panel.showPanel = data[rowIndex].panels[panelIndex].showPanel;
-                })
-            })
+                });
+            });
         },
         async load() {
             this.loading = true;
@@ -274,7 +284,7 @@ export default {
             this.title = resolved.spec.title;
             this.variables = resolved.spec.variables || [];
             this.rows = resolved.spec.rows || [];
-            this.selectshowable = resolved.spec.selectshowable
+            this.selectshowable = resolved.spec.selectshowable;
             this.pipeSeq = this.variables.map(v => v.name).join(' > ');
             if (this.variables.length === 0) {
                 this.pipeLoading = false;

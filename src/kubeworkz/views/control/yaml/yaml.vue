@@ -4,8 +4,8 @@
       title="YAML orchestration"
       width="800px"
       :visible.sync="show"
-      @close="close"
       :close-on-click-modal="false"
+      @close="close"
     >
       <template v-if="show">
         <el-alert
@@ -41,13 +41,16 @@
           :class="$style.editor"
         >
           <div :class="$style.header">
-              <div @click="handleChangeFullScreen">
-                <i style="cursor: pointer" :class="fullScreen ? 'el-icon-close' : 'el-icon-full-screen'"/>
-              </div>
+            <div @click="handleChangeFullScreen">
+              <i
+                style="cursor: pointer"
+                :class="fullScreen ? 'el-icon-close' : 'el-icon-full-screen'"
+              />
+            </div>
           </div>
           <qz-editor
-            style="border: 1px solid #E1E8ED"
             ref="yamlEdit"
+            style="border: 1px solid #E1E8ED"
             :value="yamlContent"
             theme="vs"
             language="yaml"
@@ -57,9 +60,24 @@
         </div>
       </template>
       <div slot="footer">
-        <el-button @click="close">Cancel</el-button>
-        <el-button :disabled="!!readOnly" @click="submit(true)" :loading="commitLoading">Pre-test</el-button>
-        <el-button type="primary" :disabled="!!readOnly" @click="submit" :loading="commitLoading">OK</el-button>
+        <el-button @click="close">
+          Cancel
+        </el-button>
+        <el-button
+          :disabled="!!readOnly"
+          :loading="commitLoading"
+          @click="submit(true)"
+        >
+          Pre-test
+        </el-button>
+        <el-button
+          type="primary"
+          :disabled="!!readOnly"
+          :loading="commitLoading"
+          @click="submit"
+        >
+          OK
+        </el-button>
       </div>
     </el-dialog>
     <el-dialog
@@ -83,7 +101,11 @@
           </el-select>
         </el-form-item>
         <el-form-item label="Example">
-          <i v-if="model.loading" class="el-icon-loading" style="font-size: 24px"/>
+          <i
+            v-if="model.loading"
+            class="el-icon-loading"
+            style="font-size: 24px"
+          />
           <template v-else>
             <el-select
               v-if="model.instance.length"
@@ -129,19 +151,34 @@
         </u-submit-button> -->
       </el-form>
       <div slot="footer">
-        <el-button @click="showResourceModal = false">Cancel</el-button>
-        <el-button :disabled="model.instance.length === 0" type="primary" @click="loadResource" :loading="resourceLoading">OK</el-button>
+        <el-button @click="showResourceModal = false">
+          Cancel
+        </el-button>
+        <el-button
+          :disabled="model.instance.length === 0"
+          type="primary"
+          :loading="resourceLoading"
+          @click="loadResource"
+        >
+          OK
+        </el-button>
       </div>
     </el-dialog>
-    <div v-if="fullScreen" :class="$style.fullScreenEditor">
+    <div
+      v-if="fullScreen"
+      :class="$style.fullScreenEditor"
+    >
       <div :class="$style.header">
-          <div @click="handleChangeFullScreen">
-            <i style="cursor: pointer" :class="fullScreen ? 'el-icon-close' : 'el-icon-full-screen'"/>
-          </div>
+        <div @click="handleChangeFullScreen">
+          <i
+            style="cursor: pointer"
+            :class="fullScreen ? 'el-icon-close' : 'el-icon-full-screen'"
+          />
+        </div>
       </div>
       <qz-editor
-        style="border: 1px solid #E1E8ED"
         ref="yamlEdit"
+        style="border: 1px solid #E1E8ED"
         :value="yamlContent"
         theme="vs"
         language="yaml"

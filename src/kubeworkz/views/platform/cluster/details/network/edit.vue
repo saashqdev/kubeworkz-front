@@ -1,7 +1,17 @@
 <template>
   <div>
-    <i v-if="loading" class="el-icon-loading" style="font-size: 24px"/>
-    <el-form v-else ref="form" :model="model" label-position="right" label-width="120px">
+    <i
+      v-if="loading"
+      class="el-icon-loading"
+      style="font-size: 24px"
+    />
+    <el-form
+      v-else
+      ref="form"
+      :model="model"
+      label-position="right"
+      label-width="120px"
+    >
       <el-form-item
         label="Name"
         prop="metadata.name"
@@ -33,11 +43,18 @@
         label="Access target"
       >
         <el-radio-group v-model="selections.target">
-          <el-radio label="all">All pods</el-radio>
+          <el-radio label="all">
+            All pods
+          </el-radio>
           <el-radio label="regular">
             A pod that complies with the rules
-            <el-tooltip effect="dark" content="There is an 'AND' relationship between multiple rules, and there is at least one rule" placement="right" popper-class="ncs-el-tooltip-popper">
-              <i class="el-icon-question"/>
+            <el-tooltip
+              effect="dark"
+              content="There is an 'AND' relationship between multiple rules, and there is at least one rule"
+              placement="right"
+              popper-class="ncs-el-tooltip-popper"
+            >
+              <i class="el-icon-question" />
             </el-tooltip>
           </el-radio>
         </el-radio-group>
@@ -47,8 +64,8 @@
           <regular-input
             v-model="model.spec.podSelector"
             prefix-key="target"
-            prefixProp="spec.podSelector"
-            :isRequired="true"
+            prefix-prop="spec.podSelector"
+            :is-required="true"
           />
         </template>
       </el-form-item>
@@ -59,36 +76,52 @@
           Source restrictions
         </div>
         <el-radio-group v-model="selections.insource">
-          <el-radio label="all">Allow all inbound access</el-radio>
-          <el-radio label="none">Block all inbound access</el-radio>
+          <el-radio label="all">
+            Allow all inbound access
+          </el-radio>
+          <el-radio label="none">
+            Block all inbound access
+          </el-radio>
           <el-radio label="regular">
             Allow inbound access that meets rules
-            <el-tooltip effect="dark" content="here is an 'OR' relationship between multiple rules, and there is at least one rule. When space and copy rules coexist, the two are 'AND' filtered sources" placement="right" popper-class="ncs-el-tooltip-popper">
-              <i class="el-icon-question"/>
+            <el-tooltip
+              effect="dark"
+              content="here is an 'OR' relationship between multiple rules, and there is at least one rule. When space and copy rules coexist, the two are 'AND' filtered sources"
+              placement="right"
+              popper-class="ncs-el-tooltip-popper"
+            >
+              <i class="el-icon-question" />
             </el-tooltip>
           </el-radio>
         </el-radio-group>
         <template v-if="selections.insource === 'regular'">
           <source-block
             v-model="model.spec.ingress.from"
-            prefixProp="spec.ingress.from"
+            prefix-prop="spec.ingress.from"
           />
           <div style="margin-top: 24px">
             Port restrictions
           </div>
           <el-radio-group v-model="selections.inport">
-            <el-radio label="all">Allow access to all ports</el-radio>
+            <el-radio label="all">
+              Allow access to all ports
+            </el-radio>
             <el-radio label="regular">
               Allow access to the following ports
-              <el-tooltip effect="dark" content="There is an 'OR' relationship between the rules, and there is at least one port." placement="right" popper-class="ncs-el-tooltip-popper">
-                <i class="el-icon-question"/>
+              <el-tooltip
+                effect="dark"
+                content="There is an 'OR' relationship between the rules, and there is at least one port."
+                placement="right"
+                popper-class="ncs-el-tooltip-popper"
+              >
+                <i class="el-icon-question" />
               </el-tooltip>
             </el-radio>
           </el-radio-group>
           <template v-if="selections.inport === 'regular'">
             <port-input
               v-model="model.spec.ingress.ports"
-              prefixProp="spec.ingress.ports"
+              prefix-prop="spec.ingress.ports"
             />
           </template>
         </template>
@@ -100,36 +133,52 @@
           Target limit
         </div>
         <el-radio-group v-model="selections.outsource">
-          <el-radio label="all">Allow all outbound access</el-radio>
-          <el-radio label="none">Block all outbound access</el-radio>
+          <el-radio label="all">
+            Allow all outbound access
+          </el-radio>
+          <el-radio label="none">
+            Block all outbound access
+          </el-radio>
           <el-radio label="regular">
             Allow rule-compliant outbound access
-            <el-tooltip effect="dark" content="There is an 'OR' relationship between multiple rules, and there is at least one rule. When space and copy rules coexist, the two are 'AND' filter targets" placement="right" popper-class="ncs-el-tooltip-popper">
-              <i class="el-icon-question"/>
+            <el-tooltip
+              effect="dark"
+              content="There is an 'OR' relationship between multiple rules, and there is at least one rule. When space and copy rules coexist, the two are 'AND' filter targets"
+              placement="right"
+              popper-class="ncs-el-tooltip-popper"
+            >
+              <i class="el-icon-question" />
             </el-tooltip>
           </el-radio>
         </el-radio-group>
         <template v-if="selections.outsource === 'regular'">
           <source-block
             v-model="model.spec.egress.to"
-            prefixProp="spec.egress.to"
+            prefix-prop="spec.egress.to"
           />
           <div style="margin-top: 24px">
             Port restrictions
           </div>
           <el-radio-group v-model="selections.outport">
-            <el-radio label="all">Allow access to all ports</el-radio>
+            <el-radio label="all">
+              Allow access to all ports
+            </el-radio>
             <el-radio label="regular">
               Allow access to the following ports
-              <el-tooltip effect="dark" content="There is an 'OR' relationship between multiple rules, and there is at least one port." placement="right" popper-class="ncs-el-tooltip-popper">
-                <i class="el-icon-question"/>
+              <el-tooltip
+                effect="dark"
+                content="There is an 'OR' relationship between multiple rules, and there is at least one port."
+                placement="right"
+                popper-class="ncs-el-tooltip-popper"
+              >
+                <i class="el-icon-question" />
               </el-tooltip>
             </el-radio>
           </el-radio-group>
           <template v-if="selections.outport === 'regular'">
             <port-input
               v-model="model.spec.egress.ports"
-              prefixProp="spec.egress.ports"
+              prefix-prop="spec.egress.ports"
             />
           </template>
         </template>
@@ -137,8 +186,8 @@
       <el-form-item>
         <el-button
           type="primary"
-          @click="submit"
           :loading="submitLoading"
+          @click="submit"
         >
           {{ isEdit ? 'Modify' : 'Create' }}
         </el-button>

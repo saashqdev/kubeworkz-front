@@ -4,13 +4,17 @@
       label="Repository key"
       layout="block"
     >
-      <el-select v-model="model" multiple placeholder="Please choose">
+      <el-select
+        v-model="model"
+        multiple
+        placeholder="Please choose"
+      >
         <el-option
           v-for="item in repoSecrets"
           :key="item.value"
           :label="item.text"
-          :value="item.value">
-        </el-option>
+          :value="item.value"
+        />
       </el-select>
       <div>
         If you need a new Secret, you can

@@ -36,7 +36,7 @@ const apis = {
     ping: {
         method: 'post',
         path: '/{harborId}/targets/ping',
-    }
+    },
 };
 const service = new Service(apis, '/repo/proxy/api/v1/harborproxy');
 export default service;

@@ -7,7 +7,10 @@
       @pipestatechange="pipeLoading = $event"
     >
       <span style="margin-right:8px;line-height:32px">Tenant</span>
-      <kubeTenantSelectMultiple v-model="tenant" style="width:300px"/>
+      <kubeTenantSelectMultiple
+        v-model="tenant"
+        style="width:300px"
+      />
     </kube-pipe>
     <x-request
       v-if="!pipeLoading"
@@ -66,7 +69,7 @@
           >
             <template slot-scope="{ row }">
               <template v-if="row.kuberesourcequota">
-                <div>{{ row.kuberesourcequota.status.used.cpu }} / {{row.kuberesourcequota.status.hard.cpu }} Cores</div>
+                <div>{{ row.kuberesourcequota.status.used.cpu }} / {{ row.kuberesourcequota.status.hard.cpu }} Cores</div>
                 <div>{{ row.kuberesourcequota.status.used.memory | clusterMemory }} / {{ row.kuberesourcequota.status.hard.memory | clusterMemory }} Gi</div>
                 <div>{{ row.kuberesourcequota.status.used.gpu }} / {{ row.kuberesourcequota.status.hard.gpu }} Cores</div>
               </template>
@@ -140,7 +143,6 @@ export default {
         quotaDialog,
         kubeTenantSelectMultiple,
     },
-    mixins: [ PageMixin ],
     filters: {
         clusterCpu(cpu) {
             return unitConvertCPU(`${cpu}m`); // m -> plain
@@ -149,6 +151,7 @@ export default {
             return Number(`${unitConvertMemory(`${memory}Mi`, 'Gi')}`).toFixed(3); // Mi --> Gi
         },
     },
+    mixins: [ PageMixin ],
     data() {
         return {
             tenant: null,
@@ -160,9 +163,9 @@ export default {
                 // { name: 'tenant', title: 'Tenant ID' },
                 { name: 'tenantDisplayName', title: 'Tenant' },
                 // { name: 'resource', title: 'Shared resources (request quota allocated/cap quota allocated/request quota/cap quota)', width: '370px' },
-                { name: 'kuberesourcequota', title: 'Shared resources', width: '75px'},
-                { name: 'request', title: 'Assigned quota/requested quota', width: '140px'},
-                { name: 'limit', title: 'Cap/cap quota assigned', width: '140px'},
+                { name: 'kuberesourcequota', title: 'Shared resources', width: '75px' },
+                { name: 'request', title: 'Assigned quota/requested quota', width: '140px' },
+                { name: 'limit', title: 'Cap/cap quota assigned', width: '140px' },
                 // { name: 'memory', title: 'Persistent storage (allocated/quota)' },
                 { name: 'operation', title: 'Operation', width: '160px' },
             ],

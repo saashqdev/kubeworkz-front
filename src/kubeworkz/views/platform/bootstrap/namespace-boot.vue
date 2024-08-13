@@ -4,7 +4,12 @@
     graph="tenant > project"
     @pipestatechange="pipeLoading = $event"
   >
-    <el-form ref="form" :model="model" label-position="right" label-width="120px">
+    <el-form
+      ref="form"
+      :model="model"
+      label-position="right"
+      label-width="120px"
+    >
       <el-form-item
         label="Cluster"
         prop="pipe.cluster"
@@ -56,8 +61,8 @@
         />
       </el-form-item>
       <x-request
-        ref="request"
         v-if="model.pipe.cluster && model.pipe.tenant"
+        ref="request"
         :service="quotaService"
         :params="params"
         :processor="resolver"
@@ -66,11 +71,15 @@
           <el-form-item
             label="Computing resources"
           >
-            <i v-if="loading" class="el-icon-loading" style="font-size: 24px"/>
+            <i
+              v-if="loading"
+              class="el-icon-loading"
+              style="font-size: 24px"
+            />
             <hardQuota
               v-else
               v-model="model.resource"
-              prefixProp="resource"
+              prefix-prop="resource"
               :availables="model.availables"
             />
           </el-form-item>
@@ -92,7 +101,13 @@
         </template>
       </x-request>
       <el-form-item>
-        <el-button type="primary" @click="submit" :loading="submitting">Create</el-button>
+        <el-button
+          type="primary"
+          :loading="submitting"
+          @click="submit"
+        >
+          Create
+        </el-button>
       </el-form-item>
     </el-form>
   </kube-pipe>

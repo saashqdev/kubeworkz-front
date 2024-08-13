@@ -1,22 +1,37 @@
 <template>
-    <div :class="$style.root">
-        <renderVnode v-for="(item, index) in getContentVnodes()" :key="index" :vnode="item" :type="index === 0 ? 'primary' : ''"/>
-        <el-popover
-            v-model="showPopover"
-            placement="bottom"
-            trigger="click"
-            :popper-class="$style.moreContentWrap"
-            v-if="getMoreContentVnodes().length"
-        >
-            <el-button slot="reference" style="margin-left: 12px">
-                {{moreBtnContent}}
-                <i class="el-icon-caret-bottom"/>
-            </el-button>
-            <div :class="$style.moreContent" @click="showPopover = false">
-                <renderVnode v-for="(item, index) in getMoreContentVnodes()" :key="index" :vnode="item"/>
-            </div>
-        </el-popover>
-    </div>
+  <div :class="$style.root">
+    <renderVnode
+      v-for="(item, index) in getContentVnodes()"
+      :key="index"
+      :vnode="item"
+      :type="index === 0 ? 'primary' : ''"
+    />
+    <el-popover
+      v-if="getMoreContentVnodes().length"
+      v-model="showPopover"
+      placement="bottom"
+      trigger="click"
+      :popper-class="$style.moreContentWrap"
+    >
+      <el-button
+        slot="reference"
+        style="margin-left: 12px"
+      >
+        {{ moreBtnContent }}
+        <i class="el-icon-caret-bottom" />
+      </el-button>
+      <div
+        :class="$style.moreContent"
+        @click="showPopover = false"
+      >
+        <renderVnode
+          v-for="(item, index) in getMoreContentVnodes()"
+          :key="index"
+          :vnode="item"
+        />
+      </div>
+    </el-popover>
+  </div>
 </template>
 <script>
 import renderVnode from './renderVnode.vue';
@@ -31,18 +46,18 @@ export default {
         },
         moreBtnContent: {
             type: String,
-            default: 'More'
-        }
+            default: 'More',
+        },
     },
     data() {
         return {
             showMore: false,
             showPopover: false,
-        }
+        };
     },
     methods: {
         getOptions() {
-            return (this.$slots.default || []).filter(item => item.tag && item.tag.endsWith('-operateButtonOption'))
+            return (this.$slots.default || []).filter(item => item.tag && item.tag.endsWith('-operateButtonOption'));
         },
         getContentVnodes() {
             const options = this.getOptions();
@@ -51,9 +66,9 @@ export default {
         getMoreContentVnodes() {
             const options = this.getOptions();
             return options.length > this.showCount ? options.slice(this.showCount - 1) : [];
-        }
-    }
-}
+        },
+    },
+};
 </script>
 <style module>
 .root {

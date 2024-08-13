@@ -12,10 +12,8 @@ export default {
     },
     methods: {
         select() {
-            if (this.readonly || this.disabled)
-                return;
-            if (this.parentVM && (this.parentVM.readonly || this.parentVM.disabled))
-                return;
+            if (this.readonly || this.disabled) { return; }
+            if (this.parentVM && (this.parentVM.readonly || this.parentVM.disabled)) { return; }
 
             let cancel = false;
             this.$emit('before-select', {
@@ -23,8 +21,7 @@ export default {
                 itemVM: this,
                 preventDefault: () => cancel = true,
             });
-            if (cancel)
-                return;
+            if (cancel) { return; }
             this.prevSelected = this.selected;
             this.parentVM && this.parentVM.select(this);
             if (this.prevSelected) {

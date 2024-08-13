@@ -1,21 +1,61 @@
 <template>
-  <u-modal :visible.sync="showErrorModal" :style="{zIndex: 9999}" mask-close title="Error message" okButton="" cancelButton="" size="large">
-      <u-form v-if="errorMsg" gap="small" label-size="auto">
-        <u-form-item label="Reason:" layout="block" label-size="small">
-          <u-text :class="$style.textFile" color="error">{{errorMsg.reason || 'error'}}</u-text>
-        </u-form-item>
-        <u-form-item v-if="errorMsg.field" label="Fields:" layout="block" label-size="small">
-          <u-text :class="$style.textFile" color="error">{{errorMsg.field}}</u-text>
-        </u-form-item>
-        <u-form-item v-if="errorMsg.message" label="Details:" layout="block" label-size="small">
-          <u-text :class="$style.textFile" color="error" v-html="errorMsg.message"/>
-        </u-form-item>
-      </u-form>
+  <u-modal
+    :visible.sync="showErrorModal"
+    :style="{zIndex: 9999}"
+    mask-close
+    title="Error message"
+    ok-button=""
+    cancel-button=""
+    size="large"
+  >
+    <u-form
+      v-if="errorMsg"
+      gap="small"
+      label-size="auto"
+    >
+      <u-form-item
+        label="Reason:"
+        layout="block"
+        label-size="small"
+      >
+        <u-text
+          :class="$style.textFile"
+          color="error"
+        >
+          {{ errorMsg.reason || 'error' }}
+        </u-text>
+      </u-form-item>
+      <u-form-item
+        v-if="errorMsg.field"
+        label="Fields:"
+        layout="block"
+        label-size="small"
+      >
+        <u-text
+          :class="$style.textFile"
+          color="error"
+        >
+          {{ errorMsg.field }}
+        </u-text>
+      </u-form-item>
+      <u-form-item
+        v-if="errorMsg.message"
+        label="Details:"
+        layout="block"
+        label-size="small"
+      >
+        <u-text
+          :class="$style.textFile"
+          color="error"
+          v-html="errorMsg.message"
+        />
+      </u-form-item>
+    </u-form>
   </u-modal>
 </template>
 <script>
 export default {
-    name: 'u-global-error-modal',
+    name: 'UGlobalErrorModal',
     data() {
         return {
             showErrorModal: false,

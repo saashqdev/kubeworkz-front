@@ -1,41 +1,47 @@
 <template>
-    <div :class="$style.root">
-        <div :class="$style.header_logo">
-            <slot name="logo">{{ (title || '').substring(0, 2).toUpperCase() }}</slot>
-        </div>
-        <div :class="$style.head_card_main">
-            <div :class="$style.head_card_title">
-                <h3>{{title}}</h3>
-            </div>
-            <div :class="$style.head_card_info">
-                <div v-for="(info, index) in infos" :class="$style.infoItem" :key="index">
-                    <div :class="$style.infoItemLabel">
-                        {{info.label}}:
-                    </div>
-                    <div :class="$style.infoItemContent">
-                         {{info.content}}
-                    </div>
-                </div>
-            </div>
-            <div>
-                <slot name="act"></slot>
-            </div>
-        </div>
+  <div :class="$style.root">
+    <div :class="$style.header_logo">
+      <slot name="logo">
+        {{ (title || '').substring(0, 2).toUpperCase() }}
+      </slot>
     </div>
+    <div :class="$style.head_card_main">
+      <div :class="$style.head_card_title">
+        <h3>{{ title }}</h3>
+      </div>
+      <div :class="$style.head_card_info">
+        <div
+          v-for="(info, index) in infos"
+          :key="index"
+          :class="$style.infoItem"
+        >
+          <div :class="$style.infoItemLabel">
+            {{ info.label }}:
+          </div>
+          <div :class="$style.infoItemContent">
+            {{ info.content }}
+          </div>
+        </div>
+      </div>
+      <div>
+        <slot name="act" />
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 export default {
     props: {
         title: {
             type: String,
-            default: ''
+            default: '',
         },
         infos: {
             type: Array,
-            default: () => []
-        }
-    }
-}
+            default: () => [],
+        },
+    },
+};
 </script>
 <style module>
 .root {
@@ -93,6 +99,6 @@ export default {
     padding-right: 4px;
 }
 .infoItemContent {
-    
+
 }
 </style>

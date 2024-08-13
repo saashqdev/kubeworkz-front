@@ -1,11 +1,28 @@
 <template>
-    <div>
-        <u-multi-add ref="multiAdd" :list="sortList" :need-init="needInit" :add-btn-info="addBtnInfo" :mini-formater="miniFormater" :get-default-item="getDefaultItem" :get-error-tip="getErrorTip" size="affinity" @change="changeInputList">
-            <div slot-scope="props">
-                <u-inputs-affinity-rule :list="props.item.rules" :type="props.item.type" :operators="props.item.operators" :canBeEmpty="!needInit" @validate="validateItem($event, props.item)" @change="props.item.rules = $event.value"></u-inputs-affinity-rule>
-            </div>
-        </u-multi-add>
-    </div>
+  <div>
+    <u-multi-add
+      ref="multiAdd"
+      :list="sortList"
+      :need-init="needInit"
+      :add-btn-info="addBtnInfo"
+      :mini-formater="miniFormater"
+      :get-default-item="getDefaultItem"
+      :get-error-tip="getErrorTip"
+      size="affinity"
+      @change="changeInputList"
+    >
+      <div slot-scope="props">
+        <u-inputs-affinity-rule
+          :list="props.item.rules"
+          :type="props.item.type"
+          :operators="props.item.operators"
+          :can-be-empty="!needInit"
+          @validate="validateItem($event, props.item)"
+          @change="props.item.rules = $event.value"
+        />
+      </div>
+    </u-multi-add>
+  </div>
 </template>
 <style module>
 
@@ -15,10 +32,10 @@
 import { cloneDeep, throttle } from 'lodash';
 
 export default {
-    name: 'u-config-affinity',
+    name: 'UConfigAffinity',
     props: {
         isHostNetworkSupport: { type: Boolean, default: false },
-        list: [Array, Object],
+        list: [ Array, Object ],
         type: { type: String, default: 'nodeAffinity' }, // nodeAffinity || podAffinity || podAntiAffinity
     },
     data() {
@@ -32,15 +49,15 @@ export default {
     },
     computed: {
         needInit() {
-            return this.isHostNetworkSupport && ['nodeAffinity', 'podAntiAffinity'].includes(this.type);
+            return this.isHostNetworkSupport && [ 'nodeAffinity', 'podAntiAffinity' ].includes(this.type);
         },
     },
     watch: {
-        needInit(val){
-            if(val){
-                this.$refs['multiAdd'].init();
+        needInit(val) {
+            if (val) {
+                this.$refs.multiAdd.init();
             }
-        }
+        },
     },
     created() {
         this.validate = throttle(this.validate, 500);
@@ -71,7 +88,7 @@ export default {
             const tmp = this.type === 'nodeAffinity'
                 ? (list.requiredDuringSchedulingIgnoredDuringExecution || {}).nodeSelectorTerms
                 : list.requiredDuringSchedulingIgnoredDuringExecution;
-            return (tmp || []).map((item) => {
+            return (tmp || []).map(item => {
                 const expressions = this.type === 'nodeAffinity' ? item.matchExpressions : item.labelSelector.matchExpressions;
                 return {
                     type: this.type,
@@ -82,7 +99,7 @@ export default {
         },
         getOperators() {
             // Exists || DoesNotExist is not followed by values
-            const operators = ['In', 'NotIn', 'Exists', 'DoesNotExist', 'Gt', 'Lt'];
+            const operators = [ 'In', 'NotIn', 'Exists', 'DoesNotExist', 'Gt', 'Lt' ];
             return this.type === 'nodeAffinity' ? operators : operators.slice(0, -2);
         },
         validateItem(event, item) {
@@ -92,26 +109,25 @@ export default {
         // overall verification
         validate(event, item) {
             // sortList can be empty
-            const valid = !this.sortList.length || this.sortList.some((item) => item.valid);
+            const valid = !this.sortList.length || this.sortList.some(item => item.valid);
             this.$emit('validate', { valid });
         },
         $getData() {
             // Among the u-config-affinity components, basically only the u-inputs-affinity-rule component needs to pass values, so there is no need to call the $getData method to filter legal values.
             // Only the sortList items with empty rules need to be filtered out
-            const expressions = this.sortList.filter((item) => item.rules.some((item) => item.key)).map((item) => ({
-                matchExpressions: item.rules.map((item) => ({
+            const expressions = this.sortList.filter(item => item.rules.some(item => item.key)).map(item => ({
+                matchExpressions: item.rules.map(item => ({
                     key: item.key,
                     operator: item.operator,
-                    values: ['Exists', 'DoesNotExist'].includes(item.operator) ? undefined : item.values.trim().split(/\s+/),
+                    values: [ 'Exists', 'DoesNotExist' ].includes(item.operator) ? undefined : item.values.trim().split(/\s+/),
                 })),
             }));
             if (this.type === 'nodeAffinity') {
                 return expressions;
-            } else
-                return expressions.map((item) => ({
-                    labelSelector: item,
-                    topologyKey: 'kubernetes.io/hostname',
-                }));
+            } return expressions.map(item => ({
+                labelSelector: item,
+                topologyKey: 'kubernetes.io/hostname',
+            }));
         },
     },
 };

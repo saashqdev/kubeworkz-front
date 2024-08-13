@@ -71,7 +71,7 @@ const setOnExist = function(target, key, p) {
 export const toK8SObject = model => {
     const g = getFromModel(model.podTemplate);
     const yaml = {
-        imagePullSecrets: g('spec.imagePullSecrets', []).map(name => ({name})),
+        imagePullSecrets: g('spec.imagePullSecrets', []).map(name => ({ name })),
         volumes: g('spec.volumes.otherVolume', []),
         affinity: {},
         restartPolicy: g('spec.restartPolicy', 'Always'),

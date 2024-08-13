@@ -2,24 +2,24 @@
   <div>
     <dynamicBlock
       v-model="model"
-      :getDefaultItem="getDataTemplate"
+      :get-default-item="getDataTemplate"
       :columns="[
-          {
-              title: 'Path',
-              dataIndex: 'path',
-          },
-          {
-              title: 'Service',
-              dataIndex: 'service',
-          },
-          {
-              title: 'Port',
-              dataIndex: 'port',
-          }
+        {
+          title: 'Path',
+          dataIndex: 'path',
+        },
+        {
+          title: 'Service',
+          dataIndex: 'service',
+        },
+        {
+          title: 'Port',
+          dataIndex: 'port',
+        }
       ]"
     >
-      <template v-slot:path="{record, index}">
-        <el-form-item 
+      <template #path="{record, index}">
+        <el-form-item
           label=""
           :prop="`${prefixProp}.${index}.path`"
           :rules="[
@@ -29,11 +29,14 @@
             validators.noRedundance(exsitPaths, false)
           ]"
         >
-          <el-input v-model="record.path" placeholder="Please enter the path or regular expression"/>
+          <el-input
+            v-model="record.path"
+            placeholder="Please enter the path or regular expression"
+          />
         </el-form-item>
       </template>
-      <template v-slot:service="{record, index}">
-        <el-form-item 
+      <template #service="{record, index}">
+        <el-form-item
           label=""
           :prop="`${prefixProp}.${index}.service`"
           :rules="[
@@ -56,8 +59,8 @@
           </el-select>
         </el-form-item>
       </template>
-      <template v-slot:port="{record, index}">
-        <el-form-item 
+      <template #port="{record, index}">
+        <el-form-item
           label=""
           :prop="`${prefixProp}.${index}.port`"
           :rules="[
@@ -66,7 +69,10 @@
             validators.numberBetween(1, 65535, false),
           ]"
         >
-          <el-input v-model="record.port" placeholder="1-65535 internal integer"/>
+          <el-input
+            v-model="record.port"
+            placeholder="1-65535 internal integer"
+          />
         </el-form-item>
       </template>
     </dynamicBlock>
@@ -79,7 +85,7 @@ import dynamicBlock from 'kubeworkz/elComponent/dynamic-block/index.vue';
 import * as validators from 'kubeworkz/utils/validators';
 export default {
     components: {
-      dynamicBlock,
+        dynamicBlock,
     },
     mixins: [ makeVModelMixin ],
     props: {
@@ -91,13 +97,13 @@ export default {
         serviceList: Array,
         prefixProp: {
             type: String,
-            default: ''
+            default: '',
         },
     },
     data() {
-      return {
-        validators,
-      }
+        return {
+            validators,
+        };
     },
     computed: {
         exsitPaths() {

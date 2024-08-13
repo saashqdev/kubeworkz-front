@@ -21,7 +21,7 @@
 
 <script>
 export default {
-    data () {
+    data() {
         return {
             show: false,
             message: '',
@@ -30,7 +30,7 @@ export default {
         };
     },
 
-    created () {
+    created() {
         this.$store.subscribe((mutation, state) => {
             if (mutation.type === 'snackbar/SHOW_MESSAGE') {
                 this.message = state.snackbar.content;
@@ -38,6 +38,6 @@ export default {
                 this.show = true;
             }
         });
-    }
+    },
 };
 </script>

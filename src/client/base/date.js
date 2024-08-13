@@ -1,23 +1,11 @@
-const dateFormat = (function () {
-    const fix = (str) => {
+const dateFormat = (function() {
+    const fix = str => {
         str = '' + (str || '');
-        if (str.length === 0)
-            return '00';
-        else if (str.length === 1)
-            return '0' + str;
-        else if (str.length === 2)
-            return str;
+        if (str.length === 0) { return '00'; } else if (str.length === 1) { return '0' + str; } else if (str.length === 2) { return str; }
     };
-    const fix1 = (str) => {
+    const fix1 = str => {
         str = '' + (str || '');
-        if (str.length === 0)
-            return '000';
-        else if (str.length === 1)
-            return '00' + str;
-        else if (str.length === 2)
-            return '0' + str;
-        else if(str.length === 3)
-            return str;
+        if (str.length === 0) { return '000'; } else if (str.length === 1) { return '00' + str; } else if (str.length === 2) { return '0' + str; } else if (str.length === 3) { return str; }
     };
     const MAPS = {
         YYYY(date) { return date.getFullYear(); },
@@ -29,11 +17,10 @@ const dateFormat = (function () {
         ms(date) { return fix1(date.getMilliseconds()); },
     };
     const trunk = new RegExp(Object.keys(MAPS).join('|'), 'g');
-    return function (value, format) {
-        if (!value)
-            return '';
+    return function(value, format) {
+        if (!value) { return ''; }
         value = new Date(value);
-        return format.replace(trunk, (capture) => MAPS[capture] ? MAPS[capture](value) : '');
+        return format.replace(trunk, capture => (MAPS[capture] ? MAPS[capture](value) : ''));
     };
 })();
 export default dateFormat;

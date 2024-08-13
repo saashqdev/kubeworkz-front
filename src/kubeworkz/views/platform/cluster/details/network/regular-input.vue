@@ -2,7 +2,7 @@
   <div>
     <dynamicBlock
       v-model="model"
-      :getDefaultItem="getDataTemplate"
+      :get-default-item="getDataTemplate"
       :columns="[
         {
           title: 'Key',
@@ -18,8 +18,8 @@
         }
       ]"
     >
-      <template v-slot:key="{record, index}">
-        <el-form-item 
+      <template #key="{record, index}">
+        <el-form-item
           label=""
           :prop="`${prefixProp}.${index}.key`"
           :rules="[
@@ -33,9 +33,9 @@
           />
         </el-form-item>
       </template>
-      <template v-slot:operator="{record}">
+      <template #operator="{record}">
         <el-select
-            v-model="record.operator"
+          v-model="record.operator"
         >
           <el-option
             v-for="item in OPERATORS"
@@ -46,7 +46,7 @@
           />
         </el-select>
       </template>
-      <template v-slot:values="{record, index}">
+      <template #values="{record, index}">
         <el-form-item
           v-if="!['Exists', 'DoesNotExist'].includes(record.operator)"
           label=""
@@ -62,7 +62,7 @@
             :placeholder="getPlaceholder(record.operator)"
           />
         </el-form-item>
-        <div v-else></div>
+        <div v-else />
       </template>
     </dynamicBlock>
   </div>
@@ -74,10 +74,10 @@ import { OPERATORS } from 'kubeworkz';
 import dynamicBlock from 'kubeworkz/elComponent/dynamic-block/index.vue';
 import * as validators from 'kubeworkz/utils/validators';
 export default {
-    mixins: [ makeVModelMixin ],
     components: {
         dynamicBlock,
     },
+    mixins: [ makeVModelMixin ],
     props: {
         prefixKey: {
             type: String,

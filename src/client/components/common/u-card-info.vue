@@ -1,12 +1,12 @@
 <template>
-    <div :class="$style.root">
-        <div :class="$style.head">
-            <slot name="head"></slot>
-        </div>
-        <div :class="$style.content">
-            <slot></slot>
-        </div>
+  <div :class="$style.root">
+    <div :class="$style.head">
+      <slot name="head" />
     </div>
+    <div :class="$style.content">
+      <slot />
+    </div>
+  </div>
 </template>
 
 <style module>
@@ -34,7 +34,7 @@
 
 <script>
 export default {
-    name: 'u-card-info',
+    name: 'UCardInfo',
     props: {
         data: { type: Object, default: () => {} },
     },
@@ -49,7 +49,7 @@ export default {
         },
     },
     created() {
-        this.$on('add-item-vm', (itemVM) => {
+        this.$on('add-item-vm', itemVM => {
             itemVM.parentVM = this;
             this.columns.push(itemVM);
         });
@@ -60,7 +60,6 @@ export default {
             ~index && this.columns.splice(index, 1);
         },
     },
-}
+};
 </script>
-
 

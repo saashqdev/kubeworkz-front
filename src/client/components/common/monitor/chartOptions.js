@@ -142,15 +142,15 @@ export const CLUSTER_CHART_OPTIONS = [
         title: 'Memory Buffers',
     },
     {
-        name: 'disk_read_write_bytes_rate', 
+        name: 'disk_read_write_bytes_rate',
         unit: 'B/s',
-        keys: ['read', 'write'],
+        keys: [ 'read', 'write' ],
         title: 'Disk I/O Throughout',
     },
     {
-        name: 'disk_read_write_operation_rate', 
+        name: 'disk_read_write_operation_rate',
         unit: 'Second-rate/s',
-        keys: ['read', 'write'],
+        keys: [ 'read', 'write' ],
         title: 'Disk IOPS',
     },
     {
@@ -161,19 +161,19 @@ export const CLUSTER_CHART_OPTIONS = [
     {
         name: 'network_receive_transmit_bytes_rate',
         unit: 'B/s',
-        keys: ['receive', 'transmit'],
+        keys: [ 'receive', 'transmit' ],
         title: 'Network Throughout',
     },
     {
         name: 'network_receive_transmit_packets_rate',
         unit: 'pps',
-        keys: ['receive', 'transmit'],
+        keys: [ 'receive', 'transmit' ],
         title: 'Network PPS',
     },
     {
         name: 'pod_num_info',
         unit: 'indivual',
-        keys: [ 
+        keys: [
             { text: 'Maximum number of copies available', value: 'available' },
             { text: 'Number of copies used', value: 'used' },
         ],

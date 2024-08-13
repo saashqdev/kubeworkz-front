@@ -1,43 +1,80 @@
 <template>
-    <div :class="$style.root" :style="cssProps">
-        <!-- disabled is an attribute of u-popper. It will not add disabled data to the outermost tag. You need to change it. -->
-        <u-popper :class="$style.account" :open.sync="open" trigger="hover" :z-dis="disabled" :disabled="disabled" append-to="reference" :follow-cursor="false" @before-toggle="onBeforeToggle">
-            <!-- Only template tags can be used here, and other similar divs cannot be used. -->
-            <template v-if="list && list.length > 0 || $slots.popper">
-                <div>
-                    <slot name="title">
-                        <div :class="$style.label">{{ label }}</div>
-                        <span :class="$style.value" :title="text">{{ text }}</span>
-                    </slot>
-                    <i :class="$style.icon_down"></i>
-                </div>
-                <div slot="popper" :class="$style.popper" :style="popperStyle">
-                    <template v-if="searchable">
-                        <u-input :class="$style.search" v-model="searchText" placeholder="Please enter keyword search" @keyup.enter="onSearchEntry"></u-input>
-                    </template>
-                    <ul>
-                        <slot name="popper">
-                            <li v-for="item in filterList" :key="item.text" :class="[$style.unit, 'f-toe']" @click.stop="onSelect(item)" :title="item.text">
-                                {{ item.text }}
-                            </li>
-                        </slot>
-                    </ul>
-                </div>
-            </template>
-            <template v-else>
-                <div>
-                    <div :class="$style.label">{{ label }}</div>
-                    <span :class="$style.value" disabled>None {{ label }}</span>
-                    <i :class="$style.icon_down"></i>
-                </div>
-            </template>
-        </u-popper>
-    </div>
+  <div
+    :class="$style.root"
+    :style="cssProps"
+  >
+    <!-- disabled is an attribute of u-popper. It will not add disabled data to the outermost tag. You need to change it. -->
+    <u-popper
+      :class="$style.account"
+      :open.sync="open"
+      trigger="hover"
+      :z-dis="disabled"
+      :disabled="disabled"
+      append-to="reference"
+      :follow-cursor="false"
+      @before-toggle="onBeforeToggle"
+    >
+      <!-- Only template tags can be used here, and other similar divs cannot be used. -->
+      <template v-if="list && list.length > 0 || $slots.popper">
+        <div>
+          <slot name="title">
+            <div :class="$style.label">
+              {{ label }}
+            </div>
+            <span
+              :class="$style.value"
+              :title="text"
+            >{{ text }}</span>
+          </slot>
+          <i :class="$style.icon_down" />
+        </div>
+        <div
+          slot="popper"
+          :class="$style.popper"
+          :style="popperStyle"
+        >
+          <template v-if="searchable">
+            <u-input
+              v-model="searchText"
+              :class="$style.search"
+              placeholder="Please enter keyword search"
+              @keyup.enter="onSearchEntry"
+            />
+          </template>
+          <ul>
+            <slot name="popper">
+              <li
+                v-for="item in filterList"
+                :key="item.text"
+                :class="[$style.unit, 'f-toe']"
+                :title="item.text"
+                @click.stop="onSelect(item)"
+              >
+                {{ item.text }}
+              </li>
+            </slot>
+          </ul>
+        </div>
+      </template>
+      <template v-else>
+        <div>
+          <div :class="$style.label">
+            {{ label }}
+          </div>
+          <span
+            :class="$style.value"
+            disabled
+          >None {{ label }}</span>
+          <i :class="$style.icon_down" />
+        </div>
+      </template>
+    </u-popper>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'u-popper-select',
+    name: 'UPopperSelect',
     props: {
         label: { type: String, default: 'Project' },
         list: { type: Array, default: () => ([]) },

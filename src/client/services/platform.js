@@ -8,8 +8,8 @@ const path = '/authority';
 
 const uiPermissionsProcess = ({ Permissions = [] }) => {
     const map = {};
-    const UIPermissions = Permissions.find((p) => p.ResourceType === 'UI');
-    UIPermissions && UIPermissions.OperationTypes.forEach((res) => map[res] = true);
+    const UIPermissions = Permissions.find(p => p.ResourceType === 'UI');
+    UIPermissions && UIPermissions.OperationTypes.forEach(res => map[res] = true);
     return map;
 };
 
@@ -205,21 +205,20 @@ const apis = {
         action: 'DescribeDeploymentEnvAddrByEnvId',
         version: '2019-01-03',
     },
-    //Query whether the user enters the module for the first time
+    // Query whether the user enters the module for the first time
     checkVisit: {
         action: 'GetUserAccessStatus',
         version: '2019-07-11',
     },
-    //Update user to enter module status
+    // Update user to enter module status
     updateVisitStatus: {
         action: 'UpdateUserAccessStatus',
-        version: '2019-07-11'
+        version: '2019-07-11',
     },
 };
 
-Object.keys(apis).forEach((key) => {
-    if (!apis[key].method)
-        apis[key].method = 'get';
+Object.keys(apis).forEach(key => {
+    if (!apis[key].method) { apis[key].method = 'get'; }
     Object.assign(apis[key], {
         path,
     });

@@ -1,62 +1,62 @@
 import Service from '@micro-app/common/services/service.js';
 const model = {
-    "apiVersion": "networking.k8s.io/v1",
-    "kind": "NetworkPolicy",
-    "metadata": {
-        "name": "test-network-policy",
-        "namespace": "default"
+    apiVersion: 'networking.k8s.io/v1',
+    kind: 'NetworkPolicy',
+    metadata: {
+        name: 'test-network-policy',
+        namespace: 'default',
     },
-    "spec": {
-        "podSelector": {
-            "matchLabels": {
-                "role": "db"
-            }
+    spec: {
+        podSelector: {
+            matchLabels: {
+                role: 'db',
+            },
         },
-        "policyTypes": [
-            "Ingress",
-            "Egress"
+        policyTypes: [
+            'Ingress',
+            'Egress',
         ],
-        "ingress": [{
-            "from": [{
-                    "ipBlock": {
-                        "cidr": "172.17.0.0/16",
-                        "except": [
-                            "172.17.1.0/24"
-                        ]
-                    }
+        ingress: [{
+            from: [{
+                ipBlock: {
+                    cidr: '172.17.0.0/16',
+                    except: [
+                        '172.17.1.0/24',
+                    ],
                 },
-                {
-                    "namespaceSelector": {
-                        "matchLabels": {
-                            "project": "myproject"
-                        }
-                    }
+            },
+            {
+                namespaceSelector: {
+                    matchLabels: {
+                        project: 'myproject',
+                    },
                 },
-                {
-                    "podSelector": {
-                        "matchLabels": {
-                            "role": "frontend"
-                        }
-                    }
-                }
+            },
+            {
+                podSelector: {
+                    matchLabels: {
+                        role: 'frontend',
+                    },
+                },
+            },
             ],
-            "ports": [{
-                "protocol": "TCP",
-                "port": 6379
-            }]
-        }],
-        "egress": [{
-            "to": [{
-                "ipBlock": {
-                    "cidr": "10.0.0.0/24"
-                }
+            ports: [{
+                protocol: 'TCP',
+                port: 6379,
             }],
-            "ports": [{
-                "protocol": "TCP",
-                "port": 5978
-            }]
-        }]
-    }
+        }],
+        egress: [{
+            to: [{
+                ipBlock: {
+                    cidr: '10.0.0.0/24',
+                },
+            }],
+            ports: [{
+                protocol: 'TCP',
+                port: 5978,
+            }],
+        }],
+    },
 };
 
 
@@ -81,7 +81,7 @@ const apis = {
     loads: {
         method: 'get',
         path: '/{clusterId}/calico/networkpolicies',
-        mock: [model],
+        mock: [ model ],
     },
 };
 

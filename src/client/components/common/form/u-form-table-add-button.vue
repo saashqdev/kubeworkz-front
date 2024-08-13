@@ -1,7 +1,12 @@
 <template>
-    <u-button @click="click" :class="$style.button" :disabled="disabled" :isContainer="isContainer">
-        + <slot></slot>
-    </u-button>
+  <u-button
+    :class="$style.button"
+    :disabled="disabled"
+    :is-container="isContainer"
+    @click="click"
+  >
+    + <slot />
+  </u-button>
 </template>
 
 <style module>
@@ -52,7 +57,7 @@
 
 <script>
 export default {
-    name: 'u-form-table-add-button',
+    name: 'UFormTableAddButton',
     props: {
         isContainer: Boolean,
         disabled: Boolean,
@@ -60,7 +65,7 @@ export default {
     methods: {
         click() {
             this.$emit('click');
-        }
-    }
+        },
+    },
 };
 </script>

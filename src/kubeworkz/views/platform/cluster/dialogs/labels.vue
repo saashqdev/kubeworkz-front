@@ -5,18 +5,31 @@
     width="640px"
     @close="close"
   >
-    <el-form v-if="show" ref="form" :model="model" label-position="right">
+    <el-form
+      v-if="show"
+      ref="form"
+      :model="model"
+      label-position="right"
+    >
       <el-form-item>
         <labelEditor
-          prefixKey="labels"
           v-model="model.labels"
-          prefixProp="labels"
+          prefix-key="labels"
+          prefix-prop="labels"
         />
       </el-form-item>
     </el-form>
     <div slot="footer">
-      <el-button @click="close">Cancel</el-button>
-      <el-button type="primary" @click="submit" :loading="submitLoading">OK</el-button>
+      <el-button @click="close">
+        Cancel
+      </el-button>
+      <el-button
+        type="primary"
+        :loading="submitLoading"
+        @click="submit"
+      >
+        OK
+      </el-button>
     </div>
   </el-dialog>
 </template>
@@ -76,7 +89,7 @@ export default {
                 this.model.labels.filter(l => l.key).forEach(l => {
                     labels[l.key] = l.value;
                 });
-                set(data, 'metadata.labels', labels)
+                set(data, 'metadata.labels', labels);
                 await workloadService.updateResourceWithoutNamespace({
                     pathParams: {
                         cluster: this.instance.clusterName,

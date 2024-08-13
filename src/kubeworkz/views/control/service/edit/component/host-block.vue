@@ -8,18 +8,22 @@
       :processor="resolver"
     >
       <template slot-scope="{ data, loading }">
-        <i v-if="loading" class="el-icon-loading" style="font-size: 24px"/>
+        <i
+          v-if="loading"
+          class="el-icon-loading"
+          style="font-size: 24px"
+        />
         <dynamicCard
           v-else
           v-model="model"
-          :initialAdd="true"
-          :minCount="1"
-          :getDefaultItem="getRuleTemplate"
-          addButtonText="Add group"
-          :validateFile="prefixProp"
+          :initial-add="true"
+          :min-count="1"
+          :get-default-item="getRuleTemplate"
+          add-button-text="Add group"
+          :validate-file="prefixProp"
         >
           <template slot-scope="{ item: ruleModel, index: ruleIndex }">
-            <el-form-item 
+            <el-form-item
               label="Domain name"
               :rules="[
                 validators.required(),
@@ -30,16 +34,16 @@
               <host-input
                 v-model="ruleModel.host"
                 :port="port"
-                :domainSuffixList="domainSuffixList"
+                :domain-suffix-list="domainSuffixList"
               />
             </el-form-item>
             <secretSelect
               v-if="enableSecret"
               v-model="ruleModel.secretName"
               :init-visible="true"
-              :prefixProp="`${prefixProp}.${ruleIndex}.secretName`"
+              :prefix-prop="`${prefixProp}.${ruleIndex}.secretName`"
             />
-            <el-form-item 
+            <el-form-item
               label="Path"
               :rules="[
                 validators.required(),
@@ -51,7 +55,7 @@
                 :default-service="defaultService"
                 :service-list="data"
                 :index="ruleIndex"
-                :prefixProp="`${prefixProp}.${ruleIndex}.httpPath`"
+                :prefix-prop="`${prefixProp}.${ruleIndex}.httpPath`"
               />
             </el-form-item>
           </template>
@@ -85,7 +89,7 @@ export default {
         pathTable,
         hostInput,
         dynamicCard,
-        dynamicBlock
+        dynamicBlock,
     },
     mixins: [ makeVModelMixin ],
     props: {
@@ -93,7 +97,7 @@ export default {
         port: Number,
         prefixProp: {
             type: String,
-            default: ''
+            default: '',
         },
     },
     data() {

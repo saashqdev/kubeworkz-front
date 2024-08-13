@@ -17,11 +17,15 @@
           Loading error!
         </div>
         <template v-else>
-          <el-tabs :value="routeName" page="main" @tab-click="(pane) => handleTabClick(pane, tabs)">
+          <el-tabs
+            :value="routeName"
+            page="main"
+            @tab-click="(pane) => handleTabClick(pane, tabs)"
+          >
             <el-tab-pane
               v-for="(item, index) in tabs"
-              :label="item.title"
               :key="index"
+              :label="item.title"
               :name="item.route.name"
             />
           </el-tabs>

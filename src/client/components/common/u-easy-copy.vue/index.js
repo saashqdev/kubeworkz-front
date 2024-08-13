@@ -4,7 +4,7 @@ Vue.use(VueClipboard);
 export default {
     name: 'u-easy-copy',
     props: {
-        text: { type: [String, Number], default: () => '' },
+        text: { type: [ String, Number ], default: () => '' },
         disabled: { type: Boolean, default: false },
     },
     data() {

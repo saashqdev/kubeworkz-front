@@ -30,7 +30,7 @@ export const toK8SObject = (model, metadata, obj) => {
     const template = obj.spec.template;
     return {
         concurrencyPolicy: toNumber(g('spec.concurrencyPolicy')), // Concurrency strategy
-        schedule: g('spec.schedule'), // Schedule scheduling settings 
+        schedule: g('spec.schedule'), // Schedule scheduling settings
         successfulJobsHistoryLimit: toNumber(g('spec.successfulJobsHistoryLimit')), // Keep the number of successfully executed tasks
         failedJobsHistoryLimit: toNumber(g('spec.failedJobsHistoryLimit')), // Keep the number of failed tasks
         startingDeadlineSeconds: g('spec.startingDeadlineSeconds') && toNumber(g('spec.startingDeadlineSeconds')), // Task start deadline

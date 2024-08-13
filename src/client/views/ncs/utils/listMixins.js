@@ -10,7 +10,7 @@ export default {
             this.page = 1;
             this.totalPage = 1;
             this.list = [];
-            this.loadList()
+            this.loadList();
         },
     },
-}
+};

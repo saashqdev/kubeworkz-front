@@ -4,8 +4,8 @@ const apis = {
     load: {
         method: 'get',
         path: '/query',
-        process: (result) => {
-            const [tmp] = at(result || {}, [ 'data[0].samples[0].value' ]);
+        process: result => {
+            const [ tmp ] = at(result || {}, [ 'data[0].samples[0].value' ]);
             return tmp || 0;
         },
     },
@@ -17,7 +17,7 @@ const apis = {
     loadAllInfo: {
         method: 'get',
         path: '/query',
-        process: (result) => {
+        process: result => {
             return result.data;
         },
     },

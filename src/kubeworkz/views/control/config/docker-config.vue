@@ -2,14 +2,14 @@
   <div>
     <dynamicCard
       v-model="model"
-      :initialAdd="true"
-      :minCount="1"
-      :getDefaultItem="getDataTemplate"
-      addButtonText="Add image warehouse configuration"
-      :validateFile="prefixProp"
+      :initial-add="true"
+      :min-count="1"
+      :get-default-item="getDataTemplate"
+      add-button-text="Add image warehouse configuration"
+      :validate-file="prefixProp"
     >
       <template slot-scope="{ item: dataModel, index: dataIndex }">
-        <el-form-item 
+        <el-form-item
           label="Mirror warehouse"
           :prop="`${prefixProp}.${dataIndex}.host`"
           :rules="[
@@ -22,7 +22,7 @@
             v-model="dataModel.host"
           />
         </el-form-item>
-        <el-form-item 
+        <el-form-item
           label="Username"
           :prop="`${prefixProp}.${dataIndex}.username`"
           :rules="[
@@ -34,7 +34,7 @@
             v-model="dataModel.username"
           />
         </el-form-item>
-        <el-form-item 
+        <el-form-item
           label="Password"
           :prop="`${prefixProp}.${dataIndex}.password`"
           :rules="[
@@ -46,7 +46,7 @@
             v-model="dataModel.password"
           />
         </el-form-item>
-        <el-form-item 
+        <el-form-item
           label="Email"
           :prop="`${prefixProp}.${dataIndex}.email`"
           :rules="[
@@ -71,15 +71,15 @@ import dynamicCard from 'kubeworkz/elComponent/dynamic-card/index.vue';
 import * as validators from 'kubeworkz/utils/validators';
 export default {
     components: {
-      dynamicCard
-    },
-    props: {
-      prefixProp: {
-        type: String,
-        default: ''
-      }
+        dynamicCard,
     },
     mixins: [ makeVModelMixin ],
+    props: {
+        prefixProp: {
+            type: String,
+            default: '',
+        },
+    },
     data() {
         return {
             blockLayout,

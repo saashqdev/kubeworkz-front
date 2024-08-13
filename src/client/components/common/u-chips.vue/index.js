@@ -2,7 +2,7 @@ import { Field } from 'cloud-ui.vusion';
 
 export default {
     name: 'u-chips',
-    mixins: [Field],
+    mixins: [ Field ],
     props: {
         placeholder: String,
         error: String,
@@ -49,8 +49,7 @@ export default {
             this.list = value;
         },
         modifying() {
-            if (!this.modifying && !this.list.length && !this.allowEmpty)
-                this.errMessage = this.error;
+            if (!this.modifying && !this.list.length && !this.allowEmpty) { this.errMessage = this.error; }
         },
     },
     computed: {
@@ -58,10 +57,8 @@ export default {
         width() {
             const length = this.item.length;
             const width = length * 8.5 + 60;
-            if (length <= 15)
-                return 200;
-            else
-                return (width > 552 ? 552 : width);
+            if (length <= 15) { return 200; }
+            return (width > 552 ? 552 : width);
         },
         height() {
             const row = Math.ceil(this.item.length / 66) || 1;
@@ -101,17 +98,13 @@ export default {
                 return;
             }
             // something that failed inspection
-            const errRule = this.rules.find((rule) => {
+            const errRule = this.rules.find(rule => {
                 // If the result is true, it means that the verification logic has been passed.
                 let result = false;
-                if (!type.includes(rule.trigger))
-                    return false;
-                if (rule.type === 'method')
-                    result = rule.options(value, rule, list);
-                if (rule.type === 'is')
-                    result = rule.options.test(value, list);
-                if (rule.type === 'isNot')
-                    result = !rule.options.test(value, list);
+                if (!type.includes(rule.trigger)) { return false; }
+                if (rule.type === 'method') { result = rule.options(value, rule, list); }
+                if (rule.type === 'is') { result = rule.options.test(value, list); }
+                if (rule.type === 'isNot') { result = !rule.options.test(value, list); }
 
                 return !result;
             });
@@ -121,18 +114,12 @@ export default {
         onDocKeydown(event) {
             let { current, list, modifying, modifyItem } = this;
 
-            if (current < 0)
-                return;
+            if (current < 0) { return; }
 
             // tab key
             if (event.which === 9) {
                 event.preventDefault();
-                if (modifying)
-                    this.generate(modifyItem, true);
-                else if (current === (list.length - 1))
-                    this.$refs.cpInput.focus();
-                else
-                    this.onFocus(current + 1);
+                if (modifying) { this.generate(modifyItem, true); } else if (current === (list.length - 1)) { this.$refs.cpInput.focus(); } else { this.onFocus(current + 1); }
             }
 
             // enter key
@@ -152,14 +139,12 @@ export default {
                     current = -1;
                     this.$refs.cpInput.focus();
                     // Toggles focus of generated items to the right
-                } else
-                    this.onFocus(current + 1);
+                } else { this.onFocus(current + 1); }
             }
             // keyboard left button
             if (event.which === 37) {
                 // Left border, no longer moves left to generate item focus
-                if (current === 0)
-                    return;
+                if (current === 0) { return; }
                 // Toggles focus of the generated item to the left
                 this.onFocus(current - 1);
             }
@@ -176,18 +161,14 @@ export default {
         onModifyBlur(event) {
             this.generate(this.modifyItem, true);
 
-            if (!this.errMessage)
-                this.$refs.cpInput.focus();
+            if (!this.errMessage) { this.$refs.cpInput.focus(); }
         },
         /**
          * Focus on the entire large frame
          */
         onFieldClick(event) {
             event.stopPropagation();
-            if (this.modifying)
-                this.getCpModifyInput().focus();
-            else
-                this.$refs.cpInput.focus();
+            if (this.modifying) { this.getCpModifyInput().focus(); } else { this.$refs.cpInput.focus(); }
         },
         /**
          * Create a focus event callback for the input box
@@ -221,8 +202,7 @@ export default {
 
             // enter key
             // When there is only one line, the default operation of the enter key is disabled.
-            if (event.which === 13 && this.height === 26)
-                event.preventDefault();
+            if (event.which === 13 && this.height === 26) { event.preventDefault(); }
 
             // tab key
             // When the input content is empty, restore the default operation of tab
@@ -264,16 +244,14 @@ export default {
 
             // enter key
             // Disable the default operation of the default enter key
-            if (event.which === 13)
-                event.preventDefault();
+            if (event.which === 13) { event.preventDefault(); }
 
             // Spacebar Generate item
             if (event.which === 32 || event.which === 188) {
                 // Generate items (meet relevant requirements)
                 if (this.getCpModifyInput() === document.activeElement && modifyItem) {
                     this.getCpModifyInput().blur();
-                    if (!this.errMessage)
-                        this.$refs.cpInput.focus();
+                    if (!this.errMessage) { this.$refs.cpInput.focus(); }
                 }
             }
 
@@ -329,10 +307,7 @@ export default {
         generate(item, isModify = false) {
             // item == false，Description item is an empty string or a string composed of spaces.
             if (item === '' && item !== '0') {
-                if (isModify)
-                    this.modifyItem = '';
-                else
-                    this.item = '';
+                if (isModify) { this.modifyItem = ''; } else { this.item = ''; }
                 this.emptyValidate();
 
                 return;
@@ -343,29 +318,24 @@ export default {
             // Generate an array of multiple items at a time
             // arrIndex is the index of the errored item in the array
             // str is the character of the error part outside the generated item
-            let itemArr = [], arrIndex = 0;
-            if (hasSpace && hasComma)
-                item = item.replace(/,/g, ' ');
-            if (!hasSpace && !hasComma)
-                itemArr = [item];
-            else
-                itemArr = item.split(hasSpace ? ' ' : ',').filter((item) => item);
+            let itemArr = [],
+                arrIndex = 0;
+            if (hasSpace && hasComma) { item = item.replace(/,/g, ' '); }
+            if (!hasSpace && !hasComma) { itemArr = [ item ]; } else { itemArr = item.split(hasSpace ? ' ' : ',').filter(item => item); }
             itemArr.every((itm, index) => {
                 this.validate(itm, 'input+blur');
-                if (this.errMessage)
-                    return false;
-                else {
-                    // Edit generated items
-                    if (isModify) {
-                        // Only if the input is correct, you need to delete the previous item first.
-                        this.list.splice(this.current, 0, itm);
+                if (this.errMessage) { return false; }
+
+                // Edit generated items
+                if (isModify) {
+                    // Only if the input is correct, you need to delete the previous item first.
+                    this.list.splice(this.current, 0, itm);
                     // Create new build item
-                    } else
-                        this.list.push(itm);
-                    this.$emit('input', this.list);
-                    arrIndex = index + 1;
-                    return true;
-                }
+                } else { this.list.push(itm); }
+                this.$emit('input', this.list);
+                arrIndex = index + 1;
+                return true;
+
             });
             itemArr.splice(0, arrIndex);
 

@@ -94,7 +94,7 @@ export default {
      * Get user agent
      */
     getAgent: {
-        path: `/apm/redirect/api/v1/napm/userGuide/javaAgentConfig`,
+        path: '/apm/redirect/api/v1/napm/userGuide/javaAgentConfig',
         method: 'get',
     },
     createProduct: {
@@ -103,11 +103,11 @@ export default {
     },
     // The tenantId in deleteProduct and updateProduct passes the tenantId returned from the getProducts list.
     deleteProduct: {
-        path: `/apm/redirect/api/v1/products/{tenantId}/deleteProduct/{productId}`,
+        path: '/apm/redirect/api/v1/products/{tenantId}/deleteProduct/{productId}',
         method: 'delete',
     },
     updateProduct: {
-        path: `/apm/redirect/api/v1/products/{tenantId}/updateProduct/{productId}`,
+        path: '/apm/redirect/api/v1/products/{tenantId}/updateProduct/{productId}',
         method: 'post',
     },
     trans: {

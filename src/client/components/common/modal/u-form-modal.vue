@@ -1,25 +1,58 @@
 <template>
-    <u-modal @close="close" :title="title" ok-button="" cancel-button="" :visible.sync="show" v-bind="$attrs">
-        <slot name="header"></slot>
-        <u-form gap="large" ref="form" layout="block" @validate="formCanSubmit = $event.valid">
-            <slot></slot>
-            <u-submit-button :click="submitInner.bind(this)" :auto-focus="true" place="middle">
-                <template slot-scope="scope">
-                    <slot name="buttons" :submitting="scope.submitting" :submit="scope.submit">
-                        <u-linear-layout>
-                            <slot name="button" :submit="scope.clickWrap" :submitting="scope.submitting" :errMsg="scope.errMsg"></slot>
-                            <u-button color="primary" :disabled="scope.submitting || !canSubmit" :icon="scope.submitting?'loading':null " @click="scope.submit">
-                            {{ okTitle }}
-                            </u-button>
-                            <u-button :disabled="cancelDisabled" @click="close">
-                            {{ cancelTitle }}
-                            </u-button>
-                        </u-linear-layout>
-                    </slot>
-                </template>
-            </u-submit-button>
-        </u-form>
-    </u-modal>
+  <u-modal
+    :title="title"
+    ok-button=""
+    cancel-button=""
+    :visible.sync="show"
+    v-bind="$attrs"
+    @close="close"
+  >
+    <slot name="header" />
+    <u-form
+      ref="form"
+      gap="large"
+      layout="block"
+      @validate="formCanSubmit = $event.valid"
+    >
+      <slot />
+      <u-submit-button
+        :click="submitInner.bind(this)"
+        :auto-focus="true"
+        place="middle"
+      >
+        <template slot-scope="scope">
+          <slot
+            name="buttons"
+            :submitting="scope.submitting"
+            :submit="scope.submit"
+          >
+            <u-linear-layout>
+              <slot
+                name="button"
+                :submit="scope.clickWrap"
+                :submitting="scope.submitting"
+                :errMsg="scope.errMsg"
+              />
+              <u-button
+                color="primary"
+                :disabled="scope.submitting || !canSubmit"
+                :icon="scope.submitting?'loading':null "
+                @click="scope.submit"
+              >
+                {{ okTitle }}
+              </u-button>
+              <u-button
+                :disabled="cancelDisabled"
+                @click="close"
+              >
+                {{ cancelTitle }}
+              </u-button>
+            </u-linear-layout>
+          </slot>
+        </template>
+      </u-submit-button>
+    </u-form>
+  </u-modal>
 </template>
 
 <style module>
@@ -27,7 +60,7 @@
 
 <script>
 export default {
-    name: 'u-form-modal',
+    name: 'UFormModal',
     props: {
         disabled: {
             type: Boolean,
@@ -82,12 +115,12 @@ export default {
     },
     methods: {
         submitInner(params) {
-            return this.submit(params).then((res) => {
+            return this.submit(params).then(res => {
                 this.show = !!res;
             });
         },
         close() {
-            return this.cancel().then((res) => {
+            return this.cancel().then(res => {
                 this.show = !!res;
             });
         },

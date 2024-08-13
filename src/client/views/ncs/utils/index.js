@@ -19,12 +19,8 @@ const getStatus = (workload, stateful = false) => {
     const { RequestK8sSuccess, podInfo, status } = workload;
 
     // New: status.replicas is empty, display warning
-    if(RequestK8sSuccess !== 'True' || podInfo.warnings.length || (status && !status.replicas)) 
-        return 'warning';
-    else if(podInfo.pending)
-        return 'waiting';
-    else   
-        return 'success';
+    if (RequestK8sSuccess !== 'True' || podInfo.warnings.length || (status && !status.replicas)) { return 'warning'; } else if (podInfo.pending) { return 'waiting'; }
+    return 'success';
 
 };
 
@@ -33,7 +29,7 @@ const getStatus = (workload, stateful = false) => {
      * @param  {String} _path imagePath
      * @return {String}       version number
      */
-const getTagFromImagePath = (path) => {
+const getTagFromImagePath = path => {
     path = path || '';
     let result;
 
@@ -43,13 +39,12 @@ const getTagFromImagePath = (path) => {
 
     return result;
 };
-const getRepoDesc = (info) => {
-    if (!info || (info && !Object.keys(info).length))
-        return 'No mirror selected';
+const getRepoDesc = info => {
+    if (!info || (info && !Object.keys(info).length)) { return 'No mirror selected'; }
     return info.userName + '/' + info.repoName + ':' + this.getTagFromImagePath(info.selectedPath);
 };
 
-const getDefaultContainer = (stateful) => {
+const getDefaultContainer = stateful => {
     const container = {
         Name: '', // Container name
         Image: '', // Mirror URL
@@ -73,20 +68,20 @@ const getDefaultContainer = (stateful) => {
     return container;
 };
 
-const getCPU = ((cpu = '') => cpu.includes('m') ? (cpu.split('m')[0] / 1000) : (cpu ? +cpu : 0.1));
+const getCPU = (cpu = '') => (cpu.includes('m') ? (cpu.split('m')[0] / 1000) : (cpu ? +cpu : 0.1));
 const getMemory = (memory = '') => {
     // default value
-    if(!memory) return 128;
-    const MAP = ['Mi', 'Gi', 'Ti'];
+    if (!memory) return 128;
+    const MAP = [ 'Mi', 'Gi', 'Ti' ];
     const value = memory.split('i')[0].slice(0, -1);
-    const index = MAP.findIndex((unit) => memory.endsWith(unit));
+    const index = MAP.findIndex(unit => memory.endsWith(unit));
     return index !== -1 ? (value * Math.pow(1024, index)) : value;
 };
 /**
  * Convert the k8s converted numerical string into a numerical value
  * Correspondence between suffix characters and numbers: [10^-3 m] [10^3 k] [10^6 M] [10^9 G]
  * @param {String} num - k8s converted numerical string
- * @returns {Number}
+ * @return {Number}
  */
 const formatNumber = (num = '') => {
     const value = parseInt(num);
@@ -97,7 +92,7 @@ const formatNumber = (num = '') => {
         M: 6,
         G: 9,
     };
-    if(isNaN(value)) return 0;
+    if (isNaN(value)) return 0;
     const suffix = num.slice(value.toString().length);
     const multiple = suffix in map ? Math.pow(10, map[suffix]) : 1;
 
@@ -113,20 +108,20 @@ const formatNumber = (num = '') => {
 const normalizeWorkload = (model = {}, simple = false) => {
     const { metadata, RequestK8sSuccess, pods: podInfo, status, spec } = model;
     const { name, namespace, creationTimestamp, labels: workloadLabels } = (metadata || {});
-    const [ minReadySeconds, replicas, serviceName, volumeClaimTemplates, matchLabels, strategy, maxSurge, maxUnavailable ] = _.at(spec || {}, [ 
-        'minReadySeconds', 'replicas', 'serviceName', 'volumeClaimTemplates', 'selector.matchLabels', 
+    const [ minReadySeconds, replicas, serviceName, volumeClaimTemplates, matchLabels, strategy, maxSurge, maxUnavailable ] = _.at(spec || {}, [
+        'minReadySeconds', 'replicas', 'serviceName', 'volumeClaimTemplates', 'selector.matchLabels',
         'strategy', 'strategy.rollingUpdate.maxSurge', 'strategy.rollingUpdate.maxUnavailable',
     ]);
-    const [ labels, containers, volumes, restartPolicy, imagePullSecrets, affinity ] = _.at(spec || {}, [ 
-        'template.metadata.labels', 'template.spec.containers', 'template.spec.volumes', 
-        'template.spec.restartPolicy', 'template.spec.imagePullSecrets','template.spec.affinity',
+    const [ labels, containers, volumes, restartPolicy, imagePullSecrets, affinity ] = _.at(spec || {}, [
+        'template.metadata.labels', 'template.spec.containers', 'template.spec.volumes',
+        'template.spec.restartPolicy', 'template.spec.imagePullSecrets', 'template.spec.affinity',
     ]);
 
     // Custom fields
     podInfo && (podInfo.message = RequestK8sSuccess !== 'True' ? 'Unable to get status' : (podInfo.warnings && podInfo.warnings.length && podInfo.warnings[0].message));
 
     // Simple mode return
-    if(simple) {
+    if (simple) {
         return {
             name,
             status,
@@ -144,14 +139,11 @@ const normalizeWorkload = (model = {}, simple = false) => {
     // Filter out system default tags
     const customLabels = {};
     const systemLabels = {};
-    Object.keys(labels).forEach((item) => {
-        if(ignoredKeys.find((key) => item.startsWith(key)))
-            systemLabels[item] = labels[item];
-        else 
-            customLabels[item] = labels[item];
+    Object.keys(labels).forEach(item => {
+        if (ignoredKeys.find(key => item.startsWith(key))) { systemLabels[item] = labels[item]; } else { customLabels[item] = labels[item]; }
     });
 
-    tmpContainers.forEach((item) => {
+    tmpContainers.forEach(item => {
         let [ cpu, memory, limitCPU ] = _.at(item.resources || {}, [ 'requests.cpu', 'requests.memory', 'limits.cpu' ]);
         const gpu = ((item.resources || {}).limits || {})['nvidia.com/gpu'];
         cpu = getCPU(cpu);
@@ -165,13 +157,13 @@ const normalizeWorkload = (model = {}, simple = false) => {
         };
 
         const volumeMounts = item.volumeMounts || [];
-        item.dirs = volumeMounts.filter((item) => item.name.startsWith('log-volume')).map((item) => ({ dir: item.mountPath }));
-        item.volumes = volumeMounts.filter((item) => item.name.startsWith('data-volume'))
-            .map((item) => {
-                const volume = volumes.find((sub) => sub.name === item.name);
+        item.dirs = volumeMounts.filter(item => item.name.startsWith('log-volume')).map(item => ({ dir: item.mountPath }));
+        item.volumes = volumeMounts.filter(item => item.name.startsWith('data-volume'))
+            .map(item => {
+                const volume = volumes.find(sub => sub.name === item.name);
                 const names = _.at(volume || {}, [ 'persistentVolumeClaim.claimName', 'secret.secretName', 'configMap.name' ]);
-                const index = names.findIndex((item) => item);
-                const type = ['pvc', 'secret', 'configMap'][index];
+                const index = names.findIndex(item => item);
+                const type = [ 'pvc', 'secret', 'configMap' ][index];
                 return {
                     type,
                     name: names[index],
@@ -184,7 +176,7 @@ const normalizeWorkload = (model = {}, simple = false) => {
             });
         // const volumeClaimTemplates = volumeMounts.filter((item) => (volumeClaimTemplates || []).find((subItem) => subItem.metadata.name === item.name)).map((item) => ({
         // todo
-        const volumeClaimTemplates = volumeMounts.filter((item) => !['log-volume', 'data-volume'].some((keyword) => item.name.startsWith(keyword))).map((item) => ({
+        const volumeClaimTemplates = volumeMounts.filter(item => ![ 'log-volume', 'data-volume' ].some(keyword => item.name.startsWith(keyword))).map(item => ({
             type: 'volumeClaimTemplate',
             name: item.name,
             mountPath: item.mountPath,
@@ -196,41 +188,41 @@ const normalizeWorkload = (model = {}, simple = false) => {
         item.volumes.push(...volumeClaimTemplates);
     });
 
-    return Object.assign({}, { 
+    return Object.assign({}, {
         metadata,
-        name, 
-        status, 
+        name,
+        status,
         replicas,
         strategy,
-        namespace, 
-        matchLabels, 
+        namespace,
+        matchLabels,
         creationTimestamp,
         RequestK8sSuccess,
         labels: workloadLabels,
-        
+
         serviceName, // dedicated to statefulSet
-        volumeClaimTemplates: (volumeClaimTemplates || []).map((item) => ({
+        volumeClaimTemplates: (volumeClaimTemplates || []).map(item => ({
             name: item.metadata.name,
             mode: item.spec.accessModes[0],
             storageClassName: item.spec.storageClassName,
             storage: parseInt(item.spec.resources.requests.storage),
-        })),    
+        })),
 
         maxSurge,
         maxUnavailable,
         minReadySeconds,
-        pod: { 
+        pod: {
             labels,
             customLabels,
             systemLabels,
             restartPolicy,
-            imagePullSecrets: imagePullSecrets ? imagePullSecrets.map((item) => item.name) : [],
+            imagePullSecrets: imagePullSecrets ? imagePullSecrets.map(item => item.name) : [],
             nodeAffinity: (affinity || {}).nodeAffinity,
             podAffinity: (affinity || {}).podAffinity,
             podAntiAffinity: (affinity || {}).podAntiAffinity,
         },
         podInfo: podInfo || {},
-        containers: tmpContainers.map((item, index) => Object.assign({}, item, { fullModel: containers[index]} )),
+        containers: tmpContainers.map((item, index) => Object.assign({}, item, { fullModel: containers[index] })),
         fullModel: model,
     });
 };
@@ -238,23 +230,24 @@ const normalizeWorkload = (model = {}, simple = false) => {
 const normalizePod = (model = {}) => {
     const { name, creationTimestamp, namespace, ownerReferences } = model.metadata || {};
     const { phase, podIP } = model.status || {};
-    let cpuUsage = 0, memoryUsage = 0;
-    let containers = (model.status || {}).containerStatuses || [];
+    let cpuUsage = 0,
+        memoryUsage = 0;
+    const containers = (model.status || {}).containerStatuses || [];
     const restartCount = containers.reduce((acc, next) => acc + next.restartCount, 0);
-    (model.spec.containers || []).forEach((item) => {
-        const [cpu, memory] = _.at(item, ['resources.requests.cpu', 'resources.requests.memory']);
+    (model.spec.containers || []).forEach(item => {
+        const [ cpu, memory ] = _.at(item, [ 'resources.requests.cpu', 'resources.requests.memory' ]);
         cpuUsage += getCPU(cpu);
         memoryUsage += getMemory(memory);
     });
     // container.status is a custom field, running || terminated || waiting, the default is waiting.
-    containers.forEach((item) => item.status = Object.keys(item.state)[0] || 'waiting');
+    containers.forEach(item => item.status = Object.keys(item.state)[0] || 'waiting');
     return Object.assign({}, {
-        name, 
+        name,
         namespace,
         restartCount,
         ownerReferences,
-        creationTimestamp, 
-        phase, 
+        creationTimestamp,
+        phase,
         podIP,
         containers,
         // When the CPUs of multiple containers are added together, there will be too many decimal places since they are decimals.
@@ -272,30 +265,23 @@ const normalizeService = (model = {}) => {
     const host = name + '.' + namespace;
     let template = (annotations || {}).template || '';
     // If annotations are not declared in a template field, additional logic initialization is required.
-    if(!template) {
-        if(type === 'NodePort')
-            template = 'nodePort';
-        else if(clusterIP === 'None')
-            template = 'headless';
-        else if(Object.keys(selector || {}).length)
-            template = 'normal';
-        else
-            template = 'external';
+    if (!template) {
+        if (type === 'NodePort') { template = 'nodePort'; } else if (clusterIP === 'None') { template = 'headless'; } else if (Object.keys(selector || {}).length) { template = 'normal'; } else { template = 'external'; }
     }
 
     return Object.assign({}, {
-        name, 
+        name,
         labels,
         namespace,
         annotations: annotations || {},
-        creationTimestamp, 
+        creationTimestamp,
         host,
         type,
         ports,
         clusterIP,
         template,
         selector: selector || {}, // There are legal situations where the selector is undefined, so it is compatible.
-        extendInfo: (model.extendInfo && model.extendInfo.ips) ? model.extendInfo : { ips: []}, // The interface compatible with extendInfo returns
+        extendInfo: (model.extendInfo && model.extendInfo.ips) ? model.extendInfo : { ips: [] }, // The interface compatible with extendInfo returns
         fullModel: item,
     });
 };
@@ -303,16 +289,16 @@ const normalizeService = (model = {}) => {
 const normalizeIngress = (model = {}) => {
     const { name, creationTimestamp, namespace, labels, annotations } = model.metadata || {};
     const [ rules, tls ] = _.at(model || {}, [ 'spec.rules', 'spec.tls' ]);
-    
+
     const port = tls ? 443 : 80;
-    const useSameSecret = tls && tls.length > 1 ? false : true;
-    let map = [];
-    if(!useSameSecret) {
-        tls.forEach((item) => {
-            item.hosts.forEach((host) => map[host] = item.secretName);
+    const useSameSecret = !(tls && tls.length > 1);
+    const map = [];
+    if (!useSameSecret) {
+        tls.forEach(item => {
+            item.hosts.forEach(host => map[host] = item.secretName);
         });
     }
-    
+
     return Object.assign({}, {
         port,
         dispatch: annotations['nginx.ingress.kubernetes.io/load-balance'] || 'round_robin',
@@ -321,13 +307,13 @@ const normalizeIngress = (model = {}) => {
         cookieName: annotations['nginx.ingress.kubernetes.io/session-cookie-name'],
         useSameSecret,
 
-        rules: !useSameSecret ? rules.map((item) => Object.assign(item, { secretName: map[item.host] })) : rules,
+        rules: !useSameSecret ? rules.map(item => Object.assign(item, { secretName: map[item.host] })) : rules,
         tls,
-        name, 
+        name,
         labels,
         namespace,
         annotations,
-        creationTimestamp, 
+        creationTimestamp,
         fullModel: model,
     });
 };
@@ -339,10 +325,10 @@ const normalizeSecret = (model = {}) => {
     return Object.assign({}, {
         type,
         data: data || {},
-        name, 
+        name,
         isDefault: 'system/defaultImagePullSecret' in (labels || {}),
         namespace,
-        creationTimestamp, 
+        creationTimestamp,
         fullModel: model,
     });
 };
@@ -353,23 +339,23 @@ const normalizeConfigMap = (model = {}) => {
     return Object.assign({}, {
         data: model.data || {},
         binaryData: model.binaryData || {},
-        name, 
+        name,
         namespace,
-        creationTimestamp, 
+        creationTimestamp,
         fullModel: model,
     });
 };
 
 const sizeProcessor = function(result) {
     // this is monitor-chart
-    const keys = this.metrics.map((item) => item.key);
-    const max = Math.max.apply(null, _.flatten( result.map((item) => keys.map((key) => item[key])) ));
+    const keys = this.metrics.map(item => item.key);
+    const max = Math.max.apply(null, _.flatten(result.map(item => keys.map(key => item[key]))));
     const { unit } = filters.num(isNaN(+max) ? 0 : max);
-    const multiple = Math.pow(1024, ['B', 'K', 'M', 'G', 'T', 'P'].indexOf(unit));
+    const multiple = Math.pow(1024, [ 'B', 'K', 'M', 'G', 'T', 'P' ].indexOf(unit));
     this.unit = (unit === 'B' || !unit || !this.unit.startsWith('B')) ? this.unit : (unit + 'i' + this.unit);
 
-    result.forEach((item) => {
-        keys.forEach((key) => item[key] = (item[key] / multiple).toFixed(2));
+    result.forEach(item => {
+        keys.forEach(key => item[key] = (item[key] / multiple).toFixed(2));
     });
     return result;
 };
@@ -381,27 +367,27 @@ const getStep = (startTime, endTime) => {
     let period = (endTime - startTime) / 60;
     !isSecond && (period = Math.floor(period / 1000));
     // 6h、24h、7d、30d
-    const PERIOD_MAP = [0, 6 * 60, 24 * 60, 24 * 7 * 60, 30 * 24 * 60];
-    const STEP_MAP = ['1m', '15m', '1h', '6h', '1d'];
-    const index = PERIOD_MAP.findIndex((item, index, arr) => index < (arr.length - 1) ? (period >= item && period < arr[index + 1]) : true );
+    const PERIOD_MAP = [ 0, 6 * 60, 24 * 60, 24 * 7 * 60, 30 * 24 * 60 ];
+    const STEP_MAP = [ '1m', '15m', '1h', '6h', '1d' ];
+    const index = PERIOD_MAP.findIndex((item, index, arr) => (index < (arr.length - 1) ? (period >= item && period < arr[index + 1]) : true));
 
     return STEP_MAP[index];
 };
 
-const getDashBoardTabs = (uiAuth) => [
+const getDashBoardTabs = uiAuth => [
     uiAuth.viewClusterMonitor ? { title: 'Resource', name: 'dashboard.index.resource' } : null,
     uiAuth.viewTenantMonitor ? { title: 'Tenant', name: 'dashboard.index.tenant' } : null,
     uiAuth.viewProjectMonitor ? { title: 'Project', name: 'dashboard.index.project' } : null,
     uiAuth.viewIngressMonitor ? { title: 'Load balancing', name: 'dashboard.index.ingress' } : null,
 ].filter(Boolean);
 
-const normalizeTag = (tag) => {
+const normalizeTag = tag => {
     const scanInfo = tag.scan_overview || {};
     const { summary, total } = scanInfo.components || {};
     const { update_time, severity, scan_status, job_id } = scanInfo;
     const { name, architecture, os, docker_version, created, author, size } = tag;
     const tmp = { unknow: 0, hard: 0, normal: 0, small: 0, none: 0 };
-    summary && summary.forEach((item) => {
+    summary && summary.forEach(item => {
         tmp[SEVERITY_MAP[item.severity]] = item.count;
     });
 
@@ -421,27 +407,27 @@ const normalizeTag = (tag) => {
             time: update_time,
             scanning: MIDDLE_STATUS_LIST.includes(scan_status),
             severity,
-            severityText: SEVERITY_TEXT_MAP[severity]
+            severityText: SEVERITY_TEXT_MAP[severity],
         }),
     };
 };
 
-const getReleaseStatusText = (status) => {
+const getReleaseStatusText = status => {
     status = status ? status.toLowerCase() : 'unknown';
     return RELEASE_STATUS_MAP[status] || 'unknown status';
 };
 
 const normalizePDB = (model = {}) => {
     const spec = model.spec || {};
-    const [ matchLabels, matchExpressions ] = _.at(spec, ['selector.matchLabels', 'selector.matchExpressions']);
+    const [ matchLabels, matchExpressions ] = _.at(spec, [ 'selector.matchLabels', 'selector.matchExpressions' ]);
     const ruleKind = 'maxUnavailable' in spec ? 'maxUnavailable' : 'minAvailable';
     return {
         ruleKind,
         ruleValue: spec[ruleKind],
         matchLabels: matchLabels || {},
-        matchLabelTexts: matchLabels ? Object.keys(matchLabels).map((key) => key + ':' + matchLabels[key]) : [],
+        matchLabelTexts: matchLabels ? Object.keys(matchLabels).map(key => key + ':' + matchLabels[key]) : [],
         matchExpressions: matchExpressions || [],
-        matchExpressionTexts: matchExpressions ? matchExpressions.map((item) => {
+        matchExpressionTexts: matchExpressions ? matchExpressions.map(item => {
             const { key, operator, values } = item;
             let tmp = 'key:' + key + ' operator:' + operator;
             values && (tmp = tmp + ' values:' + item.values.join(', '));
@@ -455,12 +441,12 @@ const normalizePDB = (model = {}) => {
 const formatExternalWorkload = (model = {}) => {
     const { metadata, status, spec } = model;
     const { name, namespace, labels: workloadLabels } = (metadata || {});
-    const [ replicas, serviceName, volumeClaimTemplates, matchLabels ] = _.at(spec || {}, [ 
-        'replicas', 'serviceName', 'volumeClaimTemplates', 'selector.matchLabels', 
+    const [ replicas, serviceName, volumeClaimTemplates, matchLabels ] = _.at(spec || {}, [
+        'replicas', 'serviceName', 'volumeClaimTemplates', 'selector.matchLabels',
     ]);
-    const [ labels, containers, hostNetwork, restartPolicy, imagePullSecrets, affinity ] = _.at(spec || {}, [ 
+    const [ labels, containers, hostNetwork, restartPolicy, imagePullSecrets, affinity ] = _.at(spec || {}, [
         'template.metadata.labels', 'template.spec.containers', 'template.spec.hostNetwork',
-        'template.spec.restartPolicy', 'template.spec.imagePullSecrets','template.spec.affinity',
+        'template.spec.restartPolicy', 'template.spec.imagePullSecrets', 'template.spec.affinity',
     ]);
 
     // Internal fields will be adjusted later.
@@ -468,14 +454,11 @@ const formatExternalWorkload = (model = {}) => {
     // Filter out system default tags
     const customLabels = {};
     const systemLabels = {};
-    Object.keys(labels).forEach((item) => {
-        if(ignoredKeys.find((key) => item.startsWith(key)))
-            systemLabels[item] = labels[item];
-        else 
-            customLabels[item] = labels[item];
+    Object.keys(labels).forEach(item => {
+        if (ignoredKeys.find(key => item.startsWith(key))) { systemLabels[item] = labels[item]; } else { customLabels[item] = labels[item]; }
     });
 
-    tmpContainers.forEach((item) => {
+    tmpContainers.forEach(item => {
         let [ cpu, memory, limitCPU ] = _.at(item.resources || {}, [ 'requests.cpu', 'requests.memory', 'limits.cpu' ]);
         const gpu = ((item.resources || {}).limits || {})['nvidia.com/gpu'];
         cpu = getCPU(cpu);
@@ -491,35 +474,35 @@ const formatExternalWorkload = (model = {}) => {
         // Filter out system default labels (required for cicd service)
         item.customEnvs = [];
         item.systemEnvs = [];
-        item.env && item.env.forEach((subItem) => subItem.name.startsWith('SKIFF_') ? item.systemEnvs.push(subItem) : item.customEnvs.push(subItem));
+        item.env && item.env.forEach(subItem => (subItem.name.startsWith('SKIFF_') ? item.systemEnvs.push(subItem) : item.customEnvs.push(subItem)));
 
-        item.dirs = item.logs.map((item) => ({ dir: item }));
+        item.dirs = item.logs.map(item => ({ dir: item }));
     });
 
-    return Object.assign({}, { 
+    return Object.assign({}, {
         metadata,
-        name, 
-        status, 
+        name,
+        status,
         replicas,
-        namespace, 
-        matchLabels, 
+        namespace,
+        matchLabels,
         hostNetwork,
         labels: workloadLabels,
-        
+
         serviceName, // dedicated to statefulSet
-        volumeClaimTemplates: (volumeClaimTemplates || []).map((item) => ({
+        volumeClaimTemplates: (volumeClaimTemplates || []).map(item => ({
             name: item.metadata.name,
             mode: item.spec.accessModes[0],
             storageClassName: item.spec.storageClassName,
             storage: parseInt(item.spec.resources.requests.storage),
-        })),    
+        })),
 
-        pod: { 
+        pod: {
             labels,
             customLabels,
             systemLabels,
             restartPolicy,
-            imagePullSecrets: imagePullSecrets ? imagePullSecrets.map((item) => item.name) : [],
+            imagePullSecrets: imagePullSecrets ? imagePullSecrets.map(item => item.name) : [],
             nodeAffinity: (affinity || {}).nodeAffinity,
             podAffinity: (affinity || {}).podAffinity,
             podAntiAffinity: (affinity || {}).podAntiAffinity,
@@ -541,16 +524,16 @@ const getNodeInfo = (list = []) => {
 };
 /**
  * @description Return data structure information that meets the requirements of the u-transfer component (retain the original capacityCpu and other field information of the backend)
- * 
+ *
  * @param {Array} list - node list
  * @param {Boolean} disabled - Whether to disable node movement
  */
 const formatNodes = (list = [], disabled = false) => {
-    return list.map((item) => Object.assign(item, {
-        text: item.name + `(C:${item.capacityCpu} M:${item.capacityMemory} G:${item.capacityGpu})`, 
+    return list.map(item => Object.assign(item, {
+        text: item.name + `(C:${item.capacityCpu} M:${item.capacityMemory} G:${item.capacityGpu})`,
         value: item.name,
         disabled,
-    }));    
+    }));
 };
 
 

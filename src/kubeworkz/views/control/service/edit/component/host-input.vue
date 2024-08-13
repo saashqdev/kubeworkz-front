@@ -1,24 +1,24 @@
 <template>
-    <div style="display:flex">
-        <el-input
-            v-model="hostPrefix"
-            :color="errors && errors[0] ? 'error' : ''"
-        />
-        <span style="margin:0 4px">.</span>
-        <el-select
-            v-model="domainSuffix"
-            filterable
-        >   
-            <el-option
-                v-for="item in domainSuffixList"
-                :key="item.value"
-                :label="item.text"
-                :value="item.value"
-                :title="item.text"
-            />
-        </el-select>
-        <span style="margin:0 4px"> :{{ port }}</span>
-    </div>
+  <div style="display:flex">
+    <el-input
+      v-model="hostPrefix"
+      :color="errors && errors[0] ? 'error' : ''"
+    />
+    <span style="margin:0 4px">.</span>
+    <el-select
+      v-model="domainSuffix"
+      filterable
+    >
+      <el-option
+        v-for="item in domainSuffixList"
+        :key="item.value"
+        :label="item.text"
+        :value="item.value"
+        :title="item.text"
+      />
+    </el-select>
+    <span style="margin:0 4px"> :{{ port }}</span>
+  </div>
 </template>
 <script>
 export default {

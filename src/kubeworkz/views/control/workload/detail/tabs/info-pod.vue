@@ -7,7 +7,10 @@
     >
       Check the detail information
     </el-button>
-    <el-descriptions title="Basic Information" :column="1">
+    <el-descriptions
+      title="Basic Information"
+      :column="1"
+    >
       <el-descriptions-item label="Pod name">
         {{ instance.metadata.name }}
       </el-descriptions-item>
@@ -22,12 +25,26 @@
       </el-descriptions-item>
       <el-descriptions-item label="Label">
         <div :class="$style.tagWrap">
-          <el-tag type="info" v-for="label in instance.metadata.labels" :key="label.key" :title="label.key + ':' + label.value">{{ label.key }}: {{ label.value }}</el-tag>
+          <el-tag
+            v-for="label in instance.metadata.labels"
+            :key="label.key"
+            type="info"
+            :title="label.key + ':' + label.value"
+          >
+            {{ label.key }}: {{ label.value }}
+          </el-tag>
         </div>
       </el-descriptions-item>
       <el-descriptions-item label="Annotation">
         <div :class="$style.tagWrap">
-          <el-tag type="info" v-for="label in instance.metadata.annotations" :key="label.key" :title="label.key + ':' + label.value">{{ label.key }}: {{ label.value }}</el-tag>
+          <el-tag
+            v-for="label in instance.metadata.annotations"
+            :key="label.key"
+            type="info"
+            :title="label.key + ':' + label.value"
+          >
+            {{ label.key }}: {{ label.value }}
+          </el-tag>
         </div>
       </el-descriptions-item>
       <el-descriptions-item label="Belonging node">
@@ -46,7 +63,10 @@
         {{ ((instance.metadata.ownerReferences || [])[0] || {}).name }}
       </el-descriptions-item>
     </el-descriptions>
-    <el-descriptions title="Container" :column="1"/>
+    <el-descriptions
+      title="Container"
+      :column="1"
+    />
     <el-table
       :data="instance.containers"
       style="width: 100%"
@@ -57,7 +77,12 @@
         :show-overflow-tooltip="true"
       >
         <template slot-scope="{ row }">
-          <el-tooltip effect="dark" :content="getContainerText(row.type)" placement="top" popper-class="ncs-el-tooltip-popper">
+          <el-tooltip
+            effect="dark"
+            :content="getContainerText(row.type)"
+            placement="top"
+            popper-class="ncs-el-tooltip-popper"
+          >
             <u-icons
               style="color: #508de8;"
               :name="row.type | getContainerIcon"
@@ -93,10 +118,17 @@
         width="160"
       >
         <template slot-scope="{ row }">
-          <el-link type="primary" @click="$termModal.open('container', { cluster, namespace, pod: instance.metadata.name, container: row.containerName })" style="marginRight:10px">
+          <el-link
+            type="primary"
+            style="marginRight:10px"
+            @click="$termModal.open('container', { cluster, namespace, pod: instance.metadata.name, container: row.containerName })"
+          >
             console
           </el-link>
-          <el-link type="primary" @click="toLog(row)">
+          <el-link
+            type="primary"
+            @click="toLog(row)"
+          >
             View log
           </el-link>
         </template>

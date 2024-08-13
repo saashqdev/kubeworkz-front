@@ -1,15 +1,36 @@
 <template>
-    <u-linear-layout :class="$style.root" :alignRight="alignRight">
-        <u-input :size="size" :disabled="disabled" v-model="currentValue" :placeholder="placeholder" :class="$style.input" @keyup.enter="search" @reset="search($event, '')" close>
-            <u-icons :class="$style.search" name="search"></u-icons>
-        </u-input>
-        <u-button color="primary" @click="search" :disabled="disabled">Search</u-button>
-    </u-linear-layout>
+  <u-linear-layout
+    :class="$style.root"
+    :align-right="alignRight"
+  >
+    <u-input
+      v-model="currentValue"
+      :size="size"
+      :disabled="disabled"
+      :placeholder="placeholder"
+      :class="$style.input"
+      close
+      @keyup.enter="search"
+      @reset="search($event, '')"
+    >
+      <u-icons
+        :class="$style.search"
+        name="search"
+      />
+    </u-input>
+    <u-button
+      color="primary"
+      :disabled="disabled"
+      @click="search"
+    >
+      Search
+    </u-button>
+  </u-linear-layout>
 </template>
 
 <script>
 export default {
-    name: 'u-input-search',
+    name: 'UInputSearch',
     props: {
         name: { type: String, default: 'name' }, // The name of the search subject
         width: { type: String, default: 'large' }, // The length of the input input box

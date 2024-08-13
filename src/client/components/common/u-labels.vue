@@ -1,16 +1,39 @@
 <template>
-    <div ref="notes" :class="[$style.tagsWrapper, showCollapse ? $style.collapse : '']">
-        <span v-if="!lists.length">-</span>
-        <template v-else>
-            <span v-for="(list, i) in curLists" :title="list" :key="i" :class="$style.tags">{{ list }}</span>
-            <span v-if="showCollapse" :class="$style.more" @click="onClickMore">More</span>
-        </template>
+  <div
+    ref="notes"
+    :class="[$style.tagsWrapper, showCollapse ? $style.collapse : '']"
+  >
+    <span v-if="!lists.length">-</span>
+    <template v-else>
+      <span
+        v-for="(list, i) in curLists"
+        :key="i"
+        :title="list"
+        :class="$style.tags"
+      >{{ list }}</span>
+      <span
+        v-if="showCollapse"
+        :class="$style.more"
+        @click="onClickMore"
+      >More</span>
+    </template>
 
-        <u-modal :visible.sync="viewMore" title="See more" size="huge">
-            <div v-for="(item, index) in lists" :key="index" class="u-chip" :title="item">{{item}}</div>
-            <div slot="foot"></div>
-        </u-modal>
-    </div>
+    <u-modal
+      :visible.sync="viewMore"
+      title="See more"
+      size="huge"
+    >
+      <div
+        v-for="(item, index) in lists"
+        :key="index"
+        class="u-chip"
+        :title="item"
+      >
+        {{ item }}
+      </div>
+      <div slot="foot" />
+    </u-modal>
+  </div>
 </template>
 <style module>
 .tagsWrapper {
@@ -50,7 +73,7 @@
 
 <script>
 export default {
-    name: 'u-labels',
+    name: 'ULabels',
     props: {
         lists: Array,
         noCollapse: { type: Boolean, default: false }, // Use folding by default, show more

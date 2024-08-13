@@ -1,6 +1,12 @@
 <template>
   <div>
-    <el-form ref="form" :model="model" label-position="right" label-width="120px" style="width:80%">
+    <el-form
+      ref="form"
+      :model="model"
+      label-position="right"
+      label-width="120px"
+      style="width:80%"
+    >
       <el-form-item
         label="Name"
         prop="metadata.name"
@@ -9,7 +15,11 @@
           validators.k8sResourceNameValidator(),
         ]"
       >
-        <el-input v-model="model.metadata.name" :disabled="isEdit" placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"/>
+        <el-input
+          v-model="model.metadata.name"
+          :disabled="isEdit"
+          placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"
+        />
       </el-form-item>
       <el-form-item
         label="Port"
@@ -58,7 +68,7 @@
         v-model="model.spec.singleTLS.secretName"
         description="All domain names use the same certificate"
         :init-visible="model.spec.singleTLS.enable"
-        prefixProp="spec.singleTLS.secretName"
+        prefix-prop="spec.singleTLS.secretName"
       >
         <template #data="{ data, setVisible }">
           <el-switch
@@ -79,7 +89,7 @@
           v-model="model.spec.rulesConfig"
           :port="model.spec.port"
           :enable-secret="model.spec.port === 443 && !model.spec.singleTLS.enable"
-          prefixProp="spec.rulesConfig"
+          prefix-prop="spec.rulesConfig"
         />
       </el-form-item>
       <el-form-item
@@ -98,7 +108,9 @@
           validators.cookie(false),
         ]"
       >
-        <div style="color: #999">You need to carry the cookie with the corresponding name when accessing, so that the session persistence function can work properly. kie name</div>
+        <div style="color: #999">
+          You need to carry the cookie with the corresponding name when accessing, so that the session persistence function can work properly. kie name
+        </div>
         <el-input
           v-model="model.spec.annotations.cookieName"
         />
@@ -106,8 +118,8 @@
       <el-form-item>
         <el-button
           type="primary"
-          @click="submit"
           :loading="submitLoading"
+          @click="submit"
         >
           {{ isEdit ? 'Modify now' : 'Create now' }}
         </el-button>
@@ -157,14 +169,14 @@ export default {
         },
     },
     watch: {
-        ['model.spec.port'](val) {
-            if(val === 80) {
-                this.model.spec.singleTLS.enable = false
+        'model.spec.port': function(val) {
+            if (val === 80) {
+                this.model.spec.singleTLS.enable = false;
             }
         },
-        ['model.spec.annotations.enableSession'](val) {
-            this.model.spec.annotations.cookieName = ''
-        }
+        'model.spec.annotations.enableSession': function(val) {
+            this.model.spec.annotations.cookieName = '';
+        },
     },
     created() {
         this.$watch('model', (newVal, oldVal) => {
@@ -228,7 +240,7 @@ export default {
         },
         handleValidate() {
             this.$refs.observer.validate();
-        }
+        },
     },
 };
 </script>

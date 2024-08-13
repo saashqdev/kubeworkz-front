@@ -20,7 +20,11 @@
         @pipestatechange="pipeLoading = $event"
       >
         <span style="line-height:32px;margin-right:12px">Tenant</span>
-        <kubeTenantSelectMultiple v-model="tenant" style="width:300px" @syncTenant="syncTenant"/>
+        <kubeTenantSelectMultiple
+          v-model="tenant"
+          style="width:300px"
+          @syncTenant="syncTenant"
+        />
         <!-- <kube-tenant-select v-model="tenant" /> -->
       </kube-pipe>
     </div>
@@ -53,7 +57,11 @@
             :show-overflow-tooltip="true"
           >
             <template slot-scope="{ row }">
-              <el-link type="primary" :title="row.cluster" @click="openClusterInfo(row)">
+              <el-link
+                type="primary"
+                :title="row.cluster"
+                @click="openClusterInfo(row)"
+              >
                 {{ row.clusterName }}
               </el-link>
             </template>
@@ -88,7 +96,7 @@
           >
             <template slot-scope="{ row }">
               <template v-if="row.resourceQuota">
-                <div>{{ row.resourceQuota.used['requests.cpu'] | clusterCpu }} / {{row.resourceQuota.hard['requests.cpu'] | clusterCpu }} Cores</div>
+                <div>{{ row.resourceQuota.used['requests.cpu'] | clusterCpu }} / {{ row.resourceQuota.hard['requests.cpu'] | clusterCpu }} Cores</div>
                 <div>{{ row.resourceQuota.used['requests.memory'] | clusterMemory }} / {{ row.resourceQuota.hard['requests.memory'] | clusterMemory }} Gi</div>
                 <div>{{ row.resourceQuota.used['requests.nvidia.com/gpu'] }} / {{ row.resourceQuota.hard['requests.nvidia.com/gpu'] }} Cores</div>
               </template>
@@ -105,7 +113,7 @@
           >
             <template slot-scope="{ row }">
               <template v-if="row.resourceQuota">
-                <div>{{ row.resourceQuota.used['limits.cpu'] | clusterCpu }} / {{row.resourceQuota.hard['limits.cpu'] | clusterCpu }} Cores</div>
+                <div>{{ row.resourceQuota.used['limits.cpu'] | clusterCpu }} / {{ row.resourceQuota.hard['limits.cpu'] | clusterCpu }} Cores</div>
                 <div>{{ row.resourceQuota.used['limits.memory'] | clusterMemory }} / {{ row.resourceQuota.hard['limits.memory'] | clusterMemory }} Gi</div>
                 <div>-</div>
               </template>
@@ -126,22 +134,36 @@
                   :disabled="!row.resourceQuota && !row.nodeResourceQuato && !row.colocationResourceQuato"
                   type="primary"
                   @click="editItem(row)"
-                >Modify quota</el-link>
+                >
+                  Modify quota
+                </el-link>
                 <el-link
                   type="primary"
                   @click="editMetadata(row)"
-                >Modify meta information</el-link>
-                <el-tooltip v-if="row.isFederateMember" class="item" effect="dark" content="This space is in federated mode. When you delete the federated space of the management cluster, the space will be deleted together." placement="left">
+                >
+                  Modify meta information
+                </el-link>
+                <el-tooltip
+                  v-if="row.isFederateMember"
+                  class="item"
+                  effect="dark"
+                  content="This space is in federated mode. When you delete the federated space of the management cluster, the space will be deleted together."
+                  placement="left"
+                >
                   <el-link
                     type="primary"
                     disabled
-                  >Delete</el-link>
+                  >
+                    Delete
+                  </el-link>
                 </el-tooltip>
                 <el-link
                   v-else
                   type="primary"
                   @click="deleteItem(row)"
-                >Delete</el-link>
+                >
+                  Delete
+                </el-link>
               </qz-link-group>
             </template>
           </el-table-column>
@@ -164,18 +186,30 @@
       @close="showDelCheck = false"
     >
       <div style="margin-bottom:12px">
-        Delete namespace "{{delNsInfo && delNsInfo.namespace}}" All resources under this namespace will be deleted!
+        Delete namespace "{{ delNsInfo && delNsInfo.namespace }}" All resources under this namespace will be deleted!
         <div v-if="delNsInfo && delNsInfo.isFederateMaster">
           This namespace is in federated mode, and the federated namespace under the associated business cluster will be deleted together!
         </div>
       </div>
       <div style="margin-bottom:20px">
-          <el-input v-model="userInput" placeholder="Please enter the namespace name for secondary confirmation"/>
+        <el-input
+          v-model="userInput"
+          placeholder="Please enter the namespace name for secondary confirmation"
+        />
       </div>
       <div slot="footer">
-        <el-button @click="showDelCheck = false">Cancel</el-button>
-        <el-button type="primary" @click="handleDelete" :loading="delLoading" :disabled="userInput !== delNsInfo.namespace">Confirm deletion</el-button>
-    </div>
+        <el-button @click="showDelCheck = false">
+          Cancel
+        </el-button>
+        <el-button
+          type="primary"
+          :loading="delLoading"
+          :disabled="userInput !== delNsInfo.namespace"
+          @click="handleDelete"
+        >
+          Confirm deletion
+        </el-button>
+      </div>
     </el-dialog>
   </div>
 </template>

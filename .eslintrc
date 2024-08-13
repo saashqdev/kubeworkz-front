@@ -4,6 +4,32 @@
         "plugin:vue/recommended"
     ],
     "rules": {
-        "vue/require-default-prop": "off"
+        "vue/require-default-prop": "off",
+        "vue/no-unused-vars": "off",
+        "vue/no-side-effects-in-computed-properties": "off",
+        "vue/no-template-shadow": "off",
+        "vue/no-lone-template": "off",
+        "vue/no-mutating-props": "off",
+        "vue/no-v-html": "off",
+        "vue/no-unused-components": "off",
+        "vue/require-v-for-key": "off",
+        "vue/component-tags-order": "off",
+        "vue/return-in-computed-property": "off",
+        "vue/require-prop-type-constructor": "off",
+        "vue/valid-v-on": "off",
+        "vue/valid-v-bind-sync": "off",
+        "vue/no-use-v-if-with-v-for": "off",
+        "vue/require-prop-types": "off",
+        "valid-jsdoc": "off",
+        "no-return-assign": "off",
+        "no-unused-vars": "off",
+        "no-undef": "off",
+        "no-irregular-whitespace": "off",
+        "no-dupe-keys": "off",
+        "no-bitwise": "off",
+        "no-lone-blocks": "off",
+        "no-empty": "off",
+        "no-sequences": "off",
+        "array-callback-return": "off"
     }
 }

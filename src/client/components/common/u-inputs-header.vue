@@ -1,18 +1,54 @@
 <template>
-    <u-form-table :class="$style.root" :size="size" ref="formTable" :dynamic="true" @add="add" @change="onChange" @validate="valid = $event.valid">
-        <thead>
-            <tr>
-                <th :class="$style.th" :size="size">Name</th>
-                <th :class="$style.th" :size="size">Value</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr is="u-form-table-tr" v-for="(item, index) in sortList" :key="index" :rules="rules" @remove="remove(index)">
-                <td><u-input size="huge" name="name" v-model="item.name"></u-input></td>
-                <td><u-input size="huge" name="value" v-model="item.value"></u-input></td>
-            </tr>
-        </tbody>
-    </u-form-table>
+  <u-form-table
+    ref="formTable"
+    :class="$style.root"
+    :size="size"
+    :dynamic="true"
+    @add="add"
+    @change="onChange"
+    @validate="valid = $event.valid"
+  >
+    <thead>
+      <tr>
+        <th
+          :class="$style.th"
+          :size="size"
+        >
+          Name
+        </th>
+        <th
+          :class="$style.th"
+          :size="size"
+        >
+          Value
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        is="u-form-table-tr"
+        v-for="(item, index) in sortList"
+        :key="index"
+        :rules="rules"
+        @remove="remove(index)"
+      >
+        <td>
+          <u-input
+            v-model="item.name"
+            size="huge"
+            name="name"
+          />
+        </td>
+        <td>
+          <u-input
+            v-model="item.value"
+            size="huge"
+            name="value"
+          />
+        </td>
+      </tr>
+    </tbody>
+  </u-form-table>
 </template>
 
 <style module>
@@ -28,8 +64,8 @@
 import { Inputs } from '@micro-app/common/base/mixins';
 
 export default {
-    name: 'u-inputs-header',
-    mixins: [Inputs],
+    name: 'UInputsHeader',
+    mixins: [ Inputs ],
     props: {
         size: { type: String, default: 'normal' },
     },
@@ -37,16 +73,16 @@ export default {
         return {
             rules: {
                 key: [
-                    { type: 'string', trigger: 'input', message: '', validator: (rule, value, callback) => this.sortList.some((item) => item.name && value && !item.value) ? callback(new Error()) : callback() },
-                    { type: 'string', trigger: 'blur', message: 'Value cannot be empty', validator: (rule, value, callback) => this.sortList.some((item) => item.name && value && !item.value) ? callback(new Error()) : callback() },
-                    { type: 'string', trigger: 'input', message: '', validator: (rule, value, callback) => this.sortList.some((item) => !item.name && !value && item.value) ? callback(new Error()) : callback() },
-                    { type: 'string', trigger: 'blur', message: 'Name cannot be empty', validator: (rule, value, callback) => this.sortList.some((item) => !item.name && !value && item.value) ? callback(new Error()) : callback() },
+                    { type: 'string', trigger: 'input', message: '', validator: (rule, value, callback) => (this.sortList.some(item => item.name && value && !item.value) ? callback(new Error()) : callback()) },
+                    { type: 'string', trigger: 'blur', message: 'Value cannot be empty', validator: (rule, value, callback) => (this.sortList.some(item => item.name && value && !item.value) ? callback(new Error()) : callback()) },
+                    { type: 'string', trigger: 'input', message: '', validator: (rule, value, callback) => (this.sortList.some(item => !item.name && !value && item.value) ? callback(new Error()) : callback()) },
+                    { type: 'string', trigger: 'blur', message: 'Name cannot be empty', validator: (rule, value, callback) => (this.sortList.some(item => !item.name && !value && item.value) ? callback(new Error()) : callback()) },
                 ],
                 value: [
-                    { type: 'string', trigger: 'input', message: '', validator: (rule, value, callback) => this.sortList.some((item) => !item.value && !value && item.name) ? callback(new Error()) : callback() },
-                    { type: 'string', trigger: 'blur', message: 'Value cannot be empty', validator: (rule, value, callback) => this.sortList.some((item) => !item.value && !value && item.name) ? callback(new Error()) : callback() },
-                    { type: 'string', trigger: 'input', message: '', validator: (rule, value, callback) => this.sortList.some((item) => item.value && value && !item.name) ? callback(new Error()) : callback() },
-                    { type: 'string', trigger: 'blur', message: 'Name cannot be empty', validator: (rule, value, callback) => this.sortList.some((item) => item.value && value && !item.name) ? callback(new Error()) : callback() },
+                    { type: 'string', trigger: 'input', message: '', validator: (rule, value, callback) => (this.sortList.some(item => !item.value && !value && item.name) ? callback(new Error()) : callback()) },
+                    { type: 'string', trigger: 'blur', message: 'Value cannot be empty', validator: (rule, value, callback) => (this.sortList.some(item => !item.value && !value && item.name) ? callback(new Error()) : callback()) },
+                    { type: 'string', trigger: 'input', message: '', validator: (rule, value, callback) => (this.sortList.some(item => item.value && value && !item.name) ? callback(new Error()) : callback()) },
+                    { type: 'string', trigger: 'blur', message: 'Name cannot be empty', validator: (rule, value, callback) => (this.sortList.some(item => item.value && value && !item.name) ? callback(new Error()) : callback()) },
                 ],
             },
         };
@@ -60,8 +96,7 @@ export default {
         },
         // Make the Object's selectorList passed in adjust to Array
         normalize(list) {
-            if (!Object.keys(list).length)
-                return [];
+            if (!Object.keys(list).length) { return []; }
             const sortList = [];
             if (!(list instanceof Array)) {
                 Object.keys(list).forEach((item, index) => {

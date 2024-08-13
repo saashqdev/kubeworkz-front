@@ -1,29 +1,68 @@
 <template>
-    <u-popper trigger='manual' :open.sync="editVisible" appendTo="reference">
-        <u-popper v-if="model" trigger='hover' :open.sync="visible" appendTo="reference">
-            <span :class="$style.root" ref="spanRoot" @click.stop>
-                <u-linear-layout :class="$style.chip" gap="ext-small" :disabled="model.disable">
-                    <u-text>{{model.key}}</u-text>
-                    <u-text>{{model.operator | operatorFilter }}</u-text>
-                    <u-text>{{model.value}}</u-text>
-                    <!-- <span :class="$style.close" @click.stop="onDelete"></span> -->
-                </u-linear-layout>
-            </span>
-            <div slot="popper" :class="$style.toplayer" @click.stop>
-                <filter-operation-input v-if="!editVisible"
-                    :state="model.disable"
-                    @edit="editVisible = true"
-                    @remove="onDelete"
-                    @disable="onDisable"/>
-            </div>
-        </u-popper>
-        <span v-else :class="$style.root" ref="spanRoot">
-            <span :class="[$style.chip, $style.point]" @click="editVisible=true"></span>
-        </span>
-        <div slot="popper" :class="$style.toplayer" @click.stop>
-            <filter-condition-input ref="input" v-if="editVisible" @change="onChange" @cancel="onCancel"/>
-        </div>
+  <u-popper
+    trigger="manual"
+    :open.sync="editVisible"
+    append-to="reference"
+  >
+    <u-popper
+      v-if="model"
+      trigger="hover"
+      :open.sync="visible"
+      append-to="reference"
+    >
+      <span
+        ref="spanRoot"
+        :class="$style.root"
+        @click.stop
+      >
+        <u-linear-layout
+          :class="$style.chip"
+          gap="ext-small"
+          :disabled="model.disable"
+        >
+          <u-text>{{ model.key }}</u-text>
+          <u-text>{{ model.operator | operatorFilter }}</u-text>
+          <u-text>{{ model.value }}</u-text>
+          <!-- <span :class="$style.close" @click.stop="onDelete"></span> -->
+        </u-linear-layout>
+      </span>
+      <div
+        slot="popper"
+        :class="$style.toplayer"
+        @click.stop
+      >
+        <filter-operation-input
+          v-if="!editVisible"
+          :state="model.disable"
+          @edit="editVisible = true"
+          @remove="onDelete"
+          @disable="onDisable"
+        />
+      </div>
     </u-popper>
+    <span
+      v-else
+      ref="spanRoot"
+      :class="$style.root"
+    >
+      <span
+        :class="[$style.chip, $style.point]"
+        @click="editVisible=true"
+      />
+    </span>
+    <div
+      slot="popper"
+      :class="$style.toplayer"
+      @click.stop
+    >
+      <filter-condition-input
+        v-if="editVisible"
+        ref="input"
+        @change="onChange"
+        @cancel="onCancel"
+      />
+    </div>
+  </u-popper>
 </template>
 
 <script>

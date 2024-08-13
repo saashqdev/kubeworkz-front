@@ -1,19 +1,63 @@
 <template>
-    <u-modal :class="$style.root" :visible.sync="show" :title="title" @close="close" size="auto">
-        <u-status-icon :class="$style.status" :name="type" :hasSub="hasSub"></u-status-icon>
-        <div :class="$style.text" :hasSub="hasSub">
-            <div :class="$style.content">{{ content }}</div>
-            <div v-if="subContent" :class="$style.subContent">{{ subContent }}</div>
-            <div v-if="subContentHtml" :class="$style.subContentHtml" v-html="subContentHtml"></div>
-        </div>
-        <div slot="foot" style="position: relative;">
-            <span :class="['f-toe', $style.error]" v-if="(message || errMsg)" :title="(message || errMsg)">{{ (message || errMsg) }}</span>
-            <u-linear-layout>
-                <u-button :color="isCancelPrimary ? '' : 'primary'" @click="submit" :disabled="submitting" :icon="submitting ? 'loading' : ''">{{ okText }}</u-button>
-                <u-button v-show="showCancel" :color="isCancelPrimary ? 'primary' : ''" @click="close">{{ cancelText }}</u-button>
-            </u-linear-layout>
-        </div>
-    </u-modal>
+  <u-modal
+    :class="$style.root"
+    :visible.sync="show"
+    :title="title"
+    size="auto"
+    @close="close"
+  >
+    <u-status-icon
+      :class="$style.status"
+      :name="type"
+      :has-sub="hasSub"
+    />
+    <div
+      :class="$style.text"
+      :hasSub="hasSub"
+    >
+      <div :class="$style.content">
+        {{ content }}
+      </div>
+      <div
+        v-if="subContent"
+        :class="$style.subContent"
+      >
+        {{ subContent }}
+      </div>
+      <div
+        v-if="subContentHtml"
+        :class="$style.subContentHtml"
+        v-html="subContentHtml"
+      />
+    </div>
+    <div
+      slot="foot"
+      style="position: relative;"
+    >
+      <span
+        v-if="(message || errMsg)"
+        :class="['f-toe', $style.error]"
+        :title="(message || errMsg)"
+      >{{ (message || errMsg) }}</span>
+      <u-linear-layout>
+        <u-button
+          :color="isCancelPrimary ? '' : 'primary'"
+          :disabled="submitting"
+          :icon="submitting ? 'loading' : ''"
+          @click="submit"
+        >
+          {{ okText }}
+        </u-button>
+        <u-button
+          v-show="showCancel"
+          :color="isCancelPrimary ? 'primary' : ''"
+          @click="close"
+        >
+          {{ cancelText }}
+        </u-button>
+      </u-linear-layout>
+    </div>
+  </u-modal>
 </template>
 <style module>
 .root[class] {
@@ -77,7 +121,7 @@
 import { Modal } from '@micro-app/common/base/mixins';
 
 export default {
-    name: 'u-confirm',
+    name: 'UConfirm',
     mixins: [ Modal ],
     props: {
 
@@ -108,11 +152,11 @@ export default {
     },
     watch: {
         show(val) {
-            if(!val){
+            if (!val) {
                 this.errMsg = '';
                 this.message = '';
             }
-        }
+        },
     },
     created() {
     },
@@ -132,20 +176,20 @@ export default {
             }
             this.submitting = true;
             this.errMsg = '';
-            this.ok().then((data) => {
+            this.ok().then(data => {
                 this.submitting = false;
                 this.show = false;
                 return data;
-            }, (err) => {
+            }, err => {
                 // todo： Error message copy display
                 this.submitting = false;
                 if (Array.isArray(err)) {
-                    this.errMsg = (err.filter((item) => item.msg)[0] || {}).msg;
+                    this.errMsg = (err.filter(item => item.msg)[0] || {}).msg;
                 } else {
                     this.errMsg = err.message || err.Message || err.reason;
                 }
             });
         },
     },
-}
+};
 </script>

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div :class="$style.line_layout" style="margin-bottom: 12px">
+    <div
+      :class="$style.line_layout"
+      style="margin-bottom: 12px"
+    >
       <template v-if="!noPodEvent">
         <el-select
           v-model="kind"

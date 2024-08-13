@@ -1,10 +1,10 @@
 <template>
-    <div :class="$style.root">
-        <u-linear-layout>
-            <span :class="$style.title">{{ title }}</span>
-            <slot></slot>
-        </u-linear-layout>
-    </div>
+  <div :class="$style.root">
+    <u-linear-layout>
+      <span :class="$style.title">{{ title }}</span>
+      <slot />
+    </u-linear-layout>
+  </div>
 </template>
 
 <style module>
@@ -18,10 +18,10 @@
 
 <script>
 export default {
-    name: 'u-meta-info',
+    name: 'UMetaInfo',
     props: {
         title: { type: String, default: '' },
     },
-}
+};
 </script>
 

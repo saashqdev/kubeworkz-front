@@ -2,20 +2,20 @@
   <div>
     <dynamicBlock
       v-model="model"
-      :getDefaultItem="getDataTemplate"
+      :get-default-item="getDataTemplate"
       :columns="[
-          {
-              title: 'Key',
-              dataIndex: 'key',
-          },
-          {
-              title: 'Value',
-              dataIndex: 'value'
-          },
+        {
+          title: 'Key',
+          dataIndex: 'key',
+        },
+        {
+          title: 'Value',
+          dataIndex: 'value'
+        },
       ]"
     >
-      <template v-slot:key="{record, index}">
-        <el-form-item 
+      <template #key="{record, index}">
+        <el-form-item
           label=""
           :prop="`${prefixKey}.${index}.key`"
           :rules="[
@@ -31,8 +31,8 @@
           />
         </el-form-item>
       </template>
-      <template v-slot:value="{record, index}">
-        <el-form-item 
+      <template #value="{record, index}">
+        <el-form-item
           label=""
           :prop="`${prefixKey}.${index}.value`"
           :rules="[

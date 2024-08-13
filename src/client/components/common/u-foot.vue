@@ -1,15 +1,18 @@
 <template>
-    <div :class="$style.root">
-        <div :class="$style.footer" v-if="brandName === 'kubeworkz'">
-            <p>All rights reserved by Kubeworkz © 2020-{{ year }} | Terms and Conditions | Privacy Policy</p>
-        </div>
+  <div :class="$style.root">
+    <div
+      v-if="brandName === 'kubeworkz'"
+      :class="$style.footer"
+    >
+      <p>All rights reserved by Kubeworkz © 2020-{{ year }} | Terms and Conditions | Privacy Policy</p>
     </div>
+  </div>
 </template>
 
 <script>
 import filter from '@micro-app/common/filters/filter';
 export default {
-    name: 'u-foot',
+    name: 'UFoot',
     data() {
         const year = filter.getYear(new Date().getTime());
         return {

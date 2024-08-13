@@ -50,8 +50,8 @@ export default {
         },
         onCancel() {
             dispatch('confirm/confirmResult', false);
-        }
-    }
+        },
+    },
 };
 </script>
 

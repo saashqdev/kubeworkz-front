@@ -1,29 +1,49 @@
 <template>
-    <div v-if="Object.keys(model).length">
-        <div :class="$style.repoCard"
-            @click="onSelectImage" :selected="selected">
-            <u-linear-layout
-                style="flex: 1;margin-right: 0px;"
-                type="flex"
-                alignment="center">
-                <div :class="$style.logo"><i :class="'i-repoLogo50'"></i></div>
-                <div>
-                    <div :class="$style.info" >
-                        <u-text style="width: 310px" wrap="ellipsis">{{ model.name }}</u-text>
-                    </div>
-                    <div :class="$style.tags" @click.stop>
-                        <u-suggest size="small" style="width: 310px;line-height: 1.8em; height: auto;" empty-text="No matching tags" v-model="tagName" :data="tagNames"></u-suggest>
-                    </div>
-                </div>
-            </u-linear-layout>
-            <div :class="$style.optionBox">
-                <u-link>Choose</u-link>
-            </div>
+  <div v-if="Object.keys(model).length">
+    <div
+      :class="$style.repoCard"
+      :selected="selected"
+      @click="onSelectImage"
+    >
+      <u-linear-layout
+        style="flex: 1;margin-right: 0px;"
+        type="flex"
+        alignment="center"
+      >
+        <div :class="$style.logo">
+          <i :class="'i-repoLogo50'" />
         </div>
+        <div>
+          <div :class="$style.info">
+            <u-text
+              style="width: 310px"
+              wrap="ellipsis"
+            >
+              {{ model.name }}
+            </u-text>
+          </div>
+          <div
+            :class="$style.tags"
+            @click.stop
+          >
+            <u-suggest
+              v-model="tagName"
+              size="small"
+              style="width: 310px;line-height: 1.8em; height: auto;"
+              empty-text="No matching tags"
+              :data="tagNames"
+            />
+          </div>
+        </div>
+      </u-linear-layout>
+      <div :class="$style.optionBox">
+        <u-link>Choose</u-link>
+      </div>
     </div>
-    <div v-else>
-        <div :class="[$style.repoPanel, $style.repoPanelEmpty]"></div>
-    </div>
+  </div>
+  <div v-else>
+    <div :class="[$style.repoPanel, $style.repoPanelEmpty]" />
+  </div>
 </template>
 <style module>
 .repoCard {
@@ -143,33 +163,33 @@ import { Field } from 'cloud-ui.vusion';
 import service from '@micro-app/common/services/ncs';
 
 export default {
-    name: 'u-repo-panel',
-    mixins: [Field],
+    name: 'URepoPanel',
+    mixins: [ Field ],
     props: {
         info: { type: Object, default: () => ({}) },
         selected: { type: Boolean, default: false },
         image: { type: String, default: '' },
-        clusterId: [String, Number],
-    },
-    watch: {
-        image(value) {
-           this.model.image = value;
-           this.tagName = this.getTagName(value, this.repoName);
-        },
-        tagName(value) {
-            this.timeId && clearTimeout(this.timeId);
-            this.timeId = setTimeout(() => this.loadRepoTags(), 500);
-        },
+        clusterId: [ String, Number ],
     },
     data() {
         const { image, name: repoName, tags } = this.info;
         return {
             model: Object.assign({}, this.info),
             repoName,
-            tagNames: tags.map((item) => ({ text: item, value: item })),
+            tagNames: tags.map(item => ({ text: item, value: item })),
             tagName: this.getTagName(image, repoName),
             timeId: null,
         };
+    },
+    watch: {
+        image(value) {
+            this.model.image = value;
+            this.tagName = this.getTagName(value, this.repoName);
+        },
+        tagName(value) {
+            this.timeId && clearTimeout(this.timeId);
+            this.timeId = setTimeout(() => this.loadRepoTags(), 500);
+        },
     },
     created() {
 
@@ -192,8 +212,8 @@ export default {
                 repoName,
                 clusterId: clusterId || +localStorage.getItem('clusterId'),
                 pageSize: 1000,
-            }).then((result) => {
-                this.tagNames = result.tags.map((item) => ({ text: item.name, value: item.name }));
+            }).then(result => {
+                this.tagNames = result.tags.map(item => ({ text: item.name, value: item.name }));
             });
         },
     },

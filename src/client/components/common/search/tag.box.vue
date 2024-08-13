@@ -1,39 +1,52 @@
 <template>
-    <div :class="$style.wrap" ref="textareaWrap" @mousedown="focusDefaultInput($event)">
-        <template v-if="fixTags.length" v-for="(tag, key) in fixTags">
-            <searchTagItem 
-                v-if="!tag.edit" 
-                :key="key" 
-                :ref="'tag' + key" 
-                :tag.sync="tag" 
-                :info.sync="info"
-                @remove="removeTag(key)" 
-                @focus="updateTagStatus(key)" 
-                @blur="blurTag(key)" />
-            <searchTagItemEdit 
-                v-else 
-                :key="key"
-                :current.sync="tag" 
-                :tagTypes="tagTypes"
-                :placeholder="placeholder"
-                :info.sync="info"  
-                @remove="removeTag(key)" 
-                @tagdone="updateTagStatusDelay(key, $event)" />
-        </template>
-        <template v-if="(more && lineout)">
-            <searchTagItem type="empty" :info.sync="info" />
-        </template>
-        <template v-if="(!more && !hasEdit())">
-            <searchTagItemDefault 
-                ref="searchTagItemDefault" 
-                :placeholder="placeholder"
-                :tagTypes="tagTypes"
-                :info.sync="info"
-                @inputfocus="inputFocus()" 
-                @add="tagAdd($event.value)" 
-                @blurTag="blur($event)" />
-        </template>
-    </div>
+  <div
+    ref="textareaWrap"
+    :class="$style.wrap"
+    @mousedown="focusDefaultInput($event)"
+  >
+    <template
+      v-for="(tag, key) in fixTags"
+      v-if="fixTags.length"
+    >
+      <searchTagItem
+        v-if="!tag.edit"
+        :key="key"
+        :ref="'tag' + key"
+        :tag.sync="tag"
+        :info.sync="info"
+        @remove="removeTag(key)"
+        @focus="updateTagStatus(key)"
+        @blur="blurTag(key)"
+      />
+      <searchTagItemEdit
+        v-else
+        :key="key"
+        :current.sync="tag"
+        :tag-types="tagTypes"
+        :placeholder="placeholder"
+        :info.sync="info"
+        @remove="removeTag(key)"
+        @tagdone="updateTagStatusDelay(key, $event)"
+      />
+    </template>
+    <template v-if="(more && lineout)">
+      <searchTagItem
+        type="empty"
+        :info.sync="info"
+      />
+    </template>
+    <template v-if="(!more && !hasEdit())">
+      <searchTagItemDefault
+        ref="searchTagItemDefault"
+        :placeholder="placeholder"
+        :tag-types="tagTypes"
+        :info.sync="info"
+        @inputfocus="inputFocus()"
+        @add="tagAdd($event.value)"
+        @blurTag="blur($event)"
+      />
+    </template>
+  </div>
 </template>
 <style module>
 .wrap {
@@ -52,15 +65,16 @@ import Tag from './tag.vue';
 import TagDefault from './tag.default.vue';
 import TagEdit from './tag.edit.vue';
 export default {
-    props: {
-        placeholder: String,
-        tagTypes: Object,
-        info: Object,
-    },
+    name: 'SearchTagBox',
     components: {
         [Tag.name]: Tag,
         [TagDefault.name]: TagDefault,
         [TagEdit.name]: TagEdit,
+    },
+    props: {
+        placeholder: String,
+        tagTypes: Object,
+        info: Object,
     },
     data() {
         return {
@@ -68,7 +82,15 @@ export default {
             fixTags: [],
         };
     },
-    name: 'searchTagBox',
+    computed: {
+        more() {
+            let more = !this.info.active;
+            if (!this.info.tags.length) {
+                more = false;
+            }
+            return more;
+        },
+    },
     watch: {
         'info.tags': {
             immediate: true,
@@ -78,16 +100,16 @@ export default {
                     this.updateTagStatus(this.info.focusIndex);
                 }
                 this.updateActive();
-            }
+            },
         },
-        'info.focusIndex'(focusIndex) {
+        'info.focusIndex': function(focusIndex) {
             if (focusIndex - 0 !== -1) {
                 this.updateTagStatus(focusIndex);
                 this.info.defaultInputShow = false;
             }
             this.fixTag(this.info.active);
         },
-        'info.active'(active) {
+        'info.active': function(active) {
             this.fixTag(active);
             if (!active) {
                 this.$nextTick(() => {
@@ -95,22 +117,13 @@ export default {
                 });
             }
         },
-        'info.defaultInputShow'(defaultInputShow) {
+        'info.defaultInputShow': function(defaultInputShow) {
             this.updateActive();
         },
-        'info.cacheLineIndex'(cacheLineIndex) {
+        'info.cacheLineIndex': function(cacheLineIndex) {
             if (!this.info.active) {
                 this.fixTag(this.info.active);
             }
-        },
-    },
-    computed: {
-        more() {
-            let more = !this.info.active;
-            if (!this.info.tags.length) {
-                more = false;
-            }
-            return more;
         },
     },
     methods: {
@@ -122,12 +135,12 @@ export default {
         },
         removeTag(tagIndex) {
             this.$emit('remove', {
-                value: tagIndex
+                value: tagIndex,
             });
         },
         updateTagStatusDelay(focusIndex, $event) {
             if (!$event || !$event.mute) {
-                this.$nextTick(() =>{
+                this.$nextTick(() => {
                     this.updateTagStatus && this.updateTagStatus(focusIndex);
                 });
             }
@@ -137,20 +150,20 @@ export default {
             if (focusIndex === this.info.focusIndex) {
                 this.info.focusIndex = -1;
             }
-            this.$nextTick(function () {
+            this.$nextTick(function() {
                 if (!this.info.defaultInputShow && !this.hasActive()) {
                     this.info.active = false;
                 }
             });
         },
         updateTagStatus(focusIndex) {
-            this.info.tags.forEach((tag, index)  => {
-               if (index !== focusIndex) {
-                   this.$set(tag, 'selecting', false);
-                   tag.edit = false;
-               } else {
-                   this.$set(tag, 'selecting', true);
-               }
+            this.info.tags.forEach((tag, index) => {
+                if (index !== focusIndex) {
+                    this.$set(tag, 'selecting', false);
+                    tag.edit = false;
+                } else {
+                    this.$set(tag, 'selecting', true);
+                }
             });
             if (focusIndex !== -1) {
                 this.more = false;
@@ -197,12 +210,12 @@ export default {
             }
         },
         hasEdit() {
-            return !!(this.fixTags || []).filter((item) => {
+            return !!(this.fixTags || []).filter(item => {
                 return item.edit;
             }).length;
         },
         hasActive() {
-            return !!(this.fixTags || []).filter((item) => {
+            return !!(this.fixTags || []).filter(item => {
                 return item.edit || item.selecting;
             }).length;
         },
@@ -236,7 +249,7 @@ export default {
             const fixTags = this.fixTags;
             let lineIndex = 0;
             if (fixTags && this.$refs && this.$refs.textareaWrap) {
-                const rmpx = function (str) {
+                const rmpx = function(str) {
                     return str.replace('px', '') - 0;
                 };
                 const maxStyle = window.getComputedStyle(this.$refs.textareaWrap);
@@ -270,6 +283,6 @@ export default {
             return lineIndex;
         },
     },
-}
+};
 </script>
 

@@ -3,7 +3,7 @@ const apis = {
     loads: {
         method: 'get',
         path: '/extends/helm/operations/records',
-        process: (result) => {
+        process: result => {
             return {
                 total: result.total || 0,
                 list: result.records || [],

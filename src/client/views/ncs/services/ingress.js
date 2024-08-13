@@ -9,23 +9,23 @@ const apis = {
         method: 'get',
         path: '/extensions/clusters/{clusterId}/namespaces/{namespace}/ingresses',
         process: (result = {}) => {
-            return (result.items || []).map((item) => normalizeIngress(item));
+            return (result.items || []).map(item => normalizeIngress(item));
         },
     },
     loadsWithPage: {
         method: 'get',
         path: '/extends/clusters/{clusterId}/namespaces/{namespace}/ingresses',
-        process: (result) => {
+        process: result => {
             return {
                 total: result.total || 0,
-                list: (result.ingresses || []).map((item) => normalizeIngress(item)),
+                list: (result.ingresses || []).map(item => normalizeIngress(item)),
             };
         },
     },
     load: {
         method: 'get',
         path: '/extensions/clusters/{clusterId}/namespaces/{namespace}/ingresses/{name}',
-        process: (result) => {
+        process: result => {
             return normalizeIngress(result);
         },
     },
@@ -36,7 +36,7 @@ const apis = {
     modify: {
         method: 'put',
         path: '/extensions/clusters/{clusterId}/namespaces/{namespace}/ingresses/{name}',
-    }
+    },
 };
 
 const service = new Service(apis, '/ncs/proxy/api/v1/ncs');

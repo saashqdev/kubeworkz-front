@@ -328,7 +328,7 @@ import {
     patchK8SObject as patchAMCSK8SObject,
     CONFIGS as configTemplate,
     // LabelMapping,
-} from 'kubeworkz/k8s-resources/alarmmanagerconfigspec';
+} from 'kubeworkz/k8s-resources/alertmanagerconfigspec';
 import secretSelect from './secret-select.vue';
 import {
     specCRD,

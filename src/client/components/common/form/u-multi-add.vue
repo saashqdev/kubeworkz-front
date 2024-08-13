@@ -1,33 +1,74 @@
 <template>
-	<u-linear-layout direction="vertical">
-        <!-- Here, through a random, all internal components can be guaranteed to be data independent. -->
-        <div :class="$style.root" :mini="index !== current" v-for="(item, index) in sortList" :key="randoms[index]" :size="size">
-            <!-- Minimize display node -->
-            <div v-show="index !== current" :class="$style.mini" @click="open(index)">
-                <!-- Container name -->
-                <span :class="$style.rootName" :title="item.miniText">{{ item.miniText || '-' }}</span>
-                <div :class="$style.textWrap">
-                    <!-- Error message -->
-                    <span :class="$style.tip" v-show="item.errTips">{{ item.errTips }}</span>
-                    <!-- Expand operation -->
-                    <u-link @click="open(index)">Expand</u-link>
-                </div>
-            </div>
-            <div v-show="index == current">
-                <div :class="$style.operate">
-                    <u-linear-layout>
-                        <slot name="operate" :item="item"></slot>
-                        <u-link :disabled="disabledDelete" @click="deleteItem(index)">Delete</u-link>
-                        <u-link @click="close">Close</u-link>
-                    </u-linear-layout>
-                </div>
-
-                <slot :item="item" :index="index" :random="randoms[index]"></slot>
-            </div>
+  <u-linear-layout direction="vertical">
+    <!-- Here, through a random, all internal components can be guaranteed to be data independent. -->
+    <div
+      v-for="(item, index) in sortList"
+      :key="randoms[index]"
+      :class="$style.root"
+      :mini="index !== current"
+      :size="size"
+    >
+      <!-- Minimize display node -->
+      <div
+        v-show="index !== current"
+        :class="$style.mini"
+        @click="open(index)"
+      >
+        <!-- Container name -->
+        <span
+          :class="$style.rootName"
+          :title="item.miniText"
+        >{{ item.miniText || '-' }}</span>
+        <div :class="$style.textWrap">
+          <!-- Error message -->
+          <span
+            v-show="item.errTips"
+            :class="$style.tip"
+          >{{ item.errTips }}</span>
+          <!-- Expand operation -->
+          <u-link @click="open(index)">
+            Expand
+          </u-link>
         </div>
-        <!-- There is a situation where there is no initial item and the width needs to be set. -->
-        <u-form-table-add-button :class="$style.addButton" v-if="needAdd" :size="size" :is-container="true" :disabled="disabledAdd" @click="add">{{ addBtnInfo.text }}{{ disabledAdd ? `(Add up to ${addBtnInfo.max} indivual)` : '' }}</u-form-table-add-button>
-    </u-linear-layout>
+      </div>
+      <div v-show="index == current">
+        <div :class="$style.operate">
+          <u-linear-layout>
+            <slot
+              name="operate"
+              :item="item"
+            />
+            <u-link
+              :disabled="disabledDelete"
+              @click="deleteItem(index)"
+            >
+              Delete
+            </u-link>
+            <u-link @click="close">
+              Close
+            </u-link>
+          </u-linear-layout>
+        </div>
+
+        <slot
+          :item="item"
+          :index="index"
+          :random="randoms[index]"
+        />
+      </div>
+    </div>
+    <!-- There is a situation where there is no initial item and the width needs to be set. -->
+    <u-form-table-add-button
+      v-if="needAdd"
+      :class="$style.addButton"
+      :size="size"
+      :is-container="true"
+      :disabled="disabledAdd"
+      @click="add"
+    >
+      {{ addBtnInfo.text }}{{ disabledAdd ? `(Add up to ${addBtnInfo.max} indivual)` : '' }}
+    </u-form-table-add-button>
+  </u-linear-layout>
 </template>
 <style module>
 .root{
@@ -101,7 +142,7 @@
 <script>
 
 export default {
-    name: 'u-multi-add',
+    name: 'UMultiAdd',
     props: {
         list: Array,
         addBtnInfo: Object,
@@ -164,9 +205,8 @@ export default {
                 this.add();
             }
         },
-        init(){
-            if(!this.sortList.length)
-                this.add();
+        init() {
+            if (!this.sortList.length) { this.add(); }
         },
         add() {
             const item = this.getDefaultItem && this.getDefaultItem() || {};
@@ -200,8 +240,7 @@ export default {
             this.current = -1;
         },
         getInfo(index) {
-            if (index < 0 || (index > this.sortList.length - 1))
-                return;
+            if (index < 0 || (index > this.sortList.length - 1)) { return; }
             const item = this.sortList[index];
             if (this.miniFormater) {
                 item.miniText = this.miniFormater(item, index);

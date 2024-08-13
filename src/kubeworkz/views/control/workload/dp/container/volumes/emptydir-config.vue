@@ -2,44 +2,52 @@
   <div>
     <dynamicBlock
       v-model="model"
-      :getDefaultItem="getDataTemplate"
+      :get-default-item="getDataTemplate"
       :columns="[
-          {
-              title: 'Name',
-              dataIndex: 'resource',
-          },
-          {
-              title: 'Permissions',
-              dataIndex: 'readOnly'
-          },
-          {
-              title: 'Mount directory',
-              dataIndex: 'mountPath'
-          }
+        {
+          title: 'Name',
+          dataIndex: 'resource',
+        },
+        {
+          title: 'Permissions',
+          dataIndex: 'readOnly'
+        },
+        {
+          title: 'Mount directory',
+          dataIndex: 'mountPath'
+        }
       ]"
     >
-      <template v-slot:resource="{record}">
-        <el-select v-model="record.resource" placeholder="Please choose" filterable>
-            <el-option
-              v-for="item in volumeResources"
-              :key="item.value"
-              :label="item.text"
-              :value="item.value">
-            </el-option>
-          </el-select>
+      <template #resource="{record}">
+        <el-select
+          v-model="record.resource"
+          placeholder="Please choose"
+          filterable
+        >
+          <el-option
+            v-for="item in volumeResources"
+            :key="item.value"
+            :label="item.text"
+            :value="item.value"
+          />
+        </el-select>
       </template>
-      <template v-slot:readOnly="{record}">
-        <el-select v-model="record.readOnly" placeholder="Please choose" filterable>
+      <template #readOnly="{record}">
+        <el-select
+          v-model="record.readOnly"
+          placeholder="Please choose"
+          filterable
+        >
           <el-option
             v-for="item in readOnlyList"
             :key="item.value"
             :label="item.text"
-            :value="item.value">
-          </el-option>
+            :value="item.value"
+          />
         </el-select>
       </template>
-      <template v-slot:mountPath="{record, index}">
-        <el-form-item 
+      <template #mountPath="{record, index}">
+        <el-form-item
           label=""
           :prop="`${prefixKey}.${index}.mountPath`"
           :rules="[

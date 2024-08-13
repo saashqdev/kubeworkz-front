@@ -53,7 +53,7 @@ export default {
         //     }
         // },
         value(value) {
-            if(value && this.selected && this.hasMounted && !this.term) {
+            if (value && this.selected && this.hasMounted && !this.term) {
                 this.timeId && clearTimeout(this.timeId);
                 this.timeId = setTimeout(() => this.init());
             }
@@ -86,10 +86,10 @@ export default {
             this.term.open(target);
 
             this.term.on('resize', ({ cols, rows }) => this.onTermResize(cols, rows));
-            this.term.on('data', (str) => this.onTermInput(str));
+            this.term.on('data', str => this.onTermInput(str));
             this.setPadding(10);
             this.term.focus();
-            
+
             setTimeout(() => {
                 this.socket = new SockJS(this.href);
                 this.socket.onopen = this.runRealTerm.bind(this);
@@ -99,7 +99,7 @@ export default {
             });
         },
         runRealTerm() {
-            this.socket.send(JSON.stringify({'Op': 'bind', 'SessionID': this.value}));
+            this.socket.send(JSON.stringify({ Op: 'bind', SessionID: this.value }));
             this.term._initialized = true;
             // Trigger a resize event to give the backend pty an initial size
             this.onTermResize(this.term.cols, this.term.rows);
@@ -108,7 +108,7 @@ export default {
         runFakeTerm(type) {
             // The socket is closed immediately after being connected.
             if (this.term._initialized) {
-                this.socket && this.socket.close();    
+                this.socket && this.socket.close();
                 // this.term.write('Login...');
                 this.term.blur();
                 this.dispatch(this.$options.parentName, 'exit-item-vm', this);
@@ -126,26 +126,22 @@ export default {
 
             this.term._core.register(this.term.addDisposableListener('key', (key, event) => {
                 const printable = !event.altKey && !event.altGraphKey && !event.ctrlKey && !event.metaKey;
-            
-                if (event.keyCode === 13)
-                    prompt();
-                else if (event.keyCode === 8) {
+
+                if (event.keyCode === 13) { prompt(); } else if (event.keyCode === 8) {
                     // Do not delete the prompt
-                    if (this.term.x > 2)
-                        this.term.write('\b \b');
-                } else if (printable)
-                    this.term.write(key);
+                    if (this.term.x > 2) { this.term.write('\b \b'); }
+                } else if (printable) { this.term.write(key); }
             }));
-            
+
             this.term._core.register(this.term.addDisposableListener('paste', (data, ev) => {
                 this.term.write(data);
             }));
         },
         onSocketMessage(event) {
-            let msg = JSON.parse(event.data);
-            switch (msg['Op']) {
+            const msg = JSON.parse(event.data);
+            switch (msg.Op) {
                 case 'stdout':
-                    this.term.write(msg['Data']);
+                    this.term.write(msg.Data);
                     break;
                 // case 'toast':
                 //     this.io.showOverlay(msg['Data']);
@@ -156,10 +152,10 @@ export default {
         },
         onTermResize(columns, rows) {
             // Only the socket connection is enabled (readyState === 1), otherwise socket.send will report an error
-            this.socket && this.socket.readyState === 1 && this.socket.send(JSON.stringify({'Op': 'resize', 'Cols': columns, 'Rows': rows}));
+            this.socket && this.socket.readyState === 1 && this.socket.send(JSON.stringify({ Op: 'resize', Cols: columns, Rows: rows }));
         },
         onTermInput(str) {
-            this.socket.send(JSON.stringify({'Op': 'stdin', 'Data': str}));
+            this.socket.send(JSON.stringify({ Op: 'stdin', Data: str }));
         },
         // Some methods to update term style
         setPadding(num) {
@@ -167,4 +163,4 @@ export default {
             this.term.fit();
         },
     },
-}
+};

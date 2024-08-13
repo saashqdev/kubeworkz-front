@@ -35,7 +35,7 @@ const channels = [
     'emailConfigs',
 ];
 
-export const operators = ['=', '!=', '=~', '!~'];
+export const operators = [ '=', '!=', '=~', '!~' ];
 
 export const MANGER_CONFIGS = {
     wechatConfigs: {

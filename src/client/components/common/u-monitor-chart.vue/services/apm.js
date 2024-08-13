@@ -5,13 +5,13 @@ import { date } from '@necfe/cloud-ui-internal/src/filters.js';
 
 function handleMetricDataResult(results, sTime, eTime) {
     const data = {};
-    results.forEach((obj) => {
+    results.forEach(obj => {
         let anomalyList = [];
         if (obj.result.anomalyTimeslices) {
             anomalyList = obj.result.anomalyTimeslices.reduce((list, item) => list.concat(item), []);
-            anomalyList = [...new Set(anomalyList)];
+            anomalyList = [ ...new Set(anomalyList) ];
         }
-        obj.result.dataTimeslices && obj.result.dataTimeslices.forEach((item) => {
+        obj.result.dataTimeslices && obj.result.dataTimeslices.forEach(item => {
             const timestamp = new Date(item.startTime);
             const value = item.metricValue;
             if (!data[timestamp]) {
@@ -56,9 +56,9 @@ function handleMetricDataResult(results, sTime, eTime) {
             };
             difference = difference - periodTime;
         }
-        times = [...fillTime, ...times];
+        times = [ ...fillTime, ...times ];
     }
-    return times.map((time) => data[time]);
+    return times.map(time => data[time]);
 }
 // The old interface for obtaining apm monitor has been abandoned.
 export function getApmMonitor(data) {
@@ -72,11 +72,11 @@ export function getApmMonitor(data) {
         query: {
             timePeriod: period,
             filters: JSON.stringify(filters),
-            metrics: metrics.map((metric) => metric.key).join(','),
+            metrics: metrics.map(metric => metric.key).join(','),
             productId: filters.productId,
         },
-    }).then((result) => {
-        const data = result.result.map((item) => Object.assign({
+    }).then(result => {
+        const data = result.result.map(item => Object.assign({
             timestamp: item.timestamp,
         }, item.data[0]));
         return data;
@@ -88,15 +88,12 @@ export function getApmJvm(data) {
         options,
         metrics,
     } = data;
-    const keys = metrics.map((metric) => metric.key);
+    const keys = metrics.map(metric => metric.key);
     let entityType = 'PRODUCT';
-    if (options.service)
-        entityType = 'SERVICE';
-    if (options.nodeId)
-        entityType = 'NODE';
-    if (options.business)
-        entityType = 'BUSINESS';
-    const promises = keys.map((key) => apmMonitorService.metricData({
+    if (options.service) { entityType = 'SERVICE'; }
+    if (options.nodeId) { entityType = 'NODE'; }
+    if (options.business) { entityType = 'BUSINESS'; }
+    const promises = keys.map(key => apmMonitorService.metricData({
         product: options.productId,
         body: {
             metricDataQuery: {
@@ -114,11 +111,11 @@ export function getApmJvm(data) {
                 endTime: options.endTime,
             },
         },
-    }).then((result) => ({
+    }).then(result => ({
         key,
         result,
     })));
-    return Promise.all(promises).then((results) => handleMetricDataResult(results, options.startTime, options.endTime));
+    return Promise.all(promises).then(results => handleMetricDataResult(results, options.startTime, options.endTime));
 }
 
 export function getApmService(data) {
@@ -127,13 +124,11 @@ export function getApmService(data) {
         options,
         metrics,
     } = data;
-    const keys = metrics.map((metric) => metric.key);
+    const keys = metrics.map(metric => metric.key);
     let entityType = 'PRODUCT';
-    if (options.service)
-        entityType = 'SERVICE';
-    if (options.nodeId)
-        entityType = 'NODE';
-    const promises = keys.map((key) => apmMonitorService.metricData({
+    if (options.service) { entityType = 'SERVICE'; }
+    if (options.nodeId) { entityType = 'NODE'; }
+    const promises = keys.map(key => apmMonitorService.metricData({
         product: options.productId,
         body: {
             metricDataQuery: {
@@ -147,11 +142,11 @@ export function getApmService(data) {
                 endTime: options.endTime,
             },
         },
-    }).then((result) => ({
+    }).then(result => ({
         key,
         result,
     })));
-    return Promise.all(promises).then((results) => handleMetricDataResult(results, options.startTime, options.endTime));
+    return Promise.all(promises).then(results => handleMetricDataResult(results, options.startTime, options.endTime));
 }
 
 export function getNcsMonitor({ options, metrics }) {
@@ -182,9 +177,9 @@ export function getApmDb(data) {
         options,
         metrics,
     } = data;
-    const keys = metrics.map((metric) => metric.key);
+    const keys = metrics.map(metric => metric.key);
     const entityType = 'BACKEND';
-    const promises = keys.map((key) => apmMonitorService.metricData({
+    const promises = keys.map(key => apmMonitorService.metricData({
         product: options.productId,
         body: {
             metricDataQuery: {
@@ -201,17 +196,17 @@ export function getApmDb(data) {
                 endTime: options.endTime,
             },
         },
-    }).then((result) => ({
+    }).then(result => ({
         key,
         result,
     })));
-    return Promise.all(promises).then((results) => handleMetricDataResult(results, options.startTime, options.endTime));
+    return Promise.all(promises).then(results => handleMetricDataResult(results, options.startTime, options.endTime));
 }
 
 export function getZipkinMonitor({ options }) {
     return zipkinMonitorService.getMetrics({
         ...options,
-    }).then(({ data }) => data.map((metric) => Object.assign({}, metric, {
+    }).then(({ data }) => data.map(metric => Object.assign({}, metric, {
         avgLatency: (metric.avgLatency / 1000).toFixed(3),
         p95AvgLatency: (metric.p95AvgLatency / 1000).toFixed(3),
         p99AvgLatency: (metric.p99AvgLatency / 1000).toFixed(3),

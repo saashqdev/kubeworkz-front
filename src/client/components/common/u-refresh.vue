@@ -1,7 +1,15 @@
 <template>
-    <span :class="$style.root" @click="onClick" :status="status" :disabled="disabled">
-        <u-icon name="refresh" :class="$style.icon"></u-icon>
-    </span>
+  <span
+    :class="$style.root"
+    :status="status"
+    :disabled="disabled"
+    @click="onClick"
+  >
+    <u-icon
+      name="refresh"
+      :class="$style.icon"
+    />
+  </span>
 </template>
 
 <style module>
@@ -46,7 +54,7 @@
 
 <script>
 export default {
-    name: 'u-refresh',
+    name: 'URefresh',
     props: {
         loading: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
@@ -62,8 +70,7 @@ export default {
                 this.timeoutId = setTimeout(() => {
                     this.status = 'normal';
                 }, 900);
-            } else
-                this.status = value ? 'loading' : 'normal';
+            } else { this.status = value ? 'loading' : 'normal'; }
         },
     },
     destroyed() {
@@ -71,8 +78,7 @@ export default {
     },
     methods: {
         onClick(e) {
-            if (this.loading || this.disabled)
-                return e.preventDefault();
+            if (this.loading || this.disabled) { return e.preventDefault(); }
 
             this.$emit('click', e);
         },

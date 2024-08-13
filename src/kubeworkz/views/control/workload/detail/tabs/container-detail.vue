@@ -3,7 +3,10 @@
     <headCard
       :title="containerName"
     />
-     <el-tabs value="0" page="main">
+    <el-tabs
+      value="0"
+      page="main"
+    >
       <el-tab-pane
         label="Details"
         :name="0"
@@ -20,7 +23,10 @@
       >
         Check the detail information
       </el-button>
-      <el-descriptions title="Basic Information" :column="1">
+      <el-descriptions
+        title="Basic Information"
+        :column="1"
+      >
         <el-descriptions-item label="Name">
           {{ container.containerName }}
         </el-descriptions-item>
@@ -30,7 +36,11 @@
         <el-descriptions-item label="Image pull strategy">
           {{ container.imagePullPolicy }}
         </el-descriptions-item>
-        <el-descriptions-item label="Resource limits" contentStyle="display:block" labelStyle="align-self: flex-start;">
+        <el-descriptions-item
+          label="Resource limits"
+          content-style="display:block"
+          label-style="align-self: flex-start;"
+        >
           <div>
             <el-table
               :data="resourceData"
@@ -40,21 +50,25 @@
                 prop="type"
                 label=""
                 :show-overflow-tooltip="true"
-              ></el-table-column>
+              />
               <el-table-column
                 prop="cpu"
                 label="CPU"
                 :show-overflow-tooltip="true"
-              ></el-table-column>
+              />
               <el-table-column
                 prop="memory"
                 label="MEMORY"
                 :show-overflow-tooltip="true"
-              ></el-table-column>
+              />
             </el-table>
           </div>
         </el-descriptions-item>
-        <el-descriptions-item label="Mount data volume" contentStyle="display:block" labelStyle="align-self: flex-start;">
+        <el-descriptions-item
+          label="Mount data volume"
+          content-style="display:block"
+          label-style="align-self: flex-start;"
+        >
           <div>
             <el-table
               :data="volumes"
@@ -64,12 +78,12 @@
                 prop="name"
                 label="Storage statement"
                 :show-overflow-tooltip="true"
-              ></el-table-column>
+              />
               <el-table-column
                 prop="mountPath"
                 label="Mount point"
                 :show-overflow-tooltip="true"
-              ></el-table-column>
+              />
             </el-table>
           </div>
         </el-descriptions-item>

@@ -1,13 +1,23 @@
 <template>
-    <div :class="$style.root">
-        <textarea :disabled="disabled" :class="['u-textarea', isError ? 'err': '' ]" v-model="value" :placeholder="placeholder" ></textarea>
-        <span v-show="isError" class="message" :color="isError ? 'error' : ''" style="vertical-align: top;">{{errMessage}}</span>
-    </div>
+  <div :class="$style.root">
+    <textarea
+      v-model="value"
+      :disabled="disabled"
+      :class="['u-textarea', isError ? 'err': '' ]"
+      :placeholder="placeholder"
+    />
+    <span
+      v-show="isError"
+      class="message"
+      :color="isError ? 'error' : ''"
+      style="vertical-align: top;"
+    >{{ errMessage }}</span>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'u-textarea-config',
+    name: 'UTextareaConfig',
     props: {
         disabled: { type: Boolean, default: false },
         values: { type: [ Array, String ], default: '' }, // It may be a processed array or a string of input content.
@@ -22,7 +32,7 @@ export default {
         };
     },
     computed: {
-        isError () {
+        isError() {
             return this.value.replace(/[\n\r]/g, '').length > this.max;
         },
     },
@@ -43,19 +53,16 @@ export default {
         },
         $getData(value = '') {
             value = this.initValue(value) || this.value;
-            const tmp = value.trim().split(/[\r\n]+/).filter((item) => item);
-            let ret = [];
+            const tmp = value.trim().split(/[\r\n]+/).filter(item => item);
+            const ret = [];
             tmp.forEach((item, i, arr) => {
-                const index = (ret.length - 1 < 0) ? 0 : (ret.length - 1); 
-                if((ret[index] || '').trim().endsWith('\\'))
-                    ret[index] = ret[index] + '\n' + item.trim();
-                else
-                    ret.push(item);
-            })
+                const index = (ret.length - 1 < 0) ? 0 : (ret.length - 1);
+                if ((ret[index] || '').trim().endsWith('\\')) { ret[index] = ret[index] + '\n' + item.trim(); } else { ret.push(item); }
+            });
             return ret;
         },
     },
-}
+};
 </script>
 
 <style module>

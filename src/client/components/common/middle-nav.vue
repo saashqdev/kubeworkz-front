@@ -1,20 +1,29 @@
 <template>
-    <div :class="$style.root">
-        <div :class="show? [$style.left, $style.left_show] : [$style.left, $style.left_hide]">
-            <slot v-if="show" name="left-content"></slot>
-            <u-tooltip :content="show ? 'Collapse list' : 'Expand list'" placement="right">
-                <i @click="show=!show" :class="show ? [$style.icon, $style.icon_left] : [$style.icon, $style.icon_right]"></i>
-            </u-tooltip>
-        </div>
-        <div :class="show ? [$style.right, $style.right_small] : [$style.right, $style.right_large]">
-            <slot name="right-content"></slot>
-        </div>
+  <div :class="$style.root">
+    <div :class="show? [$style.left, $style.left_show] : [$style.left, $style.left_hide]">
+      <slot
+        v-if="show"
+        name="left-content"
+      />
+      <u-tooltip
+        :content="show ? 'Collapse list' : 'Expand list'"
+        placement="right"
+      >
+        <i
+          :class="show ? [$style.icon, $style.icon_left] : [$style.icon, $style.icon_right]"
+          @click="show=!show"
+        />
+      </u-tooltip>
     </div>
+    <div :class="show ? [$style.right, $style.right_small] : [$style.right, $style.right_large]">
+      <slot name="right-content" />
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'middle-nav',
+    name: 'MiddleNav',
     data() {
         return {
             show: true,

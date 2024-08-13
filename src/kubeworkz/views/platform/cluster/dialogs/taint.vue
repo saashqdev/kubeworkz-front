@@ -6,40 +6,49 @@
     @close="close"
   >
     <div>Taint (taint), only pods with toleration matching the taint can be assigned to the node.</div>
-    <el-form v-if="show" ref="form" :model="model" label-position="right">
+    <el-form
+      v-if="show"
+      ref="form"
+      :model="model"
+      label-position="right"
+    >
       <el-form-item>
         <dynamicBlock
           v-model="model.taints"
-          :getDefaultItem="getDataTemplate"
+          :get-default-item="getDataTemplate"
           :columns="[
-              {
-                  title: 'Key',
-                  dataIndex: 'key',
-              },
-              {
-                  title: 'Value',
-                  dataIndex: 'value',
-              },
-              {
-                  title: 'Effect',
-                  dataIndex: 'effect',
-              }
+            {
+              title: 'Key',
+              dataIndex: 'key',
+            },
+            {
+              title: 'Value',
+              dataIndex: 'value',
+            },
+            {
+              title: 'Effect',
+              dataIndex: 'effect',
+            }
           ]"
         >
           <template slot="th-effect">
             Effect
-            <el-tooltip effect="dark" placement="right" popper-class="ncs-el-tooltip-popper">
+            <el-tooltip
+              effect="dark"
+              placement="right"
+              popper-class="ncs-el-tooltip-popper"
+            >
               <template slot="content">
                 <div>NoSchedule: POD will not be scheduled to nodes marked as taints.</div>
                 <div>PreferNoSchedule: Soft policy version of NoSchedule. Try to avoid scheduling pods on nodes that cannot tolerate taint</div>
                 <div>NoExecute: This option means that once Taint takes effect, if the POD running in the node does not have a corresponding Tolerate setting, it will be evicted directly.</div>
               </template>
-              <i class="el-icon-question"/>
+              <i class="el-icon-question" />
             </el-tooltip>
           </template>
 
-          <template v-slot:key="{record, index}">
-            <el-form-item 
+          <template #key="{record, index}">
+            <el-form-item
               label=""
               :prop="`taints.${index}.key`"
               :rules="[
@@ -52,12 +61,12 @@
               />
             </el-form-item>
           </template>
-          <template v-slot:value="{record, index}">
-              <el-input
-                v-model="record.value"
-              />
+          <template #value="{record, index}">
+            <el-input
+              v-model="record.value"
+            />
           </template>
-          <template v-slot:effect="{record, index}">
+          <template #effect="{record, index}">
             <el-select
               v-model="record.effect"
               placeholder="Please choose"
@@ -75,8 +84,16 @@
       </el-form-item>
     </el-form>
     <div slot="footer">
-      <el-button @click="close">Cancel</el-button>
-      <el-button type="primary" @click="submit" :loading="submitLoading">OK</el-button>
+      <el-button @click="close">
+        Cancel
+      </el-button>
+      <el-button
+        type="primary"
+        :loading="submitLoading"
+        @click="submit"
+      >
+        OK
+      </el-button>
     </div>
   </el-dialog>
 </template>

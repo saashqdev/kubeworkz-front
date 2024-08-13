@@ -1,36 +1,57 @@
 <template>
-
-<div :class="[$style.searchTag, $attrs.class]" v-disShortcut
-        ref="searchTag" @click="focusDefaultInput($event)"
-        @keyup.left.stop.prevent="focusTag(-1, $event)" @keyup.right.stop.prevent="focusTag(1, $event)" 
-        @keyup.delete.stop.prevent="removeTag()" @keyup.enter.stop.prevent="editTag()" :size="size">
-        <div :class="$style.search">
-            <u-icon name="search" size="small"></u-icon>
-        </div>
-        <div :class="$style.searchTagInner" :active="info.active">
-            <searchTagBox 
-                @cacheLineIndex="updateCacheIndex($event)"
-                @add="addTag($event)"
-                @remove="removeTag($event.value)" 
-                @update="triggerSearch()"
-                ref="searchTagBox" 
-                :tagTypes="tagTypes"
-                :placeholder="placeholder"
-                :info.sync="info"
-                 />
-        </div>
-        <div :class="$style.close" @click="clearAll" v-if="info.tags.length">
-            <span :class="$style.closeBox"><u-icon name="close" size="small"></u-icon></span>
-        </div>
-</div>
-    
+  <div
+    ref="searchTag"
+    v-disShortcut
+    :class="[$style.searchTag, $attrs.class]"
+    :size="size"
+    @click="focusDefaultInput($event)"
+    @keyup.left.stop.prevent="focusTag(-1, $event)"
+    @keyup.right.stop.prevent="focusTag(1, $event)"
+    @keyup.delete.stop.prevent="removeTag()"
+    @keyup.enter.stop.prevent="editTag()"
+  >
+    <div :class="$style.search">
+      <u-icon
+        name="search"
+        size="small"
+      />
+    </div>
+    <div
+      :class="$style.searchTagInner"
+      :active="info.active"
+    >
+      <searchTagBox
+        ref="searchTagBox"
+        :tag-types="tagTypes"
+        :placeholder="placeholder"
+        :info.sync="info"
+        @cacheLineIndex="updateCacheIndex($event)"
+        @add="addTag($event)"
+        @remove="removeTag($event.value)"
+        @update="triggerSearch()"
+      />
+    </div>
+    <div
+      v-if="info.tags.length"
+      :class="$style.close"
+      @click="clearAll"
+    >
+      <span :class="$style.closeBox"><u-icon
+        name="close"
+        size="small"
+      /></span>
+    </div>
+  </div>
 </template>
 <script>
 // See readme.md for details
 import searchTagBox from './tag.box.vue';
 import Util from './util';
 export default {
-    name: 'search-tag',
+    name: 'SearchTag',
+    components: {
+        [searchTagBox.name]: searchTagBox,
+    },
     props: {
         placeholder: {
             type: String,
@@ -49,9 +70,6 @@ export default {
             type: Object,
             default: () => ({}),
         },
-    },
-    components: {
-        [searchTagBox.name]: searchTagBox,
     },
     data() {
         return {
@@ -79,7 +97,7 @@ export default {
                 }
             },
         },
-        'info.tags'(tags) {
+        'info.tags': function(tags) {
             this.addCache(tags);
             this.triggerSearch();
         },
@@ -90,7 +108,7 @@ export default {
     },
     methods: {
         addCache(tags) {
-            this.cached.newData = tags.map((item) => {
+            this.cached.newData = tags.map(item => {
                 return {
                     type: item.type,
                     values: item.values,
@@ -101,8 +119,8 @@ export default {
         resetTags(selectedTags) {
             const tags = this.tagTypes;
             const result = [];
-            selectedTags.forEach((filterItem) => {
-                tags.some((item) => {
+            selectedTags.forEach(filterItem => {
+                tags.some(item => {
                     if (filterItem.type === item.type) {
                         const tmp = Object.assign({}, item, filterItem);
                         result.push(tmp);
@@ -118,13 +136,13 @@ export default {
         focusTag(dir, $event) {
             const { isEdit, selectingIndex } = this.getTagStatus();
             if (!isEdit && selectingIndex > -1) {
-                let nextSelectingIndex = selectingIndex + dir;
-                if (!(nextSelectingIndex < 0 || nextSelectingIndex > this.info.tags.length -1)) {
+                const nextSelectingIndex = selectingIndex + dir;
+                if (!(nextSelectingIndex < 0 || nextSelectingIndex > this.info.tags.length - 1)) {
                     this.info.focusIndex = nextSelectingIndex;
                     this.info.defaultInputShow = false;
                     this.info.focusInput = false;
                 }
-                if (nextSelectingIndex > this.info.tags.length -1) {
+                if (nextSelectingIndex > this.info.tags.length - 1) {
                     this.info.focusIndex = -1;
                     this.info.defaultInputShow = true;
                     this.info.focusInput = true;
@@ -166,12 +184,12 @@ export default {
             this.$emit('cacheLineIndex', this.info.cacheLineIndex);
         },
         triggerSearch(isFocus) {
-            this.info.tags.forEach((tag) => {
+            this.info.tags.forEach(tag => {
                 const vvalue = tag.vvalue = tag.vvalue || [];
                 tag.vvalue.length = 0;
                 tag.datas.forEach((data, index) => {
                     const cur = tag.values[index];
-                    vvalue[index] = data.type === 'input' ? cur : data.values.filter((item) => item.type === cur)[0].value;
+                    vvalue[index] = data.type === 'input' ? cur : data.values.filter(item => item.type === cur)[0].value;
                 });
             });
             this.$emit('search', {
@@ -189,7 +207,7 @@ export default {
         },
         removeTag(removeIndex) {
             const tags = this.info.tags;
-            const fixSelecting = (index) => {
+            const fixSelecting = index => {
                 this.autoDeleteSelected(tags[index]);
                 tags.splice(index, 1);
                 if (!tags[index] && tags[tags.length - 1]) {
@@ -212,13 +230,13 @@ export default {
         clearAll() {
             const selected = this.info.selected;
             this.info.tags = [];
-            Object.keys(selected).forEach((item) => {
+            Object.keys(selected).forEach(item => {
                 delete selected[item];
             });
         },
     },
 };
-</script>  
+</script>
 
 <style module>
 .searchTag {

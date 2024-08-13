@@ -3,13 +3,13 @@ import { normalizePod } from '@micro-app/common/views/ncs/utils';
 const apis = {
     load: {
         method: 'get',
-        path: '/clusters/{clusterId}/namespaces/{namespace}/pods/{name} '
+        path: '/clusters/{clusterId}/namespaces/{namespace}/pods/{name} ',
     },
     loadPods: {
         method: 'get',
         path: '/clusters/{clusterId}/namespaces/{namespace}/pods',
-        process: (result) => {
-            return (result.items || {}).map((item) => normalizePod(Object.assign({}, {
+        process: result => {
+            return (result.items || {}).map(item => normalizePod(Object.assign({}, {
                 kind: result.kind,
                 apiVersion: result.apiVersion,
             }, item)));
@@ -18,10 +18,10 @@ const apis = {
     loadNodePods: {
         method: 'get',
         path: '/extends/clusters/{clusterId}/pods',
-        process: (result) => {
+        process: result => {
             return {
                 total: result.total || 0,
-                list: (result.pods || []).map((item) => normalizePod(item)),
+                list: (result.pods || []).map(item => normalizePod(item)),
             };
         },
     },
@@ -37,10 +37,10 @@ const apis = {
     loadExternalPods: {
         method: 'get',
         path: '/extends/clusters/{clusterId}/namespaces/{namespace}/pods',
-        process: (result) => {
+        process: result => {
             return {
                 total: result.total || 0,
-                list: (result.pods || []).map((item) => normalizePod(item)),
+                list: (result.pods || []).map(item => normalizePod(item)),
             };
         },
     },

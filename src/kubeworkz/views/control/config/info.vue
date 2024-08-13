@@ -1,6 +1,9 @@
 <template>
   <div>
-    <el-descriptions title="Basic Information" :column="1">
+    <el-descriptions
+      title="Basic Information"
+      :column="1"
+    >
       <el-descriptions-item :label="`${workloadLiteral} name`">
         {{ instance.metadata.name }}
       </el-descriptions-item>
@@ -20,7 +23,10 @@
         {{ instance.type || '-' }}
       </el-descriptions-item>
     </el-descriptions>
-    <el-descriptions title="Data" :column="1" />
+    <el-descriptions
+      title="Data"
+      :column="1"
+    />
     <el-table
       :data="instance.data || []"
       style="width: 100%"
@@ -29,7 +35,7 @@
         prop="key"
         label="key"
         width="120"
-      ></el-table-column>
+      />
       <el-table-column
         prop="value"
         label="value"
@@ -37,15 +43,15 @@
         <template slot-scope="{ row }">
           <enhanceQzEditor
             v-if="workload === 'configmaps'"
+            v-model="row.value"
             style="border: 1px solid #E1E8ED"
             height="100"
-            v-model="row.value"
             theme="vs"
             language="yaml"
             :options="{ minimap: {enabled: false}, readOnly: true }"
           />
           <template v-else>
-            {{row.value}}
+            {{ row.value }}
           </template>
         </template>
       </el-table-column>

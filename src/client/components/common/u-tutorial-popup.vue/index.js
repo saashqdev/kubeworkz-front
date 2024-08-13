@@ -46,14 +46,11 @@ export default {
                 this.step = newVal;
             },
             deep: true,
-        }
+        },
     },
     methods: {
         setNext() {
-            if (this.step.value > this.stepList.length - 1)
-                this.$router.push('/');
-            else
-                this.$emit('stepPlus');
-        }
+            if (this.step.value > this.stepList.length - 1) { this.$router.push('/'); } else { this.$emit('stepPlus'); }
+        },
     },
-}
+};

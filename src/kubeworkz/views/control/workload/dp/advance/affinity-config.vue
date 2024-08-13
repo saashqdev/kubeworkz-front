@@ -7,32 +7,32 @@
     >
       <dynamicCard
         v-model="model"
-        :initialAdd="required"
-        :minCount="required ? 1 : 0"
-        :getDefaultItem="getDataTemplate"
-        addButtonText="Add rule"
-        :validateFile="prefixProp"
+        :initial-add="required"
+        :min-count="required ? 1 : 0"
+        :get-default-item="getDataTemplate"
+        add-button-text="Add rule"
+        :validate-file="prefixProp"
       >
         <template slot-scope="{ item: blockModel, index: blockIndex }">
           <dynamicBlock
             v-model="blockModel.rules"
-            :getDefaultItem="getRuleTemplate"
+            :get-default-item="getRuleTemplate"
             :columns="[
-                {
-                    title: 'Key',
-                    dataIndex: 'key',
-                },
-                {
-                    title: 'Operator',
-                    dataIndex: 'operator',
-                },
-                {
-                    title: 'Values',
-                    dataIndex: 'value',
-                }
+              {
+                title: 'Key',
+                dataIndex: 'key',
+              },
+              {
+                title: 'Operator',
+                dataIndex: 'operator',
+              },
+              {
+                title: 'Values',
+                dataIndex: 'value',
+              }
             ]"
           >
-            <template v-slot:key="{record: ruleModel, index: ruleIndex}">
+            <template #key="{record: ruleModel, index: ruleIndex}">
               <el-form-item
                 label=""
                 :prop="`${prefixProp}.${blockIndex}.rules.${ruleIndex}.key`"
@@ -43,10 +43,10 @@
                   validators.noRedundance(blockModel.rules.map(r => r.key), false),
                 ]"
               >
-                <el-input v-model="ruleModel.key"/>
+                <el-input v-model="ruleModel.key" />
               </el-form-item>
             </template>
-            <template v-slot:operator="{record: ruleModel}">
+            <template #operator="{record: ruleModel}">
               <el-select
                 v-model="ruleModel.operator"
                 :data="operators"
@@ -60,8 +60,8 @@
                 />
               </el-select>
             </template>
-            <template v-slot:value="{record: ruleModel, index: ruleIndex}">
-              <el-form-item 
+            <template #value="{record: ruleModel, index: ruleIndex}">
+              <el-form-item
                 label=""
                 :prop="`${prefixProp}.${blockIndex}.rules.${ruleIndex}.value`"
                 :rules="[
@@ -86,10 +86,16 @@
             v-if="['podAntiAffinity', 'podAffinity'].includes(type)"
             style="marginTop: 20px"
           >
-            <el-form-item label="Namespace" style="margin-bottom: 22px;">
+            <el-form-item
+              label="Namespace"
+              style="margin-bottom: 22px;"
+            >
               {{ namespace }}
             </el-form-item>
-            <el-form-item label="Topological domain" style="margin-bottom: 22px;">
+            <el-form-item
+              label="Topological domain"
+              style="margin-bottom: 22px;"
+            >
               <el-select
                 v-model="blockModel.topologyKey"
                 placeholder="Please choose"

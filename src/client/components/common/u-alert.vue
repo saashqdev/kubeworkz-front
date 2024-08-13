@@ -1,13 +1,22 @@
 
 <template>
-    <u-modal :visible.sync="show" @close="close" @ok="onOk" @cancel="onCancel" title="Hint">
-        <p :class="$style.content">
-            <u-status-icon :class="$style.status" :name="type"></u-status-icon>{{content}}
-        </p>
-        <p :class="$style.des">
-            {{description}}
-        </p>
-    </u-modal>
+  <u-modal
+    :visible.sync="show"
+    title="Hint"
+    @close="close"
+    @ok="onOk"
+    @cancel="onCancel"
+  >
+    <p :class="$style.content">
+      <u-status-icon
+        :class="$style.status"
+        :name="type"
+      />{{ content }}
+    </p>
+    <p :class="$style.des">
+      {{ description }}
+    </p>
+  </u-modal>
 </template>
 
 <style module>
@@ -29,15 +38,15 @@
 </style>
 
 <script>
-import {Modal} from '@micro-app/common/base/mixins/index.js';
+import { Modal } from '@micro-app/common/base/mixins/index.js';
 
 export default {
-    name: 'u-alert',
-    mixins: [Modal],
+    name: 'UAlert',
+    mixins: [ Modal ],
     data() {
         return {
             modalVisible: false,
-            ok: ()=> {},
+            ok: () => {},
             cancel: () => {},
             title: 'Hint',
             content: '',
@@ -55,7 +64,7 @@ export default {
         },
         onCancel() {
             this.cancel();
-        }
-    }
+        },
+    },
 };
 </script>

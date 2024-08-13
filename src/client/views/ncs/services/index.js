@@ -17,7 +17,7 @@ import pvService from './pv';
 import pvcService from './pvc';
 import storageClassService from './storageClass';
 
-import { 
+import {
     cicdService,
     quotaService,
     egressService,
@@ -37,7 +37,7 @@ import {
     repoConfigService,
 } from './repo';
 
-import { 
+import {
     releaseService,
     versionService,
     chartService,
@@ -82,7 +82,7 @@ export {
     egressService,
     clusterService,
     securityService,
-    
+
     repoService,
     repoTagService,
     repoScanService,
@@ -98,7 +98,7 @@ export {
     chartService,
     helmMemberService,
     helmLogService,
-    
+
     logService,
     HPAService,
 

@@ -3,8 +3,7 @@ import dateFormat from '@micro-app/common/base/date.js';
 const filter = {
     // The date is accurate to the earliest time of the day and converted to a timestamp
     getFirstTime(time) {
-        if (!time)
-            return '';
+        if (!time) { return ''; }
         time = time.replace(/-/g, '/');
         const date = new Date(time);
         time = date.getTime();
@@ -12,8 +11,7 @@ const filter = {
     },
     // The date is accurate to the latest time of the day and converted to a timestamp
     getLastTime(time) {
-        if (!time)
-            return '';
+        if (!time) { return ''; }
         time = time.replace(/-/g, '/');
         time += ' 23:59:59';
         const date = new Date(time);
@@ -22,8 +20,7 @@ const filter = {
     },
     // Convert date to timestamp, 10 digits
     getTimeStampTen(time) {
-        if (!time)
-            return '';
+        if (!time) { return ''; }
         time = time.replace(/-/g, '/');
         time = time.replace(/T/g, ' ');
         const date = new Date(time);
@@ -32,8 +29,7 @@ const filter = {
     },
     // Convert date to timestamp
     getTimeStamp(time) {
-        if (!time)
-            return '';
+        if (!time) { return ''; }
         time = time.replace(/-/g, '/');
         time = time.replace(/T/g, ' ');
         const date = new Date(time);
@@ -58,35 +54,24 @@ const filter = {
     },
     // Timestamp difference converted into years, months, days, hours, minutes and seconds
     timeDistance(time) {
-        let min, hour, day, month, year;
-        if (time < (1000 * 60))
-            return Math.floor(time / 1000) + 'seconds';
-        else if ((min = time / (1000 * 60)) < 60)
-            return Math.floor(min) + 'minutes' + Math.floor((time % 60000) / 1000) + 'seconds';
-        else if ((hour = min / 60) < 24)
-            return Math.floor(hour) + 'hours' + Math.floor(min % 60) + 'minutes';
-        else if ((day = hour / 24) < 30)
-            return Math.floor(day) + 'days' + Math.floor(hour % 24) + 'hours';
-        else if ((month = day / 30) < 12)
-            return Math.floor(month) + 'months' + Math.floor(month % 30) + 'days';
-        else if ((year = month / 12) >= 1)
-            return Math.floor(year) + 'years' + Math.floor(month % 12) + 'months';
+        let min,
+            hour,
+            day,
+            month,
+            year;
+        if (time < (1000 * 60)) { return Math.floor(time / 1000) + 'seconds'; } else if ((min = time / (1000 * 60)) < 60) { return Math.floor(min) + 'minutes' + Math.floor((time % 60000) / 1000) + 'seconds'; } else if ((hour = min / 60) < 24) { return Math.floor(hour) + 'hours' + Math.floor(min % 60) + 'minutes'; } else if ((day = hour / 24) < 30) { return Math.floor(day) + 'days' + Math.floor(hour % 24) + 'hours'; } else if ((month = day / 30) < 12) { return Math.floor(month) + 'months' + Math.floor(month % 30) + 'days'; } else if ((year = month / 12) >= 1) { return Math.floor(year) + 'years' + Math.floor(month % 12) + 'months'; }
     },
     get2Length(num) {
-        if (num < 10)
-            return '0' + num;
-        else
-            return num.toString();
+        if (num < 10) { return '0' + num; }
+        return num.toString();
     },
     smartDateFormat(date) {
-        if (!date)
-            return '-';
+        if (!date) { return '-'; }
         const time = new Date(date).getTime();
         return dateFormat(time, 'YYYY-MM-DD HH:mm:ss');
     },
     smartTime(date) {
-        if (!date)
-            return '-';
+        if (!date) { return '-'; }
         const time = new Date(date).getTime();
         return dateFormat(time, 'YYYY-MM-DD HH:mm:ss ms');
     },
@@ -126,8 +111,8 @@ const filter = {
             SERVICE_NAME_VERSION: 'Service name + version',
             INSTANCE_NAME: 'Instance name',
             INSTANCE_IP: 'Instance IP',
-            TAG: "Label",
-            SERVICE_NAME_TAG: 'Services + Tags'
+            TAG: 'Label',
+            SERVICE_NAME_TAG: 'Services + Tags',
         };
         return map[type];
     },

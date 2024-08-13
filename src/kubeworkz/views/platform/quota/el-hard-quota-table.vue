@@ -2,9 +2,9 @@
   <div>
     <dynamicBlock
       :value="[{}, {}, {}]"
-      :initialAdd="true"
-      :showDeleteBtn="false"
-      :showAddBtn="false"
+      :initial-add="true"
+      :show-delete-btn="false"
+      :show-add-btn="false"
       :columns="[
         {
           title: 'Resource',
@@ -38,12 +38,18 @@
         }
       ]"
     >
-      <template v-slot:resource="{index}">
-        <div v-if="index === 0">CPU</div>
-        <div v-if="index === 1">Memory</div>
-        <div v-if="index === 2">GPU</div>
+      <template #resource="{index}">
+        <div v-if="index === 0">
+          CPU
+        </div>
+        <div v-if="index === 1">
+          Memory
+        </div>
+        <div v-if="index === 2">
+          GPU
+        </div>
       </template>
-      <template v-slot:request="{index}">
+      <template #request="{index}">
         <!-- Request -->
         <el-form-item
           v-if="index === 0"
@@ -56,8 +62,10 @@
           ]"
         >
           <div :class="$style.unitInputWrap">
-            <el-input v-model="model.spec.hard['requestsCpu']"/>
-            <div :class="$style.unitBox">Cores</div>
+            <el-input v-model="model.spec.hard['requestsCpu']" />
+            <div :class="$style.unitBox">
+              Cores
+            </div>
           </div>
         </el-form-item>
         <el-form-item
@@ -76,8 +84,14 @@
               v-model="memoryUnit"
               :class="$style.unitSelect"
             >
-              <el-option label="Mi" value="Mi" />
-              <el-option label="Gi" value="Gi" />
+              <el-option
+                label="Mi"
+                value="Mi"
+              />
+              <el-option
+                label="Gi"
+                value="Gi"
+              />
             </el-select>
           </div>
         </el-form-item>
@@ -91,12 +105,14 @@
           ]"
         >
           <div :class="$style.unitInputWrap">
-            <el-input v-model="model.spec.hard['requestsNvidiaGpu']"/>
-            <div :class="$style.unitBox">颗</div>
+            <el-input v-model="model.spec.hard['requestsNvidiaGpu']" />
+            <div :class="$style.unitBox">
+              颗
+            </div>
           </div>
         </el-form-item>
       </template>
-      <template v-slot:limit="{index}">
+      <template #limit="{index}">
         <!-- Upper limit -->
         <el-form-item
           v-if="index === 0"
@@ -110,8 +126,10 @@
           ]"
         >
           <div :class="$style.unitInputWrap">
-            <el-input v-model="model.spec.hard['limitsCpu']"/>
-            <div :class="$style.unitBox">Cores</div>
+            <el-input v-model="model.spec.hard['limitsCpu']" />
+            <div :class="$style.unitBox">
+              Cores
+            </div>
           </div>
         </el-form-item>
         <el-form-item
@@ -126,13 +144,19 @@
           ]"
         >
           <div :class="$style.unitInputWrap">
-            <el-input v-model="limitsMemory"/>
+            <el-input v-model="limitsMemory" />
             <el-select
               v-model="memoryUnit"
               :class="$style.unitSelect"
             >
-              <el-option label="Mi" value="Mi"/>
-              <el-option label="Gi" value="Gi"/>
+              <el-option
+                label="Mi"
+                value="Mi"
+              />
+              <el-option
+                label="Gi"
+                value="Gi"
+              />
             </el-select>
           </div>
         </el-form-item>
@@ -140,37 +164,37 @@
           -
         </div>
       </template>
-      <template v-slot:quota="{index}">
+      <template #quota="{index}">
         <!-- Cluster assignable -->
         <div v-if="index === 0">
           {{ availableCPU }}  Cores
         </div>
         <div v-if="index === 1">
-          {{ memoryTransform(availableMemory) }} {{memoryUnit}}
+          {{ memoryTransform(availableMemory) }} {{ memoryUnit }}
         </div>
         <div v-if="index === 2">
           {{ availableGPU }} Cores
         </div>
       </template>
-      <template v-slot:usedRequest="{index}">
+      <template #usedRequest="{index}">
         <!-- Tenant assigned request -->
         <div v-if="index === 0">
           {{ item.usedCpu }} Cores
         </div>
         <div v-if="index === 1">
-          {{ memoryTransform(item.usedMemory) }} {{memoryUnit}}
+          {{ memoryTransform(item.usedMemory) }} {{ memoryUnit }}
         </div>
         <div v-if="index === 2">
           {{ item.usedGpu }} Cores
         </div>
       </template>
-      <template v-slot:usedLimit="{index}">
+      <template #usedLimit="{index}">
         <!-- Tenant has reached cap -->
         <div v-if="index === 0">
           {{ item.usedLimitsCpu }} Cores
         </div>
         <div v-if="index === 1">
-          {{ memoryTransform(item.usedLimitsMemory) }} {{memoryUnit}}
+          {{ memoryTransform(item.usedLimitsMemory) }} {{ memoryUnit }}
         </div>
         <div v-if="index === 2">
           -
@@ -209,13 +233,13 @@ export default {
     },
     computed: {
         availableCPU() {
-            return Math.min(Math.max(0, +new BigNumber(this.availables.cpu).minus(toNumber(this.model.spec.hard['requestsCpu'] || '0'))), this.availables.cpu);
+            return Math.min(Math.max(0, +new BigNumber(this.availables.cpu).minus(toNumber(this.model.spec.hard.requestsCpu || '0'))), this.availables.cpu);
         },
         availableMemory() {
-            return Math.min(Math.max(0, +new BigNumber(this.availables.memory).minus(toNumber(this.model.spec.hard['requestsMemory'] || '0'))), this.availables.memory);
+            return Math.min(Math.max(0, +new BigNumber(this.availables.memory).minus(toNumber(this.model.spec.hard.requestsMemory || '0'))), this.availables.memory);
         },
         availableGPU() {
-            return Math.min(Math.max(0, +new BigNumber(this.availables.gpu).minus(toNumber(this.model.spec.hard['requestsNvidiaGpu'] || '0'))), this.availables.gpu);
+            return Math.min(Math.max(0, +new BigNumber(this.availables.gpu).minus(toNumber(this.model.spec.hard.requestsNvidiaGpu || '0'))), this.availables.gpu);
         },
         // availableStorage() {
         //     return Math.min(Math.max(0, this.availables.storage - toNumber(this.model.spec.hard['requests.storage'] || '0')), this.availables.storage);
@@ -223,25 +247,25 @@ export default {
         requestsMemory: {
             get() {
                 const num = this.memoryUnit === 'Gi' ? 1024 : 1;
-                const val = this.model.spec.hard['requestsMemory'];
+                const val = this.model.spec.hard.requestsMemory;
                 this.model.requestsMemory = val && /^[1-9][0-9]*$/.test(`${val}`) ? val / num : val;
                 return this.model.requestsMemory;
             },
             set(val) {
                 const num = this.memoryUnit === 'Gi' ? 1024 : 1;
-                this.model.spec.hard['requestsMemory'] = val && /^[1-9][0-9]*$/.test(`${val}`) ? val * num : val
+                this.model.spec.hard.requestsMemory = val && /^[1-9][0-9]*$/.test(`${val}`) ? val * num : val;
             },
         },
         limitsMemory: {
             get() {
                 const num = this.memoryUnit === 'Gi' ? 1024 : 1;
-                const val = this.model.spec.hard['limitsMemory'];
+                const val = this.model.spec.hard.limitsMemory;
                 this.model.limitsMemory = val && /^[1-9][0-9]*$/.test(`${val}`) ? val / num : val;
                 return this.model.limitsMemory;
             },
             set(val) {
                 const num = this.memoryUnit === 'Gi' ? 1024 : 1;
-                this.model.spec.hard['limitsMemory'] = val && /^[1-9][0-9]*$/.test(`${val}`) ? val * num : val
+                this.model.spec.hard.limitsMemory = val && /^[1-9][0-9]*$/.test(`${val}`) ? val * num : val;
             },
         },
     },

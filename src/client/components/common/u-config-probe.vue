@@ -1,41 +1,132 @@
 <template>
-    <!-- <u-form gap="large" :class="$style.root"> -->
-    <u-form :rules="rules" gap="large" @validate="pathValid = $event.valid">
-        <u-form-item v-if="!isLifecycle" label="Failure threshold">
-            <u-number-input size="huge normal" v-model="model.failureThreshold" :default-value="3" :min="1"></u-number-input> Second-rate
-        </u-form-item>
-        <u-form-item v-if="!isLifecycle" label="Health threshold">
-            <u-number-input size="huge normal" v-model="model.successThreshold" :min="1" :disabled="type === 'liveness'"></u-number-input> Second-rate
-        </u-form-item>
-        <u-form-item v-if="!isLifecycle" label="Initial waiting time">
-            <u-number-input size="huge normal" v-model="model.initialDelaySeconds" :min="0"></u-number-input> Seconds
-        </u-form-item>
-        <u-form-item v-if="!isLifecycle" label="Monitoring interval">
-            <u-number-input size="huge normal" v-model="model.periodSeconds" :default-value="10" :min="1"></u-number-input> Seconds
-        </u-form-item>
-        <u-form-item v-if="!isLifecycle" label="Detection timeout">
-            <u-number-input size="huge normal" v-model="model.timeoutSeconds" :default-value="1" :min="1"></u-number-input> Seconds
-        </u-form-item>
-        <u-form-item label="Detection method">
-            <u-capsules v-model="model.type" :data="types"></u-capsules>
-        </u-form-item>
-        <u-form-item label="Execute script" layout="block" v-show="model.type === 'exec'" required>
-            <u-textarea-config ref="command" :class="$style.textarea" placeholder="Max 1024 characters, uppercase and lowercase letters are distinguished" err-message="Cannot exceed 1024 characters" :values="model.command" @change="onCommandChange"></u-textarea-config>
-        </u-form-item>
-        <u-form-item label="Host" v-show="model.type !== 'exec'">
-            <u-input :class="$style.input" v-model="model.host"></u-input>
-        </u-form-item>
-        <u-form-item label="Path" v-show="model.type === 'httpGet'" name="path" required>
-            <u-input :class="$style.input" v-model="model.path" @input="onPathInput"></u-input>
-        </u-form-item>
-        <u-form-item label="Port" v-show="model.type !== 'exec'">
-            <u-number-input size="huge normal" v-model="model.port" :min="0" :max="65535"></u-number-input>
-        </u-form-item>
-        <!-- v-show is used here to avoid re-creating and deleting the u-inputs-header component when switching modes. -->
-        <u-form-item label="Header" v-show="model.type === 'httpGet'" layout="block">
-            <u-inputs-header ref="header" :list="model.httpHeaders" size="small" @change="(model.httpHeaders = $event.value) && validate()" @validate="headerValid = $event.valid"></u-inputs-header>
-        </u-form-item>
-    </u-form>
+  <!-- <u-form gap="large" :class="$style.root"> -->
+  <u-form
+    :rules="rules"
+    gap="large"
+    @validate="pathValid = $event.valid"
+  >
+    <u-form-item
+      v-if="!isLifecycle"
+      label="Failure threshold"
+    >
+      <u-number-input
+        v-model="model.failureThreshold"
+        size="huge normal"
+        :default-value="3"
+        :min="1"
+      /> Second-rate
+    </u-form-item>
+    <u-form-item
+      v-if="!isLifecycle"
+      label="Health threshold"
+    >
+      <u-number-input
+        v-model="model.successThreshold"
+        size="huge normal"
+        :min="1"
+        :disabled="type === 'liveness'"
+      /> Second-rate
+    </u-form-item>
+    <u-form-item
+      v-if="!isLifecycle"
+      label="Initial waiting time"
+    >
+      <u-number-input
+        v-model="model.initialDelaySeconds"
+        size="huge normal"
+        :min="0"
+      /> Seconds
+    </u-form-item>
+    <u-form-item
+      v-if="!isLifecycle"
+      label="Monitoring interval"
+    >
+      <u-number-input
+        v-model="model.periodSeconds"
+        size="huge normal"
+        :default-value="10"
+        :min="1"
+      /> Seconds
+    </u-form-item>
+    <u-form-item
+      v-if="!isLifecycle"
+      label="Detection timeout"
+    >
+      <u-number-input
+        v-model="model.timeoutSeconds"
+        size="huge normal"
+        :default-value="1"
+        :min="1"
+      /> Seconds
+    </u-form-item>
+    <u-form-item label="Detection method">
+      <u-capsules
+        v-model="model.type"
+        :data="types"
+      />
+    </u-form-item>
+    <u-form-item
+      v-show="model.type === 'exec'"
+      label="Execute script"
+      layout="block"
+      required
+    >
+      <u-textarea-config
+        ref="command"
+        :class="$style.textarea"
+        placeholder="Max 1024 characters, uppercase and lowercase letters are distinguished"
+        err-message="Cannot exceed 1024 characters"
+        :values="model.command"
+        @change="onCommandChange"
+      />
+    </u-form-item>
+    <u-form-item
+      v-show="model.type !== 'exec'"
+      label="Host"
+    >
+      <u-input
+        v-model="model.host"
+        :class="$style.input"
+      />
+    </u-form-item>
+    <u-form-item
+      v-show="model.type === 'httpGet'"
+      label="Path"
+      name="path"
+      required
+    >
+      <u-input
+        v-model="model.path"
+        :class="$style.input"
+        @input="onPathInput"
+      />
+    </u-form-item>
+    <u-form-item
+      v-show="model.type !== 'exec'"
+      label="Port"
+    >
+      <u-number-input
+        v-model="model.port"
+        size="huge normal"
+        :min="0"
+        :max="65535"
+      />
+    </u-form-item>
+    <!-- v-show is used here to avoid re-creating and deleting the u-inputs-header component when switching modes. -->
+    <u-form-item
+      v-show="model.type === 'httpGet'"
+      label="Header"
+      layout="block"
+    >
+      <u-inputs-header
+        ref="header"
+        :list="model.httpHeaders"
+        size="small"
+        @change="(model.httpHeaders = $event.value) && validate()"
+        @validate="headerValid = $event.valid"
+      />
+    </u-form-item>
+  </u-form>
 </template>
 <style module>
 .root {
@@ -55,8 +146,8 @@ import InputsHeader from './u-inputs-header.vue';
 // enhance: data lost
 // livenessProbe - Container running probe, readinessProbe - business running probe, lifecycle - life cycle
 export default {
-    name: 'u-config-probe',
-    components: mapComponents([InputsHeader]),
+    name: 'UConfigProbe',
+    components: mapComponents([ InputsHeader ]),
     props: {
         show: { type: Boolean, default: false }, // Mainly to allow the current component to execute validate after it is expanded.
         type: { type: String, default: 'liveness' },
@@ -100,7 +191,7 @@ export default {
         },
     },
     watch: {
-        'model.type'() {
+        'model.type': function() {
             this.validate();
         },
         show(value) {
@@ -115,7 +206,7 @@ export default {
         normalize() {
             const { failureThreshold, successThreshold, initialDelaySeconds, periodSeconds, timeoutSeconds } = this.info;
             Object.assign(this.model, { failureThreshold, successThreshold, initialDelaySeconds, periodSeconds, timeoutSeconds });
-            ['exec', 'httpGet', 'tcpSocket'].forEach((item) => {
+            [ 'exec', 'httpGet', 'tcpSocket' ].forEach(item => {
                 if (this.info[item]) {
                     this.model.type = item;
                     Object.assign(this.model, this.info[item]);
@@ -142,8 +233,7 @@ export default {
             this.$emit('change', this.model);
         },
         $getData() {
-            if (!this.valid)
-                return;
+            if (!this.valid) { return; }
             const {
                 failureThreshold, successThreshold,
                 initialDelaySeconds, periodSeconds, timeoutSeconds,
@@ -153,7 +243,7 @@ export default {
             // The lifecycle type only requires some parameters, and the change event does not differentiate.
             const tmp = { [type]: {} };
             !this.isLifecycle && Object.assign(tmp, { failureThreshold, successThreshold, initialDelaySeconds, periodSeconds, timeoutSeconds });
-            
+
             type === 'exec' && (tmp.exec.command = this.$refs.command.$getData(command));
             type === 'httpGet' && Object.assign(tmp.httpGet, { host, path, port, httpHeaders: this.$refs.header.$getData() });
             type === 'tcpSocket' && Object.assign(tmp.tcpSocket, { host, port });

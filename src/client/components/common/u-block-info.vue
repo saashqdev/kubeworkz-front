@@ -1,8 +1,15 @@
 <template>
-    <div :class="$style.root">
-        <div v-if="title" :class="$style.title">{{ title }}</div>
-        <div :class="$style.content"><slot></slot></div>
+  <div :class="$style.root">
+    <div
+      v-if="title"
+      :class="$style.title"
+    >
+      {{ title }}
     </div>
+    <div :class="$style.content">
+      <slot />
+    </div>
+  </div>
 </template>
 
 <style module>
@@ -21,7 +28,7 @@
 </style>
 <script>
 export default {
-    name: 'u-block-info',
+    name: 'UBlockInfo',
     props: {
         title: String,
         data: { type: Object, default: () => {} },
@@ -37,7 +44,7 @@ export default {
         },
     },
     created() {
-        this.$on('add-item-vm', (itemVM) => {
+        this.$on('add-item-vm', itemVM => {
             itemVM.parentVM = this;
             this.columns.push(itemVM);
         });
@@ -48,7 +55,6 @@ export default {
             ~index && this.columns.splice(index, 1);
         },
     },
-}
+};
 </script>
-
 

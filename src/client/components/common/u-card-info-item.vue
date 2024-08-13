@@ -1,14 +1,22 @@
 <template>
-    <div :class="$style.root" :style="{ width }">
-        <slot>
-            <div :class="$style.cardwrap">
-                <div :class="$style.text">{{ text }}</div>
-                <u-link :type="type" :to="to">
-                    <span :class="$style.value">{{ value }}</span> {{ unit }}
-                </u-link>
-            </div>
-        </slot>
-    </div>
+  <div
+    :class="$style.root"
+    :style="{ width }"
+  >
+    <slot>
+      <div :class="$style.cardwrap">
+        <div :class="$style.text">
+          {{ text }}
+        </div>
+        <u-link
+          :type="type"
+          :to="to"
+        >
+          <span :class="$style.value">{{ value }}</span> {{ unit }}
+        </u-link>
+      </div>
+    </slot>
+  </div>
 </template>
 
 <style module>
@@ -78,15 +86,15 @@
 import { Emitter } from 'cloud-ui.vusion';
 
 export default {
-    name: 'u-card-info-item',
+    name: 'UCardInfoItem',
     parentName: 'u-card-info',
-    mixins: [Emitter],
+    mixins: [ Emitter ],
     props: {
         text: { type: String, default: '' },
         unit: { type: String, default: '' },
-        value: { type: [String, Number], default: '' },
+        value: { type: [ String, Number ], default: '' },
         type: { type: String, default: 'greenpurple' },
-        to: [String, Object],
+        to: [ String, Object ],
     },
     data() {
         return {

@@ -1,18 +1,39 @@
 <template>
-    <span :class="$style.root" v-if="!hidden">
-        <u-select-ex ref="selectRef" :value="value" @input="onInput" :disabled="disabled" :placeholder="placeholder" :suggest="suggest" :size="size" v-on="$listeners" :data="listData" :data-source="dataSource"><slot></slot></u-select-ex>
-        <div :class="$style.refresh" v-if="refresh"><slot name="refresh">Manual refresh</slot> <span @click="handleRefresh"><u-icon :class="$style.icon" :loading="loading" name="refresh"></u-icon></span></div>
-    </span>
+  <span
+    v-if="!hidden"
+    :class="$style.root"
+  >
+    <u-select-ex
+      ref="selectRef"
+      :value="value"
+      :disabled="disabled"
+      :placeholder="placeholder"
+      :suggest="suggest"
+      :size="size"
+      :data="listData"
+      :data-source="dataSource"
+      @input="onInput"
+      v-on="$listeners"
+    ><slot /></u-select-ex>
+    <div
+      v-if="refresh"
+      :class="$style.refresh"
+    ><slot name="refresh">Manual refresh</slot> <span @click="handleRefresh"><u-icon
+      :class="$style.icon"
+      :loading="loading"
+      name="refresh"
+    /></span></div>
+  </span>
 </template>
 
 <script>
 import { utils } from 'cloud-ui.vusion';
 export default {
-    name: 'u-base-list-select',
+    name: 'UBaseListSelect',
     props: {
-        value: [String, Number],
+        value: [ String, Number ],
         size: { type: String, default: 'normal medium' },
-        all: [Boolean, String],
+        all: [ Boolean, String ],
         first: Boolean,
         refresh: Boolean,
         placeholder: {
@@ -81,16 +102,18 @@ export default {
                     });
 
                     return { list: listData, map: dataMap };
-                } else {
-                    throw Error('Call exception');
                 }
-            }).then(({ list, map }) => {
-                this.dataMap = map;
-                this.$set(this, 'listData', list);
-                this.$emit('success', list, map);
-            }).catch((err) => {
-                this.$toast && this.$toast.show(err.Message || err.message || 'Failed to obtain data!');
-            });
+                throw Error('Call exception');
+
+            })
+                .then(({ list, map }) => {
+                    this.dataMap = map;
+                    this.$set(this, 'listData', list);
+                    this.$emit('success', list, map);
+                })
+                .catch(err => {
+                    this.$toast && this.$toast.show(err.Message || err.message || 'Failed to obtain data!');
+                });
         },
         handleRefresh() {
             this.loading = true;

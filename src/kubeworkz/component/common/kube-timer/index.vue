@@ -31,7 +31,7 @@ export default {
     components: {
         'u-custom-datetime': dateTime,
     },
-    inject: ['forceToRefresh'],
+    inject: [ 'forceToRefresh' ],
     data() {
         return {
             visible: false,

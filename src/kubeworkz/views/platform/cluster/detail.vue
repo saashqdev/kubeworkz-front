@@ -22,16 +22,24 @@
         :processor="resolver"
       >
         <template slot-scope="{ data, loading, error }">
-          <i v-if="loading" class="el-icon-loading" style="font-size: 24px"/>
+          <i
+            v-if="loading"
+            class="el-icon-loading"
+            style="font-size: 24px"
+          />
           <div v-else-if="error">
             Loading error!
           </div>
           <template v-else>
-            <el-tabs :value="routeName" page="main" @tab-click="(pane) => handleTabClick(pane, getTabs(data))">
+            <el-tabs
+              :value="routeName"
+              page="main"
+              @tab-click="(pane) => handleTabClick(pane, getTabs(data))"
+            >
               <el-tab-pane
                 v-for="(item, index) in getTabs(data)"
-                :label="item.title"
                 :key="index"
+                :label="item.title"
                 :name="item.path"
                 :disabled="item.disabled"
               />

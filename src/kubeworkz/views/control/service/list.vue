@@ -1,141 +1,184 @@
 <template>
   <div>
     <div style="margin-bottom: 12px">
-        <el-button
-          type="primary"
-          :disabled="isReview"
-          @click="toCreate"
-          icon="el-icon-plus"
-        >
-          Create {{ workloadLiteral }}
-        </el-button>
-        <el-button @click="refresh" square icon="el-icon-refresh-right"></el-button>
-        <inputSearch v-model="filterName" placeholder="Please enter name to search" position="right" @search="onSearch"/>
+      <el-button
+        type="primary"
+        :disabled="isReview"
+        icon="el-icon-plus"
+        @click="toCreate"
+      >
+        Create {{ workloadLiteral }}
+      </el-button>
+      <el-button
+        square
+        icon="el-icon-refresh-right"
+        @click="refresh"
+      />
+      <inputSearch
+        v-model="filterName"
+        placeholder="Please enter name to search"
+        position="right"
+        @search="onSearch"
+      />
     </div>
     <div :key="workload">
-        <x-request
-            ref="request"
-            :service="service"
-            :params="requestParam"
-            :processor="resolver"
-        >
-            <template slot-scope="{ data, loading, error }">
-                <el-table
-                    v-loading="loading"
-                    :data="data ? data.list : []"
-                    style="width: 100%"
-                    border
-                    :default-sort="defaultSort"
-                    @sort-change="tableSortChange"
+      <x-request
+        ref="request"
+        :service="service"
+        :params="requestParam"
+        :processor="resolver"
+      >
+        <template slot-scope="{ data, loading, error }">
+          <el-table
+            v-loading="loading"
+            :data="data ? data.list : []"
+            style="width: 100%"
+            border
+            :default-sort="defaultSort"
+            @sort-change="tableSortChange"
+          >
+            <el-table-column
+              prop="metadata.name"
+              label="Name"
+              :show-overflow-tooltip="true"
+              sortable
+            >
+              <template slot-scope="{ row }">
+                <el-link
+                  type="primary"
+                  :to="{ path: `/control/${workload}/${row.metadata.name}`, query: $route.query }"
                 >
-                    <el-table-column
-                        prop="metadata.name"
-                        label="Name"
-                        :show-overflow-tooltip="true"
-                        sortable
-                    >
-                        <template slot-scope="{ row }">
-                            <el-link type="primary" :to="{ path: `/control/${workload}/${row.metadata.name}`, query: $route.query }">
-                                {{row.metadata.name}}
-                            </el-link>
-                        </template>
-                    </el-table-column>
-                    <template v-if="['services'].includes(workload)">
-                        <el-table-column
-                            prop="spec.type"
-                            label="Type"
-                            width="120"
-                        >
-                        </el-table-column>
-                        <el-table-column
-                            prop="spec.ports"
-                            label="Internal access address"
-                            width="160"
-                        >
-                            <template slot-scope="{ row }">
-                                <el-tooltip effect="dark" content="Top Center 提示文字" placement="top">
-                                     <div slot="content" v-html="(row.spec.ports || []).map(item => item.text).join('<br/>')"></div>
-                                    <div :class="$style.textEllipsis">{{(row.spec.ports || []).map(item => item.text).join(', ')}}</div>
-                                </el-tooltip>
-                            </template>
-                        </el-table-column>
-                        <el-table-column
-                            prop="spec.clusterIP"
-                            label="	Cluster IP"
-                            width="100"
-                            :show-overflow-tooltip="true"
-                        >
-                        </el-table-column>
-                    </template>
-                    <template v-if="['ingresses'].includes(workload)">
-                        <el-table-column
-                            prop="outside"
-                            label="	External access address"
-                            width="160"
-                            :show-overflow-tooltip="true"
-                        >
-                            <template slot-scope="{ row }">
-                                {{row.outside || '-'}}
-                            </template>
-                        </el-table-column>
-                        <el-table-column
-                            prop="spec.rules"
-                            label="	Rule"
-                            width="200"
-                        >
-                            <template slot-scope="{ row }">
-                                <el-tooltip effect="dark" content="Top Center prompt text" placement="top">
-                                     <div slot="content" v-html="ingressRuleFilter(row).join('<br/>')"></div>
-                                    <div :class="$style.textEllipsis">{{ingressRuleFilter(row).join(', ')}}</div>
-                                </el-tooltip>
-                            </template>
-                        </el-table-column>
-                    </template>
-                    <el-table-column
-                        prop="metadata.creationTimestamp"
-                        label="Creation time"
-                        width="170"
-                        :show-overflow-tooltip="true"
-                        sortable
-                    >
-                        <template slot-scope="{ row }">
-                            {{ row.metadata.creationTimestamp | formatLocaleTime }}
-                        </template>
-                    </el-table-column>
-                    <el-table-column
-                        prop="action"
-                        label="Action"
-                        width="180"
-                    >
-                        <template slot-scope="{ row }">
-                            <qz-link-group max="3"  :key="workload">
-                                <el-link type="primary" @click="editItem(row)" :disabled="isReview">
-                                    Set up
-                                </el-link>
-                                <el-link type="primary" @click="deleteItem(row)" :disabled="isReview">
-                                    Delete
-                                </el-link>
-                                <el-link type="primary" @click="editYAML(row)" :disabled="isReview">
-                                    YAML settings
-                                </el-link>
-                            </qz-link-group>
-                        </template>
-                    </el-table-column>
-                </el-table>
-                <el-pagination
-                    style="float:right;margin-top:12px"
-                    v-if="data && calculatePages(data.total) > 0"
-                    @size-change="pageSizeChange"
-                    @current-change="pageNumChange"
-                    :current-page="pagenation.pageNum"
-                    :page-sizes="[10, 20, 30, 40, 50, 100]"
-                    :page-size="pagenation.pageSize"
-                    layout="total, sizes, prev, pager, next"
-                    :total="data.total"
-                    background
-                />
+                  {{ row.metadata.name }}
+                </el-link>
+              </template>
+            </el-table-column>
+            <template v-if="['services'].includes(workload)">
+              <el-table-column
+                prop="spec.type"
+                label="Type"
+                width="120"
+              />
+              <el-table-column
+                prop="spec.ports"
+                label="Internal access address"
+                width="160"
+              >
+                <template slot-scope="{ row }">
+                  <el-tooltip
+                    effect="dark"
+                    content="Top Center 提示文字"
+                    placement="top"
+                  >
+                    <div
+                      slot="content"
+                      v-html="(row.spec.ports || []).map(item => item.text).join('<br/>')"
+                    />
+                    <div :class="$style.textEllipsis">
+                      {{ (row.spec.ports || []).map(item => item.text).join(', ') }}
+                    </div>
+                  </el-tooltip>
+                </template>
+              </el-table-column>
+              <el-table-column
+                prop="spec.clusterIP"
+                label="	Cluster IP"
+                width="100"
+                :show-overflow-tooltip="true"
+              />
             </template>
-        </x-request>
+            <template v-if="['ingresses'].includes(workload)">
+              <el-table-column
+                prop="outside"
+                label="	External access address"
+                width="160"
+                :show-overflow-tooltip="true"
+              >
+                <template slot-scope="{ row }">
+                  {{ row.outside || '-' }}
+                </template>
+              </el-table-column>
+              <el-table-column
+                prop="spec.rules"
+                label="	Rule"
+                width="200"
+              >
+                <template slot-scope="{ row }">
+                  <el-tooltip
+                    effect="dark"
+                    content="Top Center prompt text"
+                    placement="top"
+                  >
+                    <div
+                      slot="content"
+                      v-html="ingressRuleFilter(row).join('<br/>')"
+                    />
+                    <div :class="$style.textEllipsis">
+                      {{ ingressRuleFilter(row).join(', ') }}
+                    </div>
+                  </el-tooltip>
+                </template>
+              </el-table-column>
+            </template>
+            <el-table-column
+              prop="metadata.creationTimestamp"
+              label="Creation time"
+              width="170"
+              :show-overflow-tooltip="true"
+              sortable
+            >
+              <template slot-scope="{ row }">
+                {{ row.metadata.creationTimestamp | formatLocaleTime }}
+              </template>
+            </el-table-column>
+            <el-table-column
+              prop="action"
+              label="Action"
+              width="180"
+            >
+              <template slot-scope="{ row }">
+                <qz-link-group
+                  :key="workload"
+                  max="3"
+                >
+                  <el-link
+                    type="primary"
+                    :disabled="isReview"
+                    @click="editItem(row)"
+                  >
+                    Set up
+                  </el-link>
+                  <el-link
+                    type="primary"
+                    :disabled="isReview"
+                    @click="deleteItem(row)"
+                  >
+                    Delete
+                  </el-link>
+                  <el-link
+                    type="primary"
+                    :disabled="isReview"
+                    @click="editYAML(row)"
+                  >
+                    YAML settings
+                  </el-link>
+                </qz-link-group>
+              </template>
+            </el-table-column>
+          </el-table>
+          <el-pagination
+            v-if="data && calculatePages(data.total) > 0"
+            style="float:right;margin-top:12px"
+            :current-page="pagenation.pageNum"
+            :page-sizes="[10, 20, 30, 40, 50, 100]"
+            :page-size="pagenation.pageSize"
+            layout="total, sizes, prev, pager, next"
+            :total="data.total"
+            background
+            @size-change="pageSizeChange"
+            @current-change="pageNumChange"
+          />
+        </template>
+      </x-request>
     </div>
   </div>
 </template>
@@ -304,7 +347,7 @@ export default {
                 const host = getFun(rule, 'host');
                 const paths = getFun(rule, 'http.paths', []);
                 paths.forEach(path => {
-                    const target = `${getFun(path, 'backend.service.name', '')}:${getFun(path, 'backend.service.port.number', '')}`
+                    const target = `${getFun(path, 'backend.service.name', '')}:${getFun(path, 'backend.service.port.number', '')}`;
                     const source = `${host}${getFun(path, 'path', '')}`;
                     strArr.push(`${source}->${target}`);
                 });

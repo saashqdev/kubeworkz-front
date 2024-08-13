@@ -24,8 +24,7 @@ export default {
             return this.$route.meta && this.$route.meta.platformPermission;
         },
         platformUrl() {
-            if (!this.domains)
-                return;
+            if (!this.domains) { return; }
             const port = window.location.port ? ':' + window.location.port : '';
             return window.location.protocol + '//' + this.domains.platform.replace(/(?=\/)|$/, port) + `/#/permission/tenantManage/initialization?tenantId=${this.tenantId}`;
         },
@@ -36,20 +35,17 @@ export default {
     watch: {
         $route(route) {
             const { projectId, tenantId } = route.query;
-            if (projectId)
-                this.$router.replace('/');
-            else if (tenantId)
-                this.$router.replace('/noProject');
+            if (projectId) { this.$router.replace('/'); } else if (tenantId) { this.$router.replace('/noProject'); }
         },
     },
     created() {
         if (this.platformPermissionPromise) {
-            this.platformPermissionPromise.then((res) => {
+            this.platformPermissionPromise.then(res => {
                 this.PlatformPermission = res;
             });
         }
         if (this.config) {
-            this.config.getDomains().then((res) => {
+            this.config.getDomains().then(res => {
                 this.domains = res;
             });
         }

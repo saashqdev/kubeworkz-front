@@ -6,8 +6,7 @@
         type="warning"
         show-icon
         :closable="false"
-      >
-      </el-alert>
+      />
       <div style="margin-top: 12px">
         <el-button
           type="primary"
@@ -56,17 +55,17 @@
             prop="protocol"
             label="Type"
             :show-overflow-tooltip="true"
-          ></el-table-column>
+          />
           <el-table-column
             prop="servicePort"
             label="Service port"
             :show-overflow-tooltip="true"
-          ></el-table-column>
+          />
           <el-table-column
             prop="servicePortName"
             label="Service port name"
             :show-overflow-tooltip="true"
-          ></el-table-column>
+          />
         </el-table>
       </template>
     </x-request>

@@ -4,24 +4,24 @@
     :request="getProjects"
     :valve="modelValue"
   >
-    <el-select 
-        v-if="list.length > 0"
-        v-model="modelValue"
-        :disabled="disabled"
-        filterable
+    <el-select
+      v-if="list.length > 0"
+      v-model="modelValue"
+      :disabled="disabled"
+      filterable
     >
-        <el-option
-            v-for="item in list"
-            :key="item.value"
-            :label="item.text"
-            :value="item.value"
-            :title="item.text"
-        />
+      <el-option
+        v-for="item in list"
+        :key="item.value"
+        :label="item.text"
+        :value="item.value"
+        :title="item.text"
+      />
     </el-select>
     <el-input
-        v-else
-        disabled
-        placeholder="No projects yet"
+      v-else
+      disabled
+      placeholder="No projects yet"
     />
   </kube-valve>
 </template>

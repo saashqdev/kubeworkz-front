@@ -15,13 +15,11 @@ const Toast = {
         };
     },
     mounted() {
-        if (this.position !== 'static')
-            document.body.appendChild(this.$el);
+        if (this.position !== 'static') { document.body.appendChild(this.$el); }
     },
     methods: {
         show(text, duration, type, position) {
-            if (!this.items[this.items.length])
-                this.$mount(document.createElement('div'));
+            if (!this.items[this.items.length]) { this.$mount(document.createElement('div')); }
 
             this.open({
                 text: text || this.text,
@@ -33,20 +31,14 @@ const Toast = {
         open(options) {
             this.items.unshift(options);
             this.items.forEach((item, index) => {
-                if (!item || item.position.includes('top-'))
-                    item.top = index * 100 + 90;
-                else if (item.position.includes('bottom-'))
-                    item.bottom = index * 100 + 30;
+                if (!item || item.position.includes('top-')) { item.top = index * 100 + 90; } else if (item.position.includes('bottom-')) { item.bottom = index * 100 + 30; }
                 this.items.splice(index, 1, item);
             });
             const item = this.items[0];
 
             if (item.duration) {
                 setTimeout(() => {
-                    if (!item.counter)
-                        this.close(item);
-                    else
-                        item.counter--;
+                    if (!item.counter) { this.close(item); } else { item.counter--; }
                 }, item.duration);
             }
 
@@ -57,8 +49,7 @@ const Toast = {
             this.$emit('before-close', Object.assign({
                 preventDefault: () => cancel = true,
             }, item));
-            if (cancel)
-                return;
+            if (cancel) { return; }
 
             const index = this.items.indexOf(item);
             ~index && this.items.splice(index, 1);
@@ -89,13 +80,12 @@ const Toast = {
 
 Vue.nextTick(() => {
     const Ctor = Vue.component('u-toast');
-    if (!Ctor)
-        return;
+    if (!Ctor) { return; }
 
     Vue.prototype.$toast = Toast.toast = new Ctor();
 
-    const METHODS = ['show', 'closeAll', 'success', 'warning', 'info', 'error'];
-    METHODS.forEach((method) => Toast[method] = Toast.toast[method].bind(Toast.toast));
+    const METHODS = [ 'show', 'closeAll', 'success', 'warning', 'info', 'error' ];
+    METHODS.forEach(method => Toast[method] = Toast.toast[method].bind(Toast.toast));
 });
 
 export default Toast;

@@ -1,8 +1,20 @@
 <template>
-    <div :class="$style.root">
-        If you need new {{ name }}，you can <u-link :to="to" :href="href" target="_blank" :class="$style.link" :disabled="disabled">create a {{ name }}</u-link>
-        <u-refresh @click="$emit('refresh')" :loading="loading" :disabled="disabled"></u-refresh>
-    </div>
+  <div :class="$style.root">
+    If you need new {{ name }}，you can <u-link
+      :to="to"
+      :href="href"
+      target="_blank"
+      :class="$style.link"
+      :disabled="disabled"
+    >
+      create a {{ name }}
+    </u-link>
+    <u-refresh
+      :loading="loading"
+      :disabled="disabled"
+      @click="$emit('refresh')"
+    />
+  </div>
 </template>
 <style module>
 .root {
@@ -16,9 +28,9 @@
 
 <script>
 export default {
-    name: 'u-quick-create',
+    name: 'UQuickCreate',
     props: {
-        to: [Object, String],
+        to: [ Object, String ],
         name: String,
         loading: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },

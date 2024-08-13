@@ -1,13 +1,26 @@
 <template>
   <div :class="$style.root">
-    <div v-if="loading" :class="$style.loadingBox"><div :class="$style.loadingTextWrap"><i class="el-icon-loading" style="font-size: 24px"/> Loading data</div></div>
+    <div
+      v-if="loading"
+      :class="$style.loadingBox"
+    >
+      <div :class="$style.loadingTextWrap">
+        <i
+          class="el-icon-loading"
+          style="font-size: 24px"
+        /> Loading data
+      </div>
+    </div>
     <!-- <button
       :class="$style.pageBtn"
       @click="scrollTo(-5)"
     >
       Pade up
     </button> -->
-    <table :class="[$style.table, $style.tableScroll]" :theme="theme">
+    <table
+      :class="[$style.table, $style.tableScroll]"
+      :theme="theme"
+    >
       <thead :class="[$style.row, $style.thead]">
         <tr :class="$style.row">
           <th :class="[$style.col, $style.col1]">
@@ -29,10 +42,12 @@
           :class="$style.row"
           style="height: 25px"
         >
-          <td :class="[$style.col, $style.col1]">
-          </td>
-          <td :class="[$style.col, $style.coln, $style.logContent]" style="text-align: center">
-            {{ hasMoreOld ?  '' : 'No more history logs yet' }}
+          <td :class="[$style.col, $style.col1]" />
+          <td
+            :class="[$style.col, $style.coln, $style.logContent]"
+            style="text-align: center"
+          >
+            {{ hasMoreOld ? '' : 'No more history logs yet' }}
           </td>
         </tr>
         <template v-if="data.length > 0">
@@ -46,12 +61,14 @@
             <td :class="[$style.col, $style.col1]">
               {{ d.timestamp | formatLocaleTime }}
             </td>
-            <td :class="[$style.col, $style.coln, $style.logContent]">{{ d.content }}</td>
+            <td :class="[$style.col, $style.coln, $style.logContent]">
+              {{ d.content }}
+            </td>
           </tr>
         </template>
         <template v-else>
           <tr :class="$style.row">
-            <td :class="[$style.col, $style.col1]"></td>
+            <td :class="[$style.col, $style.col1]" />
             <td
               style="text-align: center"
             >
@@ -63,8 +80,8 @@
           :class="$style.row"
           style="height: 25px"
         >
-          <td :class="[$style.col, $style.col1]"></td>
-          <td :class="[$style.col, $style.coln, $style.logContent]"></td>
+          <td :class="[$style.col, $style.col1]" />
+          <td :class="[$style.col, $style.coln, $style.logContent]" />
         </tr>
       </tbody>
     </table>
@@ -142,15 +159,15 @@ export default {
     },
     watch: {
         autoRefresh(val) {
-            if(val) {
+            if (val) {
                 this.handleAutoRefresh();
             } else {
-              if (this.autoRefreshTimer) {
-                  clearTimeout(this.autoRefreshTimer);
-                  this.autoRefreshTimer = null;
-              }
+                if (this.autoRefreshTimer) {
+                    clearTimeout(this.autoRefreshTimer);
+                    this.autoRefreshTimer = null;
+                }
             }
-        }
+        },
     },
     created() {
         this.reInit();
@@ -190,13 +207,13 @@ export default {
                 this.autoRefreshTimer = null;
             }
             this.autoRefreshTimer = setTimeout(() => {
-                if(this.autoRefresh) {
-                  this.handleAutoRefresh();
+                if (this.autoRefresh) {
+                    this.handleAutoRefresh();
                 }
-            }, 3000)
+            }, 3000);
         },
         async reInit() {
-            this.$emit('update:autoRefresh', false)
+            this.$emit('update:autoRefresh', false);
             console.log('xxxxxxxxxxxxxxx');
             this.hasMoreOld = true;
             this.data = [];
@@ -231,15 +248,15 @@ export default {
         removeScrollBehaviour() {
             const elem = this.$refs.tbody;
             if (elem) {
-              elem.removeEventListener('scroll', this.scrollHandler);
+                elem.removeEventListener('scroll', this.scrollHandler);
             }
         },
         scrollHandler() {
-            this.$emit('update:autoRefresh', false)
+            this.$emit('update:autoRefresh', false);
             const elem = this.$refs.tbody;
             if (elem.scrollTop <= 1) {
                 this.loadOldLog();
-            } else if(elem.scrollTop + 1 >= elem.scrollHeight - elem.clientHeight) {
+            } else if (elem.scrollTop + 1 >= elem.scrollHeight - elem.clientHeight) {
                 this.loadNewLog();
             }
         },
@@ -252,8 +269,8 @@ export default {
             elem.scrollTop = elem.scrollHeight - elem.clientHeight - 25;
         },
         async loadOldLog() {
-            if(!this.hasMoreOld) {
-              return;
+            if (!this.hasMoreOld) {
+                return;
             }
             this.removeScrollBehaviour();
             this.limit += 20;
@@ -269,25 +286,25 @@ export default {
             this.bindScrollBehaviour();
         },
         async loadNewLog() {
-          this.removeScrollBehaviour();
-          // this.limit += 20;
-          this.limit = this.limit < 30 ? 30 : this.limit;
-          this.offsetFrom = 200000;
-          this.offsetTo = this.offsetFrom + this.limit;
-          this.selection = {
-              referenceLineNum: 0,
-              logFilePosition: 'end',
-              referenceTimestamp: 'newest',
-          };
-          const logs = await this.invokeBeforeAPI();
-          if (this.limit > logs.length) {
-              this.hasMoreOld = false;
-          } else {
-              this.hasMoreOld = true;
-          }
-          this.limit = logs.length;
-          this.scrollToBottom();
-          this.bindScrollBehaviour();
+            this.removeScrollBehaviour();
+            // this.limit += 20;
+            this.limit = this.limit < 30 ? 30 : this.limit;
+            this.offsetFrom = 200000;
+            this.offsetTo = this.offsetFrom + this.limit;
+            this.selection = {
+                referenceLineNum: 0,
+                logFilePosition: 'end',
+                referenceTimestamp: 'newest',
+            };
+            const logs = await this.invokeBeforeAPI();
+            if (this.limit > logs.length) {
+                this.hasMoreOld = false;
+            } else {
+                this.hasMoreOld = true;
+            }
+            this.limit = logs.length;
+            this.scrollToBottom();
+            this.bindScrollBehaviour();
         },
         async invokeBeforeAPI() {
             this.loading = true;
@@ -308,11 +325,11 @@ export default {
 
         },
         async delayFun(val = 1000) {
-          return new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-            }, val)
-          })
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve();
+                }, val);
+            });
         },
     },
 

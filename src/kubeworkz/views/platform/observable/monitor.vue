@@ -26,7 +26,10 @@
             :show-overflow-tooltip="true"
           >
             <template slot-scope="{ row }">
-              <el-link type="primary" :to="{ path: `/platform/monitor/${row.metadata.name}` }">
+              <el-link
+                type="primary"
+                :to="{ path: `/platform/monitor/${row.metadata.name}` }"
+              >
                 {{ row.metadata.name }}
               </el-link>
             </template>

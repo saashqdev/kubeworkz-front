@@ -1,28 +1,41 @@
 <template>
-<div :class="$style.wrap">
+  <div :class="$style.wrap">
     <ul :class="$style.listView">
-        <li :class="[$style.listViewItemFirst, $style.listViewItem]" 
-            v-if="type==='default'" 
-            @mousedown.stop.prevent="stop($event)">
-            Select search tag type
-        </li>
-        <li :class="[$style.listViewItemEmpty, $style.listViewItem]"
-            @mousedown.stop.prevent="stop($event)" 
-            v-else-if="!tagTypes">
-            Loading
-        </li>
-        <li :class="[$style.listViewItemEmpty, $style.listViewItem]"
-            @mousedown.stop.prevent="stop($event)" 
-            v-else-if="!(tagTypes && (tagTypes.length || Object.keys(tagTypes).length))">
-            No data
-        </li>
-        <li v-for="(tagType, key) in tagTypes" :key="key" v-autoScroll="tagType.selecting"
-            :class="[ $style.listViewItem]" :selected="tagType.selecting" :disabled="isSelected(tagType)&&tagType.unique"
-            :title="tagType.label" @mousedown="selectTagType(tagType, $event)">
-           {{tagType.label}}
-        </li>
+      <li
+        v-if="type==='default'"
+        :class="[$style.listViewItemFirst, $style.listViewItem]"
+        @mousedown.stop.prevent="stop($event)"
+      >
+        Select search tag type
+      </li>
+      <li
+        v-else-if="!tagTypes"
+        :class="[$style.listViewItemEmpty, $style.listViewItem]"
+        @mousedown.stop.prevent="stop($event)"
+      >
+        Loading
+      </li>
+      <li
+        v-else-if="!(tagTypes && (tagTypes.length || Object.keys(tagTypes).length))"
+        :class="[$style.listViewItemEmpty, $style.listViewItem]"
+        @mousedown.stop.prevent="stop($event)"
+      >
+        No data
+      </li>
+      <li
+        v-for="(tagType, key) in tagTypes"
+        :key="key"
+        v-autoScroll="tagType.selecting"
+        :class="[ $style.listViewItem]"
+        :selected="tagType.selecting"
+        :disabled="isSelected(tagType)&&tagType.unique"
+        :title="tagType.label"
+        @mousedown="selectTagType(tagType, $event)"
+      >
+        {{ tagType.label }}
+      </li>
     </ul>
-</div>
+  </div>
 </template>
 <style module>
 .wrap {
@@ -79,15 +92,15 @@
 .listViewItemEmpty {
      border-bottom: 0;
 }
-</style>      
+</style>
 <script>
 export default {
+    name: 'SearchTagType',
     props: {
         selected: Array,
         tagTypes: Array,
         type: String,
     },
-    name: 'searchTagType',
     methods: {
         isSelected(tagType) {
             return !this.selected ? false : this.selected.indexOf(tagType.type) !== -1;
@@ -109,6 +122,6 @@ export default {
             });
         },
     },
-}
+};
 </script>
 

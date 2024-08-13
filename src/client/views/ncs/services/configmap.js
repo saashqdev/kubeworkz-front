@@ -5,20 +5,20 @@ const apis = {
     loads: {
         method: 'get',
         path: '/clusters/{clusterId}/namespaces/{namespace}/configmaps',
-        process: (result) => (result.items || []).map((item) => normalizeConfigMap(item)),
+        process: result => (result.items || []).map(item => normalizeConfigMap(item)),
     },
     loadsWithPage: {
         method: 'get',
         path: '/extends/clusters/{clusterId}/namespaces/{namespace}/configmaps',
-        process: (result) => ({
-                list: result.configmaps || [],
-                total: result.total || 0,
-            }),
+        process: result => ({
+            list: result.configmaps || [],
+            total: result.total || 0,
+        }),
     },
     load: {
         method: 'get',
         path: '/clusters/{clusterId}/namespaces/{namespace}/configmaps/{name}',
-        process: (result) => normalizeConfigMap(result),
+        process: result => normalizeConfigMap(result),
     },
     create: {
         method: 'post',

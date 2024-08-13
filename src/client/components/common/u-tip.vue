@@ -1,13 +1,15 @@
 <template>
-    <div :class="$style.root">
-        <div :class="$style.title">{{ title }}</div>
-        <slot name="cont"></slot>
+  <div :class="$style.root">
+    <div :class="$style.title">
+      {{ title }}
     </div>
+    <slot name="cont" />
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'u-tip',
+    name: 'UTip',
     props: { title: { type: String } },
     data() {
         return {

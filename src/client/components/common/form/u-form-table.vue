@@ -1,12 +1,20 @@
 <template>
-    <div :class="$style.tableBlock" :size="size">
-        <table :class="$style.addTable">
-            <slot></slot>
-        </table>
-        <p v-if="dynamic">
-            <u-form-table-add-button :disabled="disabled" @click="addNewTr()">Add to{{ description }}</u-form-table-add-button>
-        </p>
-    </div>
+  <div
+    :class="$style.tableBlock"
+    :size="size"
+  >
+    <table :class="$style.addTable">
+      <slot />
+    </table>
+    <p v-if="dynamic">
+      <u-form-table-add-button
+        :disabled="disabled"
+        @click="addNewTr()"
+      >
+        Add to{{ description }}
+      </u-form-table-add-button>
+    </p>
+  </div>
 </template>
 
 <style module>
@@ -61,7 +69,7 @@
 
 <script>
 export default {
-    name: 'u-form-table',
+    name: 'UFormTable',
     props: {
         dynamic: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
@@ -78,19 +86,19 @@ export default {
     },
     computed: {
         states() {
-            return this.trList.filter((tr) => !tr.ignore).map((tr) => tr.state);
+            return this.trList.filter(tr => !tr.ignore).map(tr => tr.state);
         },
     },
     created() {
-        this.$on('add-item-tr', (tr) => {
+        this.$on('add-item-tr', tr => {
             tr.table = this;
             this.trList.push(tr);
         });
-        this.$on('remove-item-tr', (tr) => {
+        this.$on('remove-item-tr', tr => {
             const index = this.trList.indexOf(tr);
             tr.table = undefined;
             this.trList.splice(index, 1);
-            this.$emit('validate', { valid: this.states.every((state) => state === 'success') });
+            this.$emit('validate', { valid: this.states.every(state => state === 'success') });
         });
         this.$on('validate-item-tr', () => {
             this.state = this.getState();
@@ -104,11 +112,10 @@ export default {
     },
     methods: {
         validate(silent = false) {
-            return Promise.all(this.trList.map((tr) => tr.validate('submit', silent)
-                .catch((errors) => errors)
-            )).then((results) => {
-                if (results.some((result) => !!result))
-                    throw new Error(results);
+            return Promise.all(this.trList.map(tr => tr.validate('submit', silent)
+                .catch(errors => errors)
+            )).then(results => {
+                if (results.some(result => !!result)) { throw new Error(results); }
             });
         },
         addNewTr() {
@@ -124,9 +131,8 @@ export default {
             };
 
             let state = 'success';
-            this.trList.forEach((tr) => {
-                if (tr.currentRules && STATE_LEVEL[tr.state] > STATE_LEVEL[state])
-                    state = tr.state;
+            this.trList.forEach(tr => {
+                if (tr.currentRules && STATE_LEVEL[tr.state] > STATE_LEVEL[state]) { state = tr.state; }
             });
 
             return state;

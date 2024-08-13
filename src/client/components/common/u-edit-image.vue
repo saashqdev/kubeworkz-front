@@ -1,22 +1,44 @@
 <template>
-    <div>
-        <u-validate-input :style="'width:' + width" ref="input" size="huge" name="image" :rules="imageRules" v-model="image" @input="onChange" @validate="onValidate"></u-validate-input>
-        <u-link style="padding-left: 10px;" @click="showModal = true">Select image</u-link>
+  <div>
+    <u-validate-input
+      ref="input"
+      v-model="image"
+      :style="'width:' + width"
+      size="huge"
+      name="image"
+      :rules="imageRules"
+      @input="onChange"
+      @validate="onValidate"
+    />
+    <u-link
+      style="padding-left: 10px;"
+      @click="showModal = true"
+    >
+      Select image
+    </u-link>
 
-        <u-select-image :show-modal.sync="showModal" :cluster-id="clusterId" :project-name="projectName" :tenant-name="tenantName" title="Select image" :image.sync="image" @change="onSelectImage"></u-select-image>
-    </div>
+    <u-select-image
+      :show-modal.sync="showModal"
+      :cluster-id="clusterId"
+      :project-name="projectName"
+      :tenant-name="tenantName"
+      title="Select image"
+      :image.sync="image"
+      @change="onSelectImage"
+    />
+  </div>
 </template>
 
 <script>
 import { Subscribe } from '@micro-app/common/base/mixins';
 
 export default {
-    name: 'u-edit-image',
-    mixins: [Subscribe],
+    name: 'UEditImage',
+    mixins: [ Subscribe ],
     props: {
         image: String,
         width: { type: String, default: '300px' },
-        clusterId: [String, Number],
+        clusterId: [ String, Number ],
     },
     data() {
         return {

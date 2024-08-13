@@ -4,4 +4,4 @@ export default {
         path: prefix + '/getEvent',
         method: 'get',
     },
-}
+};

@@ -3,16 +3,20 @@
     <div style="margin-bottom: 12px;">
       <el-button
         type="primary"
-        @click="$refs.nodedialog.open()"
         icon="el-icon-plus"
+        @click="$refs.nodedialog.open()"
       >
         Add node
       </el-button>
-      <el-button @click="refresh" square icon="el-icon-refresh-right"></el-button>
+      <el-button
+        square
+        icon="el-icon-refresh-right"
+        @click="refresh"
+      />
       <nodeInputSearch
         :align-right="true"
+        :node-status-map="nodeStatusMap"
         @search="onSearch"
-        :nodeStatusMap="nodeStatusMap"
       />
     </div>
     <x-request
@@ -38,10 +42,19 @@
           >
             <template slot-scope="{ row }">
               <div>
-                <el-tooltip v-if="row.metadata.labels.find(i => i.key === 'node-role.kubernetes.io/master')" class="item" effect="dark" content="Master node" placement="bottom">
+                <el-tooltip
+                  v-if="row.metadata.labels.find(i => i.key === 'node-role.kubernetes.io/master')"
+                  class="item"
+                  effect="dark"
+                  content="Master node"
+                  placement="bottom"
+                >
                   <span :class="$style.master_flag">Control</span>
                 </el-tooltip>
-                <el-link type="primary" :to="{ path: `/platform/cluster/${instance.clusterName}/${row.metadata.name}` }">
+                <el-link
+                  type="primary"
+                  :to="{ path: `/platform/cluster/${instance.clusterName}/${row.metadata.name}` }"
+                >
                   {{ row.metadata.name }}
                 </el-link>
               </div>
@@ -91,7 +104,10 @@
             width="180"
           >
             <template slot-scope="{ row }">
-              <tagList :data="row.metadata.labels" :itemFormatter="(i) => `${i.key}:${i.value}`"/>
+              <tagList
+                :data="row.metadata.labels"
+                :item-formatter="(i) => `${i.key}:${i.value}`"
+              />
             </template>
           </el-table-column>
           <el-table-column
@@ -99,8 +115,7 @@
             label="Node type"
             :show-overflow-tooltip="true"
             width="70"
-          >
-          </el-table-column>
+          />
           <el-table-column
             prop="spec.unschedulable"
             label="Scheduling"
@@ -165,16 +180,16 @@
           </el-table-column>
         </el-table>
         <el-pagination
-          style="float:right;margin-top:12px"
           v-if="data && calculatePages(data.total) > 0"
-          @size-change="pageSizeChange"
-          @current-change="pageNumChange"
+          style="float:right;margin-top:12px"
           :current-page="pagenation.pageNum"
           :page-sizes="[10, 20, 30, 40, 50, 100]"
           :page-size="pagenation.pageSize"
           layout="total, sizes, prev, pager, next"
           :total="data.total"
           background
+          @size-change="pageSizeChange"
+          @current-change="pageNumChange"
         />
       </template>
     </x-request>

@@ -1,6 +1,8 @@
 <template>
-    <div @click="click" :class="$style.button">
-    </div>
+  <div
+    :class="$style.button"
+    @click="click"
+  />
 </template>
 
 <style module>
@@ -24,11 +26,10 @@
 
 <script>
 export default {
-    name: 'u-form-table-remove-button',
+    name: 'UFormTableRemoveButton',
     methods: {
         click() {
-            if (this.disabled)
-                return;
+            if (this.disabled) { return; }
             this.$emit('click');
         },
     },

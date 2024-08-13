@@ -1,17 +1,22 @@
 <template>
-    <div :class="$style.root">
-        <u-link :class="$style.link" :to="to"><i :class="$style.back" ></i></u-link>
-        <span :class="$style.head">{{title}}</span>
-    </div>
+  <div :class="$style.root">
+    <u-link
+      :class="$style.link"
+      :to="to"
+    >
+      <i :class="$style.back" />
+    </u-link>
+    <span :class="$style.head">{{ title }}</span>
+  </div>
 </template>
 <script>
-    export default {
-        name: 'u-back',
-        props: {
-            title: { type: String, default: 'Details' },
-            to: { type: [String, Object], default: '' },
-        },
-    };
+export default {
+    name: 'UBack',
+    props: {
+        title: { type: String, default: 'Details' },
+        to: { type: [ String, Object ], default: '' },
+    },
+};
 </script>
 <style module>
     $width:40px;

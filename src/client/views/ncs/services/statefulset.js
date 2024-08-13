@@ -8,21 +8,21 @@ const apis = {
     load: {
         method: 'get',
         path: '/apps/clusters/{clusterId}/namespaces/{namespace}/statefulsets/{name}',
-        process: (result) => {
+        process: result => {
             return normalizeWorkload(result);
         },
     },
     loadExternal: {
         method: 'get',
         path: '/extends/clusters/{clusterId}/namespaces/{namespace}/statefulsets/{name}',
-        process: (result) => {
+        process: result => {
             return formatExternalWorkload(result);
         },
     },
     loads: {
         method: 'get',
         path: '/extends/clusters/{clusterId}/namespaces/{namespace}/statefulsets',
-        process: (result) => {
+        process: result => {
             return {
                 list: result.statefulsets || [],
                 total: result.total || 0,

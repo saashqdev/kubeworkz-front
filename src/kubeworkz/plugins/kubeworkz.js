@@ -41,9 +41,6 @@ import EnhanceQzEditor from 'kubeworkz/elComponent/enhance-qz-editor';
 import TagList from 'kubeworkz/elComponent/tagList.vue';
 
 
-
-
-
 // elComponent
 import elInputSearch from 'kubeworkz/elComponent/inputSearch';
 

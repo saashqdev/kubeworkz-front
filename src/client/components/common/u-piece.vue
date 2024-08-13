@@ -1,17 +1,25 @@
 <template>
-    <div :class="$style.root" :noBorder="noBorder" :size="size">
-        <div v-if="title" :class="$style.title" :noBorder="noBorder">
-{{ title }}
-</div>
-        <slot>
-            <div :class="$style.value">
-{{ value }}
-</div>
-        </slot>
-        <div :class="$style.bottom">
-            <slot name="bottom"></slot>
-        </div>
+  <div
+    :class="$style.root"
+    :noBorder="noBorder"
+    :size="size"
+  >
+    <div
+      v-if="title"
+      :class="$style.title"
+      :noBorder="noBorder"
+    >
+      {{ title }}
     </div>
+    <slot>
+      <div :class="$style.value">
+        {{ value }}
+      </div>
+    </slot>
+    <div :class="$style.bottom">
+      <slot name="bottom" />
+    </div>
+  </div>
 </template>
 
 <style module>
@@ -64,11 +72,11 @@
 <script>
 
 export default {
-    name: 'u-piece',
+    name: 'UPiece',
     props: {
         size: { type: String, default: 'auto' },
         title: String,
-        value: [String, Number],
+        value: [ String, Number ],
         noBorder: { type: Boolean, default: false },
     },
     computed: {

@@ -3,7 +3,10 @@
     :class="$style.root"
     :align-right="alignRight"
   >
-    <el-select v-model="valueType" :class="$style.valueTypeInput">
+    <el-select
+      v-model="valueType"
+      :class="$style.valueTypeInput"
+    >
       <el-option
         label="Name"
         value="name"
@@ -17,22 +20,31 @@
         value="status"
       />
     </el-select>
-    <el-select v-if="valueType === 'status'" v-model="currentValue" :class="$style.input">
-      <el-option v-for="(val, key) in nodeStatusMap" :value="key" :key="val" :label="val"/>
+    <el-select
+      v-if="valueType === 'status'"
+      v-model="currentValue"
+      :class="$style.input"
+    >
+      <el-option
+        v-for="(val, key) in nodeStatusMap"
+        :key="val"
+        :value="key"
+        :label="val"
+      />
     </el-select>
     <el-input
       v-else
       v-model="currentValue"
       :class="$style.input"
       v-bind="$attrs"
-      @keydown.enter.native.prevent="search"
       :placeholder="placeholder"
+      @keydown.enter.native.prevent="search"
     />
     <el-button
       type="primary"
       :disabled="disabled"
-      @click="search"
       style="margin-left:12px"
+      @click="search"
     >
       Search
     </el-button>
@@ -71,7 +83,7 @@ export default {
     methods: {
         search(event, str) {
             str = str !== undefined ? str : this.currentValue !== undefined ? this.currentValue : '';
-            this.$emit('search', { value: str.replace(/^\s+|\s+$/g, ''), valueType: this.valueType});
+            this.$emit('search', { value: str.replace(/^\s+|\s+$/g, ''), valueType: this.valueType });
         },
     },
 

@@ -10,30 +10,30 @@ const apis = {
     load: {
         method: 'get',
         path: '/apps/clusters/{clusterId}/namespaces/{namespace}/deployments/{name}',
-        process: (result) => {
+        process: result => {
             return normalizeWorkload(result);
         },
     },
     loadExternal: {
         method: 'get',
         path: '/extends/clusters/{clusterId}/namespaces/{namespace}/deployments/{name}',
-        process: (result) => {
+        process: result => {
             return formatExternalWorkload(result);
         },
     },
     loads: {
         method: 'get',
         path: '/apps/clusters/{clusterId}/namespaces/{namespace}/deployments',
-        process: (result) => {
-            return (result.items || []).map((item) => normalizeWorkload(item));
+        process: result => {
+            return (result.items || []).map(item => normalizeWorkload(item));
         },
     },
     loadListWithPodInfos: {
         method: 'get',
         path: '/extends/clusters/{clusterId}/namespaces/{namespace}/deployments',
-        process: (result) => {
+        process: result => {
             return {
-                list: (result.Deployments || []).map((item) => normalizeWorkload(item)),
+                list: (result.Deployments || []).map(item => normalizeWorkload(item)),
                 total: result.Total || 0,
             };
         },

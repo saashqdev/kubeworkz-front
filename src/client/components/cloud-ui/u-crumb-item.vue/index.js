@@ -2,7 +2,7 @@ import { Emitter, Link } from 'cloud-ui.vusion';
 export default {
     name: 'u-crumb-item',
     parentName: 'u-crumb',
-    mixins: [Link, Emitter],
+    mixins: [ Link, Emitter ],
     data: () => ({
         parentVM: undefined,
     }),

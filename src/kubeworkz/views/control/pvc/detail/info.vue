@@ -7,7 +7,10 @@
     >
       Check the detail information
     </el-button>
-    <el-descriptions title="Basic Information" :column="1">
+    <el-descriptions
+      title="Basic Information"
+      :column="1"
+    >
       <el-descriptions-item label="Store claim name">
         {{ instance.metadata.name }}
       </el-descriptions-item>
@@ -27,7 +30,10 @@
         {{ instance.spec.accessMode | accessModeFilter }}
       </el-descriptions-item>
     </el-descriptions>
-    <el-descriptions title="Associated copy" :column="1" />
+    <el-descriptions
+      title="Associated copy"
+      :column="1"
+    />
     <x-request
       ref="request"
       :service="podService"
@@ -46,7 +52,10 @@
             :show-overflow-tooltip="true"
           >
             <template slot-scope="{ row }">
-              <el-link type="primary" :to="{path: `/control/pods/${row.metadata.name}/info`, query: $route.query}">
+              <el-link
+                type="primary"
+                :to="{path: `/control/pods/${row.metadata.name}/info`, query: $route.query}"
+              >
                 {{ row.metadata.name }}
               </el-link>
             </template>
@@ -56,7 +65,7 @@
             label="Replica status"
             width="80"
             :show-overflow-tooltip="true"
-          ></el-table-column>
+          />
           <el-table-column
             prop="status.podIP"
             label="IP"
@@ -64,7 +73,7 @@
             :show-overflow-tooltip="true"
           >
             <template slot-scope="{ row }">
-              {{row.status.podIP || '-'}}
+              {{ row.status.podIP || '-' }}
             </template>
           </el-table-column>
           <el-table-column
@@ -74,7 +83,7 @@
             width="100"
           >
             <template slot-scope="{ row }">
-              {{row.status.hostIP || '-'}}
+              {{ row.status.hostIP || '-' }}
             </template>
           </el-table-column>
           <el-table-column

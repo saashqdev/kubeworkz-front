@@ -1,6 +1,11 @@
 <template>
   <div>
-    <el-form ref="form" :model="model" label-position="right" label-width="120px">
+    <el-form
+      ref="form"
+      :model="model"
+      label-position="right"
+      label-width="120px"
+    >
       <el-form-item
         label="Tenant"
         prop="tenant"
@@ -38,7 +43,11 @@
           :processor="tenantClusterResolver"
         >
           <template slot-scope="{ data, loading }">
-            <i v-if="loading" class="el-icon-loading" style="font-size: 24px"/>
+            <i
+              v-if="loading"
+              class="el-icon-loading"
+              style="font-size: 24px"
+            />
             <template v-else>
               <x-request
                 ref="requestcluster"
@@ -46,7 +55,11 @@
                 :processor="clusterResolver(data)"
               >
                 <template slot-scope="{ loading: quotaLoading }">
-                  <i v-if="quotaLoading" class="el-icon-loading" style="font-size: 24px"/>
+                  <i
+                    v-if="quotaLoading"
+                    class="el-icon-loading"
+                    style="font-size: 24px"
+                  />
                   <template v-else>
                     <el-form-item
                       label="Cluster"
@@ -85,7 +98,7 @@
                             v-model="model.model"
                             :item="model.used"
                             :availables="model.availables"
-                            prefixKey="model."
+                            prefix-key="model."
                           />
                         </el-form-item>
                       </x-request>
@@ -106,11 +119,20 @@
           validators.numberBetween(0),
         ]"
       >
-        <el-input v-model="model.model.spec.hard['requestsStorage']" style="width: 300px"/>
+        <el-input
+          v-model="model.model.spec.hard['requestsStorage']"
+          style="width: 300px"
+        />
         <span style="line-height:32px;margin-left:8px">GiB</span>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submit" :loading="submitLoading">OK</el-button>
+        <el-button
+          type="primary"
+          :loading="submitLoading"
+          @click="submit"
+        >
+          OK
+        </el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -240,7 +262,6 @@ export default {
                 gpu: +new BigNumber(unitConvertCPU(clusterQuota.capacityGpu)).minus(unitConvertCPU(clusterQuota.assignedGpu)).plus(this.model.model.status.hard.gpu),
                 storage: Infinity,
             };
-
 
 
             // this.quotaType = kubeQuotaResponse ? 'edit' : 'create';

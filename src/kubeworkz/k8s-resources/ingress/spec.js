@@ -29,7 +29,7 @@ export const toPlainObject = model => {
         const httpPath = (gr('http.paths') || []).map(item => { // path list
             const gp = getFromModel(item);
             return {
-                path: gp('path'),  // path
+                path: gp('path'), // path
                 service: gp('backend.service.name'), // Service Name
                 port: gp('backend.service.port.number'), // Service port number
             };

@@ -1,57 +1,65 @@
 <template>
   <div>
-   <el-form-item
+    <el-form-item
       label="Toleration"
       :class="$style.columnFormItem"
     >
       <dynamicBlock
         v-model="model"
-        :initialAdd="false"
-        :minCount="0"
-        :getDefaultItem="getDataTemplate"
+        :initial-add="false"
+        :min-count="0"
+        :get-default-item="getDataTemplate"
         :columns="[
-            {
-                title: 'Key',
-                dataIndex: 'key',
-            },
-            {
-                title: 'Operator',
-                dataIndex: 'operator',
-            },
-            {
-                title: 'Value',
-                dataIndex: 'value',
-            },
-            {
-                title: 'Effect',
-                dataIndex: 'effect',
-            },
-            {
-                title: 'TolerationSeconds',
-                dataIndex: 'tolerationSeconds',
-            }
+          {
+            title: 'Key',
+            dataIndex: 'key',
+          },
+          {
+            title: 'Operator',
+            dataIndex: 'operator',
+          },
+          {
+            title: 'Value',
+            dataIndex: 'value',
+          },
+          {
+            title: 'Effect',
+            dataIndex: 'effect',
+          },
+          {
+            title: 'TolerationSeconds',
+            dataIndex: 'tolerationSeconds',
+          }
         ]"
       >
         <template slot="th-effect">
           Effect
-          <el-tooltip effect="dark" placement="right" popper-class="ncs-el-tooltip-popper">
+          <el-tooltip
+            effect="dark"
+            placement="right"
+            popper-class="ncs-el-tooltip-popper"
+          >
             <template slot="content">
-              The possible values ​​of effect are NoSchedule | PreferNoSchedule | NoExecute | empty. If effect is empty, it means matching all effects.
+              The possible values of effect are NoSchedule | PreferNoSchedule | NoExecute | empty. If effect is empty, it means matching all effects.
             </template>
-            <i class="el-icon-question"/>
+            <i class="el-icon-question" />
           </el-tooltip>
         </template>
         <template slot="th-tolerationSeconds">
           TolerationSeconds
-          <el-tooltip effect="dark" placement="right" popper-class="ncs-el-tooltip-popper">
+          <el-tooltip
+            effect="dark"
+            placement="right"
+            popper-class="ncs-el-tooltip-popper"
+          >
             <template slot="content">
               By default, it is not set, which means it takes effect permanently.
             </template>
-            <i class="el-icon-question"/>
+            <i class="el-icon-question" />
           </el-tooltip>
         </template>
-        <template v-slot:key="{record: tolerationModel, index}">
-          <el-form-item 
+        <template #key="{record: tolerationModel, index}">
+          <el-form-item
             label=""
             :prop="`${prefixProp}.${index}.key`"
             :rules="[
@@ -60,21 +68,24 @@
               validators.noRedundance(exsitKeys, false),
             ]"
           >
-            <el-input v-model="tolerationModel.key"/>
+            <el-input v-model="tolerationModel.key" />
           </el-form-item>
         </template>
-        <template v-slot:operator="{record: tolerationModel}">
-          <el-select v-model="tolerationModel.operator" placeholder="Please choose">
+        <template #operator="{record: tolerationModel}">
+          <el-select
+            v-model="tolerationModel.operator"
+            placeholder="Please choose"
+          >
             <el-option
               v-for="item in operators"
               :key="item.value"
               :label="item.text"
-              :value="item.value">
-            </el-option>
+              :value="item.value"
+            />
           </el-select>
         </template>
-        <template v-slot:value="{record: tolerationModel, index}">
-          <el-form-item 
+        <template #value="{record: tolerationModel, index}">
+          <el-form-item
             label=""
             :prop="`${prefixProp}.${index}.value`"
             :rules="[
@@ -86,18 +97,20 @@
             />
           </el-form-item>
         </template>
-        <template v-slot:effect="{record: tolerationModel}">
-          <el-select v-model="tolerationModel.effect" placeholder="Please choose">
+        <template #effect="{record: tolerationModel}">
+          <el-select
+            v-model="tolerationModel.effect"
+            placeholder="Please choose"
+          >
             <el-option
               v-for="item in effects"
               :key="item.value"
               :label="item.text"
-              :value="item.value">
-            </el-option>
+              :value="item.value"
+            />
           </el-select>
         </template>
-        <template v-slot:tolerationSeconds="{record: tolerationModel}">
-
+        <template #tolerationSeconds="{record: tolerationModel}">
           <el-input-number
             v-if="tolerationModel.effect === 'NoExecute'"
             v-model="tolerationModel.tolerationSeconds"

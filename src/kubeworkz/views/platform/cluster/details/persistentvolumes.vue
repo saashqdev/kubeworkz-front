@@ -3,7 +3,11 @@
     <div
       style="margin-bottom: 12px;overflow:hidden"
     >
-      <inputSearch placeholder="Please enter name to search" position="right" @search="onSearch"/>
+      <inputSearch
+        placeholder="Please enter name to search"
+        position="right"
+        @search="onSearch"
+      />
     </div>
     <x-request
       ref="request"
@@ -79,11 +83,15 @@
                 <el-link
                   type="primary"
                   @click="viewYAML(row)"
-                >Check the details</el-link>
+                >
+                  Check the details
+                </el-link>
                 <el-link
                   type="primary"
                   @click="deleteItem(row)"
-                >Delete</el-link>
+                >
+                  Delete
+                </el-link>
               </qz-link-group>
             </template>
           </el-table-column>

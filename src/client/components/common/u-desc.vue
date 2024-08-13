@@ -1,7 +1,7 @@
 <template>
-    <div :class="$style.desc" >
-        {{ tip }}<slot></slot>
-    </div>
+  <div :class="$style.desc">
+    {{ tip }}<slot />
+  </div>
 </template>
 <style module>
     .desc {
@@ -12,11 +12,11 @@
 </style>
 <script>
 export default {
-    name: 'u-desc',
+    name: 'UDesc',
     props: {
         tip: {
             type: String,
         },
     },
-}
+};
 </script>

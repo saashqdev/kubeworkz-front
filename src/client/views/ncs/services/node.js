@@ -31,7 +31,7 @@ const apis = {
     drain: {
         method: 'post',
         path: '/extends/clusters/{clusterId}/nodes/drainNode',
-    }
+    },
 };
 
 // /ncs/proxy is the prefix required for the front-end proxy interface

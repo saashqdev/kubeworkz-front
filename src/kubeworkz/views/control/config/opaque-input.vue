@@ -2,31 +2,34 @@
   <div>
     <dynamicBlock
       v-model="model"
-      :getDefaultItem="getDataTemplate"
+      :get-default-item="getDataTemplate"
       :columns="[
-          {
-              title: 'Key',
-              dataIndex: 'key',
-          },
-          {
-              title: 'Value',
-              dataIndex: 'value',
-          }
+        {
+          title: 'Key',
+          dataIndex: 'key',
+        },
+        {
+          title: 'Value',
+          dataIndex: 'value',
+        }
       ]"
     >
-      <template v-slot:key="{record: dataModel, index: dataIndex}">
-        <el-form-item 
+      <template #key="{record: dataModel, index: dataIndex}">
+        <el-form-item
           label=""
           :prop="`${prefixProp}.${dataIndex}.key`"
           :rules="[
             validators.consistofNormalSymbol(false),
           ]"
         >
-          <el-input v-model="dataModel.key" placeholder="Key consists of numbers, letters, '-', '_' or '.'"/>
+          <el-input
+            v-model="dataModel.key"
+            placeholder="Key consists of numbers, letters, '-', '_' or '.'"
+          />
         </el-form-item>
       </template>
-      <template v-slot:value="{record: dataModel}">
-        <el-input v-model="dataModel.value"/>
+      <template #value="{record: dataModel}">
+        <el-input v-model="dataModel.value" />
       </template>
     </dynamicBlock>
   </div>
@@ -38,19 +41,19 @@ import dynamicBlock from 'kubeworkz/elComponent/dynamic-block/index.vue';
 import * as validators from 'kubeworkz/utils/validators';
 export default {
     components: {
-      dynamicBlock
-    },
-    props: {
-      prefixProp: {
-        type: String,
-        default: ''
-      }
+        dynamicBlock,
     },
     mixins: [ makeVModelMixin ],
+    props: {
+        prefixProp: {
+            type: String,
+            default: '',
+        },
+    },
     data() {
-      return {
-        validators,
-      }
+        return {
+            validators,
+        };
     },
     computed: {
         exsitKeys() {

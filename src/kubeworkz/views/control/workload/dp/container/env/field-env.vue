@@ -2,19 +2,19 @@
   <div>
     <dynamicBlock
       v-model="model"
-      :getDefaultItem="getDataTemplate"
+      :get-default-item="getDataTemplate"
       :columns="[
-          {
-              title: 'Key',
-              dataIndex: 'key',
-          },
-          {
-              title: 'Value',
-              dataIndex: 'field',
-          },
+        {
+          title: 'Key',
+          dataIndex: 'key',
+        },
+        {
+          title: 'Value',
+          dataIndex: 'field',
+        },
       ]"
     >
-      <template v-slot:key="{record, index}">
+      <template #key="{record, index}">
         <el-form-item
           label=""
           :prop="`${prefixKey}.${index}.key`"
@@ -31,14 +31,18 @@
           />
         </el-form-item>
       </template>
-      <template v-slot:field="{record}">
-        <el-select v-model="record.field" placeholder="Please choose" filterable>
+      <template #field="{record}">
+        <el-select
+          v-model="record.field"
+          placeholder="Please choose"
+          filterable
+        >
           <el-option
             v-for="item in FIELD_DATA"
             :key="item.value"
             :label="item.text"
-            :value="item.value">
-          </el-option>
+            :value="item.value"
+          />
         </el-select>
       </template>
     </dynamicBlock>

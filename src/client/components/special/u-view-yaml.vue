@@ -1,8 +1,23 @@
 <template>
-    <u-modal class="form-error-block" @close="close" :title="title" ok-button="" cancel-button="" :visible.sync="show" size="huge">
-        <u-easy-copy :text="sortModel"></u-easy-copy>
-        <x-ace-editor v-model="sortModel" ref="editor" disabled lang="yaml" theme="textmate" :options="editorOptions"></x-ace-editor>
-    </u-modal>
+  <u-modal
+    class="form-error-block"
+    :title="title"
+    ok-button=""
+    cancel-button=""
+    :visible.sync="show"
+    size="huge"
+    @close="close"
+  >
+    <u-easy-copy :text="sortModel" />
+    <x-ace-editor
+      ref="editor"
+      v-model="sortModel"
+      disabled
+      lang="yaml"
+      theme="textmate"
+      :options="editorOptions"
+    />
+  </u-modal>
 </template>
 
 <script>
@@ -12,18 +27,13 @@ import yamljs from 'yamljs';
 
 
 export default {
-    name: 'u-view-yaml',
+    name: 'UViewYaml',
     components: {
         'x-ace-editor': XAceEditor,
     },
-    mixins: [Modal],
+    mixins: [ Modal ],
     props: {
         model: { type: Object, default: () => ({}) },
-    },
-    computed: {
-        sortModel() {
-            return yamljs.stringify(this.model, 20, 2);
-        },
     },
     data() {
         return {
@@ -34,6 +44,11 @@ export default {
                 scrollPastEnd: 0.2,
             },
         };
+    },
+    computed: {
+        sortModel() {
+            return yamljs.stringify(this.model, 20, 2);
+        },
     },
 };
 </script>

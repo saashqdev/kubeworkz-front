@@ -2,113 +2,130 @@
   <el-dialog
     :title="type === 'create' ? 'Create namespace' : 'Modify namespace'"
     :visible.sync="show"
-    @close="close"
     width="900px"
     :close-on-click-modal="false"
+    @close="close"
   >
     <kube-pipe
       v-if="show"
       graph="tenant > project"
       @pipestatechange="pipeLoading = $event"
     >
-      <el-form ref="form" :model="model" label-position="right" label-width="120px">
-          <el-form-item
-            label="Cluster"
-            prop="pipe.cluster"
-            :rules="[
-              validators.required(),
-            ]"
-          >
-            <cluster-select
-              v-model="model.pipe.cluster"
-              :disabled="isEdit"
-              no-title
-            />
-          </el-form-item>
-          <el-form-item
-            label="Namespace name"
-            prop="pipe.namespace"
-            :rules="[
-              validators.required(),
-              validators.k8sResourceNameValidator(),
-            ]"
-          >
-            <el-input
-              v-model="model.pipe.namespace"
-              :disabled="isEdit"
-              placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"
-            />
-          </el-form-item>
-          <el-form-item
-            label="Tenant"
-            prop="pipe.tenant"
-            :rules="[
-              validators.required(),
-            ]"
-          >
-            <tenantSelect
-              v-model="model.pipe.tenant"
-              :disabled="isEdit"
-            />
-          </el-form-item>
-          <el-form-item
-            label="Related projects"
-            prop="pipe.project"
-            :rules="[
-              validators.required(),
-            ]"
-          >
-            <project-select
-                v-model="model.pipe.project"
-                :disabled="isEdit"
-                auth="writable"
-                no-empty
-                :tenant="model.pipe.tenant && model.pipe.tenant.value"
-            />
-          </el-form-item>
-          <x-request
-            v-if="model.pipe.cluster && model.pipe.tenant && resourceLoaded"
-            ref="request"
-            :service="quotaService"
-            :params="params"
-            :processor="resolver"
-          >
-            <template slot-scope="{ loading }">
-                <el-form-item
-                label="Computing resources"
-                >
-                <template v-if="model.pipe.cluster && model.pipe.tenant">
-                    <i v-if="loading" class="el-icon-loading" style="font-size: 24px"/>
-                    <hardQuota
-                        v-else
-                        v-model="model.resource"
-                        prefixProp="resource"
-                        :availables="availables"
-                    />
-                </template>
-                </el-form-item>
-                <el-form-item
-                label="Storage resources"
-                prop="resource.spec.hard.storage"
-                :rules="[
-                    validators.required(),
-                    validators.consistofNumber(),
-                    validators.numberBetween(0, availables.storage),
-                ]"
-                >
-                <el-input
-                    v-model="model.resource.spec.hard.storage"
-                    style="width: 200px"
+      <el-form
+        ref="form"
+        :model="model"
+        label-position="right"
+        label-width="120px"
+      >
+        <el-form-item
+          label="Cluster"
+          prop="pipe.cluster"
+          :rules="[
+            validators.required(),
+          ]"
+        >
+          <cluster-select
+            v-model="model.pipe.cluster"
+            :disabled="isEdit"
+            no-title
+          />
+        </el-form-item>
+        <el-form-item
+          label="Namespace name"
+          prop="pipe.namespace"
+          :rules="[
+            validators.required(),
+            validators.k8sResourceNameValidator(),
+          ]"
+        >
+          <el-input
+            v-model="model.pipe.namespace"
+            :disabled="isEdit"
+            placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"
+          />
+        </el-form-item>
+        <el-form-item
+          label="Tenant"
+          prop="pipe.tenant"
+          :rules="[
+            validators.required(),
+          ]"
+        >
+          <tenantSelect
+            v-model="model.pipe.tenant"
+            :disabled="isEdit"
+          />
+        </el-form-item>
+        <el-form-item
+          label="Related projects"
+          prop="pipe.project"
+          :rules="[
+            validators.required(),
+          ]"
+        >
+          <project-select
+            v-model="model.pipe.project"
+            :disabled="isEdit"
+            auth="writable"
+            no-empty
+            :tenant="model.pipe.tenant && model.pipe.tenant.value"
+          />
+        </el-form-item>
+        <x-request
+          v-if="model.pipe.cluster && model.pipe.tenant && resourceLoaded"
+          ref="request"
+          :service="quotaService"
+          :params="params"
+          :processor="resolver"
+        >
+          <template slot-scope="{ loading }">
+            <el-form-item
+              label="Computing resources"
+            >
+              <template v-if="model.pipe.cluster && model.pipe.tenant">
+                <i
+                  v-if="loading"
+                  class="el-icon-loading"
+                  style="font-size: 24px"
                 />
-                <span style="line-height:32px;margin-left:8px">GiB</span>
-                </el-form-item>
-            </template>
-          </x-request>
+                <hardQuota
+                  v-else
+                  v-model="model.resource"
+                  prefix-prop="resource"
+                  :availables="availables"
+                />
+              </template>
+            </el-form-item>
+            <el-form-item
+              label="Storage resources"
+              prop="resource.spec.hard.storage"
+              :rules="[
+                validators.required(),
+                validators.consistofNumber(),
+                validators.numberBetween(0, availables.storage),
+              ]"
+            >
+              <el-input
+                v-model="model.resource.spec.hard.storage"
+                style="width: 200px"
+              />
+              <span style="line-height:32px;margin-left:8px">GiB</span>
+            </el-form-item>
+          </template>
+        </x-request>
       </el-form>
     </kube-pipe>
     <div slot="footer">
-        <el-button @click="close">Cancel</el-button>
-        <el-button type="primary" @click="submit" :loading="submitting">OK</el-button>
+      <el-button @click="close">
+        Cancel
+      </el-button>
+      <el-button
+        type="primary"
+        :loading="submitting"
+        @click="submit"
+      >
+        OK
+      </el-button>
     </div>
   </el-dialog>
 </template>

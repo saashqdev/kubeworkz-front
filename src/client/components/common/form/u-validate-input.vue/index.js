@@ -4,7 +4,7 @@ import Validator from '@micro-app/common/utils/validator';
 // u-input component with separate validate function
 export default {
     name: 'u-validate-input',
-    mixins: [Input],
+    mixins: [ Input ],
     props: {
         rules: Array,
         name: String,
@@ -18,8 +18,7 @@ export default {
     },
     created() {
         // name is a required attribute
-        if (!this.name)
-            throw new Error('Please specify the name attribute of input');
+        if (!this.name) { throw new Error('Please specify the name attribute of input'); }
 
         this.validator = new Validator({
             key: this.name,

@@ -2,23 +2,21 @@ import { CLUSTER_STATUS_MAP, NODE_TYPE_MAP, NODE_STATUS_MAP, USER_ROLE_MAP } fro
 import _ from 'lodash';
 import { unit } from '@micro-app/common/filters';
 
-export const ignoredKeys = ['system', 'kubernetes.io', 'beta.kubernetes.io'];
+export const ignoredKeys = [ 'system', 'kubernetes.io', 'beta.kubernetes.io' ];
 
 export default {
     clusterStatus(status) {
         return CLUSTER_STATUS_MAP[status] || '-';
     },
     formatLabels(labels) {
-        if (!labels)
-            return [];
-        return labels.map((label) => `${label.key}: ${label.value}`);
+        if (!labels) { return []; }
+        return labels.map(label => `${label.key}: ${label.value}`);
     },
     obj2Array(obj) {
-        if (_.isEmpty(obj))
-            return [];
+        if (_.isEmpty(obj)) { return []; }
         return Object.keys(obj)
             .sort()
-            .map((key) => ({ key, value: obj[key] }));
+            .map(key => ({ key, value: obj[key] }));
     },
     Ki2Gi(kiString) {
         return Math.round(+kiString.replace('Ki', '') / 1024 / 1024);
@@ -30,12 +28,8 @@ export default {
     },
     getNodeStatus(node) {
         const { spec, status: { conditions } } = node;
-        if (spec.unschedulable)
-            return NODE_STATUS_MAP.unschedulable;
-        else if ((conditions.find((cond) => cond.type === 'Ready') || {}).status === 'True')
-            return NODE_STATUS_MAP.normal;
-        else
-            return NODE_STATUS_MAP.abnormal;
+        if (spec.unschedulable) { return NODE_STATUS_MAP.unschedulable; } else if ((conditions.find(cond => cond.type === 'Ready') || {}).status === 'True') { return NODE_STATUS_MAP.normal; }
+        return NODE_STATUS_MAP.abnormal;
     },
     checkSchedulable(spec) {
         const { unschedulable } = spec;

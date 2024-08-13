@@ -1,58 +1,78 @@
 <template>
   <div>
-    <el-form ref="form" :model="model" :rules="rules" label-position="right" label-width="160px">
+    <el-form
+      ref="form"
+      :model="model"
+      :rules="rules"
+      label-position="right"
+      label-width="160px"
+    >
       <el-form-item
         v-if="workload === 'jobs' || workload === 'cronjobs'"
         label="Restart strategy"
         prop="podTemplate.spec.restartPolicy"
       >
         <el-radio-group v-model="model.podTemplate.spec.restartPolicy">
-          <el-radio-button v-for="item in restartPolicyList" :label="item.value" :key="item.value">{{item.text}}</el-radio-button>
+          <el-radio-button
+            v-for="item in restartPolicyList"
+            :key="item.value"
+            :label="item.value"
+          >
+            {{ item.text }}
+          </el-radio-button>
         </el-radio-group>
       </el-form-item>
       <repo-secret-config v-model="model.podTemplate.spec.imagePullSecrets" />
       <el-form-item label="Label">
         <labelEditor
-          :workload="workload"
-          :projectName="project"
-          prefixKey="labels"
-          :serviceList="serviceList"
           v-model="model.podTemplate.metadata.labels"
-          prefixProp="podTemplate.metadata.labels"
+          :workload="workload"
+          :project-name="project"
+          prefix-key="labels"
+          :service-list="serviceList"
+          prefix-prop="podTemplate.metadata.labels"
         />
       </el-form-item>
       <el-form-item label="Annotation">
         <labelEditor
-          :workload="''"
-          prefixKey="annotations"
           v-model="model.podTemplate.metadata.annotations"
-          prefixProp="podTemplate.metadata.annotations"
+          :workload="''"
+          prefix-key="annotations"
+          prefix-prop="podTemplate.metadata.annotations"
         />
       </el-form-item>
       <el-form-item v-if="workload === 'deployments'">
         <template slot="label">
           HostNetwork
-          <el-tooltip effect="dark" content="To avoid port conflicts caused by replica migration, set node affinity to ensure that replicas are scheduled to fixed nodes. In hostnetwork mode, the load using service and ingress is invalid." placement="right" popper-class="ncs-el-tooltip-popper">
-            <i class="el-icon-question" style="position: absolute;right:4px;top:11px"/>
+          <el-tooltip
+            effect="dark"
+            content="To avoid port conflicts caused by replica migration, set node affinity to ensure that replicas are scheduled to fixed nodes. In hostnetwork mode, the load using service and ingress is invalid."
+            placement="right"
+            popper-class="ncs-el-tooltip-popper"
+          >
+            <i
+              class="el-icon-question"
+              style="position: absolute;right:4px;top:11px"
+            />
           </el-tooltip>
         </template>
-        <el-switch v-model="model.podTemplate.spec.hostNetwork"/>
+        <el-switch v-model="model.podTemplate.spec.hostNetwork" />
       </el-form-item>
       <deploy-config
-        v-model="model.podTemplate.spec.deploymentStrategy" 
-        :hostNetworkSupport="model.podTemplate.spec.hostNetwork"
-        prefixProp="podTemplate.spec.deploymentStrategy"
+        v-model="model.podTemplate.spec.deploymentStrategy"
+        :host-network-support="model.podTemplate.spec.hostNetwork"
+        prefix-prop="podTemplate.spec.deploymentStrategy"
       />
       <template v-if="['cronjobs', 'jobs'].includes(workload)">
         <job-config
           v-if="workload === 'jobs'"
           v-model="model.spec"
-          prefixProp="spec"
+          prefix-prop="spec"
         />
         <job-config
           v-else
           v-model="model.jobTemplate"
-          prefixProp="jobTemplate"
+          prefix-prop="jobTemplate"
         />
       </template>
       <template v-if="workload === 'cronjobs'">
@@ -69,17 +89,30 @@
           >
             <template slot="label">
               Concurrency strategy
-              <el-tooltip effect="dark" placement="right" popper-class="ncs-el-tooltip-popper">
+              <el-tooltip
+                effect="dark"
+                placement="right"
+                popper-class="ncs-el-tooltip-popper"
+              >
                 <div slot="content">
                   Forbid: Do not create a new task while the previous task is not completed<br>
                   Allow: Scheduled tasks continue to create new tasks, which will seize cluster resources.<br>
                   Replace: When the new task creation time is reached and the previous task is not completed, the new task will replace the previous task.<br>
                 </div>
-                <i class="el-icon-question" style="position: absolute;right:4px;top:11px"/>
+                <i
+                  class="el-icon-question"
+                  style="position: absolute;right:4px;top:11px"
+                />
               </el-tooltip>
             </template>
             <el-radio-group v-model="model.spec.concurrencyPolicy">
-              <el-radio-button v-for="item in concurrencyPolicyList" :label="item.value" :key="item.value">{{item.text}}</el-radio-button>
+              <el-radio-button
+                v-for="item in concurrencyPolicyList"
+                :key="item.value"
+                :label="item.value"
+              >
+                {{ item.text }}
+              </el-radio-button>
             </el-radio-group>
           </el-form-item>
           <el-form-item
@@ -140,35 +173,45 @@
           >
             <template slot="label">
               Task start deadline
-              <el-tooltip effect="dark" placement="right" popper-class="ncs-el-tooltip-popper">
+              <el-tooltip
+                effect="dark"
+                placement="right"
+                popper-class="ncs-el-tooltip-popper"
+              >
                 <div slot="content">
                   When the concurrency policy is Allow, the task startup deadline is not set, and the task is executed at least once;<br>
                   When the concurrency policy is Forbid, when the new task creation time is reached and a new task cannot be created, it will be marked as missed scheduling.<br>
                   When the cumulative number of missed scheduling reaches 100 times, the scheduled task will no longer start new tasks.<br>
                 </div>
-                <i class="el-icon-question" style="position: absolute;right:4px;top:11px"/>
+                <i
+                  class="el-icon-question"
+                  style="position: absolute;right:4px;top:11px"
+                />
               </el-tooltip>
             </template>
-            <el-input v-model="model.spec.startingDeadlineSeconds" style="width: 300px;"/>
+            <el-input
+              v-model="model.spec.startingDeadlineSeconds"
+              style="width: 300px;"
+            />
             <span style="margin-left:8px">Second</span>
           </el-form-item>
         </el-form-item>
       </template>
       <el-form-item>
-          <el-button
-            color="primary"
-            @click="$emit('go', -1)"
-          >
-            Previous
-          </el-button>
-          <el-button
-            type="primary"
-            @click="submit"
-            :loading="submitLoading"
-          >
-            {{ isEdit ? 'Edit' : 'Create' }}
-          </el-button>
-        </el-form-item>
+        <el-button
+          color="primary"
+          @click="$emit('go', -1)"
+        >
+          Previous
+        </el-button>
+        <el-button
+          type="primary"
+          :loading="submitLoading"
+          @click="submit"
+        >
+          {{ isEdit ? 'Edit' : 'Create' }}
+        </el-button>
+      </el-form-item>
     </el-form>
   </div>
 </template>

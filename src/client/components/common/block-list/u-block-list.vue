@@ -1,29 +1,48 @@
 <template>
-    <div>
-        <slot name="bread"></slot>
-        <u-crumb v-if="config.breads && config.breads.length">
-            <u-crumb-item
-                v-for="(item, idx) in config.breads"
-                :key="idx"
-                v-bind="item"
-            >{{ item.text || item }}
-            </u-crumb-item>
-        </u-crumb>
-        <slot name="desc"></slot>
-        <u-tip v-if="config.desc" :title="config.desc"></u-tip>
-        <u-linear-layout direction="vertical">
-            <slot name="operation"></slot>
-            <u-linear-layout style="overflow:hidden;">
-                <component v-for="(item, idx) in operations" :key="idx"
-                    :is="item.option.is"
-                    v-bind="item.option"
-                    v-on="item.listener"
-                >{{ item.option.text }}</component>
-            </u-linear-layout>
-            <slot :list="list" :loading="loading" :loadError="loadError"></slot>
-            <u-page v-if="total > pageSize" :count="total" :total="Math.ceil(total / pageSize)" :page-size="pageSize" :page="page"  @select="onSelectChange($event)"></u-page>
-        </u-linear-layout>
-    </div>
+  <div>
+    <slot name="bread" />
+    <u-crumb v-if="config.breads && config.breads.length">
+      <u-crumb-item
+        v-for="(item, idx) in config.breads"
+        :key="idx"
+        v-bind="item"
+      >
+        {{ item.text || item }}
+      </u-crumb-item>
+    </u-crumb>
+    <slot name="desc" />
+    <u-tip
+      v-if="config.desc"
+      :title="config.desc"
+    />
+    <u-linear-layout direction="vertical">
+      <slot name="operation" />
+      <u-linear-layout style="overflow:hidden;">
+        <component
+          :is="item.option.is"
+          v-for="(item, idx) in operations"
+          :key="idx"
+          v-bind="item.option"
+          v-on="item.listener"
+        >
+          {{ item.option.text }}
+        </component>
+      </u-linear-layout>
+      <slot
+        :list="list"
+        :loading="loading"
+        :loadError="loadError"
+      />
+      <u-page
+        v-if="total > pageSize"
+        :count="total"
+        :total="Math.ceil(total / pageSize)"
+        :page-size="pageSize"
+        :page="page"
+        @select="onSelectChange($event)"
+      />
+    </u-linear-layout>
+  </div>
 </template>
 
 <script>
@@ -59,8 +78,8 @@ export default {
     //             });
     //     },
     // },
-    name: 'u-block-list',
-    props: ['config'],
+    name: 'UBlockList',
+    props: [ 'config' ],
     data() {
         return {
             list: [],
@@ -73,7 +92,7 @@ export default {
     },
     computed: {
         operations() {
-            return this.config.operations.map((op) => normalizeOperation(op, this));
+            return this.config.operations.map(op => normalizeOperation(op, this));
         },
     },
     created() {
@@ -90,7 +109,7 @@ export default {
                 .then(() => {
                     this.loading = false;
                     this.loadError = false;
-                }, (err) => {
+                }, err => {
                     this.list = [];
                     this.loading = false;
                     this.loadError = true;

@@ -1,9 +1,9 @@
 <script>
 import { LinkListItem } from 'cloud-ui.vusion';
 export default {
-    name: 'u-detail-operate-item',
+    name: 'UDetailOperateItem',
     parentName: 'u-detail-operate',
-    mixins: [LinkListItem],
+    mixins: [ LinkListItem ],
     // props: {
     //     trigger: { type: String, default: 'hover' },
     //     to: [Object, String],

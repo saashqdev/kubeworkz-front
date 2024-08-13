@@ -1,7 +1,11 @@
 <template>
   <div>
     <div style="overflow: hidden;">
-      <elInputSearch placeholder="Please enter name to search" position="right" @search="onSearch"/>
+      <elInputSearch
+        placeholder="Please enter name to search"
+        position="right"
+        @search="onSearch"
+      />
     </div>
     <x-request
       ref="request"
@@ -26,8 +30,11 @@
             sortable
           >
             <template slot-scope="{ row }">
-              <el-link type="primary" :to="{ path: `/control/${workload}/${row.metadata.name}`, query: $route.query }">
-                {{row.metadata.name}}
+              <el-link
+                type="primary"
+                :to="{ path: `/control/${workload}/${row.metadata.name}`, query: $route.query }"
+              >
+                {{ row.metadata.name }}
               </el-link>
             </template>
           </el-table-column>
@@ -66,7 +73,7 @@
             width="100"
           >
             <template slot-scope="{ row }">
-              {{ row.status.memoryUsage && row.status.memoryUsage.toFixed(2)  }} Mi
+              {{ row.status.memoryUsage && row.status.memoryUsage.toFixed(2) }} Mi
             </template>
           </el-table-column>
           <el-table-column
@@ -88,23 +95,34 @@
           >
             <template slot-scope="{ row }">
               <qz-link-group max="3">
-                <el-link type="primary" @click="view(row)">Check the details</el-link>
-                <el-link type="primary" @click="deleteItem(row)" :disabled="isReview">Delete</el-link>
+                <el-link
+                  type="primary"
+                  @click="view(row)"
+                >
+                  Check the details
+                </el-link>
+                <el-link
+                  type="primary"
+                  :disabled="isReview"
+                  @click="deleteItem(row)"
+                >
+                  Delete
+                </el-link>
               </qz-link-group>
             </template>
           </el-table-column>
         </el-table>
         <el-pagination
-          style="float:right;margin-top:12px"
           v-if="data && calculatePages(data.total) > 0"
-          @size-change="pageSizeChange"
-          @current-change="pageNumChange"
+          style="float:right;margin-top:12px"
           :current-page="pagenation.pageNum"
           :page-sizes="[10, 20, 30, 40, 50, 100]"
           :page-size="pagenation.pageSize"
           layout="total, sizes, prev, pager, next"
           :total="data.total"
           background
+          @size-change="pageSizeChange"
+          @current-change="pageNumChange"
         />
       </template>
     </x-request>
@@ -145,7 +163,7 @@ export default {
         userRole: get('scope/userRole'),
         userResourcesPermission: get('scope/userResourcesPermission'),
         isReview() {
-            return !this.userResourcesPermission['pods'];
+            return !this.userResourcesPermission.pods;
         },
         requestParam() {
             return {

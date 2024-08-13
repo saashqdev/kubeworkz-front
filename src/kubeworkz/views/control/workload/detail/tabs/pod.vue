@@ -7,7 +7,10 @@
     :poll="{ interval: 8000 }"
   >
     <template slot-scope="{ data, loading }">
-      <el-descriptions title="Basic Information" :column="1" />
+      <el-descriptions
+        title="Basic Information"
+        :column="1"
+      />
       <el-table
         v-loading="loading"
         :data="data || []"
@@ -17,19 +20,19 @@
           prop="metadata.name"
           label="Metadata name"
           :show-overflow-tooltip="true"
-        ></el-table-column>
+        />
         <el-table-column
           prop="status.phase"
           label="Replica status"
           :show-overflow-tooltip="true"
           width="80"
-        ></el-table-column>
+        />
         <el-table-column
           prop="status.podIP"
           label="IP"
           :show-overflow-tooltip="true"
           width="100"
-        ></el-table-column>
+        />
         <el-table-column
           prop="status.hostIP"
           label="Node IP"
@@ -37,7 +40,10 @@
           width="100"
         >
           <template slot-scope="{ row }">
-            <el-link type="primary" @click="toNode(row)">
+            <el-link
+              type="primary"
+              @click="toNode(row)"
+            >
               {{ row.status.hostIP }}
             </el-link>
           </template>
@@ -47,7 +53,7 @@
           label="Number of restarts"
           :show-overflow-tooltip="true"
           width="100"
-        ></el-table-column>
+        />
         <el-table-column
           prop="creationTimestamp"
           label="Creation time"
@@ -64,19 +70,34 @@
           width="200"
         >
           <template slot-scope="{ row }">
-            <el-link type="primary" @click="viewYAML(row)" style="marginRight:10px">
+            <el-link
+              type="primary"
+              style="marginRight:10px"
+              @click="viewYAML(row)"
+            >
               Check the detail information
             </el-link>
-            <el-link type="primary" @click="toEvent(row)" style="marginRight:10px">
+            <el-link
+              type="primary"
+              style="marginRight:10px"
+              @click="toEvent(row)"
+            >
               View events
             </el-link>
-            <el-link type="primary" @click="deleteItem(row)" :disabled="isReview">
+            <el-link
+              type="primary"
+              :disabled="isReview"
+              @click="deleteItem(row)"
+            >
               Delete
             </el-link>
           </template>
         </el-table-column>
       </el-table>
-      <el-descriptions title="Container details" :column="1" />
+      <el-descriptions
+        title="Container details"
+        :column="1"
+      />
       <div style="marginBottom: 12px">
         <span style="margin-right: 8px; line-height: 32px;">Pod: </span>
         <el-select
@@ -104,7 +125,12 @@
           :show-overflow-tooltip="true"
         >
           <template slot-scope="{ row }">
-            <el-tooltip effect="dark" :content="getContainerText(row.type)" placement="top" popper-class="ncs-el-tooltip-popper">
+            <el-tooltip
+              effect="dark"
+              :content="getContainerText(row.type)"
+              placement="top"
+              popper-class="ncs-el-tooltip-popper"
+            >
               <u-icons
                 style="color: #508de8;"
                 :name="row.type | getContainerIcon"
@@ -145,10 +171,17 @@
           width="160"
         >
           <template slot-scope="{ row }">
-            <el-link type="primary" @click="$termModal.open('container', { cluster, namespace, pod: podName, container: row.containerName })" style="marginRight:10px">
+            <el-link
+              type="primary"
+              style="marginRight:10px"
+              @click="$termModal.open('container', { cluster, namespace, pod: podName, container: row.containerName })"
+            >
               Console
             </el-link>
-            <el-link type="primary" @click="toLog(row)">
+            <el-link
+              type="primary"
+              @click="toLog(row)"
+            >
               View log
             </el-link>
           </template>
@@ -205,7 +238,7 @@ export default {
         userRole: get('scope/userRole'),
         userResourcesPermission: get('scope/userResourcesPermission'),
         isReview() {
-            return !this.userResourcesPermission['pods'];
+            return !this.userResourcesPermission.pods;
         },
         podService() {
             return podService({

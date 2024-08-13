@@ -2,7 +2,7 @@
   <div>
     <dynamicBlock
       v-model="model"
-      :getDefaultItem="getDataTemplate"
+      :get-default-item="getDataTemplate"
       :columns="[
         {
           title: 'Exception CIDR',
@@ -11,7 +11,7 @@
       ]"
       :disabled="disabled"
     >
-      <template v-slot:cidr="{record, index}">
+      <template #cidr="{record, index}">
         <el-form-item
           label=""
           :prop="`${prefixProp}.${index}.cidr`"

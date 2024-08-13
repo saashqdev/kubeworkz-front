@@ -4,45 +4,52 @@
       title="External access settings"
       :visible.sync="show"
       width="640px"
-      @close="close"
       :close-on-click-modal="false"
+      @close="close"
     >
-      <el-form ref="form" :model="data">
-        <i v-if="loading" class="el-icon-loading" style="font-size: 24px"/>
+      <el-form
+        ref="form"
+        :model="data"
+      >
+        <i
+          v-if="loading"
+          class="el-icon-loading"
+          style="font-size: 24px"
+        />
         <el-form-item v-else>
           <dynamicBlock
             v-model="data"
-            :getDefaultItem="getDataTemplate"
-            :showDeleteBtn="false"
-            :showAddBtn="false"
+            :get-default-item="getDataTemplate"
+            :show-delete-btn="false"
+            :show-add-btn="false"
             :columns="[
-                {
-                    title: 'Service port',
-                    dataIndex: 'servicePort',
-                },
-                {
-                    title: 'Protocol',
-                    dataIndex: 'protocol',
-                },
-                {
-                    title: 'External service port',
-                    dataIndex: 'ex',
-                    width: '250px'
-                },
-                {
-                    title: 'Service port name',
-                    dataIndex: 'servicePortName',
-                },
+              {
+                title: 'Service port',
+                dataIndex: 'servicePort',
+              },
+              {
+                title: 'Protocol',
+                dataIndex: 'protocol',
+              },
+              {
+                title: 'External service port',
+                dataIndex: 'ex',
+                width: '250px'
+              },
+              {
+                title: 'Service port name',
+                dataIndex: 'servicePortName',
+              },
             ]"
           >
-            <template v-slot:ex="{record: dataModel, index: dataIndex}">
+            <template #ex="{record: dataModel, index: dataIndex}">
               <div style="display:flex;align-items:center">
                 <el-switch
                   v-model="dataModel.enable"
                   style="margin-right:8px"
                   @change="dataModel.ex = ''"
                 />
-                <el-form-item 
+                <el-form-item
                   label=""
                   :prop="`${dataIndex}.ex`"
                   :rules="[
@@ -62,8 +69,16 @@
         </el-form-item>
       </el-form>
       <div slot="footer">
-        <el-button @click="close">Cancel</el-button>
-        <el-button type="primary" @click="submit" :loading="submitLoading">OK</el-button>
+        <el-button @click="close">
+          Cancel
+        </el-button>
+        <el-button
+          type="primary"
+          :loading="submitLoading"
+          @click="submit"
+        >
+          OK
+        </el-button>
       </div>
     </el-dialog>
   </div>

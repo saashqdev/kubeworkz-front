@@ -1,24 +1,24 @@
 <template>
-    <el-select
-        v-if="list.length > 0"
-        filterable
-        placeholder="Please choose"
-        v-bind="$attrs"
-        v-model="model"
-    >
-        <el-option
-            v-for="item in list"
-            :key="item.value"
-            :label="item.text"
-            :value="item.value"
-            :title="item.text"
-        />
-    </el-select>
-    <el-input
-        v-else
-        placeholder="No namespace yet"
-        disabled
+  <el-select
+    v-if="list.length > 0"
+    v-model="model"
+    filterable
+    placeholder="Please choose"
+    v-bind="$attrs"
+  >
+    <el-option
+      v-for="item in list"
+      :key="item.value"
+      :label="item.text"
+      :value="item.value"
+      :title="item.text"
     />
+  </el-select>
+  <el-input
+    v-else
+    placeholder="No namespace yet"
+    disabled
+  />
 </template>
 
 <script>

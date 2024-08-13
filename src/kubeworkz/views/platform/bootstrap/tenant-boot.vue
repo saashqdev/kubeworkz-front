@@ -1,6 +1,11 @@
 <template>
   <div>
-    <el-form ref="form" :model="model" label-position="right" label-width="120px">
+    <el-form
+      ref="form"
+      :model="model"
+      label-position="right"
+      label-width="120px"
+    >
       <el-form-item
         label="Tenant name"
         prop="model.spec.displayName"
@@ -53,7 +58,13 @@
         </x-request>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submit" :loading="submitLoading">Create</el-button>
+        <el-button
+          type="primary"
+          :loading="submitLoading"
+          @click="submit"
+        >
+          Create
+        </el-button>
       </el-form-item>
     </el-form>
     <!-- <validation-observer
@@ -212,8 +223,8 @@ export default {
                     {},
                     'tenant-admin');
                 await retryAsync(() => userService.createRoleBindings({
-                  data,
-              }), 3000, 3);
+                    data,
+                }), 3000, 3);
 
                 this.$toast.success('Created successfully');
                 this.$emit('next', tabs => {

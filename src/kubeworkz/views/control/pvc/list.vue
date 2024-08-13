@@ -4,14 +4,28 @@
       <el-button
         type="primary"
         :disabled="isReview"
-        @click="toCreate"
         icon="el-icon-plus"
+        @click="toCreate"
       >
         Create a storage claim
       </el-button>
-      <el-button :disabled="!currentDelPvc || isReview" @click="deleteBatch">Batch deletion</el-button>
-      <el-button @click="refresh" square icon="el-icon-refresh-right"></el-button>
-      <inputSearch v-model="filterName" placeholder="Please enter name to search" position="right" @search="onSearch"/>
+      <el-button
+        :disabled="!currentDelPvc || isReview"
+        @click="deleteBatch"
+      >
+        Batch deletion
+      </el-button>
+      <el-button
+        square
+        icon="el-icon-refresh-right"
+        @click="refresh"
+      />
+      <inputSearch
+        v-model="filterName"
+        placeholder="Please enter name to search"
+        position="right"
+        @search="onSearch"
+      />
     </el-row>
     <el-row>
       <x-request
@@ -22,19 +36,19 @@
       >
         <template slot-scope="{ data, loading }">
           <el-table
-            :class="$style.table"
+            ref="multipleTable"
             v-loading="loading"
+            :class="$style.table"
             :data="data ? data.list : []"
             style="width: 100%"
             border
             @sort-change="tableSortChange"
             @selection-change="selectionChange"
-            ref="multipleTable"
           >
             <el-table-column
               type="selection"
-              width="38">
-            </el-table-column>
+              width="38"
+            />
             <el-table-column
               prop="metadata.name"
               label="Name"
@@ -42,8 +56,11 @@
               sortable
             >
               <template slot-scope="{ row }">
-                <el-link type="primary" :to="{ path: `/control/${workload}/${row.metadata.name}`, query: $route.query }">
-                  {{row.metadata.name}}
+                <el-link
+                  type="primary"
+                  :to="{ path: `/control/${workload}/${row.metadata.name}`, query: $route.query }"
+                >
+                  {{ row.metadata.name }}
                 </el-link>
               </template>
             </el-table-column>
@@ -52,7 +69,7 @@
               label="State"
               :show-overflow-tooltip="true"
               width="80"
-            ></el-table-column>
+            />
             <el-table-column
               prop="spec.volumeName"
               label="Persistent storage"
@@ -107,7 +124,7 @@
               prop="mountBy"
               label="Mount By"
               :show-overflow-tooltip="true"
-            ></el-table-column>
+            />
             <el-table-column
               prop="action"
               label="Action"
@@ -115,25 +132,43 @@
             >
               <template slot-scope="{ row }">
                 <qz-link-group max="3">
-                  <el-link type="primary" @click="editItem(row)" :disabled="isReview || row.status.phase !== 'Bound'">Set up</el-link>
-                  <el-link type="primary" @click="deleteItem(row)" :disabled="isReview">Delete</el-link>
-                  <el-link type="primary" @click="editYAML(row)" :disabled="isReview || row.status.phase !== 'Bound'">YAML settings</el-link>
+                  <el-link
+                    type="primary"
+                    :disabled="isReview || row.status.phase !== 'Bound'"
+                    @click="editItem(row)"
+                  >
+                    Set up
+                  </el-link>
+                  <el-link
+                    type="primary"
+                    :disabled="isReview"
+                    @click="deleteItem(row)"
+                  >
+                    Delete
+                  </el-link>
+                  <el-link
+                    type="primary"
+                    :disabled="isReview || row.status.phase !== 'Bound'"
+                    @click="editYAML(row)"
+                  >
+                    YAML settings
+                  </el-link>
                 </qz-link-group>
               </template>
             </el-table-column>
           </el-table>
           <el-pagination
-              style="float:right;margin-top:12px"
-              v-if="data && calculatePages(data.total) > 0"
-              @size-change="pageSizeChange"
-              @current-change="pageNumChange"
-              :current-page="pagenation.pageNum"
-              :page-sizes="[10, 20, 30, 40, 50, 100]"
-              :page-size="pagenation.pageSize"
-              layout="total, sizes, prev, pager, next"
-              :total="data.total"
-              background
-            />
+            v-if="data && calculatePages(data.total) > 0"
+            style="float:right;margin-top:12px"
+            :current-page="pagenation.pageNum"
+            :page-sizes="[10, 20, 30, 40, 50, 100]"
+            :page-size="pagenation.pageSize"
+            layout="total, sizes, prev, pager, next"
+            :total="data.total"
+            background
+            @size-change="pageSizeChange"
+            @current-change="pageNumChange"
+          />
         </template>
       </x-request>
     </el-row>
@@ -144,29 +179,38 @@
     <el-dialog
       title="Delete storage claim"
       :visible.sync="showDelCheck"
-      @close="handleClose"
       :close-on-click-modal="false"
+      @close="handleClose"
     >
       <el-form
         label-width="120px"
       >
         <el-form-item label="Store claim name">
           <div style="word-break:break-all">
-              {{currentDelPvc}}
+            {{ currentDelPvc }}
           </div>
         </el-form-item>
         <el-form-item label="Text confirmation">
           <el-input
+            v-model="userInputPvc"
             type="textarea"
             :autosize="{ minRows: 3 }"
             placeholder="Please fill in the text above for secondary confirmation"
-            v-model="userInputPvc"
           />
         </el-form-item>
       </el-form>
       <div slot="footer">
-        <el-button @click="handleClose">Cancel</el-button>
-        <el-button type="primary" @click="handleDelete" :loading="delLoading" :disabled="userInputPvc !== currentDelPvc">OK</el-button>
+        <el-button @click="handleClose">
+          Cancel
+        </el-button>
+        <el-button
+          type="primary"
+          :loading="delLoading"
+          :disabled="userInputPvc !== currentDelPvc"
+          @click="handleDelete"
+        >
+          OK
+        </el-button>
       </div>
     </el-dialog>
   </el-row>
@@ -215,7 +259,7 @@ export default {
         cluster: get('scope/cluster@value'),
         userResourcesPermission: get('scope/userResourcesPermission'),
         isReview() {
-            return !this.userResourcesPermission['persistentvolumeclaims'];
+            return !this.userResourcesPermission.persistentvolumeclaims;
         },
         service() {
             return workloadExtendService.getWorkloads;

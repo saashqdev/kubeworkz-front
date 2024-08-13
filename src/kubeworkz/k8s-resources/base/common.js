@@ -5,7 +5,7 @@ import {
     toPlainObject as toMetadataPlainObject,
     toK8SObject as toMetadataK8SObject,
     toPatchObject as toPatchMetadataObject,
-    toModifyObject as toModifyMetadataK8SObject
+    toModifyObject as toModifyMetadataK8SObject,
 } from '../metadata';
 
 export function toPlainObject(model) {

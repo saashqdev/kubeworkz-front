@@ -25,8 +25,17 @@
       </el-form-item>
     </el-form>
     <div slot="footer">
-      <el-button @click="close">Cancel</el-button>
-      <el-button :disabled="!canSubmit" type="primary" @click="submit" :loading="submitLoading">OK</el-button>
+      <el-button @click="close">
+        Cancel
+      </el-button>
+      <el-button
+        :disabled="!canSubmit"
+        type="primary"
+        :loading="submitLoading"
+        @click="submit"
+      >
+        OK
+      </el-button>
     </div>
   </el-dialog>
 </template>

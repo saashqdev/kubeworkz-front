@@ -12,7 +12,12 @@
         :params="params"
         :processor="resolver"
       >
-        <el-form ref="form" :model="model" label-position="right" label-width="120px">
+        <el-form
+          ref="form"
+          :model="model"
+          label-position="right"
+          label-width="120px"
+        >
           <el-form-item label="Cluster name">
             {{ item.clusterDisplayName }}
           </el-form-item>
@@ -35,15 +40,26 @@
               validators.numberBetween(0),
             ]"
           >
-            <el-input v-model="model.spec.hard['requestsStorage']" style="width: 300px"/>
+            <el-input
+              v-model="model.spec.hard['requestsStorage']"
+              style="width: 300px"
+            />
             <span style="line-height:32px;margin-left:8px">GiB</span>
           </el-form-item>
         </el-form>
       </x-request>
     </template>
     <div slot="footer">
-      <el-button @click="show = false">Cancel</el-button>
-      <el-button type="primary" @click="submit" :loading="submitLoading">OK</el-button>
+      <el-button @click="show = false">
+        Cancel
+      </el-button>
+      <el-button
+        type="primary"
+        :loading="submitLoading"
+        @click="submit"
+      >
+        OK
+      </el-button>
     </div>
   </el-dialog>
 </template>

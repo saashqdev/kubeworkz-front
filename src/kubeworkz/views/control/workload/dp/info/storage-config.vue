@@ -15,17 +15,21 @@
         :processor="storageResolver"
       >
         <template slot-scope="{ data, loading }">
-          <i v-if="loading" class="el-icon-loading" style="font-size:24px"/>
+          <i
+            v-if="loading"
+            class="el-icon-loading"
+            style="font-size:24px"
+          />
           <template v-else>
             <dynamicCard
               v-model="model.templates"
-              validateFile="spec.volumeClaimTemplates.templates"
-              :getDefaultItem="getDataTemplate"
-              :initialAdd="true"
-              :minCount="1"
-              addButtonText="Add declaration template"
+              validate-file="spec.volumeClaimTemplates.templates"
+              :get-default-item="getDataTemplate"
+              :initial-add="true"
+              :min-count="1"
+              add-button-text="Add declaration template"
               :disabled="isEdit"
-              :miniFormatter="(item, index) => {
+              :mini-formatter="(item, index) => {
                 return `Configuration - ${index + 1}`
               }"
             >
@@ -46,8 +50,8 @@
                       v-for="optionItem in data"
                       :key="optionItem.value"
                       :label="optionItem.text"
-                      :value="optionItem.value">
-                    </el-option>
+                      :value="optionItem.value"
+                    />
                   </el-select>
                 </el-form-item>
                 <el-form-item
@@ -59,13 +63,23 @@
                   ]"
                   style="margin-bottom: 22px;"
                 >
-                  <el-input v-model="item.name" :disabled="isEdit" placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"/>
+                  <el-input
+                    v-model="item.name"
+                    :disabled="isEdit"
+                    placeholder="1-63 lowercase letters, numbers, or underscores, starting with a letter and ending with a letter or number"
+                  />
                 </el-form-item>
                 <el-form-item
                   label="Capacity"
                   style="margin-bottom: 22px;"
                 >
-                  <el-input-number v-model="item.storage" :min="1" controls-position="right" style="width: 300px;" :disabled="isEdit"/>
+                  <el-input-number
+                    v-model="item.storage"
+                    :min="1"
+                    controls-position="right"
+                    style="width: 300px;"
+                    :disabled="isEdit"
+                  />
                   <span style="margin-left:8px">GiB</span>
                 </el-form-item>
                 <el-form-item
@@ -80,8 +94,8 @@
                       v-for="optionItem in PVC_MODES"
                       :key="optionItem.value"
                       :label="optionItem.text"
-                      :value="optionItem.value">
-                    </el-option>
+                      :value="optionItem.value"
+                    />
                   </el-select>
                 </el-form-item>
               </template>
