@@ -30,6 +30,7 @@
         "no-lone-blocks": "off",
         "no-empty": "off",
         "no-sequences": "off",
-        "array-callback-return": "off"
+        "array-callback-return": "off",
+        "no-self-assign": "off"
     }
 }
