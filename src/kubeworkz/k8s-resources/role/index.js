@@ -8,7 +8,7 @@ import {
     RESOURCE_AUTH_MAP,
     RESOURCE_RIGHTS,
     RESOURCE_CONVERT_AUTH_MAP,
-} from 'kubeworkz/utils/constance';
+} from 'kubeworkz/utils/constants';
 const resource_mapping = {};
 function resolveRules(rules, ruleTemplate) {
     const isTemplate = typeof ruleTemplate === 'boolean' && ruleTemplate;

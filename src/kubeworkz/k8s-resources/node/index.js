@@ -2,7 +2,7 @@ import {
     toPlainObject as toCommonPlainObject,
 } from '../base/common';
 import { getFromModel } from '../base/utils';
-import { NODE_STATUS_MAP } from 'kubeworkz/utils/constance';
+import { NODE_STATUS_MAP } from 'kubeworkz/utils/constants';
 
 export function toPlainObject(model) {
     const g = getFromModel(model);
@@ -10,12 +10,12 @@ export function toPlainObject(model) {
         toSpecPlainObject() {
             const labels = g('metadata.labels') || {};
             // const type = labels['system/tenant'] === 'kubeworkz.share' ? labels['system/tenant'] : labels['system/status'];
-            /*
-                “Share": "node.kubeworkz.io/status"="assigned" and "node.kubeworkz.io/tenant"="share" exist in the tag"
-                “Exclusive”:
-                ​		"node.kubeworkz.io/status"="unassigned" exists in the label
-                ​		"node.kubeworkz.io/status"="assigned" exists in the label and the value of "node.kubeworkz.io/tenant" is not equal to "share"
-             */
+            //
+            //    "Share": "node.kubeworkz.io/status"="assigned" and "node.kubeworkz.io/tenant"="share" exist in the tag"
+            //    "Exclusive":
+            //     		"node.kubeworkz.io/status"="unassigned" exists in the label
+            //     		"node.kubeworkz.io/status"="assigned" exists in the label and the value of "node.kubeworkz.io/tenant" is not equal to "share"
+            //
             let type = '-';
             if (labels['node.kubeworkz.io/status'] === 'assigned' && labels['node.kubeworkz.io/tenant'] === 'share') {
                 type = 'shared';

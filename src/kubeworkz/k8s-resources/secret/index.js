@@ -12,7 +12,7 @@ import {
 import { getFromModel } from '../base/utils';
 import {
     SECRET_TYPES_ENUM,
-} from 'kubeworkz/utils/constance';
+} from 'kubeworkz/utils/constants';
 
 function decodeDockerJSON(data) {
     const { auths } = JSON.parse(decode(data['.dockerconfigjson']));

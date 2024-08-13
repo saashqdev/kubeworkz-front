@@ -9,7 +9,7 @@ import {
     toObjectArray,
     KVtoObject,
 } from './base';
-import { ignoredKeys } from 'kubeworkz/utils/constance';
+import { ignoredKeys } from 'kubeworkz/utils/constants';
 
 export const toPlainObject = (model, mode = 'normal') => {
     const g = getFromModel(model);
@@ -21,7 +21,7 @@ export const toPlainObject = (model, mode = 'normal') => {
         labels: toObjectArray(g('metadata.labels', {}), 'key', 'value').map(i => ({ // label
             ...i,
             disabled: ignoredKeys.some(k => i.key.startsWith(k)),
-        })).sort((a, b) => (a.disabled ? -1 : 1)),
+        })).sort(a => (a.disabled ? -1 : 1)),
         pureLabels: g('metadata.labels', {}), // original tag
         resourceVersion: g('metadata.resourceVersion'), // Resource version
         creationTimestamp: g('metadata.creationTimestamp'), // creation time

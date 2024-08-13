@@ -1,4 +1,4 @@
-import { ignoredKeys } from 'kubeworkz/utils/constance';
+import { ignoredKeys } from 'kubeworkz/utils/constants';
 import cronValidate from 'node-cron/src/pattern-validation';
 import YAML from 'yaml';
 export const k8sResourceNameValidator = () => {
@@ -267,12 +267,12 @@ export const lengthBetween = (min = -Infinity, max = Infinity, required) => {
 export const consistofUnicode = required => {
     return {
         trigger: [ 'blur', 'change' ],
-        validator(rule, value, callback) {
+        validator(value, callback) {
             if (!required && !value) {
                 return callback();
             }
             const message = 'Contains only unicode';
-            if (!/^[\x00-\x7F]*$/.test(value || '')) {
+            if (!/^[\\x00-\\x7F]*$/.test(value || '')) {
                 callback(new Error(message));
             } else {
                 callback();

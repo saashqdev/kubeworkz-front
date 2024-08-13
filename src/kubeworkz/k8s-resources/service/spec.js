@@ -2,7 +2,7 @@ import { pickBy, isObjectLike, zipObjectDeep, toNumber, omit } from 'lodash';
 import { getFromModel, toObjectArray, KVtoObject } from '../base/utils';
 import {
     SERVICE_LOAD_BALANCER_IP_TYPE_MAP,
-} from 'kubeworkz/utils/constance';
+} from 'kubeworkz/utils/constants';
 
 export const toPlainObject = model => {
     const g = getFromModel(model);

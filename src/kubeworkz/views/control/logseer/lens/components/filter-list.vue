@@ -172,10 +172,10 @@ export default {
     width: 24px;
     height: 24px;
     text-align: center;
-    background: url(./assets/ic_删除@2x.png) center center/24px 24px no-repeat;
+    background: url(./assets/ic_delete@2x.png) center center/24px 24px no-repeat;
 }
 .clear:hover::after {
-    background-image: url(./assets/ic_删除_hover@2x.png);
+    background-image: url(./assets/ic_delete_hover@2x.png);
 }
 .upIcon::before {
     icon-font: url(@micro-app/common/assets/icons/svg/angle-up.svg);

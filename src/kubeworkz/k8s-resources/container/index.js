@@ -13,7 +13,7 @@ import {
     omit,
 } from 'lodash';
 import { unitConvert } from 'kubeworkz/utils/functional';
-import { RESOURCE_REQUEST_MAP } from 'kubeworkz/utils/constance';
+import { RESOURCE_REQUEST_MAP } from 'kubeworkz/utils/constants';
 import store from 'kubeworkz/store';
 import {
     toPlainObject as toStatusPlainObject,
@@ -248,7 +248,7 @@ const refactResouce = resourceModel => { // Container resource configuration pro
     const gpu = toNumber(resourceModel.gpu); // TODO extend other gpu types
     const multiple = toNumber(resourceModel.multiple);
     return {
-        limits: { cpu: `${cpu * multiple * 1000}m`, memory: `${memory * multiple}Mi`, "nvidia.com/gpu": gpu },
+        limits: { cpu: `${cpu * multiple * 1000}m`, memory: `${memory * multiple}Mi`, 'nvidia.com/gpu': gpu },
         requests: { cpu: `${cpu * 1000}m`, memory: `${memory}Mi` },
     };
 };
@@ -380,7 +380,7 @@ const refactVolumes = (
     pvc.filter(p => p.mountPath && p.resource).forEach(p => {
         const exsit = podVolumesYaml.persistentVolumeClaim.find(pvc => pvc.persistentVolumeClaim.claimName === p.resource);
         const name = exsit ? exsit.name : getVolumeName();
-        if(!exsit) {
+        if (!exsit) {
             podVolumesYaml.persistentVolumeClaim.push({
                 name,
                 persistentVolumeClaim: {
@@ -564,13 +564,13 @@ export const resolveContainer = (c, type, volumes, workload) => { // Container h
     const container = {
         type, // Type
         containerName: cg('name'), // Container name
-        args: cg('args', []).join('\n'), // 
+        args: cg('args', []).join('\n'), //
         command: cg('command', []).join('\n'),
         env: resolveEnv(cg('env', [])), // Container environment variables
         image: cg('image'), // Container image
         imagePullPolicy: cg('imagePullPolicy'), // Image pull strategy
         // log: resolveLogs(cg('volumeMounts', [])),
-        probe: {  // Probe
+        probe: { // Probe
             postStart: resolveLifeCycle(cg('lifecycle.postStart')),
             preStop: resolveLifeCycle(cg('lifecycle.preStop')),
             liveness: resolveProbe(cg('livenessProbe', null)),
@@ -622,8 +622,10 @@ export const refactContainer = (c, podVolumes, podVolumesYaml, cIndex) => {
         'volumeMounts',
     ], [
         cg('containerName'), // Container name
-        cg('args').split('\n').filter(i => i).map(i => i.replaceAll('\r', '')), // Start command parameters
-        cg('command').split('\n').filter(i => i).map(i => i.replaceAll('\r', '')), // Start command
+        cg('args').split('\n').filter(i => i)
+            .map(i => i.replaceAll('\r', '')), // Start command parameters
+        cg('command').split('\n').filter(i => i)
+            .map(i => i.replaceAll('\r', '')), // Start command
         refactEnv(cg('env')), // Environment variables
         cg('image'), // Mirror
         cg('imagePullPolicy'), // Image pull strategy
@@ -633,7 +635,7 @@ export const refactContainer = (c, podVolumes, podVolumesYaml, cIndex) => {
         refactProbe(cg('probe.readiness')), // Readiness probe
         refactPorts(cg('ports')), // Port
         refactResouce(cg('resources')), // Resource allocation
-        // refactVolumes(cg('volumes'), cg('containerName'), podVolumes, podVolumesYaml),  
+        // refactVolumes(cg('volumes'), cg('containerName'), podVolumes, podVolumesYaml),
         refactVolumes(cg('volumes'), cIndex, podVolumes, podVolumesYaml), // If the container name and process name are too long, there will be problems with mounting. Use index instead // data volume.
     ]);
     // const logVolumns = refactLogs(cg('log', []), cg('containerName'), podVolumesYaml);
@@ -660,8 +662,8 @@ export const toK8SObject = model => {
             containers.push(refactContainer(c, podVolumes, podVolumesYaml, cIndex));
         }
         if (c.type === 'init') {
-            let temp = refactContainer(c, podVolumes, podVolumesYaml, cIndex)
-            temp = omit(temp, [ 'lifecycle', 'livenessProbe', 'readinessProbe' ])
+            let temp = refactContainer(c, podVolumes, podVolumesYaml, cIndex);
+            temp = omit(temp, [ 'lifecycle', 'livenessProbe', 'readinessProbe' ]);
             initContainers.push(temp);
         }
     });

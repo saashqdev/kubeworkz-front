@@ -3,7 +3,7 @@ import {
 } from 'vee-validate';
 import { required } from 'vee-validate/dist/rules';
 import isValidGlob from 'is-valid-glob';
-import { ignoredKeys } from 'kubeworkz/utils/constance';
+import { ignoredKeys } from 'kubeworkz/utils/constants';
 import cronValidate from 'node-cron/src/pattern-validation';
 import yamljs from 'yamljs';
 

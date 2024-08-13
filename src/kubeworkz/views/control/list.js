@@ -4,8 +4,8 @@ import serviceList from './service/list.vue';
 import pvcList from './pvc/list.vue';
 import configList from './config/list.vue';
 import logconfigList from './logseer/list.vue';
-import alarmManagerConfigList from 'kubeworkz/views/control/observable/alarm-manager-config/list.vue';
-import alarmRuleSpecList from 'kubeworkz/views/control/observable/promethus-rule-spec/list.vue';
+import alertManagerConfigList from 'kubeworkz/views/control/observable/alert-manager-config/list.vue';
+import alertRuleSpecList from 'kubeworkz/views/control/observable/promethus-rule-spec/list.vue';
 export default {
     computed: {
         workload() {
@@ -27,9 +27,9 @@ export default {
             case 'logconfigs':
                 return c(logconfigList);
             case 'AlertmanagerConfig':
-                return c(alarmManagerConfigList);
+                return c(alertManagerConfigList);
             case 'PrometheusRule':
-                return c(alarmRuleSpecList);
+                return c(alertRuleSpecList);
             default:
                 return c(dpList);
         }
