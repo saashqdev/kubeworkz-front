@@ -131,7 +131,7 @@ import {
     toK8SObject as toPrometheusRuleK8SObject,
     patchK8SObject as toPatchPrometheusRuleObject,
 } from 'kubeworkz/k8s-resources/prometheusRule';
-import alarmExtendSetting from './alarm-extend-setting';
+import alertExtendSetting from './alert-extend-setting';
 import {
     setValueIfListNotPresent,
 } from 'kubeworkz/utils/functional';
@@ -142,7 +142,7 @@ import {
 
 export default {
     components: {
-        alarmExtendSetting,
+        alertExtendSetting,
     },
     props: {
         instance: Object,

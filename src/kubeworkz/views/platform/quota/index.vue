@@ -124,7 +124,7 @@
 <script>
 import { get as getFunc } from 'lodash';
 import clusterService from 'kubeworkz/services/cluster';
-import PageMixin from 'kubeworkz/mixins/pagenation';
+import PageMixin from 'kubeworkz/mixins/pagination';
 import quotaDialog from './quota-dialog.vue';
 import { unitConvertMemory, unitConvertCPU } from 'kubeworkz/utils/functional';
 import scopeService from 'kubeworkz/services/scope';

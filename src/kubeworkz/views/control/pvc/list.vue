@@ -160,9 +160,9 @@
           <el-pagination
             v-if="data && calculatePages(data.total) > 0"
             style="float:right;margin-top:12px"
-            :current-page="pagenation.pageNum"
+            :current-page="pagination.pageNum"
             :page-sizes="[10, 20, 30, 40, 50, 100]"
-            :page-size="pagenation.pageSize"
+            :page-size="pagination.pageSize"
             layout="total, sizes, prev, pager, next"
             :total="data.total"
             background
@@ -221,7 +221,7 @@ import { pickBy, get as getFun } from 'lodash';
 import { get } from 'vuex-pathify';
 import workloadService from 'kubeworkz/services/k8s-resource';
 import workloadExtendService from 'kubeworkz/services/k8s-extend-resource';
-import PageMixin from 'kubeworkz/mixins/pagenation';
+import PageMixin from 'kubeworkz/mixins/pagination';
 import { toPlainObject as toPVCPlainObject } from 'kubeworkz/k8s-resources/persistentvolumeclaim';
 import {
     PVC_MODE_TEXT_MAP,
@@ -297,7 +297,7 @@ export default {
                     resource: 'pvc',
                 },
                 params: {
-                    ...pickBy(this.pagenation, i => !!i), // has to be this
+                    ...pickBy(this.pagination, i => !!i), // has to be this
                 },
             };
         },
@@ -315,8 +315,8 @@ export default {
     },
     methods: {
         resolver(response) {
-            if ((response.items || []).length === 0 && response.total > 0 && this.pagenation.pageNum > 1) {
-                this.pagenation.pageNum = this.pagenation.pageNum - 1;
+            if ((response.items || []).length === 0 && response.total > 0 && this.pagination.pageNum > 1) {
+                this.pagination.pageNum = this.pagination.pageNum - 1;
             }
             const list = (response.items || []).map(this.toPlainObject);
             list.forEach(item => {
@@ -334,16 +334,16 @@ export default {
             this.$refs.request.request();
         },
         onSort({ order, name }) {
-            this.pagenation.sortOrder = order;
-            this.pagenation.sortName = `${name}`;
-            this.pagenation.sortFunc = name === 'creationTimestamp' ? 'time' : 'string';
+            this.pagination.sortOrder = order;
+            this.pagination.sortName = `${name}`;
+            this.pagination.sortFunc = name === 'creationTimestamp' ? 'time' : 'string';
         },
         onSearch(content) {
             const temp = content ? `metadata.name~${content}` : undefined;
-            if (this.pagenation.selector === temp) {
+            if (this.pagination.selector === temp) {
                 this.refresh();
             }
-            this.pagenation.selector = temp;
+            this.pagination.selector = temp;
         },
         toCreate() {
             this.$refs.pvc.open();

@@ -138,9 +138,9 @@
         <el-pagination
           v-if="data && calculatePages(data.total) > 0"
           style="float:right;margin-top:12px"
-          :current-page="pagenation.pageNum"
+          :current-page="pagination.pageNum"
           :page-sizes="[100]"
-          :page-size="pagenation.pageSize"
+          :page-size="pagination.pageSize"
           layout="total, sizes, prev, pager, next"
           :total="data.total"
           background
@@ -192,7 +192,7 @@ import workloadService from 'kubeworkz/services/k8s-resource';
 import domainSuffixDialog from './dialogs/domainSuffix.vue';
 import { unitConvertMemory, unitConvertCPU } from 'kubeworkz/utils/functional';
 import { get } from 'vuex-pathify';
-import { pagenationMixin } from 'kubeworkz/mixins';
+import { paginationMixin } from 'kubeworkz/mixins';
 // import {
 //     toPlainObject
 // } from 'kubeworkz/k8s-resources/scope/cluster';
@@ -226,7 +226,7 @@ export default {
         clusterDialog,
         domainSuffixDialog,
     },
-    mixins: [ pagenationMixin ],
+    mixins: [ paginationMixin ],
     data() {
         return {
             service: clusterService.getClusters,
@@ -249,7 +249,7 @@ export default {
         requestParam() {
             return {
                 params: {
-                    ...this.pagenation, // has to be this
+                    ...this.pagination, // has to be this
                 },
             };
         },

@@ -58,7 +58,7 @@
             </u-linear-layout>
           </template>
           <template #noData>
-            <template v-if="pagenation.selector">
+            <template v-if="pagination.selector">
               If no relevant content is found, you can adjust the keywords and search again.
             </template>
             <template v-else>
@@ -100,7 +100,7 @@
         <u-page
           v-if="data && calculatePages(data.total) > 1"
           :count="data.total"
-          :page-size="pagenation.pageSize"
+          :page-size="pagination.pageSize"
           :total="calculatePages(data.total)"
           @select="selectPage"
         />
@@ -112,7 +112,7 @@
 <script>
 import { omit, get as getFunc } from 'lodash';
 import { get } from 'vuex-pathify';
-import PageMixin from 'kubeworkz/mixins/pagenation';
+import PageMixin from 'kubeworkz/mixins/pagination';
 import workloadService from 'kubeworkz/services/k8s-resource';
 import clusterSelector from '../namespace/cluster-select.vue';
 import monitorService from 'kubeworkz/services/monitor';
@@ -200,7 +200,7 @@ export default {
                     ...RESOURCE,
                 },
                 params: {
-                    ...this.pagenation, // has to be this
+                    ...this.pagination, // has to be this
                 },
             };
         },

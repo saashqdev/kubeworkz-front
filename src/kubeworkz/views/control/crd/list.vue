@@ -48,9 +48,9 @@
         <el-pagination
           v-if="data && calculatePages(data.total) > 0"
           style="float:right;margin-top:12px"
-          :current-page="pagenation.pageNum"
+          :current-page="pagination.pageNum"
           :page-sizes="[10, 20, 30, 40, 50, 100]"
-          :page-size="pagenation.pageSize"
+          :page-size="pagination.pageSize"
           layout="total, sizes, prev, pager, next"
           :total="data.total"
           background
@@ -78,7 +78,7 @@
             </u-link>
           </template>
           <template #noData>
-            <template v-if="pagenation.selector">
+            <template v-if="pagination.selector">
               If no relevant content is found, you can adjust the keywords and search again.
             </template>
             <template v-else>
@@ -94,9 +94,9 @@
         </kube-table>
         <u-page
           v-if="data && calculatePages(data.total) > 0"
-          :page="pagenation.pageNum"
+          :page="pagination.pageNum"
           :count="data.total"
-          :page-size="pagenation.pageSize"
+          :page-size="pagination.pageSize"
           :total="calculatePages(data.total)"
           @select="selectPage"
         /> -->
@@ -109,7 +109,7 @@
 import { get as getFunc } from 'lodash';
 import workloadService from 'kubeworkz/services/k8s-resource';
 import { get } from 'vuex-pathify';
-import PageMixin from 'kubeworkz/mixins/pagenation';
+import PageMixin from 'kubeworkz/mixins/pagination';
 import {
     toPlainObject as toCRDPlainObject,
 } from 'kubeworkz/k8s-resources/crd';
@@ -140,7 +140,7 @@ export default {
                     cluster: this.cluster,
                 },
                 params: {
-                    ...this.pagenation,
+                    ...this.pagination,
                     selector: `${this.selector},spec.scope=${this.level}`,
                 },
             };
@@ -154,7 +154,7 @@ export default {
             this.$refs.request.request();
         },
         level() {
-            Object.assign(this.pagenation, {
+            Object.assign(this.pagination, {
                 pageNum: 1,
                 pageSize: 10,
                 sortOrder: 'asc',
@@ -172,9 +172,9 @@ export default {
             };
         },
         onSort({ order, name }) {
-            this.pagenation.sortOrder = order;
-            this.pagenation.sortName = name;
-            this.pagenation.sortFunc = name === 'creationTimestamp' ? 'time' : 'string';
+            this.pagination.sortOrder = order;
+            this.pagination.sortName = name;
+            this.pagination.sortFunc = name === 'creationTimestamp' ? 'time' : 'string';
         },
         refresh() {
             this.$refs.request.request();

@@ -44,7 +44,7 @@
 ## Features
 
 ### Platform management
-- Support tenant, project and member pagenation
+- Support tenant, project and member pagination
 - Disable delete pivot-cluster, change node appending link
 ### Resource management
 - Query monitor variables with timing

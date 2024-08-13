@@ -1,4 +1,4 @@
 import validators from './validators';
-import pagenation from './pagenation';
-export const pagenationMixin = pagenation;
+import pagination from './pagination';
+export const paginationMixin = pagination;
 export const validatorsMixin = validators;

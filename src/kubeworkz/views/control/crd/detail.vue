@@ -72,7 +72,7 @@
                 version: version,
                 plural: data.names.plural,
               },
-              params: pagenation
+              params: pagination
             }"
             :processor="crResolver"
           >
@@ -123,9 +123,9 @@
               <el-pagination
                 v-if="crData && calculatePages(crData.total) > 0"
                 style="float:right;margin-top:12px"
-                :current-page="pagenation.pageNum"
+                :current-page="pagination.pageNum"
                 :page-sizes="[10, 20, 30, 40, 50, 100]"
-                :page-size="pagenation.pageSize"
+                :page-size="pagination.pageSize"
                 layout="total, sizes, prev, pager, next"
                 :total="crData.total"
                 background
@@ -143,7 +143,7 @@
 <script>
 import workloadService from 'kubeworkz/services/k8s-resource';
 import { get } from 'vuex-pathify';
-import PageMixin from 'kubeworkz/mixins/pagenation';
+import PageMixin from 'kubeworkz/mixins/pagination';
 import {
     toPlainObject as toCRDPlainObject,
 } from 'kubeworkz/k8s-resources/crd';
@@ -184,7 +184,7 @@ export default {
                     cluster: this.cluster,
                 },
                 params: {
-                    ...this.pagenation,
+                    ...this.pagination,
                     selector: `${this.selector},spec.scope=${this.level}`,
                 },
             };

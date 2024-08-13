@@ -105,9 +105,9 @@
         <el-pagination
           v-if="data && calculatePages(data.total) > 0"
           style="float:right;margin-top:12px"
-          :current-page="pagenation.pageNum"
+          :current-page="pagination.pageNum"
           :page-sizes="[10, 20, 30, 40, 50, 100]"
-          :page-size="pagenation.pageSize"
+          :page-size="pagination.pageSize"
           layout="total, sizes, prev, pager, next"
           :total="data.total"
           background
@@ -124,7 +124,7 @@ import { pickBy, flatten } from 'lodash';
 import { get } from 'vuex-pathify';
 import workloadService from 'kubeworkz/services/k8s-resource';
 import logseerService from 'kubeworkz/services/logseer';
-import PageMixin from 'kubeworkz/mixins/pagenation';
+import PageMixin from 'kubeworkz/mixins/pagination';
 import {
     PVC_MODE_TEXT_MAP,
 } from 'kubeworkz';
@@ -192,10 +192,10 @@ export default {
                 params: {
                     cluster: this.cluster,
                     namespace: this.namespace,
-                    limit: this.pagenation.pageSize,
-                    offset: (this.pagenation.pageNum - 1) * this.pagenation.pageSize,
-                    sortby: this.pagenation.sortName,
-                    asc: this.pagenation.sortOrder === 'asc',
+                    limit: this.pagination.pageSize,
+                    offset: (this.pagination.pageNum - 1) * this.pagination.pageSize,
+                    sortby: this.pagination.sortName,
+                    asc: this.pagination.sortOrder === 'asc',
                     filterby: 'name',
                     filtervalue: this.filtervalue,
                 },
@@ -231,9 +231,9 @@ export default {
             this.$refs.request.request();
         },
         onSort({ order, name }) {
-            this.pagenation.sortOrder = order;
-            this.pagenation.sortName = `${name}`;
-            this.pagenation.sortFunc = name === 'creationTimestamp' ? 'time' : 'string';
+            this.pagination.sortOrder = order;
+            this.pagination.sortName = `${name}`;
+            this.pagination.sortFunc = name === 'creationTimestamp' ? 'time' : 'string';
         },
         onSearch(content) {
             this.filtervalue = content;

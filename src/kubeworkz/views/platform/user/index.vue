@@ -65,7 +65,7 @@
           <u-page
             v-if="data && calculatePages(data.total) > 1"
             :count="data.total"
-            :page-size="pagenation.pageSize"
+            :page-size="pagination.pageSize"
             :total="calculatePages(data.total)"
             @select="selectPage"
           />
@@ -98,7 +98,7 @@
 <script>
 import { get } from 'lodash';
 import userService from 'kubeworkz/services/user';
-import PageMixin from 'kubeworkz/mixins/pagenation';
+import PageMixin from 'kubeworkz/mixins/pagination';
 import userDialog from './user-dialog.vue';
 import UserUploadDialog from './user-upload-dialog.vue';
 export default {
@@ -175,7 +175,7 @@ export default {
     },
 
 };
-// import makePagenationMixin from 'kubeworkz/components/src/ui/mixins/pagenation';
+// import makePagenationMixin from 'kubeworkz/components/src/ui/mixins/pagination';
 // import userService from 'kubeworkz/services/user';
 // import UserDialog from './user-dialog.vue';
 // import UserUploadDialog from './user-upload-dialog.vue';
@@ -233,7 +233,7 @@ export default {
 //         async requestUserList() {
 //             try {
 //                 const response = await userService.getUserList({
-//                     params: this.pagenation
+//                     params: this.pagination
 //                 });
 //                 return {
 //                     items: response.items.map(i => ({

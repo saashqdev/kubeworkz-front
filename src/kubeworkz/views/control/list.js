@@ -5,7 +5,7 @@ import pvcList from './pvc/list.vue';
 import configList from './config/list.vue';
 import logconfigList from './logseer/list.vue';
 import alertManagerConfigList from 'kubeworkz/views/control/observable/alert-manager-config/list.vue';
-import alertRuleSpecList from 'kubeworkz/views/control/observable/promethus-rule-spec/list.vue';
+import alertRuleSpecList from 'kubeworkz';
 export default {
     computed: {
         workload() {

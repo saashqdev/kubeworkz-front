@@ -182,9 +182,9 @@
         <el-pagination
           v-if="data && calculatePages(data.total) > 0"
           style="float:right;margin-top:12px"
-          :current-page="pagenation.pageNum"
+          :current-page="pagination.pageNum"
           :page-sizes="[10, 20, 30, 40, 50, 100]"
-          :page-size="pagenation.pageSize"
+          :page-size="pagination.pageSize"
           layout="total, sizes, prev, pager, next"
           :total="data.total"
           background
@@ -215,7 +215,7 @@
 import { get } from 'lodash';
 import workloadService from 'kubeworkz/services/k8s-resource';
 import workloadExtendService from 'kubeworkz/services/k8s-extend-resource';
-import PageMixin from 'kubeworkz/mixins/pagenation';
+import PageMixin from 'kubeworkz/mixins/pagination';
 import {
     toPlainObject as toNodePlainObject,
 } from 'kubeworkz/k8s-resources/node';
@@ -286,7 +286,7 @@ export default {
                     resource: 'nodes',
                 },
                 params: {
-                    ...this.pagenation, // has to be this
+                    ...this.pagination, // has to be this
                 },
             };
         },
@@ -310,8 +310,8 @@ export default {
     },
     methods: {
         resolver(response) {
-            if ((response.items || []).length === 0 && response.total > 0 && this.pagenation.pageNum > 1) {
-                this.pagenation.pageNum = this.pagenation.pageNum - 1;
+            if ((response.items || []).length === 0 && response.total > 0 && this.pagination.pageNum > 1) {
+                this.pagination.pageNum = this.pagination.pageNum - 1;
             }
             return {
                 list: response.items.map(toNodePlainObject),
@@ -322,19 +322,19 @@ export default {
             this.$refs.request.request();
         },
         onSort({ order, name }) {
-            this.pagenation.sortOrder = order;
-            this.pagenation.sortName = `${name}`;
-            this.pagenation.sortFunc = name === 'creationTimestamp' ? 'time' : 'string';
+            this.pagination.sortOrder = order;
+            this.pagination.sortName = `${name}`;
+            this.pagination.sortFunc = name === 'creationTimestamp' ? 'time' : 'string';
         },
         onSearch({ value, valueType }) {
             if (valueType === 'name') {
-                this.pagenation.selector = value ? `metadata.name~${value}` : undefined;
+                this.pagination.selector = value ? `metadata.name~${value}` : undefined;
             }
             if (valueType === 'label') {
-                this.pagenation.selector = value ? `metadata.labels.${value}` : undefined;
+                this.pagination.selector = value ? `metadata.labels.${value}` : undefined;
             }
             if (valueType === 'status') {
-                this.pagenation.selector = value ? `extendInfo.status=${value}` : undefined;
+                this.pagination.selector = value ? `extendInfo.status=${value}` : undefined;
             }
         },
         onSelectionChange($event) {

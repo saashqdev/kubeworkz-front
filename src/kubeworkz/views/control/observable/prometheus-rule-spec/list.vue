@@ -76,7 +76,7 @@
             </u-linear-layout>
           </template>
           <template #noData>
-            <template v-if="pagenation.selector">
+            <template v-if="pagination.selector">
               If no relevant content is found, you can adjust the keywords and search again.
             </template>
             <template v-else>
@@ -120,7 +120,7 @@
         <u-page
           v-if="data && calculatePages(data.total) > 1"
           :count="data.total"
-          :page-size="pagenation.pageSize"
+          :page-size="pagination.pageSize"
           :total="calculatePages(data.total)"
           @select="selectPage"
         />
@@ -133,7 +133,7 @@
 import { pickBy, get as getFunc } from 'lodash';
 import { get } from 'vuex-pathify';
 import workloadService from 'kubeworkz/services/k8s-resource';
-import PageMixin from 'kubeworkz/mixins/pagenation';
+import PageMixin from 'kubeworkz/mixins/pagination';
 import {
     toPlainObject as toPrometheusRulePlainObject,
 } from 'kubeworkz/k8s-resources/prometheusRule';
@@ -219,7 +219,7 @@ export default {
                     ...rulespecCRD,
                 },
                 params: {
-                    ...pickBy(this.pagenation, i => !!i), // has to be this
+                    ...pickBy(this.pagination, i => !!i), // has to be this
                 },
             };
         },
@@ -272,12 +272,12 @@ export default {
             this.$refs.request.request();
         },
         onSort({ order, name }) {
-            this.pagenation.sortOrder = order;
-            this.pagenation.sortName = `${name}`;
-            this.pagenation.sortFunc = name === 'creationTimestamp' ? 'time' : 'string';
+            this.pagination.sortOrder = order;
+            this.pagination.sortName = `${name}`;
+            this.pagination.sortFunc = name === 'creationTimestamp' ? 'time' : 'string';
         },
         onSearch(content) {
-            this.pagenation.selector = content ? `metadata.name~${content}` : undefined;
+            this.pagination.selector = content ? `metadata.name~${content}` : undefined;
         },
         toCreate() {
             // this.$refs.editDialog.open();

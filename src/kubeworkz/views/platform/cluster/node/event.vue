@@ -26,7 +26,7 @@
       <u-page
         v-if="data && calculatePages(data.total) > 0"
         :count="data.total"
-        :page-size="pagenation.pageSize"
+        :page-size="pagination.pageSize"
         :total="calculatePages(data.total)"
         @select="selectPage"
       />
@@ -37,7 +37,7 @@
 <script>
 import { pickBy } from 'lodash';
 import workloadService from 'kubeworkz/services/k8s-resource';
-import PageMixin from 'kubeworkz/mixins/pagenation';
+import PageMixin from 'kubeworkz/mixins/pagination';
 import {
     toPlainObject as toEventPlainObject,
 } from 'kubeworkz/k8s-resources/event/index.js';
@@ -76,7 +76,7 @@ export default {
                     resource: 'events',
                 },
                 params: {
-                    ...pickBy(this.pagenation, i => !!i), // has to be this
+                    ...pickBy(this.pagination, i => !!i), // has to be this
                     fieldSelector: `involvedObject.kind=Node,involvedObject.name=${this.$route.params.nodename}`,
                 },
             };

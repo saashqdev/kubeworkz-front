@@ -45,10 +45,10 @@
           ...searchbody,
           startTime: searchbody.startTime,
           endTime: searchbody.endTime,
-          page: pagenation.pageNum,
-          size: pagenation.pageSize,
-          sortBy: pagenation.sortName,
-          sortAsc: pagenation.sortOrder === 'asc'
+          page: pagination.pageNum,
+          size: pagination.pageSize,
+          sortBy: pagination.sortName,
+          sortAsc: pagination.sortOrder === 'asc'
         }
       }"
       :processor="resolver"
@@ -78,7 +78,7 @@
         <u-page
           v-if="data && calculatePages(data.total) > 1"
           :count="data.total"
-          :page-size="pagenation.pageSize"
+          :page-size="pagination.pageSize"
           :total="calculatePages(data.total)"
           @select="selectPage"
         />
@@ -90,7 +90,7 @@
 <script>
 import { debounce } from 'lodash';
 import auditService from 'kubeworkz/services/audit';
-import PageMixin from 'kubeworkz/mixins/pagenation';
+import PageMixin from 'kubeworkz/mixins/pagination';
 export default {
     metaInfo: {
         title: 'Operational audit - kubeworkz',
@@ -162,8 +162,8 @@ export default {
             this.searchbody.endTime = date.getTime();
         },
         onSort({ order, name }) {
-            this.pagenation.sortOrder = order;
-            this.pagenation.sortName = `${name}`;
+            this.pagination.sortOrder = order;
+            this.pagination.sortName = `${name}`;
         },
         async exportAudit() {
             const response = await auditService.exportAudit({

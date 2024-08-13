@@ -57,7 +57,7 @@
           <u-page
             v-if="data && calculatePages(data.total) > 1"
             :count="data.total"
-            :page-size="pagenation.pageSize"
+            :page-size="pagination.pageSize"
             :total="calculatePages(data.total)"
             @select="selectPage"
           />
@@ -70,7 +70,7 @@
 <script>
 import { get } from 'lodash';
 import userService from 'kubeworkz/services/user';
-import PageMixin from 'kubeworkz/mixins/pagenation';
+import PageMixin from 'kubeworkz/mixins/pagination';
 
 export default {
     components: {

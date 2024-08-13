@@ -81,7 +81,7 @@
           <u-page
             v-if="data && calculatePages(data.total) > 1"
             :count="data.total"
-            :page-size="pagenation.pageSize"
+            :page-size="pagination.pageSize"
             :total="calculatePages(data.total)"
             @select="selectPage"
           />
@@ -107,7 +107,7 @@
 import { get as getFunc } from 'lodash';
 import { get } from 'vuex-pathify';
 import userService from 'kubeworkz/services/user';
-import PageMixin from 'kubeworkz/mixins/pagenation';
+import PageMixin from 'kubeworkz/mixins/pagination';
 import projectDialog from './project-dialog.vue';
 import memberDialog from './member-dialog.vue';
 import kubeTenantSelect from 'kubeworkz/component/global/common/kube-tenant-select.vue';
@@ -166,8 +166,8 @@ export default {
             };
         },
         currentList() {
-            const start = (this.pagenation.pageNum - 1) * this.pagenation.pageSize;
-            const end = start + this.pagenation.pageSize;
+            const start = (this.pagination.pageNum - 1) * this.pagination.pageSize;
+            const end = start + this.pagination.pageSize;
             return this.list.slice(start, end);
         },
     },

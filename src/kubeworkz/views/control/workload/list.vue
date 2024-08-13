@@ -420,9 +420,9 @@
             <el-pagination
               v-if="data && calculatePages(data.total) > 0"
               style="float:right;margin-top:12px"
-              :current-page="pagenation.pageNum"
+              :current-page="pagination.pageNum"
               :page-sizes="[10, 20, 30, 40, 50, 100]"
-              :page-size="pagenation.pageSize"
+              :page-size="pagination.pageSize"
               layout="total, sizes, prev, pager, next"
               :total="data.total"
               background
@@ -452,7 +452,7 @@ import { toPlainObject as toJobPlainObject } from 'kubeworkz/k8s-resources/job';
 import { toPlainObject as toCronJobPlainObject } from 'kubeworkz/k8s-resources/cronjob';
 // import { toPlainObject as toMetadataPlainObject } from 'kubeworkz/k8s-resources/metadata';
 import modifyReplicasDialog from './detail/dialog/modify-replicas.vue';
-import { pagenationMixin } from 'kubeworkz/mixins';
+import { paginationMixin } from 'kubeworkz/mixins';
 
 import {
     JOB_STATUS_MAP,
@@ -484,7 +484,7 @@ export default {
 
         },
     },
-    mixins: [ pagenationMixin ],
+    mixins: [ paginationMixin ],
     data() {
         return {
             filterName: '',
@@ -512,7 +512,7 @@ export default {
                     resource: this.workload,
                 },
                 params: {
-                    ...this.pagenation, // has to be this
+                    ...this.pagination, // has to be this
                 },
             };
         },
@@ -726,12 +726,12 @@ export default {
             this.$refs.request.request();
         },
         onSort({ order, name }) {
-            this.pagenation.sortOrder = order;
-            this.pagenation.sortName = `metadata.${name}`;
-            this.pagenation.sortFunc = name === 'creationTimestamp' ? 'time' : 'string';
+            this.pagination.sortOrder = order;
+            this.pagination.sortName = `metadata.${name}`;
+            this.pagination.sortFunc = name === 'creationTimestamp' ? 'time' : 'string';
         },
         onSearch(content) {
-            this.pagenation.selector = content ? `metadata.name~${content}` : undefined;
+            this.pagination.selector = content ? `metadata.name~${content}` : undefined;
         },
         toCreate() {
             this.$router.push({

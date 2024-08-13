@@ -168,9 +168,9 @@
           <el-pagination
             v-if="data && calculatePages(data.total) > 0"
             style="float:right;margin-top:12px"
-            :current-page="pagenation.pageNum"
+            :current-page="pagination.pageNum"
             :page-sizes="[10, 20, 30, 40, 50, 100]"
-            :page-size="pagenation.pageSize"
+            :page-size="pagination.pageSize"
             layout="total, sizes, prev, pager, next"
             :total="data.total"
             background
@@ -188,7 +188,7 @@ import { pickBy, get as getFun } from 'lodash';
 import { get } from 'vuex-pathify';
 import workloadService from 'kubeworkz/services/k8s-resource';
 import workloadExtendService from 'kubeworkz/services/k8s-extend-resource';
-import PageMixin from 'kubeworkz/mixins/pagenation';
+import PageMixin from 'kubeworkz/mixins/pagination';
 import { toPlainObject as toServicePlainObject } from 'kubeworkz/k8s-resources/service';
 import { toPlainObject as toIngressPlainObject } from 'kubeworkz/k8s-resources/ingress';
 import inputSearch from 'kubeworkz/elComponent/inputSearch/index.vue';
@@ -302,7 +302,7 @@ export default {
                     resource: this.workload,
                 },
                 params: {
-                    ...pickBy(this.pagenation, i => !!i), // has to be this
+                    ...pickBy(this.pagination, i => !!i), // has to be this
                 },
             };
         },
@@ -322,21 +322,21 @@ export default {
     },
     watch: {
         columns() {
-            this.pagenation.sortName = 'metadata.creationTimestamp';
-            this.pagenation.sortOrder = 'desc';
-            this.pagenation.sortFunc = 'time';
+            this.pagination.sortName = 'metadata.creationTimestamp';
+            this.pagination.sortOrder = 'desc';
+            this.pagination.sortFunc = 'time';
             this.$refs.request.resetData();
         },
         workload() {
-            this.pagenation.selector = '';
+            this.pagination.selector = '';
             this.filterName = '';
         },
     },
     created() {
-        this.pagenation.sortName = 'metadata.creationTimestamp';
-        this.pagenation.sortOrder = 'desc';
-        this.pagenation.sortFunc = 'time';
-        this.pagenation.selector = '';
+        this.pagination.sortName = 'metadata.creationTimestamp';
+        this.pagination.sortOrder = 'desc';
+        this.pagination.sortFunc = 'time';
+        this.pagination.selector = '';
         this.filterName = '';
     },
     methods: {
@@ -355,8 +355,8 @@ export default {
             return strArr;
         },
         resolver(response) {
-            if ((response.items || []).length === 0 && response.total > 0 && this.pagenation.pageNum > 1) {
-                this.pagenation.pageNum = this.pagenation.pageNum - 1;
+            if ((response.items || []).length === 0 && response.total > 0 && this.pagination.pageNum > 1) {
+                this.pagination.pageNum = this.pagination.pageNum - 1;
             }
             const list = (response.items || []).map(this.toPlainObject);
             return {
@@ -368,16 +368,16 @@ export default {
             this.$refs.request.request();
         },
         onSort({ order, name }) {
-            this.pagenation.sortOrder = order;
-            this.pagenation.sortName = `${name}`;
-            this.pagenation.sortFunc = name === 'metadata.creationTimestamp' ? 'time' : 'string';
+            this.pagination.sortOrder = order;
+            this.pagination.sortName = `${name}`;
+            this.pagination.sortFunc = name === 'metadata.creationTimestamp' ? 'time' : 'string';
         },
         onSearch(content) {
             const temp = content ? `metadata.name~${content}` : undefined;
-            if (this.pagenation.selector === temp) {
+            if (this.pagination.selector === temp) {
                 this.refresh();
             }
-            this.pagenation.selector = temp;
+            this.pagination.selector = temp;
         },
         toCreate() {
             this.$router.push({ name: 'control.workload.create', params: this.$route.params });

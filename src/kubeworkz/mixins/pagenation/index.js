@@ -1,7 +1,7 @@
 export default {
     data() {
         return {
-            pagenation: {
+            pagination: {
                 pageNum: 1,
                 pageSize: 10,
                 sortOrder: '',
@@ -15,31 +15,31 @@ export default {
         defaultSort() {
             const valueMap = { desc: 'descending', asc: 'ascending' };
             return {
-                prop: this.pagenation.sortName,
-                order: valueMap[this.pagenation.sortOrder],
+                prop: this.pagination.sortName,
+                order: valueMap[this.pagination.sortOrder],
             };
         },
     },
     methods: {
         selectPage($event) {
-            this.pagenation.pageNum = $event.page;
-            this.pagenation.pageSize = $event.pageSize;
+            this.pagination.pageNum = $event.page;
+            this.pagination.pageSize = $event.pageSize;
         },
         calculatePages(total) {
-            return Math.ceil(total / this.pagenation.pageSize);
+            return Math.ceil(total / this.pagination.pageSize);
         },
         pageSizeChange(pageSize) {
-            this.pagenation.pageSize = pageSize;
+            this.pagination.pageSize = pageSize;
         },
         pageNumChange(pageNum) {
             console.log(pageNum);
-            this.pagenation.pageNum = pageNum;
+            this.pagination.pageNum = pageNum;
         },
         tableSortChange({ prop, order }) {
             const valueMap = { descending: 'desc', ascending: 'asc' };
-            this.pagenation.sortName = `${prop}`;
-            this.pagenation.sortOrder = valueMap[order];
-            this.pagenation.sortFunc = prop === 'metadata.creationTimestamp' ? 'time' : 'string';
+            this.pagination.sortName = `${prop}`;
+            this.pagination.sortOrder = valueMap[order];
+            this.pagination.sortFunc = prop === 'metadata.creationTimestamp' ? 'time' : 'string';
         },
     },
 };
