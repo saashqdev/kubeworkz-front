@@ -68,9 +68,9 @@
 import { Modal } from '@micro-app/common/mixins';
 import BigNumber from 'bignumber.js';
 import {
-    toPlainObject as toCubeResourceQoutaPlainObject,
-    toK8SObject as toCubeResourceQoutaK8SObject,
-    patchK8SObject as patchCubeResourceQoutaK8SObject,
+    toPlainObject as toKubeResourceQoutaPlainObject,
+    toK8SObject as toKubeResourceQoutaK8SObject,
+    patchK8SObject as patchKubeResourceQoutaK8SObject,
 } from 'kubeworkz';
 import {
     unitConvertMemory,
@@ -99,7 +99,7 @@ export default {
         return {
             item: {},
             used: {},
-            model: toCubeResourceQoutaPlainObject(),
+            model: toKubeResourceQoutaPlainObject(),
             availables: {},
             type: 'create',
             // usedNodes: [],
@@ -127,7 +127,7 @@ export default {
         },
         async quotaService() {
             return await Promise.all([
-                scopeService.getCubeQuotaResourceInstance(this.params),
+                scopeService.getKubeQuotaResourceInstance(this.params),
                 clusterService.getClusterQuata({
                     params: {
                         cluster: this.item.clusterName,
@@ -138,7 +138,7 @@ export default {
         },
         resolver([ kubeQuotaResponse, clusterQuota ]) {
             this.type = kubeQuotaResponse ? 'edit' : 'create';
-            this.model = toCubeResourceQoutaPlainObject(kubeQuotaResponse);
+            this.model = toKubeResourceQoutaPlainObject(kubeQuotaResponse);
             this.used = {
                 usedCpu: this.model.status.used.cpu,
                 usedMemory: this.model.status.used.memory,
@@ -167,7 +167,7 @@ export default {
             this.submitLoading = true;
             try {
                 if (this.type === 'edit') {
-                    const data = patchCubeResourceQoutaK8SObject(this.model, this.item.tenant, this.item.clusterName);
+                    const data = patchKubeResourceQoutaK8SObject(this.model, this.item.tenant, this.item.clusterName);
                     await scopeService.patchKubeDefineResource({
                         pathParams: {
                             cluster: this.controlClusterList[0].clusterName,
@@ -178,8 +178,8 @@ export default {
                     this.show = false;
                     this.$emit('refresh');
                 } else {
-                    const data = toCubeResourceQoutaK8SObject(this.model, this.item.tenant, this.item.clusterName);
-                    await scopeService.createCubeQuotaResource({
+                    const data = toKubeResourceQoutaK8SObject(this.model, this.item.tenant, this.item.clusterName);
+                    await scopeService.createKubeQuotaResource({
                         data,
                     });
                     this.show = false;

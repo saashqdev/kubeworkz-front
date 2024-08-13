@@ -28,15 +28,15 @@ const service = Service({
             template: '/apis/tenant.kubeworkz.io/v1/{scope}/{name}',
             method: 'delete',
         },
-        createCubeQuotaResource: {
+        createKubeQuotaResource: {
             method: 'post',
             url: '/apis/quota.kubeworkz.io/v1/kuberesourcequota',
         },
-        getCubeQuotaResource: {
+        getKubeQuotaResource: {
             method: 'get',
             url: '/apis/quota.kubeworkz.io/v1/kuberesourcequota',
         },
-        getCubeQuotaResourceInstance: {
+        getKubeQuotaResourceInstance: {
             method: 'get',
             template: '/apis/quota.kubeworkz.io/v1/kuberesourcequota/{name}',
             silent: true,

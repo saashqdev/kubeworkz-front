@@ -120,7 +120,7 @@ import {
 } from 'kubeworkz/k8s-resources/resourceQuota/index.js';
 
 import {
-    toPlainObject as toCubeResourceQoutaPlainObject,
+    toPlainObject as toKubeResourceQoutaPlainObject,
 } from 'kubeworkz';
 import {
     toK8SObject as toSubnamespaceK8SObject,
@@ -149,7 +149,7 @@ export default {
     },
     data() {
         return {
-            quotaService: scopeService.getCubeQuotaResourceInstance,
+            quotaService: scopeService.getKubeQuotaResourceInstance,
             pipeLoading: false,
             validators,
             submitting: false,
@@ -186,7 +186,7 @@ export default {
                 return;
             }
             this.model.resource = toResourceQuotaPlainObject();
-            const quota = toCubeResourceQoutaPlainObject(kubeQuotaResponse);
+            const quota = toKubeResourceQoutaPlainObject(kubeQuotaResponse);
             Object.assign(this.model.availables, {
                 cpu: quota.status.hard.cpu - quota.status.used.cpu, // - unitConvertCPU(clusterQuota.assignedCpu),
                 limitsCpu: quota.status.hard.limitsCpu - quota.status.used.limitsCpu,

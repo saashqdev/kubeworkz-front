@@ -142,9 +142,9 @@
 import { get as getFunc } from 'lodash';
 import { get } from 'vuex-pathify';
 import {
-    toPlainObject as toCubeResourceQoutaPlainObject,
-    toK8SObject as toCubeResourceQoutaK8SObject,
-    patchK8SObject as patchCubeResourceQoutaK8SObject,
+    toPlainObject as toKubeResourceQoutaPlainObject,
+    toK8SObject as toKubeResourceQoutaK8SObject,
+    patchK8SObject as patchKubeResourceQoutaK8SObject,
 } from 'kubeworkz';
 import {
     unitConvertMemory,
@@ -206,7 +206,7 @@ export default {
     methods: {
         async quotaService() {
             return await Promise.all([
-                scopeService.getCubeQuotaResourceInstance(this.quotaParams),
+                scopeService.getKubeQuotaResourceInstance(this.quotaParams),
                 clusterService.getClusterQuata({
                     params: {
                         cluster: this.model.cluster,
@@ -248,7 +248,7 @@ export default {
         },
         quotaResolver([ kubeQuotaResponse, clusterQuota ]) {
             this.quotaType = kubeQuotaResponse ? 'edit' : 'create';
-            this.model.model = toCubeResourceQoutaPlainObject(kubeQuotaResponse);
+            this.model.model = toKubeResourceQoutaPlainObject(kubeQuotaResponse);
             this.model.used = {
                 usedCpu: this.model.model.status.used.cpu,
                 usedMemory: this.model.model.status.used.memory,
@@ -265,7 +265,7 @@ export default {
 
 
             // this.quotaType = kubeQuotaResponse ? 'edit' : 'create';
-            // this.model.model = toCubeResourceQoutaPlainObject(kubeQuotaResponse);
+            // this.model.model = toKubeResourceQoutaPlainObject(kubeQuotaResponse);
             // this.model.used = {
             //   usedCpu: this.model.model.status.used.cpu,
             //   usedMemory: this.model.model.status.used.memory,
@@ -294,7 +294,7 @@ export default {
                     cluster,
                 } = this.model;
                 if (this.quotaType === 'edit') {
-                    const data = patchCubeResourceQoutaK8SObject(model, tenant, cluster);
+                    const data = patchKubeResourceQoutaK8SObject(model, tenant, cluster);
                     await scopeService.patchKubeDefineResource({
                         pathParams: {
                             name: model.metadata.name,
@@ -302,8 +302,8 @@ export default {
                         data,
                     });
                 } else {
-                    const data = toCubeResourceQoutaK8SObject(model, tenant, cluster);
-                    await scopeService.createCubeQuotaResource({
+                    const data = toKubeResourceQoutaK8SObject(model, tenant, cluster);
+                    await scopeService.createKubeQuotaResource({
                         data,
                     });
                 }

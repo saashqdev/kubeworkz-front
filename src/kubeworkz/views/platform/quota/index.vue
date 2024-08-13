@@ -130,7 +130,7 @@ import { unitConvertMemory, unitConvertCPU } from 'kubeworkz/utils/functional';
 import scopeService from 'kubeworkz/services/scope';
 import { get } from 'vuex-pathify';
 import {
-    toPlainObject as toCubeResourceQoutaPlainObject,
+    toPlainObject as toKubeResourceQoutaPlainObject,
 } from 'kubeworkz';
 import kubeTenantSelectMultiple from 'kubeworkz/component/global/common/kube-tenant-select-multiple.vue';
 import userService from 'kubeworkz/services/user';
@@ -204,7 +204,7 @@ export default {
                     });
                 });
                 const arr = list.map(item => {
-                    return scopeService.getCubeQuotaResourceInstance({
+                    return scopeService.getKubeQuotaResourceInstance({
                         pathParams: {
                             cluster: this.controlClusterList[0].clusterName,
                             name: `${item.clusterName}.${item.tenant}`,
@@ -213,7 +213,7 @@ export default {
                 });
                 const res = await Promise.all(arr);
                 list.forEach((i, index) => {
-                    i.kuberesourcequota = res[index] && toCubeResourceQoutaPlainObject(res[index]);
+                    i.kuberesourcequota = res[index] && toKubeResourceQoutaPlainObject(res[index]);
                 });
                 return list;
             };

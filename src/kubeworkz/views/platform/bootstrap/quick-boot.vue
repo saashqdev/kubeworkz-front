@@ -49,7 +49,7 @@ import {
 } from 'kubeworkz/k8s-resources/scope/tenant';
 
 import {
-    toPlainObject as toCubeResourceQoutaPlainObject,
+    toPlainObject as toKubeResourceQoutaPlainObject,
 } from 'kubeworkz';
 
 import {
@@ -154,7 +154,7 @@ export default {
                     cluster: null,
                     item: {},
                     used: {},
-                    model: toCubeResourceQoutaPlainObject(),
+                    model: toKubeResourceQoutaPlainObject(),
                     availables: {},
                 },
             });

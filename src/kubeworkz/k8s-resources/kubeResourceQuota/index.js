@@ -61,7 +61,7 @@ export function toK8SObject(model, tenant, clusterName) {
     const g = getFromModel(model);
     const obj = {
         apiVersion: 'quota.kubeworkz.io/v1',
-        kind: 'CubeResourceQuota',
+        kind: 'KubeResourceQuota',
         metadata: {
             name: `${clusterName}.${tenant}`, // name
             labels: {

@@ -140,7 +140,7 @@ import {
 import clusterSelect from './cluster-select.vue';
 
 import {
-    toPlainObject as toCubeResourceQoutaPlainObject,
+    toPlainObject as toKubeResourceQoutaPlainObject,
 } from 'kubeworkz';
 import tenantSelect from 'kubeworkz/elComponent/global/tenant-select.vue';
 import projectSelect from 'kubeworkz/elComponent/global/project-select.vue';
@@ -181,7 +181,7 @@ export default {
                 },
                 resource: toResourceQuotaPlainObject(),
             },
-            quotaService: scopeService.getCubeQuotaResourceInstance,
+            quotaService: scopeService.getKubeQuotaResourceInstance,
             resourceLoaded: false,
             type: 'create',
             availables: {
@@ -268,7 +268,7 @@ export default {
             if (!this.isEdit) {
                 this.model.resource = toResourceQuotaPlainObject();
             }
-            const quota = toCubeResourceQoutaPlainObject(kubeQuotaResponse);
+            const quota = toKubeResourceQoutaPlainObject(kubeQuotaResponse);
             Object.assign(this.availables, {
                 cpu: +new BigNumber(quota.status.hard.cpu).minus(quota.status.used.cpu).plus(this.model.resource.spec.hard.cpu), // - unitConvertCPU(clusterQuota.assignedCpu),
                 limitsCpu: +new BigNumber(quota.status.hard.limitsCpu).minus(quota.status.used.limitsCpu).plus(this.model.resource.spec.hard.limitsCpu),

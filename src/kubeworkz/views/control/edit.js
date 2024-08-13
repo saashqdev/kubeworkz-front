@@ -5,7 +5,7 @@ import ingressEdit from 'kubeworkz/views/control/service/edit/ingress.vue';
 import secretEdit from 'kubeworkz/views/control/config/edit-secret.vue';
 import configmapEdit from 'kubeworkz/views/control/config/edit-configmap.vue';
 import logseerEdit from 'kubeworkz/views/control/logseer/edit/index.vue';
-import promethusRuleEdit from 'kubeworkz';
+import prometheusRuleEdit from 'kubeworkz';
 export default {
     props: {
         instance: Object,
@@ -31,7 +31,7 @@ export default {
             case 'logconfigs':
                 return c(logseerEdit, { props });
             case 'PrometheusRule':
-                return c(promethusRuleEdit, { props });
+                return c(prometheusRuleEdit, { props });
             // case 'alarmManagerEdit':
             //     return c(alarmManagerEdit, { props });
             default:
