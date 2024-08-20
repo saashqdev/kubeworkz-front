@@ -5,7 +5,7 @@
       key="list"
       v-model="model"
       filterable
-      placeholder="Select space"
+      placeholder="Select namespace"
       :class="$style.suggestBox"
       :popper-class="$style.suggestPopper"
       @change="beforeChange"
