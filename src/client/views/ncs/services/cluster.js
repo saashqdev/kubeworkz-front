@@ -34,24 +34,24 @@ export default {
      * Namespaces
      */
 
-    // Get list of spaces
+    // Get list of namespaces
     listNameSpace: ({ id, body }) => request.get(`${prefix}/clusters/${id}/namespaces`, body),
 
-    // Create space
+    // Create namespace
     createNameSpace: ({ id, body }) => request.post(`${prefix}/clusters/${id}/namespaces`, body),
 
-    // Update space
+    // Update namespace
     updateNameSpace: ({ id, nsName, body }) => request.put(`${prefix}/clusters/${id}/namespaces/${nsName}`, body),
 
-    // Delete space
+    // Delete namespace
     deleteNameSpace: ({ id, nsName }) => request.delete(`${prefix}/clusters/${id}/namespaces/${nsName}`),
 
-    // Create quota space
+    // Create quota namespace
     createResourceQuota: ({ id, nsName, body }) => request.post(`${prefix}/clusters/${id}/namespaces/${nsName}/resourcequotas`, body),
 
     // Update quota
     updateResourceQuota: ({ id, nsName, name, body }) => request.put(`${prefix}/clusters/${id}/namespaces/${nsName}/resourcequotas/${name}`, body),
 
-    // Get each space quota
+    // Get each namespace quota
     loadNSQuota: ({ id, nsName, name }) => request.get(`${prefix}/clusters/${id}/namespaces/${nsName}/resourcequotas/${name}`),
 };

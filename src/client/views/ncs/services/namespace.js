@@ -21,7 +21,7 @@ const apis = {
         method: 'put',
         path: '/extends/clusters/{clusterId}/namespace',
     },
-    // Native delete space
+    // Native delete namespace
     delete: {
         method: 'delete',
         path: '/clusters/{clusterId}/namespaces/{nsName}',
@@ -30,7 +30,7 @@ const apis = {
         method: 'delete',
         path: '/extends/clusters/{clusterId}/namespace/{nsName}',
     },
-    // A project is associated with multiple spaces at the same time
+    // A project is associated with multiple namespaces at the same time
     link: {
         method: 'post',
         path: '/extends/project/namespaces',

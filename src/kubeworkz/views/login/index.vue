@@ -4,7 +4,7 @@
       <div :class="$style.form">
         <u-tabs v-model="account.LoginType">
           <u-tab
-            title="Normal login"
+            title="Login"
             value="normal"
           />
         <!-- <u-tab
@@ -37,7 +37,7 @@
                   :class="$style.input"
                   name="account"
                   :color="errors && errors[0] ? 'error' : ''"
-                  placeholder="Please input Username"
+                  placeholder="Please input username"
                   maxlength="128"
                   maxlength-message="The account number can be entered up to 128 characters."
                 >
@@ -179,7 +179,7 @@ import passwordDialog from './password.vue';
 import { urlSearchParse, urlSearchSerialize } from 'kubeworkz/utils/functional';
 export default {
     metaInfo: {
-        title: 'kubeworkz',
+        title: 'Kubeworkz',
         titleTemplate: '%s - Login',
     },
     components: {

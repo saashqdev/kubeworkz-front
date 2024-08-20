@@ -22,7 +22,7 @@
       v-else
       value=""
       disabled
-      placeholder="No space yet"
+      placeholder="No namespace yet"
       :class="$style.suggestBox"
     />
     <!-- <u-sidebar-suggest
@@ -41,7 +41,7 @@
       key="none"
       disabled
       size="huge normal"
-      placeholder="No space yet"
+      placeholder="No namespace yet"
     /> -->
   </div>
 </template>
