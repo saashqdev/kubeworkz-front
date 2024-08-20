@@ -33,7 +33,7 @@ import {
 } from 'kubeworkz/utils/functional';
 import {
     ROLES,
-} from 'kubeworkz/utils/contants';
+} from 'kubeworkz/utils/constants';
 export default {
     mixins: [ makeVModelMixin ],
     props: {
