@@ -156,7 +156,7 @@ import { cloneDeep, get as getFunc, set as setFunc } from 'lodash';
 import { Modal } from '@micro-app/common/mixins';
 import clusterService from 'kubeworkz/services/cluster.js';
 import k8sResourceService from 'kubeworkz/services/k8s-resource';
-import { CLUSTER_NETWORK_TYPE_MAP } from 'kubeworkz';
+import { CLUSTER_NETWORK_TYPE_MAP } from 'kubeworkz/utils/constants';
 import { encode, decode } from 'js-base64';
 import { validatorsMixin } from 'kubeworkz/mixins';
 import { get } from 'vuex-pathify';

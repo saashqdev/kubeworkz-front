@@ -99,7 +99,7 @@ import {
 } from 'kubeworkz/k8s-resources/storageclass';
 import {
     CEPH_TYPE_MAP,
-} from 'kubeworkz';
+} from 'kubeworkz/utils/constants';
 
 export default {
     filters: {

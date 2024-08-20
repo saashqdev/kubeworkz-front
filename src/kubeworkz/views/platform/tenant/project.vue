@@ -116,7 +116,7 @@ import {
 } from 'kubeworkz/k8s-resources/scope/project';
 import {
     ROLES,
-} from 'kubeworkz';
+} from 'kubeworkz/utils/constants';
 import domainSuffixDialog from './dialogs/domainSuffix.vue';
 export default {
     components: {

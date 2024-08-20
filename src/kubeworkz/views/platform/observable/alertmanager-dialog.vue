@@ -410,7 +410,7 @@ import {
     patchK8SObject as patchGlobalAlertManagerObject,
     MANGER_CONFIGS,
     getDefaultReceiver,
-} from 'kubeworkz';
+} from 'kubeworkz/k8s-resources/alertmanagerconfigspec/global.js';
 import blockLayout from 'kubeworkz/component/common/kube-dynamic-block-layout/index.vue';
 import blockRowLayout from 'kubeworkz/component/common/kube-dynamic-block-layout/row.vue';
 import InputTag from 'vue-input-tag';

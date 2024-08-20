@@ -39,7 +39,7 @@ import { get, cloneDeep, set } from 'lodash';
 import { Modal } from '@micro-app/common/mixins';
 import workloadService from 'kubeworkz/services/k8s-resource';
 import labelEditor from 'kubeworkz/elComponent/label-editor.vue';
-import { ignoredKeys } from 'kubeworkz';
+import { ignoredKeys } from 'kubeworkz/utils/constants';
 export default {
     components: {
         labelEditor,

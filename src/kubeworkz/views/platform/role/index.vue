@@ -19,7 +19,7 @@
 import { get } from 'vuex-pathify';
 import {
     ROLES,
-} from 'kubeworkz';
+} from 'kubeworkz/utils/constants';
 export default {
     metaInfo: {
         title: 'Role - kubeworkz',

@@ -55,7 +55,7 @@
 import { get as geFunc } from 'lodash';
 import workloadService from 'kubeworkz/services/k8s-resource';
 import clusterService from 'kubeworkz/services/cluster';
-import { toPlainObject as toGlobalAlertPlainObject } from 'kubeworkz';
+import { toPlainObject as toGlobalAlertPlainObject } from 'kubeworkz/k8s-resources/alertmanagerconfigspec/global.js';
 import editDialog from './alertmanager-dialog.vue';
 const SECRET_NAMESPACE = 'kubeworkz-monitoring';
 
