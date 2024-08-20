@@ -47,7 +47,7 @@ import termModal from 'kubeworkz/elComponent/termModal';
 import yamlDialog from 'kubeworkz/views/control/yaml/yaml.vue';
 import {
     ROLES,
-} from 'kubeworkz';
+} from 'kubeworkz/utils/constants';
 
 export default {
     components: {
