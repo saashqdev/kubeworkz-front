@@ -1,6 +1,6 @@
 import { get } from 'lodash';
 import { make } from 'vuex-pathify';
-import { getItem } from 'kubeworkz/utils/persistant';
+import { getItem } from 'kubeworkz/utils/persistent';
 
 const state = {
     user: getItem('user') ? JSON.parse(getItem('user')) : null,

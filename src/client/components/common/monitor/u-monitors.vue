@@ -147,7 +147,7 @@ export default {
             interfaceName: '',
             interfaces: [],
             emptyInterfaces: [{ text: 'No network card yet' }],
-            // Time selection space related data, all components are generally unified, if you need to customize it, props parameter transfer will be provided later.
+            // Time selection namespace related data, all components are generally unified, if you need to customize it, props parameter transfer will be provided later.
             periodList: [
                 { name: 'nearly 6 hours', value: 360 * 60 * 1000 },
                 { name: 'last 1 day', value: 1440 * 60 * 1000 },

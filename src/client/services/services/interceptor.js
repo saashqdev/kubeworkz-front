@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { removeItem } from '@/utils/persistant';
+import { removeItem } from '@/utils/persistent';
 import router from '@/router';
 import { get } from 'lodash';
 

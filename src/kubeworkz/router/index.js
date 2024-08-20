@@ -6,7 +6,7 @@ import App from '../index.vue';
 import Login from '../views/login/index.vue';
 import noAuth from '../views/login/noAuth.vue';
 // import Control from 'kubeworkz/views/control/index.vue';
-import { getItem } from 'kubeworkz/utils/persistant';
+import { getItem } from 'kubeworkz';
 // import NoRight from 'kubeworkz/views/circle/no-right.vue';
 // import wrapper from './wrapper';
 

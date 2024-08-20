@@ -1,9 +1,9 @@
 import axios from 'axios';
 import Vue from 'vue';
 import { omit, cloneDeep, get } from 'lodash';
-import { removeItem } from 'kubeworkz/utils/persistant';
+import { removeItem } from 'kubeworkz/utils/persistent';
 import router from 'kubeworkz/router';
-import { setItem } from 'kubeworkz/utils/persistant';
+import { setItem } from 'kubeworkz/utils/persistent';
 
 // import Cookies from 'js-cookie';
 

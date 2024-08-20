@@ -174,7 +174,7 @@
 // import { cloneDeep } from 'lodash';
 import { sync } from 'vuex-pathify';
 import userService from 'kubeworkz/services/user';
-import { setItem, getItem, removeItem } from 'kubeworkz/utils/persistant';
+import { setItem, getItem, removeItem } from 'kubeworkz';
 import passwordDialog from './password.vue';
 import { urlSearchParse, urlSearchSerialize } from 'kubeworkz/utils/functional';
 export default {

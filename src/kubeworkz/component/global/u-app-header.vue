@@ -70,7 +70,7 @@
 import { get, sync } from 'vuex-pathify';
 import uAppTenantSelect from './header/u-app-tenant-select.vue';
 import uAppProjectSelect from './header/u-app-project-select.vue';
-import { removeItem } from 'kubeworkz/utils/persistant';
+import { removeItem } from 'kubeworkz';
 import {
     ROLES,
 } from 'kubeworkz';
