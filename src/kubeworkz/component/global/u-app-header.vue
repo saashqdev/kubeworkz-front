@@ -70,10 +70,10 @@
 import { get, sync } from 'vuex-pathify';
 import uAppTenantSelect from './header/u-app-tenant-select.vue';
 import uAppProjectSelect from './header/u-app-project-select.vue';
-import { removeItem } from 'kubeworkz';
+import { removeItem } from 'kubeworkz/utils/persistent';
 import {
     ROLES,
-} from 'kubeworkz';
+} from 'kubeworkz/utils/constants';
 export default {
     components: {
         uAppTenantSelect,
