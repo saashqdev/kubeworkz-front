@@ -122,7 +122,7 @@ import blockRowLayout from 'kubeworkz/component/common/kube-dynamic-block-layout
 import { makeVModelMixin } from 'kubeworkz/mixins/functional';
 import {
     topologyKeyData,
-} from 'kubeworkz';
+} from 'kubeworkz/utils/constants';
 import {
     getDefaultAffinity,
     getDefaultAffinityRule,

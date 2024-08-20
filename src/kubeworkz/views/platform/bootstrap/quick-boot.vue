@@ -43,14 +43,14 @@
 import { get } from 'vuex-pathify';
 import {
     ROLES,
-} from 'kubeworkz';
+} from 'kubeworkz/utils/constants';
 import {
     toPlainObject as toTenantPlainObject,
 } from 'kubeworkz/k8s-resources/scope/tenant';
 
 import {
     toPlainObject as toKubeResourceQoutaPlainObject,
-} from 'kubeworkz';
+} from 'kubeworkz/k8s-resources/kubeResourceQuota/index.js';
 
 import {
     toPlainObject as toProjectPlainObject,

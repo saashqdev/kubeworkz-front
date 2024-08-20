@@ -115,7 +115,7 @@ import { makeVModelMixin } from 'kubeworkz/mixins/functional.js';
 import {
     setValueIfListNotPresent,
 } from 'kubeworkz/utils/functional';
-import { PVC_MODE_MAP } from 'kubeworkz';
+import { PVC_MODE_MAP } from 'kubeworkz/utils/constants';
 import * as validators from 'kubeworkz/utils/validators';
 export default {
     mixins: [ makeVModelMixin ],

@@ -111,7 +111,7 @@ import uAppBreadCrumbs from 'kubeworkz/component/global/u-app-bread-cumbs.vue';
 import auditService from 'kubeworkz/services/audit';
 import {
     ROLES,
-} from 'kubeworkz';
+} from 'kubeworkz/utils/constants';
 
 export default {
     metaInfo: {

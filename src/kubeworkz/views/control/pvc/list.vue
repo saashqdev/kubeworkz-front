@@ -225,13 +225,13 @@ import PageMixin from 'kubeworkz/mixins/pagination';
 import { toPlainObject as toPVCPlainObject } from 'kubeworkz/k8s-resources/persistentvolumeclaim';
 import {
     PVC_MODE_TEXT_MAP,
-} from 'kubeworkz';
+} from 'kubeworkz/utils/constants';
 import createPvcDialog from './create-pvc-dialog.vue';
 import inputSearch from 'kubeworkz/elComponent/inputSearch/index.vue';
 
 export default {
     metaInfo: {
-        title: 'kubeworkz',
+        title: 'Kubeworkz',
         titleTemplate: 'Persistentvolumeclaims - %s',
     },
     filters: {

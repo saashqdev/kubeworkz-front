@@ -127,8 +127,8 @@ import logseerService from 'kubeworkz/services/logseer';
 import PageMixin from 'kubeworkz/mixins/pagination';
 import {
     PVC_MODE_TEXT_MAP,
-} from 'kubeworkz';
-import { LOG_TYPE } from 'kubeworkz';
+} from 'kubeworkz/utils/constants';
+import { LOG_TYPE } from 'kubeworkz/utils/constants';
 import {
     toPlainObject as toLogconfgPlainObject,
 } from 'kubeworkz/k8s-resources/logconfigs-new';

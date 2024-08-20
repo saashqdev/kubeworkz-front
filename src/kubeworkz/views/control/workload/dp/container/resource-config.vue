@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import { RESOURCE_REQUEST_MAP } from 'kubeworkz';
+import { RESOURCE_REQUEST_MAP } from 'kubeworkz/utils/constants';
 const configs = RESOURCE_REQUEST_MAP.map(({ cpu, memory }, idx) => ({
     text: `${cpu} Cores / ${memory} MiB`,
     value: idx,

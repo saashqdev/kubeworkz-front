@@ -101,7 +101,7 @@
           v-if="input.cleanLogs && (input.cleanLogs.retainDays || input.cleanLogs.retainDays === 0)"
           label="Log retention"
         >
-          {{ input.cleanLogs.retainDays }} 天
+          {{ input.cleanLogs.retainDays }} Days
         </u-info-list-item>
       </kube-list-block>
     </u-info-list-group>
@@ -110,7 +110,7 @@
 
 <script>
 import { get } from 'vuex-pathify';
-import { LOG_TYPE } from 'kubeworkz';
+import { LOG_TYPE } from 'kubeworkz/utils/constants';
 export default {
     filters: {
         logType(val) {

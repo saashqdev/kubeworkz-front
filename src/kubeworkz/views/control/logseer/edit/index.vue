@@ -309,7 +309,7 @@
 <script>
 import { get as getFunc, cloneDeep } from 'lodash';
 import { get } from 'vuex-pathify';
-import { LOG_TYPE } from 'kubeworkz';
+import { LOG_TYPE } from 'kubeworkz/utils/constants';
 import workloadService from 'kubeworkz/services/k8s-resource';
 import {
     toPlainObject as toLogconfgPlainObject,

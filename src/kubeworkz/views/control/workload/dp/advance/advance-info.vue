@@ -225,7 +225,7 @@ import repoSecretConfig from './repo-secret-config.vue';
 import deployConfig from './deploy-config.vue';
 import jobConfig from './job-config.vue';
 import workloadService from 'kubeworkz/services/k8s-resource';
-import { nsfDeploymentAnnotations } from 'kubeworkz';
+import { nsfDeploymentAnnotations } from 'kubeworkz/utils/constants';
 import labelEditor from 'kubeworkz/elComponent/label-editor.vue';
 import * as validators from 'kubeworkz/utils/validators';
 export default {

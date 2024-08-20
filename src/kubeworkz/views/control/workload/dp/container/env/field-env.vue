@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { FIELD_DATA } from 'kubeworkz';
+import { FIELD_DATA } from 'kubeworkz/utils/constants';
 import envMixin from './env.mixin';
 import * as validators from 'kubeworkz/utils/validators';
 

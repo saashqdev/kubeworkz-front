@@ -139,7 +139,7 @@
 
 <script>
 import { get } from 'vuex-pathify';
-import { CONTAINERTYPE } from 'kubeworkz';
+import { CONTAINERTYPE } from 'kubeworkz/utils/constants';
 
 export default {
     filters: {

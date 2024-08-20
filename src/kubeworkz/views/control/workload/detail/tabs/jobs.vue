@@ -91,7 +91,7 @@ import extendWorkloadService from 'kubeworkz/services/k8s-extend-resource';
 import { toPlainObject as toJobPlainObject } from 'kubeworkz/k8s-resources/job';
 import {
     JOB_STATUS_MAP,
-} from 'kubeworkz';
+} from 'kubeworkz/utils/constants';
 import {
     getPeriod,
 } from 'kubeworkz/utils/functional';

@@ -160,7 +160,7 @@ import {
 } from 'kubeworkz/k8s-resources/persistentvolumeclaim';
 import {
     PVC_MODE_TEXT_MAP,
-} from 'kubeworkz';
+} from 'kubeworkz/utils/constants';
 import {
     setValueIfListNotPresent,
 } from 'kubeworkz/utils/functional';

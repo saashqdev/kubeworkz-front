@@ -163,7 +163,7 @@ import workloadService from 'kubeworkz/services/k8s-resource';
 import portsEditor from './ports.vue';
 import {
     SERVICE_LOAD_BALANCER_IP_TYPE_MAP, NLB,
-} from 'kubeworkz';
+} from 'kubeworkz/utils/constants';
 import deploymentStatefulsetsInput from './component/deployment-statefulsets-input.vue';
 import * as validators from 'kubeworkz/utils/validators';
 import chipsInput from './component/chips-input.vue';
