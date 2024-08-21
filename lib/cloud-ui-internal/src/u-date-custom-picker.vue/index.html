@@ -1,5 +1,5 @@
 <div :class="$style.root">
-    <div :class="$style.item">{{$t('time')}}：
+    <div :class="$style.item">{{$t('time')}}:
         <ul :class="$style.timerange" ref="timerange" v-if="!menuValue.isCustomTime">
             <li v-for="(trg, index) in timeRange" :class="$style.rangeitem" :role="menuValue.period === trg.value ? 'sel' : ''" @click="setPeriod(trg.value)">{{ trg.name }}</li>
         </ul>
@@ -15,7 +15,7 @@
         </div>
         <a :class="$style.selfdefinition" @click="changeToCustomTime">{{ menuValue.isCustomTime ? $t('default') : $t('customize') }}</a>
     </div>
-    <div :class="$style.item" v-if="!noInterval">{{$t('interval')}}：
+    <div :class="$style.item" v-if="!noInterval">{{$t('interval')}}:
         <u-select :class="$style.selectField" size="normal small" field="name" v-model="menuValue.interval" @select="update" :data="periodOptions"></u-select>
     </div>
 </div>

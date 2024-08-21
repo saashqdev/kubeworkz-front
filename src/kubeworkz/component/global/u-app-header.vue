@@ -46,7 +46,7 @@
                 <i-line-awesome
                   name="key"
                   style="font-size: 16px; vertical-align: -3px; margin-right: 8px;"
-                />Key management
+                />Key Management
               </li>
               <li
                 id="logout"
@@ -56,7 +56,7 @@
                 <i-line-awesome
                   name="sign-out"
                   style="font-size: 16px; vertical-align: -3px; margin-right: 5px; margin-left: -1px;"
-                /> Retreat safely
+                /> Logout
               </li>
             </div>
           </u-popper-select>

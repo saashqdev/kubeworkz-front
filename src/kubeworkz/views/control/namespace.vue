@@ -11,8 +11,8 @@
       >
         <div :class="$style.icon">
           <img :src="bgImage">
-          <div>No data</div>
-          <p>Please create a space in [Operation and Maintenance] > [Resource Management] > [Namespace Management]</p>
+          <div>No Data</div>
+          <p>Please create a namespace in [Operation and Maintenance] > [Resource Management] > [Namespace Management]</p>
         </div>
       </div>
       <div
@@ -194,7 +194,7 @@ const promequery = {
 };
 export default {
     metaInfo: {
-        title: 'My namespace - kubeworkz',
+        title: 'My Namespace - Kubeworkz',
     },
     filters: {
         percentageFilter(val) {
