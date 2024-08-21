@@ -30,7 +30,7 @@
         placeholder="Starting Time"
         :clearable="false"
       />
-      至
+      to
       <el-date-picker
         v-model="customEndTime"
         type="datetime"

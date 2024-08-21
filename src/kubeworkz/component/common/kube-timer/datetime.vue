@@ -21,7 +21,7 @@
             :time="currentStartTime"
             @change="changeTime('startTime', $event.time)"
           />
-          <u-text>至</u-text>
+          <u-text>to</u-text>
           <u-time-picker
             :time="currentEndTime"
             @change="changeTime('endTime', $event.time)"

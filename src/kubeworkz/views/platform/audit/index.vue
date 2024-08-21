@@ -23,7 +23,7 @@
           :max-date="searchbody.endTime"
           @select="startTimeSelect"
         />
-        <span :class="$style.spliter"> 至 </span>
+        <span :class="$style.spliter"> to </span>
         <u-date-picker
           time="end"
           :date="searchbody.endTime"
