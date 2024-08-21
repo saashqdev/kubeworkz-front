@@ -66,7 +66,7 @@ export default {
             timeRange: [
                 { value: 3 * 60 * 60 * 1000, name: 'nearly 3 hours' },
                 { value: 12 * 60 * 60 * 1000, name: 'last 12 hours' },
-                { value: 7 * 24 * 60 * 60 * 1000, name: 'last 7 days' },
+                { value: 7 * 24 * 60 * 60 * 1000, name: 'Last 7 days' },
             ],
         };
     },
@@ -111,7 +111,7 @@ export default {
             timeRange: [
                 { value: 3 * 60 * 60 * 1000, name: 'nearly 3 hours' },
                 { value: 12 * 60 * 60 * 1000, name: 'last 12 hours' },
-                { value: 7 * 24 * 60 * 60 * 1000, name: 'last 7 days' },
+                { value: 7 * 24 * 60 * 60 * 1000, name: 'Last 7 days' },
             ],
         };
     },
@@ -179,7 +179,7 @@ export default {
             timeRange: [
                 { value: 3 * 60 * 60 * 1000, name: 'nearly 3 hours' },
                 { value: 12 * 60 * 60 * 1000, name: 'last 12 hours' },
-                { value: 7 * 24 * 60 * 60 * 1000, name: 'last 7 days' },
+                { value: 7 * 24 * 60 * 60 * 1000, name: 'Last 7 days' },
             ],
         };
     },

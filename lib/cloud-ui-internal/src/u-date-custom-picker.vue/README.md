@@ -31,7 +31,7 @@ export default {
             timeRange: [
                 { name: 'Last 6 hours', value: 360 * 60 * 1000 },
                 { name: 'Last 1 day', value: 1440 * 60 * 1000 },
-                { name: 'last 7 days', value: 10080 * 60 * 1000 },
+                { name: 'Last 7 days', value: 10080 * 60 * 1000 },
             ],
         };
     },
@@ -56,7 +56,7 @@ export default {
             timeRange: [
                 { name: 'Last 6 hours', value: 360 * 60 * 1000 },
                 { name: 'Last 1 day', value: 1440 * 60 * 1000 },
-                { name: 'last 7 days', value: 10080 * 60 * 1000 },
+                { name: 'Last 7 days', value: 10080 * 60 * 1000 },
             ],
         };
     },

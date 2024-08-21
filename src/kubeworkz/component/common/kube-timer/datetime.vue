@@ -67,7 +67,7 @@ const DEFAULT_SHORTCUTS = [
     { text: 'nearly 1 hour', value: hour },
     { text: 'Last 6 hours', value: hour * 6 },
     { text: 'Last 1 day', value: day },
-    { text: 'last 7 days', value: day * 7 },
+    { text: 'Last 7 days', value: day * 7 },
     { text: 'last 30 days', value: day * 30 },
 ];
 function format(value, type) {
