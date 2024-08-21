@@ -77,7 +77,7 @@
           </u-sidebar-item>
         </u-sidebar-group>
         <u-sidebar-group class="m-sidebar-group">
-          <span slot="title"><u-icons name="serverFinder" />Service and discovery</span>
+          <span slot="title"><u-icons name="serverFinder" />Service Discovery</span>
           <u-sidebar-item :to="{ path: '/control/services' }">
             Services
           </u-sidebar-item>
@@ -120,7 +120,7 @@
         <u-sidebar-divider />
         <div style="margin-left: 3px;">
           <div :class="$style.subTitleblock">
-            Operation and Maintenance Center
+            Operation Center
           </div>
         </div>
         <u-sidebar-group
