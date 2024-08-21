@@ -70,9 +70,9 @@ export default {
             type: Array,
             default: () => {
                 return [
-                    { text: 'nearly 30 minutes', value: 30 * 60 * 1000 },
-                    { text: 'nearly 6 hours', value: 360 * 60 * 1000 },
-                    { text: 'last 1 day', value: 1440 * 60 * 1000 },
+                    { text: 'Last 30 minutes', value: 30 * 60 * 1000 },
+                    { text: 'Last 6 hours', value: 360 * 60 * 1000 },
+                    { text: 'Last 1 day', value: 1440 * 60 * 1000 },
                 ];
             },
         },

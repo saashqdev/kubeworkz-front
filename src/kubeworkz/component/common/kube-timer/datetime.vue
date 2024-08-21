@@ -65,8 +65,8 @@ const hour = 60 * 1000 * 60;
 const day = 24 * hour;
 const DEFAULT_SHORTCUTS = [
     { text: 'nearly 1 hour', value: hour },
-    { text: 'nearly 6 hours', value: hour * 6 },
-    { text: 'last 1 day', value: day },
+    { text: 'Last 6 hours', value: hour * 6 },
+    { text: 'Last 1 day', value: day },
     { text: 'last 7 days', value: day * 7 },
     { text: 'last 30 days', value: day * 30 },
 ];

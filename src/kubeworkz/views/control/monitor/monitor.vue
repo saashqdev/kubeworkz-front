@@ -175,9 +175,9 @@ export default {
             // podService: workloadService.getAPIV1,
             queryService: monitorService.queryRange,
             periodList: [
-                { name: 'nearly 30 minutes', value: 30 * 60 * 1000 },
-                { name: 'nearly 6 hours', value: 360 * 60 * 1000 },
-                { name: 'last 1 day', value: 1440 * 60 * 1000 },
+                { name: 'Last 30 minutes', value: 30 * 60 * 1000 },
+                { name: 'Last 6 hours', value: 360 * 60 * 1000 },
+                { name: 'Last 1 day', value: 1440 * 60 * 1000 },
                 // { name: 'last 7 days', value: 10080 * 60 * 1000 },
             ],
             startTime: 0,

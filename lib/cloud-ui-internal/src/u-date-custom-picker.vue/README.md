@@ -29,8 +29,8 @@ export default {
     data() {
         return {
             timeRange: [
-                { name: 'nearly 6 hours', value: 360 * 60 * 1000 },
-                { name: 'last 1 day', value: 1440 * 60 * 1000 },
+                { name: 'Last 6 hours', value: 360 * 60 * 1000 },
+                { name: 'Last 1 day', value: 1440 * 60 * 1000 },
                 { name: 'last 7 days', value: 10080 * 60 * 1000 },
             ],
         };
@@ -54,8 +54,8 @@ export default {
     data() {
         return {
             timeRange: [
-                { name: 'nearly 6 hours', value: 360 * 60 * 1000 },
-                { name: 'last 1 day', value: 1440 * 60 * 1000 },
+                { name: 'Last 6 hours', value: 360 * 60 * 1000 },
+                { name: 'Last 1 day', value: 1440 * 60 * 1000 },
                 { name: 'last 7 days', value: 10080 * 60 * 1000 },
             ],
         };
@@ -84,7 +84,7 @@ export default {
 export default {
     data() {
         return {
-            // Note that this value cannot be synchronized, and all values ​​must be manually bound to events.
+            // Note that this value cannot be synchronized, and all values   must be manually bound to events.
             date: {
                 startTime: new Date('2018-08-20').getTime() - 24 * 60 * 60 * 1000,
                 endTime: new Date('2018-08-20').getTime(),
