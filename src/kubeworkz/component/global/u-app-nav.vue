@@ -13,7 +13,7 @@
             <u-app-cluster-select />
           </div>
           <div :class="$style.subTitle">
-            Space
+            Namespace
           </div>
           <div :class="$style.subTitle">
             <u-app-namespace-select />
@@ -29,7 +29,7 @@
           <u-sidebar-item
             :to="{ path: '/control/dashboard' }"
           >
-            Resource monitoring
+            Resource Monitoring
           </u-sidebar-item>
           <!-- <u-sidebar-item :to="{ path:`/panel/index` }">
             Dashboard
