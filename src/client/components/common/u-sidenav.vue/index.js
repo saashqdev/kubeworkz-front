@@ -3,7 +3,7 @@ import cookie from '@micro-app/common/utils/handleCookie';
 import permissionService from '@micro-app/common/services/platform';
 const MENU_MAP = {
     sideoverview: { text: 'Overview', value: 'sideoverview', remark: '' },
-    'platform.gaojing': { text: 'Alarm service', value: 'gaojing', remark: '', permissionKey: 'alarm' },
+    'platform.gaojing': { text: 'Alert service', value: 'gaojing', remark: '', permissionKey: 'alert' },
     'platformManage.outerAuth': { text: 'External authorization', value: 'outerAuth', remark: '', permissionKey: 'authentication' },
 };
 export default {
@@ -61,7 +61,7 @@ export default {
             navList: [],
             port: window.location.port ? ':' + window.location.port : '',
             code: 'sideoverview',
-            alarmFlag: +localStorage.getItem('alarmSwitch') === 1,
+            alertFlag: +localStorage.getItem('alertSwitch') === 1,
             authFlag: +localStorage.getItem('authSwitch') === 1,
             PlatformPermission: {},
         };
@@ -91,7 +91,7 @@ export default {
             return window.location.protocol + '//' + this.domains.goapi;
         },
         gaojingHref() {
-            return window.location.protocol + '//' + cookie.readCookie('qz_platform.domain').replace(/(?=\/)|$/, this.port) + '#/alarm/rule/index' + this.query;
+            return window.location.protocol + '//' + cookie.readCookie('qz_platform.domain').replace(/(?=\/)|$/, this.port) + '#/alert/rule/index' + this.query;
         },
         outerAuthHref() {
             return window.location.protocol + '//' + cookie.readCookie('qz_platform.domain').replace(/(?=\/)|$/, this.port) + '#/permission/platformManage/outerAuth' + this.query;
@@ -187,7 +187,7 @@ export default {
                 });
 
                 this.navList.unshift(MENU_MAP.sideoverview);
-                if (this.alarmFlag) {
+                if (this.alertFlag) {
                     this.navList.push(MENU_MAP['platform.gaojing']);
                 }
                 if (this.authFlag && PlatformPermission.opsMgr) {

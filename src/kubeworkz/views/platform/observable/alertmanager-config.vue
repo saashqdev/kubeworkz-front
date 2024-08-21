@@ -34,7 +34,7 @@
             </u-linear-layout>
           </template>
           <template #noData>
-            There is no alarm policy group yet. Please create a cluster first and then create an alert policy group.
+            There is no alert policy group yet. Please create a cluster first and then create an alert policy group.
           </template>
           <template #error>
             Failed to obtain data, please<u-link @click="refresh">

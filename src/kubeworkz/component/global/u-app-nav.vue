@@ -114,7 +114,7 @@
           <u-icons name="cloud-shell" />Cloud Shell
         </u-sidebar-item>
         <u-sidebar-item :to="{ path: '/control/bootstrap' }">
-          <u-icons name="alarmRule" />Common Tool
+          <u-icons name="alertRule" />Common Tool
         </u-sidebar-item>
 
         <u-sidebar-divider />
@@ -154,7 +154,7 @@
             Alert Policy Group
           </u-sidebar-item>
           <!-- <u-sidebar-item
-            :to="{ path: '/control/lens/alarmhistory' }"
+            :to="{ path: '/control/lens/alerthistory' }"
           >
             Alert History
           </u-sidebar-item> -->

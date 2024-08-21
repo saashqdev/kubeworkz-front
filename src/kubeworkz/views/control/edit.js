@@ -32,8 +32,8 @@ export default {
                 return c(logseerEdit, { props });
             case 'PrometheusRule':
                 return c(prometheusRuleEdit, { props });
-            // case 'alarmManagerEdit':
-            //     return c(alarmManagerEdit, { props });
+            // case 'alertManagerEdit':
+            //     return c(alertManagerEdit, { props });
             default:
                 return c(dpEdit, { props });
         }

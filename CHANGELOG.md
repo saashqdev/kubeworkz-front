@@ -64,7 +64,7 @@
 
 ### Platform management
 - Support component monitor
-- Support global alarm config
+- Support global alert config
 
 ### Dependencies
 - [KubeWorkz v1.0.0](https://github.com/saashqdev/kubeworkz/tree/v1.0.0)
@@ -96,4 +96,4 @@
 - Support crd management
 - Support cloud shell
 - Support log config and search
-- Support alarm config
+- Support alert config

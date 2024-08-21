@@ -26,7 +26,7 @@
           </u-radio>
         </u-radios>
       </kube-form-item>
-      <alarmExtendSetting
+      <alertExtendSetting
         v-if="entryModel === 'common'"
         ref="alertExtendSetting"
         :is-edit="isEdit"
@@ -209,8 +209,8 @@ export default {
             if (this.isEdit) {
                 const yaml = toPatchPrometheusRuleObject(this.model);
                 if (this.entryModel === 'common') {
-                    const expr = this.$refs.alarmExtendSetting.$getExpr();
-                    const extendInfo = this.$refs.alarmExtendSetting.$getData();
+                    const expr = this.$refs.alertExtendSetting.$getExpr();
+                    const extendInfo = this.$refs.alertExtendSetting.$getData();
                     yaml.spec.groups[0].rules[0].expr = expr;
                     yaml.spec.groups[0].rules[0].annotations = yaml.spec.groups[0].rules[0].annotations || {};
                     yaml.spec.groups[0].rules[0].annotations.extendInfo = JSON.stringify(extendInfo);
@@ -227,8 +227,8 @@ export default {
             } else {
                 const yaml = toPrometheusRuleK8SObject(this.model, this.project);
                 if (this.entryModel === 'common') {
-                    const expr = this.$refs.alarmExtendSetting.$getExpr();
-                    const extendInfo = this.$refs.alarmExtendSetting.$getData();
+                    const expr = this.$refs.alertExtendSetting.$getExpr();
+                    const extendInfo = this.$refs.alertExtendSetting.$getData();
                     yaml.spec.groups[0].rules[0].expr = expr;
                     yaml.spec.groups[0].rules[0].annotations = yaml.spec.groups[0].rules[0].annotations || {};
                     yaml.spec.groups[0].rules[0].annotations.extendInfo = JSON.stringify(extendInfo);
