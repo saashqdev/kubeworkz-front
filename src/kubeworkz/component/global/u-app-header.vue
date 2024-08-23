@@ -5,7 +5,7 @@
       @click="toIndex"
     >
       <a :class="$style.logo_icon" />
-      <span :class="$style.logo_title">KubeWorkz</span>
+      <span :class="$style.logo_title">Kubeworkz</span>
 
     </span>
     <template v-if="!isInLogin">
