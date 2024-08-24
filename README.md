@@ -1,8 +1,8 @@
-# KubeWorkz-Front
+# Kubeworkz-Front
 
 [![License](http://img.shields.io/badge/license-apache%20v2-blue.svg)](https://github.com/saashqdev/kubeworkz/blob/main/LICENSE)
 
-KubeWorkz-Front is the front-end project of KubeWorkz.
+Kubeworkz-Front is the front-end project of Kubeworkz.
 ![control](./assets/control.png)
 ![platform](./assets/platform.png)
 ## Features
@@ -16,7 +16,7 @@ npm install
 npm run build
 docker build .
 ```
-Put the packaged front-end image in the container of the frontend deployment under the Kubekube-system namespace.
+Put the packaged front-end image in the container of the frontend deployment under the `kubeworkz-system` namespace.
 
 ## For Developers
 ### Preparation 
@@ -107,7 +107,7 @@ Follow the prompts to open the development address:
 ## License
 
 ```
-Copyright 2024 KubeWorkz Authors
+Copyright 2024 Kubeworkz Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
