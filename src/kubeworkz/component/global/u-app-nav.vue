@@ -29,7 +29,7 @@
           <u-sidebar-item
             :to="{ path: '/control/dashboard' }"
           >
-            Resource Monitoring
+            Resources
           </u-sidebar-item>
           <!-- <u-sidebar-item :to="{ path:`/panel/index` }">
             Dashboard
@@ -96,19 +96,19 @@
           <u-sidebar-item
             :to="{ path: '/control/secrets' }"
           >
-            Secret
+            Secrets
           </u-sidebar-item>
           <u-sidebar-item
             :to="{ path: '/control/configmaps' }"
           >
-            ConfigMap
+            ConfigMaps
           </u-sidebar-item>
         </u-sidebar-group>
         <u-sidebar-item @click="() => $yamlDialog.open()">
-          <u-icons name="yaml" />YAML Orchestration
+          <u-icons name="yaml" />YAML Manager
         </u-sidebar-item>
         <u-sidebar-item :to="{ path: '/control/crd' }">
-          <u-icons name="yaml" />Custom Resource CRD
+          <u-icons name="yaml" />Custom Resources
         </u-sidebar-item>
         <u-sidebar-item @click="openCloudShell">
           <u-icons name="cloud-shell" />Cloud Shell
@@ -131,7 +131,7 @@
           <u-sidebar-item
             :to="{ path: '/control/logconfigs' }"
           >
-            Log Task Management
+            Log Task Manager
           </u-sidebar-item>
           <u-sidebar-item
             :to="{ path: '/control/lens/normal' }"
