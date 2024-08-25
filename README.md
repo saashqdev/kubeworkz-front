@@ -3,8 +3,7 @@
 [![License](http://img.shields.io/badge/license-apache%20v2-blue.svg)](https://github.com/saashqdev/kubeworkz/blob/main/LICENSE)
 
 Kubeworkz-Front is the front-end project of Kubeworkz.
-![control](./assets/control.png)
-![platform](./assets/platform.png)
+
 ## Features
 ### Structure
 ![mind](./assets/mind.png)

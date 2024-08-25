@@ -5,7 +5,7 @@ import ingressEdit from 'kubeworkz/views/control/service/edit/ingress.vue';
 import secretEdit from 'kubeworkz/views/control/config/edit-secret.vue';
 import configmapEdit from 'kubeworkz/views/control/config/edit-configmap.vue';
 import logseerEdit from 'kubeworkz/views/control/logseer/edit/index.vue';
-import prometheusRuleEdit from 'kubeworkz';
+import prometheusRuleEdit from 'kubeworkz/views/control/observable/promethus-rule-spec/edit.vue';
 export default {
     props: {
         instance: Object,
